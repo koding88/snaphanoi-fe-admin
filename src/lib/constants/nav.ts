@@ -14,19 +14,19 @@ export const ADMIN_NAV_ITEMS: AdminNavItem[] = [
   {
     href: ROUTES.admin.dashboard,
     label: "Dashboard",
-    description: "Foundation preview",
+    description: "Control room overview",
     icon: faHouse,
   },
   {
     href: ROUTES.admin.users.root,
     label: "Users",
-    description: "Stage 4 scope",
+    description: "People and access",
     icon: faUserGroup,
   },
   {
     href: ROUTES.admin.roles.root,
     label: "Roles",
-    description: "Stage 5 scope",
+    description: "Permissions model",
     icon: faShieldHalved,
   },
 ];
