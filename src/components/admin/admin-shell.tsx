@@ -18,7 +18,7 @@ export function AdminShell({ children }: AdminShellProps) {
   return (
     <div className="min-h-screen bg-background">
       <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(205,174,111,0.14),transparent_22%),radial-gradient(circle_at_85%_18%,rgba(15,23,42,0.08),transparent_18%),linear-gradient(180deg,rgba(248,244,237,0.84),rgba(245,240,232,0.44),rgba(255,255,255,1))]" />
-      <div className="pointer-events-none fixed inset-0 -z-10 opacity-40 [background-image:linear-gradient(rgba(120,120,120,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(120,120,120,0.06)_1px,transparent_1px)] [background-position:center_center] [background-size:32px_32px]" />
+      <div className="pointer-events-none fixed inset-0 -z-10 opacity-35 [background-image:linear-gradient(rgba(120,120,120,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(120,120,120,0.06)_1px,transparent_1px)] [background-position:center_center] [background-size:32px_32px]" />
       <div className="lg:hidden">
         <div
           className={`fixed inset-0 z-40 bg-slate-950/45 transition-opacity ${
@@ -35,7 +35,7 @@ export function AdminShell({ children }: AdminShellProps) {
           <AdminSidebar mobile onNavigate={closeMobileSidebar} />
         </div>
       </div>
-      <div className="mx-auto grid min-h-screen max-w-[1600px] grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-5 lg:px-5 lg:py-4">
+      <div className="mx-auto grid min-h-screen max-w-[1600px] grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-5 lg:px-5 lg:py-4 xl:gap-6 xl:px-6">
         <div className="hidden lg:block">
           <AdminSidebar />
         </div>

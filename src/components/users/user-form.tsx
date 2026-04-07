@@ -5,7 +5,7 @@ import { useState, type FormEvent } from "react";
 import { AuthPasswordHint } from "@/components/auth/auth-password-hint";
 import { AuthFeedback } from "@/components/auth/auth-feedback";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Input, selectChrome } from "@/components/ui/input";
 import type { RoleOption, UserRecord } from "@/features/users/types/users.types";
 import { getFriendlyUsersError } from "@/features/users/utils/users-errors";
 import { isStrongPassword } from "@/features/auth/utils/password-policy";
@@ -138,7 +138,7 @@ export function UserForm({
             onChange={(event) =>
               setValues((current) => ({ ...current, roleId: event.target.value }))
             }
-            className="flex h-12 w-full rounded-2xl border border-border/80 bg-background/92 px-4 text-sm text-foreground outline-none transition-colors focus:border-[--color-brand]/40 focus:ring-3 focus:ring-[--color-brand]/12"
+            className={selectChrome}
             required
           >
             {roles.map((role) => (
@@ -159,7 +159,7 @@ export function UserForm({
                   isActive: event.target.value === "true",
                 }))
               }
-              className="flex h-12 w-full rounded-2xl border border-border/80 bg-background/92 px-4 text-sm text-foreground outline-none transition-colors focus:border-[--color-brand]/40 focus:ring-3 focus:ring-[--color-brand]/12"
+              className={selectChrome}
             >
               <option value="true">Active</option>
               <option value="false">Inactive</option>
@@ -167,7 +167,7 @@ export function UserForm({
           </label>
         ) : null}
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-end pt-2">
         <Button type="submit" size="lg" className="min-w-44 rounded-full" disabled={isSubmitting}>
           {isSubmitting ? "Saving..." : submitLabel}
         </Button>

@@ -52,10 +52,10 @@ export function AdminTopbar({ onMenuClick }: AdminTopbarProps) {
                   : "Bootstrapping authenticated session")}
             </p>
           </div>
-          <div className="hidden min-w-0 flex-1 items-center gap-3 rounded-full border border-border/80 bg-card/85 px-4 py-3 xl:flex">
+          <div className="hidden min-w-0 flex-1 items-center gap-3 rounded-full border border-border/80 bg-white/72 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] xl:flex">
             <FontAwesomeIcon icon={faSearch} className="text-muted-foreground" />
             <span className="truncate text-sm text-muted-foreground">
-              Shell polish mode: navigation, layout rhythm, and stage-ready module surfaces
+              Consistent controls, calmer motion, and better mobile reading across auth and admin.
             </span>
           </div>
         </div>
@@ -63,8 +63,8 @@ export function AdminTopbar({ onMenuClick }: AdminTopbarProps) {
           <Button variant="outline" size="icon" className="rounded-full">
             <FontAwesomeIcon icon={faBell} />
           </Button>
-          <div className="hidden rounded-full border border-border/80 bg-card px-4 py-2.5 md:block">
-            <p className="text-xs font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
+          <div className="hidden rounded-full border border-border/80 bg-white/76 px-4 py-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.82)] md:block">
+            <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
               Session
             </p>
             <p className="text-sm text-foreground">{user?.email ?? "Studio admin"}</p>

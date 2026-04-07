@@ -50,6 +50,10 @@
   --color-brand: oklch(0.76 0.091 74.8);
   --color-brand-muted: color-mix(in oklab, var(--color-brand) 72%, white 28%);
   --color-brand-soft: color-mix(in oklab, var(--color-brand) 10%, white 90%);
+  --color-brand-veil: color-mix(in oklab, var(--color-brand) 18%, white 82%);
+  --color-ink-soft: rgba(15, 23, 42, 0.72);
+  --color-surface-strong: rgba(255, 255, 255, 0.94);
+  --color-surface-soft: rgba(248, 244, 237, 0.86);
   --font-body-stack: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --font-display-stack: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
 }

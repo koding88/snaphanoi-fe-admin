@@ -16,7 +16,7 @@ export function AdminSurface({
   return (
     <section
       className={cn(
-        "rounded-[2rem] border shadow-soft",
+        "surface-enter rounded-[2rem] border shadow-soft",
         tone === "default" &&
           "border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(248,244,237,0.88))]",
         tone === "soft" &&

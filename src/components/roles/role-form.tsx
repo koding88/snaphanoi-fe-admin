@@ -41,7 +41,7 @@ export function RoleForm({
   }
 
   return (
-    <form className="space-y-5" onSubmit={handleSubmit}>
+    <form className="space-y-6" onSubmit={handleSubmit}>
       {description ? <p className="text-sm leading-7 text-muted-foreground">{description}</p> : null}
       {successMessage ? <AuthFeedback variant="success">{successMessage}</AuthFeedback> : null}
       {error ? <AuthFeedback variant="error">{error}</AuthFeedback> : null}
@@ -54,8 +54,8 @@ export function RoleForm({
           required
         />
       </label>
-      <div className="flex justify-end">
-        <Button type="submit" size="lg" className="rounded-full" disabled={isSubmitting}>
+      <div className="flex justify-end pt-2">
+        <Button type="submit" size="lg" className="min-w-40 rounded-full" disabled={isSubmitting}>
           {isSubmitting ? "Saving..." : submitLabel}
         </Button>
       </div>

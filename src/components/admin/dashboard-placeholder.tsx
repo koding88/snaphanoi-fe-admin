@@ -87,16 +87,16 @@ export function DashboardPlaceholder() {
         }
       />
       <AdminShellBanner />
-      <section className="grid gap-4 lg:grid-cols-3">
+      <section className="stagger-fade grid gap-4 lg:grid-cols-3">
         {KPI_CARDS.map((card) => (
           <AdminKpiCard key={card.label} {...card} />
         ))}
       </section>
-      <section className="grid gap-4 lg:grid-cols-3">
+      <section className="stagger-fade grid gap-4 lg:grid-cols-3">
         {FOUNDATION_CARDS.map((card) => (
           <article
             key={card.title}
-            className="rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(248,244,237,0.82))] p-6 shadow-soft"
+            className="surface-float rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(248,244,237,0.82))] p-6 shadow-soft"
           >
             <div className="flex size-12 items-center justify-center rounded-2xl border border-[--color-brand]/20 bg-[--color-brand-soft] text-[--color-brand]">
               <FontAwesomeIcon icon={card.icon} />
@@ -148,12 +148,12 @@ export function DashboardPlaceholder() {
       </AdminSurface>
       <EmptyState
         eyebrow="Next stages"
-        title="Real module behavior starts after this shell layer."
-        description="Users and roles already have navigable, polished entry points. Their CRUD workflows remain intentionally untouched until Stage 4 and Stage 5."
+        title="This dashboard stays intentionally honest."
+        description="There is still no fabricated analytics layer here. The value of this page is the shell quality, hierarchy, and continuity across the rest of the admin product."
         action={
           <div className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-white/70 px-4 py-2 text-sm text-muted-foreground">
             <FontAwesomeIcon icon={faPalette} className="text-[--color-brand]" />
-            Shell complete, feature work deferred
+            Product shell refined without inventing backend data
           </div>
         }
       />

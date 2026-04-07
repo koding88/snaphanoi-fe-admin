@@ -10,11 +10,47 @@
   a,
   button {
     transition:
-      color 180ms var(--ease-premium),
-      background-color 180ms var(--ease-premium),
-      border-color 180ms var(--ease-premium),
-      transform 180ms var(--ease-premium),
-      opacity 180ms var(--ease-premium);
+      color 220ms var(--ease-premium),
+      background-color 220ms var(--ease-premium),
+      border-color 220ms var(--ease-premium),
+      transform 220ms var(--ease-premium),
+      box-shadow 220ms var(--ease-premium),
+      opacity 220ms var(--ease-premium);
+  }
+
+  .surface-enter {
+    animation: surface-enter 540ms var(--ease-premium) both;
+  }
+
+  .surface-float {
+    transition:
+      transform 220ms var(--ease-premium),
+      box-shadow 220ms var(--ease-premium),
+      border-color 220ms var(--ease-premium);
+  }
+
+  .surface-float:hover {
+    transform: translateY(-2px);
+  }
+
+  .dialog-enter {
+    animation: dialog-enter 220ms var(--ease-premium) both;
+  }
+
+  .stagger-fade > * {
+    animation: surface-enter 540ms var(--ease-premium) both;
+  }
+
+  .stagger-fade > *:nth-child(2) {
+    animation-delay: 40ms;
+  }
+
+  .stagger-fade > *:nth-child(3) {
+    animation-delay: 80ms;
+  }
+
+  .stagger-fade > *:nth-child(4) {
+    animation-delay: 120ms;
   }
 }
 
@@ -27,5 +63,17 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes dialog-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }

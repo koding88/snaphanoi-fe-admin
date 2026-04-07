@@ -12,7 +12,7 @@ import { ErrorState } from "@/components/shared/error-state";
 import { LoadingState } from "@/components/shared/loading-state";
 import { PageHeader } from "@/components/shared/page-header";
 import { buttonVariants } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Input, selectChrome } from "@/components/ui/input";
 import { UsersTable } from "@/components/users/users-table";
 import { deleteUser } from "@/features/users/api/delete-user";
 import { listRoleOptions } from "@/features/users/api/list-role-options";
@@ -132,6 +132,14 @@ export function UsersListPage() {
         }
       />
       <AdminSurface className="p-6 md:p-8">
+        <div className="mb-5 flex flex-wrap gap-2">
+          <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
+            Search and lifecycle controls
+          </span>
+          <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
+            Backend-aligned filters only
+          </span>
+        </div>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
           <label className="space-y-2 xl:col-span-2">
             <span className="text-sm font-medium text-foreground">Search keyword</span>
@@ -159,7 +167,7 @@ export function UsersListPage() {
                     event.target.value === "all" ? "all" : event.target.value === "true",
                 }))
               }
-              className="flex h-12 w-full rounded-2xl border border-border/80 bg-background/92 px-4 text-sm text-foreground outline-none transition-colors focus:border-[--color-brand]/40 focus:ring-3 focus:ring-[--color-brand]/12"
+              className={selectChrome}
             >
               <option value="all">All</option>
               <option value="true">Active</option>
@@ -177,7 +185,7 @@ export function UsersListPage() {
                   roleId: event.target.value,
                 }))
               }
-              className="flex h-12 w-full rounded-2xl border border-border/80 bg-background/92 px-4 text-sm text-foreground outline-none transition-colors focus:border-[--color-brand]/40 focus:ring-3 focus:ring-[--color-brand]/12"
+              className={selectChrome}
             >
               <option value="">All roles</option>
               {roles.map((role) => (
@@ -198,7 +206,7 @@ export function UsersListPage() {
                   includeDeleted: event.target.value === "true",
                 }))
               }
-              className="flex h-12 w-full rounded-2xl border border-border/80 bg-background/92 px-4 text-sm text-foreground outline-none transition-colors focus:border-[--color-brand]/40 focus:ring-3 focus:ring-[--color-brand]/12"
+              className={selectChrome}
             >
               <option value="false">Exclude deleted</option>
               <option value="true">Include deleted</option>

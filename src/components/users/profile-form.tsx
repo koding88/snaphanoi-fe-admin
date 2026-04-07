@@ -38,7 +38,7 @@ export function ProfileForm({ user, onSubmit, successMessage }: ProfileFormProps
   }
 
   return (
-    <form className="space-y-5" onSubmit={handleSubmit}>
+    <form className="space-y-6" onSubmit={handleSubmit}>
       {successMessage ? <AuthFeedback variant="success">{successMessage}</AuthFeedback> : null}
       {error ? <AuthFeedback variant="error">{error}</AuthFeedback> : null}
       <div className="grid gap-5 md:grid-cols-2">
@@ -72,8 +72,8 @@ export function ProfileForm({ user, onSubmit, successMessage }: ProfileFormProps
           required
         />
       </label>
-      <div className="flex justify-end">
-        <Button type="submit" size="lg" className="rounded-full" disabled={isSubmitting}>
+      <div className="flex justify-end pt-2">
+        <Button type="submit" size="lg" className="min-w-44 rounded-full" disabled={isSubmitting}>
           {isSubmitting ? "Saving..." : "Save profile"}
         </Button>
       </div>

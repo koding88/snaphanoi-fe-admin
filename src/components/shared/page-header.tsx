@@ -24,7 +24,7 @@ export function PageHeader({
           </p>
         ) : null}
         <div className="space-y-2">
-          <h1 className="font-heading text-4xl leading-[0.92] tracking-[0.04em] text-foreground md:text-5xl">
+          <h1 className="font-heading text-[2.4rem] leading-[0.92] tracking-[0.04em] text-foreground md:text-5xl">
             {title}
           </h1>
           {description ? (
@@ -35,7 +35,7 @@ export function PageHeader({
         </div>
         {meta ? <div className="flex flex-wrap items-center gap-2.5">{meta}</div> : null}
       </div>
-      {actions ? <div className="flex items-center gap-3">{actions}</div> : null}
+      {actions ? <div className="flex flex-wrap items-center gap-3">{actions}</div> : null}
     </header>
   );
 }

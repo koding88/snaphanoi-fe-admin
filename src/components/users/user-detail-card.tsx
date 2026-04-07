@@ -45,7 +45,10 @@ export function UserDetailCard({ user }: { user: UserRecord }) {
       </div>
       <div className="mt-8 grid gap-4 md:grid-cols-2">
         {detailRows.map((row) => (
-          <div key={row.label} className="rounded-[1.5rem] border border-border/80 bg-white/70 p-4">
+          <div
+            key={row.label}
+            className="rounded-[1.5rem] border border-border/80 bg-white/72 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.76)]"
+          >
             <p className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
               {row.label}
             </p>

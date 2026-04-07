@@ -18,9 +18,9 @@ export function AuthField({
   return (
     <label htmlFor={htmlFor} className="block space-y-2.5">
       <span className="flex items-center justify-between gap-3">
-        <span className="text-sm font-medium text-white">{label}</span>
+        <span className="text-sm font-medium text-white/92">{label}</span>
         {hint ? (
-          <span className="text-xs tracking-[0.12em] text-white/45 uppercase">
+          <span className="text-[11px] tracking-[0.18em] text-white/45 uppercase">
             {hint}
           </span>
         ) : null}

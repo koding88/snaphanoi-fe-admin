@@ -51,9 +51,17 @@ export function UsersTable({ users, isBusy = false, onDelete, onRestore }: Users
 
   return (
     <>
-      <div className="overflow-hidden rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(248,244,237,0.88))] shadow-soft">
+      <div className="surface-enter overflow-hidden rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(248,244,237,0.88))] shadow-soft">
+        <div className="border-b border-border/70 bg-white/56 px-5 py-4">
+          <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
+            User records
+          </p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Core actions stay visible while the table keeps horizontal overflow manageable on smaller screens.
+          </p>
+        </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full text-left">
+          <table className="min-w-[760px] w-full text-left">
             <thead className="border-b border-border/80 bg-white/55">
               <tr className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
                 <th className="px-5 py-4">User</th>
@@ -65,7 +73,10 @@ export function UsersTable({ users, isBusy = false, onDelete, onRestore }: Users
             </thead>
             <tbody>
               {users.map((user) => (
-                <tr key={user.id} className="border-b border-border/60 last:border-b-0">
+                <tr
+                  key={user.id}
+                  className="border-b border-border/60 transition-colors hover:bg-white/46 last:border-b-0"
+                >
                   <td className="px-5 py-4">
                     <div className="space-y-1">
                       <Link
@@ -143,6 +154,17 @@ export function UsersTable({ users, isBusy = false, onDelete, onRestore }: Users
         isSubmitting={isSubmitting}
         onCancel={() => setPendingAction(null)}
         onConfirm={handleConfirm}
+        extra={
+          pendingAction ? (
+            <div className="space-y-1">
+              <p className="text-xs font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
+                Selected record
+              </p>
+              <p className="text-sm font-medium text-foreground">{pendingAction.user.name}</p>
+              <p className="text-sm text-muted-foreground">{pendingAction.user.email}</p>
+            </div>
+          ) : null
+        }
       />
     </>
   );

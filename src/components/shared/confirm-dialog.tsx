@@ -34,15 +34,15 @@ export function ConfirmDialog({
   }
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-center justify-center bg-slate-950/45 px-4 backdrop-blur-sm">
-      <div className="w-full max-w-lg rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,244,237,0.94))] p-6 shadow-[0_30px_100px_rgba(15,23,42,0.22)]">
+    <div className="fixed inset-0 z-[70] flex items-center justify-center bg-slate-950/48 px-4 backdrop-blur-sm">
+      <div className="dialog-enter w-full max-w-lg rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,244,237,0.94))] p-6 shadow-[0_30px_100px_rgba(15,23,42,0.22)] sm:p-7">
         <div className="space-y-3">
           <p className="text-xs font-semibold tracking-[0.26em] text-[--color-brand-muted] uppercase">
             Confirm action
           </p>
           <h2 className="font-heading text-3xl tracking-[0.04em] text-foreground">{title}</h2>
           <p className="text-sm leading-7 text-muted-foreground">{description}</p>
-          {extra ? <div>{extra}</div> : null}
+          {extra ? <div className="rounded-[1.25rem] border border-border/80 bg-white/70 p-3">{extra}</div> : null}
         </div>
         <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
           <Button type="button" variant="outline" onClick={onCancel} disabled={isSubmitting}>

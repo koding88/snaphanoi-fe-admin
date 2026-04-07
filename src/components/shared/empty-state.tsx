@@ -14,7 +14,7 @@ export function EmptyState({
   action,
 }: EmptyStateProps) {
   return (
-    <div className="rounded-[2rem] border border-dashed border-border bg-[linear-gradient(180deg,rgba(255,255,255,0.88),rgba(247,243,236,0.74))] px-8 py-14 text-center shadow-soft">
+    <div className="surface-enter rounded-[2rem] border border-dashed border-border bg-[linear-gradient(180deg,rgba(255,255,255,0.88),rgba(247,243,236,0.74))] px-8 py-14 text-center shadow-soft">
       {eyebrow ? (
         <p className="text-xs font-semibold tracking-[0.28em] text-[--color-brand-muted] uppercase">
           {eyebrow}

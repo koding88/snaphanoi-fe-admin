@@ -23,7 +23,7 @@ export function AdminSidebar({ mobile = false, onNavigate }: AdminSidebarProps) 
   return (
     <aside
       className={cn(
-        "flex h-full flex-col overflow-hidden rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,244,237,0.92))] p-4 shadow-soft",
+        "surface-enter flex h-full flex-col overflow-hidden rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,244,237,0.92))] p-4 shadow-soft",
         mobile ? "min-h-full" : "sticky top-4 max-h-[calc(100vh-2rem)]",
       )}
     >
@@ -48,7 +48,7 @@ export function AdminSidebar({ mobile = false, onNavigate }: AdminSidebarProps) 
         <FontAwesomeIcon icon={faWandMagicSparkles} />
         Navigation
       </div>
-      <nav className="mt-3 flex flex-1 flex-col gap-1.5 overflow-y-auto pr-1">
+      <nav className="mt-3 flex flex-1 flex-col gap-2 overflow-y-auto pr-1">
         {ADMIN_NAV_ITEMS.map((item) => {
           const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
 
@@ -58,9 +58,9 @@ export function AdminSidebar({ mobile = false, onNavigate }: AdminSidebarProps) 
               href={item.href}
               onClick={onNavigate}
               className={cn(
-                "group flex items-center gap-3 rounded-2xl px-3 py-3 text-sm transition-colors",
+                "group surface-float flex items-center gap-3 rounded-2xl px-3 py-3 text-sm transition-colors",
                 isActive
-                  ? "bg-[--color-brand-soft] text-foreground shadow-[0_14px_30px_rgba(205,174,111,0.12)]"
+                  ? "border border-[--color-brand]/15 bg-[--color-brand-soft] text-foreground shadow-[0_14px_30px_rgba(205,174,111,0.12)]"
                   : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
               )}
             >
@@ -87,11 +87,11 @@ export function AdminSidebar({ mobile = false, onNavigate }: AdminSidebarProps) 
       </nav>
       <div className="mt-5 rounded-2xl border border-border/80 bg-background/90 p-4">
         <p className="text-xs font-semibold tracking-[0.26em] text-[--color-brand-muted] uppercase">
-          Stage 3
+          Shell status
         </p>
         <p className="mt-2 text-sm leading-6 text-muted-foreground">
-          Polished shell, navigation, and placeholder surfaces are ready. Real module workflows
-          begin in the next stages.
+          Auth, users, and roles now share one refined surface language. This panel remains a calm
+          anchor on smaller and larger screens.
         </p>
       </div>
     </aside>

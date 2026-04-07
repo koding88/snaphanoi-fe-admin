@@ -9,6 +9,8 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(205, 174, 111, 0.45) rgba(15, 23, 42, 0.08);
   }
   html {
     @apply font-sans text-[15px] text-foreground;
@@ -25,8 +27,27 @@
     background: color-mix(in oklab, var(--color-brand) 45%, white 55%);
     color: var(--foreground);
   }
+
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.06);
+  }
+
+  *::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    background: rgba(205, 174, 111, 0.55);
+  }
 }
 
 @utility shadow-soft {
   box-shadow: var(--shadow-soft);
+}
+
+@utility text-ink-soft {
+  color: var(--color-ink-soft);
 }

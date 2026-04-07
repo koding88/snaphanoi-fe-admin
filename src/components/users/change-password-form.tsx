@@ -63,7 +63,7 @@ export function ChangePasswordForm({
   }
 
   return (
-    <form className="space-y-5" onSubmit={handleSubmit}>
+    <form className="space-y-6" onSubmit={handleSubmit}>
       {successMessage ? <AuthFeedback variant="success">{successMessage}</AuthFeedback> : null}
       {error ? <AuthFeedback variant="error">{error}</AuthFeedback> : null}
       <label className="space-y-2 block">
@@ -103,8 +103,8 @@ export function ChangePasswordForm({
           required
         />
       </label>
-      <div className="flex justify-end">
-        <Button type="submit" size="lg" className="rounded-full" disabled={isSubmitting}>
+      <div className="flex justify-end pt-2">
+        <Button type="submit" size="lg" className="min-w-44 rounded-full" disabled={isSubmitting}>
           {isSubmitting ? "Updating..." : "Change password"}
         </Button>
       </div>

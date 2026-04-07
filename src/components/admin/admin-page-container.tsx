@@ -16,8 +16,8 @@ export function AdminPageContainer({
   return (
     <div
       className={cn(
-        "mx-auto w-full max-w-7xl px-4 py-5 md:px-6 lg:px-8",
-        tone === "hero" && "pt-6 md:pt-8",
+        "mx-auto w-full max-w-7xl px-4 py-5 md:px-6 md:py-6 lg:px-8 lg:py-7",
+        tone === "hero" && "pt-6 md:pt-8 lg:pt-9",
         className,
       )}
     >
