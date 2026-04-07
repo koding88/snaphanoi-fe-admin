@@ -14,6 +14,7 @@ import { ErrorState } from "@/components/shared/error-state";
 import { LoadingState } from "@/components/shared/loading-state";
 import { PageHeader } from "@/components/shared/page-header";
 import { buttonVariants } from "@/components/ui/button";
+import { AppSelect } from "@/components/ui/select";
 import { RoleDetailCard } from "@/components/roles/role-detail-card";
 import { RoleUsersTable } from "@/components/roles/role-users-table";
 import { deleteRole } from "@/features/roles/api/delete-role";
@@ -89,7 +90,7 @@ export function RoleDetailPage({ id }: { id: string }) {
       <PageHeader
         eyebrow="Role detail"
         title="Inspect a role and its assigned users."
-        description="This page combines role detail with the role-users listing so the admin can see both definition and current usage without opening another module."
+        description="Review the role itself, see where it is in use, and manage the next step from one page."
         actions={
           role ? (
             <div className="flex flex-wrap gap-2">
@@ -132,27 +133,27 @@ export function RoleDetailPage({ id }: { id: string }) {
                   Users assigned to this role
                 </h3>
                 <p className="text-sm leading-7 text-muted-foreground">
-                  This section maps directly to `GET /api/v1/roles/:id/users` with backend-supported
-                  status, page, and limit query parameters.
+                  Review who currently uses this role and filter by account state when needed.
                 </p>
               </div>
               <div className="flex flex-wrap gap-3">
-                <select
+                <AppSelect
                   value={usersQuery.status}
-                  onChange={(event) =>
+                  onChange={(status) =>
                     setUsersQuery((current) => ({
                       ...current,
                       page: 1,
-                      status: event.target.value as RoleUsersQuery["status"],
+                      status: status as RoleUsersQuery["status"],
                     }))
                   }
-                  className="flex h-11 min-w-40 rounded-2xl border border-border/80 bg-background/92 px-4 text-sm text-foreground outline-none transition-colors focus:border-[--color-brand]/40 focus:ring-3 focus:ring-[--color-brand]/12"
-                >
-                  <option value="all">All users</option>
-                  <option value="active">Active</option>
-                  <option value="inactive">Inactive</option>
-                  <option value="deleted">Deleted</option>
-                </select>
+                  className="min-w-52"
+                  options={[
+                    { value: "all", label: "All assigned users" },
+                    { value: "active", label: "Active only" },
+                    { value: "inactive", label: "Inactive only" },
+                    { value: "deleted", label: "Archived only" },
+                  ]}
+                />
               </div>
             </div>
             <div className="mt-6 space-y-4">
@@ -198,7 +199,7 @@ export function RoleDetailPage({ id }: { id: string }) {
                 <EmptyState
                   eyebrow="Role users"
                   title="No users matched this role-user query."
-                  description="Adjust the status filter or wait until users are assigned to this role."
+                  description="Try a different status view, or return later once the role has people assigned to it."
                 />
               )}
             </div>
@@ -208,12 +209,23 @@ export function RoleDetailPage({ id }: { id: string }) {
       <ConfirmDialog
         open={dialogOpen}
         title={`Delete ${role?.name}?`}
-        description="Deleting a role may fail if the backend reports the role is currently in use."
+        description="If this role is still assigned, removal will be blocked until reassignment is complete."
         confirmLabel="Delete role"
         confirmVariant="destructive"
         isSubmitting={isSubmitting}
         onCancel={() => setDialogOpen(false)}
         onConfirm={handleDelete}
+        extra={
+          role ? (
+            <div className="space-y-1">
+              <p className="text-xs font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
+                Role in focus
+              </p>
+              <p className="text-sm font-medium text-foreground">{role.name}</p>
+              <p className="text-sm text-muted-foreground">{role.key}</p>
+            </div>
+          ) : null
+        }
       />
     </AdminPageContainer>
   );

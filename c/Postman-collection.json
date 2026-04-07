@@ -70,7 +70,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 201,\n  \"data\": {\n    \"requested\": true\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"requested\": true\n  },\n  \"message\": \"Registration confirmation email sent successfully\",\n  \"error\": null,\n  \"statusCode\": 201,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/register\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "Email Already Exists",
@@ -84,7 +84,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"Nguyen Van C\",\n  \"email\": \"member1@gmail.com\",\n  \"password\": \"Password123A\",\n  \"countryCode\": \"VN\"\n}",
+                  "raw": "{\n  \"name\": \"Nguyen Van C\",\n  \"email\": \"newuser@gmail.com\",\n  \"password\": \"Password@123\",\n  \"countryCode\": \"VN\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -107,7 +107,44 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": \"USER_EMAIL_ALREADY_EXISTS\",\n  \"statusCode\": 409,\n  \"message\": \"Email already exists\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Email already exists\",\n  \"error\": \"USER_EMAIL_ALREADY_EXISTS\",\n  \"statusCode\": 409,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/register\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Validation Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Nguyen Van C\",\n  \"email\": \"newuser@gmail.com\",\n  \"password\": \"Password@123\",\n  \"countryCode\": \"VN\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Initiate registration. This does not create the account immediately; it sends a confirmation email with a registration token.",
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/auth/register",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "register"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Email must be a Gmail address\",\n  \"error\": \"Bad Request\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/register\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -173,7 +210,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 201,\n  \"data\": {\n    \"registered\": true\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"registered\": true\n  },\n  \"message\": \"Registration confirmed successfully\",\n  \"error\": null,\n  \"statusCode\": 201,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/register/confirm\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "Invalid Or Expired Token",
@@ -188,7 +225,7 @@
                 "description": "Confirm registration with the token received in the confirmation email. This creates the account for real.",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"token\": \"invalid-registration-token\"\n}",
+                  "raw": "{\n  \"token\": \"raw-registration-token\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -210,7 +247,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": \"REGISTRATION_TOKEN_INVALID\",\n  \"statusCode\": 401,\n  \"message\": \"Registration token is invalid or expired\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Registration token is invalid or expired\",\n  \"error\": \"REGISTRATION_TOKEN_INVALID\",\n  \"statusCode\": 401,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/register/confirm\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -289,7 +326,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 201,\n  \"data\": {\n    \"accessToken\": \"<jwt-access-token>\",\n    \"user\": {\n      \"id\": \"user-member-1\",\n      \"name\": \"Member One\",\n      \"email\": \"member1@gmail.com\",\n      \"countryCode\": \"VN\",\n      \"roleId\": \"role-user\",\n      \"roleName\": \"User\",\n      \"roleKey\": \"user\",\n      \"isActive\": true,\n      \"deletedAt\": null,\n      \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n      \"updatedAt\": \"2025-01-04T00:00:00.000Z\"\n    }\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"accessToken\": \"<jwt-access-token>\",\n    \"user\": {\n      \"id\": \"user-member-1\",\n      \"name\": \"Member One\",\n      \"email\": \"member1@gmail.com\",\n      \"countryCode\": \"VN\",\n      \"roleId\": \"role-user\",\n      \"roleName\": \"User\",\n      \"roleKey\": \"user\",\n      \"isActive\": true,\n      \"deletedAt\": null,\n      \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n      \"updatedAt\": \"2025-01-04T00:00:00.000Z\"\n    }\n  },\n  \"message\": \"Login successfully\",\n  \"error\": null,\n  \"statusCode\": 201,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/login\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "Invalid Credentials",
@@ -303,7 +340,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"email\": \"member1@gmail.com\",\n  \"password\": \"WrongPassword123\"\n}",
+                  "raw": "{\n  \"email\": \"newuser@gmail.com\",\n  \"password\": \"Password@123\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -325,7 +362,43 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": \"INVALID_CREDENTIALS\",\n  \"statusCode\": 401,\n  \"message\": \"Invalid email or password\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Invalid email or password\",\n  \"error\": \"INVALID_CREDENTIALS\",\n  \"statusCode\": 401,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/login\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Validation Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"newuser@gmail.com\",\n  \"password\": \"Password@123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/auth/login",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "login"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"email must be an email\",\n  \"error\": \"Bad Request\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/login\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -391,7 +464,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 201,\n  \"data\": {\n    \"requested\": true\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"requested\": true\n  },\n  \"message\": \"If the account exists, a password reset email has been sent\",\n  \"error\": null,\n  \"statusCode\": 201,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/forgot-password\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "Validation Error",
@@ -406,7 +479,7 @@
                 "description": "Request a password reset email. This endpoint always returns generic success and does not reveal whether the account exists.",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"email\": \"invalid-email\"\n}",
+                  "raw": "{\n  \"email\": \"user@gmail.com\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -428,7 +501,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": \"Bad Request\",\n  \"statusCode\": 400,\n  \"message\": \"email must be an email\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"email must be an email\",\n  \"error\": \"Bad Request\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/forgot-password\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -494,7 +567,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 201,\n  \"data\": {\n    \"reset\": true\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"reset\": true\n  },\n  \"message\": \"Password reset successfully\",\n  \"error\": null,\n  \"statusCode\": 201,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/reset-password\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "Invalid Or Expired Token",
@@ -509,7 +582,7 @@
                 "description": "Reset password with the raw token received by email. New password must be at least 8 characters and include uppercase, lowercase, and a number.",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"token\": \"invalid-token\",\n  \"newPassword\": \"NewPassword123A\",\n  \"confirmNewPassword\": \"NewPassword123A\"\n}",
+                  "raw": "{\n  \"token\": \"raw-reset-token\",\n  \"newPassword\": \"NewPassword123A\",\n  \"confirmNewPassword\": \"NewPassword123A\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -531,7 +604,44 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": \"PASSWORD_RESET_TOKEN_INVALID\",\n  \"statusCode\": 401,\n  \"message\": \"Password reset token is invalid or expired\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Password reset token is invalid or expired\",\n  \"error\": \"PASSWORD_RESET_TOKEN_INVALID\",\n  \"statusCode\": 401,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/reset-password\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Validation Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "description": "Reset password with the raw token received by email. New password must be at least 8 characters and include uppercase, lowercase, and a number.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"raw-reset-token\",\n  \"newPassword\": \"NewPassword123A\",\n  \"confirmNewPassword\": \"NewPassword123A\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/auth/reset-password",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "reset-password"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"confirmNewPassword must match newPassword\",\n  \"error\": \"Bad Request\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/reset-password\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -567,10 +677,10 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 201,\n  \"data\": {\n    \"accessToken\": \"<jwt-access-token>\",\n    \"user\": {\n      \"id\": \"user-member-1\",\n      \"name\": \"Member One\",\n      \"email\": \"member1@gmail.com\",\n      \"countryCode\": \"VN\",\n      \"roleId\": \"role-user\",\n      \"roleName\": \"User\",\n      \"roleKey\": \"user\",\n      \"isActive\": true,\n      \"deletedAt\": null,\n      \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n      \"updatedAt\": \"2025-01-04T00:00:00.000Z\"\n    }\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"accessToken\": \"<jwt-access-token>\",\n    \"user\": {\n      \"id\": \"user-member-1\",\n      \"name\": \"Member One\",\n      \"email\": \"member1@gmail.com\",\n      \"countryCode\": \"VN\",\n      \"roleId\": \"role-user\",\n      \"roleName\": \"User\",\n      \"roleKey\": \"user\",\n      \"isActive\": true,\n      \"deletedAt\": null,\n      \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n      \"updatedAt\": \"2025-01-04T00:00:00.000Z\"\n    }\n  },\n  \"message\": \"Token refreshed successfully\",\n  \"error\": null,\n  \"statusCode\": 201,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/refresh\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
-              "name": "Missing Refresh Token",
+              "name": "Refresh Token Missing",
               "originalRequest": {
                 "method": "POST",
                 "header": [],
@@ -589,7 +699,29 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": \"REFRESH_TOKEN_NOT_FOUND\",\n  \"statusCode\": 401,\n  \"message\": \"Refresh token is invalid\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Refresh token is invalid\",\n  \"error\": \"REFRESH_TOKEN_NOT_FOUND\",\n  \"statusCode\": 401,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/refresh\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Refresh Token Revoked",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/auth/refresh",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "refresh"]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Refresh token has been revoked\",\n  \"error\": \"REFRESH_TOKEN_REVOKED\",\n  \"statusCode\": 401,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/refresh\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -625,7 +757,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 201,\n  \"data\": {\n    \"loggedOut\": true\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"loggedOut\": true\n  },\n  \"message\": \"Logout successfully\",\n  \"error\": null,\n  \"statusCode\": 201,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/logout\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -671,13 +803,18 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 201,\n  \"data\": {\n    \"loggedOut\": true\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"loggedOut\": true\n  },\n  \"message\": \"Logout all sessions successfully\",\n  \"error\": null,\n  \"statusCode\": 201,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/logout-all\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "Unauthorized",
               "originalRequest": {
                 "method": "POST",
-                "header": [],
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/logout-all",
                   "host": ["{{LOCAL_URL}}"],
@@ -693,7 +830,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": \"Unauthorized\",\n  \"statusCode\": 401,\n  \"message\": \"Unauthorized\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Unauthorized\",\n  \"error\": \"Unauthorized\",\n  \"statusCode\": 401,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/logout-all\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -739,13 +876,18 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"id\": \"user-admin\",\n    \"name\": \"Admin User\",\n    \"email\": \"admin@gmail.com\",\n    \"countryCode\": \"VN\",\n    \"roleId\": \"role-admin\",\n    \"roleName\": \"Admin\",\n    \"roleKey\": \"admin\",\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2025-01-03T00:00:00.000Z\",\n    \"updatedAt\": \"2025-01-03T00:00:00.000Z\"\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"user-member-1\",\n    \"name\": \"Member One\",\n    \"email\": \"member1@gmail.com\",\n    \"countryCode\": \"VN\",\n    \"roleId\": \"role-user\",\n    \"roleName\": \"User\",\n    \"roleKey\": \"user\",\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n    \"updatedAt\": \"2025-01-04T00:00:00.000Z\"\n  },\n  \"message\": \"Profile fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/me\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "Unauthorized",
               "originalRequest": {
                 "method": "GET",
-                "header": [],
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/me",
                   "host": ["{{LOCAL_URL}}"],
@@ -761,7 +903,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": \"Unauthorized\",\n  \"statusCode\": 401,\n  \"message\": \"Unauthorized\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Unauthorized\",\n  \"error\": \"Unauthorized\",\n  \"statusCode\": 401,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/me\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         }
@@ -864,7 +1006,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"user-member-1\",\n        \"name\": \"Member One\",\n        \"email\": \"member1@gmail.com\",\n        \"countryCode\": \"VN\",\n        \"roleId\": \"role-user\",\n        \"roleName\": \"User\",\n        \"isActive\": true,\n        \"deletedAt\": null,\n        \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n        \"updatedAt\": \"2025-01-04T00:00:00.000Z\"\n      }\n    ],\n    \"meta\": {\n      \"page\": 1,\n      \"limit\": 10,\n      \"total\": 1,\n      \"totalPages\": 1\n    }\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"user-admin\",\n        \"name\": \"Admin User\",\n        \"email\": \"admin@gmail.com\",\n        \"countryCode\": \"VN\",\n        \"roleId\": \"role-admin\",\n        \"roleName\": \"Admin\",\n        \"isActive\": true,\n        \"deletedAt\": null,\n        \"createdAt\": \"2025-01-03T00:00:00.000Z\",\n        \"updatedAt\": \"2025-01-03T00:00:00.000Z\"\n      },\n      {\n        \"id\": \"user-member-1\",\n        \"name\": \"Member One\",\n        \"email\": \"member1@gmail.com\",\n        \"countryCode\": \"VN\",\n        \"roleId\": \"role-user\",\n        \"roleName\": \"User\",\n        \"isActive\": true,\n        \"deletedAt\": null,\n        \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n        \"updatedAt\": \"2025-01-04T00:00:00.000Z\"\n      }\n    ],\n    \"meta\": {\n      \"page\": 1,\n      \"limit\": 10,\n      \"total\": 2,\n      \"totalPages\": 1\n    }\n  },\n  \"message\": \"Users fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users?page=1&limit=10&keyword=&isActive=true&roleId=&includeDeleted=false\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "Forbidden",
@@ -917,7 +1059,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": \"Forbidden\",\n  \"statusCode\": 403,\n  \"message\": \"Forbidden resource\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Forbidden resource\",\n  \"error\": \"Forbidden\",\n  \"statusCode\": 403,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users?page=1&limit=10&keyword=&isActive=true&roleId=&includeDeleted=false\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -963,7 +1105,34 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"id\": \"user-member-1\",\n    \"name\": \"Member One\",\n    \"email\": \"member1@gmail.com\",\n    \"countryCode\": \"VN\",\n    \"roleId\": \"role-user\",\n    \"roleName\": \"User\",\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n    \"updatedAt\": \"2025-01-04T00:00:00.000Z\"\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"user-member-1\",\n    \"name\": \"Member One\",\n    \"email\": \"member1@gmail.com\",\n    \"countryCode\": \"VN\",\n    \"roleId\": \"role-user\",\n    \"roleName\": \"User\",\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n    \"updatedAt\": \"2025-01-04T00:00:00.000Z\"\n  },\n  \"message\": \"User fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users/user-member-1\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "User Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "{{USER_ID}}"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"User not found\",\n  \"error\": \"USER_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users/user-missing\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "Forbidden",
@@ -990,7 +1159,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": \"Forbidden\",\n  \"statusCode\": 403,\n  \"message\": \"Forbidden resource\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Forbidden resource\",\n  \"error\": \"Forbidden\",\n  \"statusCode\": 403,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users/user-member-2\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -1062,7 +1231,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 201,\n  \"data\": {\n    \"id\": \"user-created-1\",\n    \"name\": \"Nguyen Van A\",\n    \"email\": \"user@gmail.com\",\n    \"countryCode\": \"VN\",\n    \"roleId\": \"role-user\",\n    \"roleName\": \"User\",\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2025-04-07T10:10:00.000Z\",\n    \"updatedAt\": \"2025-04-07T10:10:00.000Z\"\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"user-created-1\",\n    \"name\": \"Created User\",\n    \"email\": \"created-user@gmail.com\",\n    \"countryCode\": \"VN\",\n    \"roleId\": \"role-user\",\n    \"roleName\": \"User\",\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2026-04-08T07:15:00.000Z\",\n    \"updatedAt\": \"2026-04-08T07:15:00.000Z\"\n  },\n  \"message\": \"User created successfully\",\n  \"error\": null,\n  \"statusCode\": 201,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "Email Already Exists",
@@ -1080,7 +1249,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"Nguyen Van A\",\n  \"email\": \"member1@gmail.com\",\n  \"password\": \"Password123A\",\n  \"countryCode\": \"VN\",\n  \"roleId\": \"role-user\"\n}",
+                  "raw": "{\n  \"name\": \"Nguyen Van A\",\n  \"email\": \"user@gmail.com\",\n  \"password\": \"MySecurePass1\",\n  \"countryCode\": \"VN\",\n  \"roleId\": \"{{ROLE_ID}}\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1102,7 +1271,47 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": \"USER_EMAIL_ALREADY_EXISTS\",\n  \"statusCode\": 409,\n  \"message\": \"Email already exists\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Email already exists\",\n  \"error\": \"USER_EMAIL_ALREADY_EXISTS\",\n  \"statusCode\": 409,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Role",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Nguyen Van A\",\n  \"email\": \"user@gmail.com\",\n  \"password\": \"MySecurePass1\",\n  \"countryCode\": \"VN\",\n  \"roleId\": \"{{ROLE_ID}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Invalid user role\",\n  \"error\": \"INVALID_USER_ROLE\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -1174,7 +1383,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"id\": \"user-member-1\",\n    \"name\": \"Nguyen Van B\",\n    \"email\": \"updated@gmail.com\",\n    \"countryCode\": \"VN\",\n    \"roleId\": \"role-user\",\n    \"roleName\": \"User\",\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n    \"updatedAt\": \"2025-04-07T10:20:00.000Z\"\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"user-member-1\",\n    \"name\": \"Updated Member One\",\n    \"email\": \"member1@gmail.com\",\n    \"countryCode\": \"VN\",\n    \"roleId\": \"role-user\",\n    \"roleName\": \"User\",\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n    \"updatedAt\": \"2025-01-04T00:00:00.000Z\"\n  },\n  \"message\": \"User updated successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users/user-member-1\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "User Not Found",
@@ -1214,7 +1423,47 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": \"USER_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"message\": \"User not found\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"User not found\",\n  \"error\": \"USER_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users/user-missing\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Role",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Nguyen Van B\",\n  \"email\": \"updated@gmail.com\",\n  \"password\": \"MySecurePass1\",\n  \"countryCode\": \"VN\",\n  \"roleId\": \"{{ROLE_ID}}\",\n  \"isActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "{{USER_ID}}"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Invalid user role\",\n  \"error\": \"INVALID_USER_ROLE\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users/user-member-1\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -1286,7 +1535,47 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"id\": \"user-member-1\",\n    \"name\": \"Nguyen Van Me\",\n    \"email\": \"newuser@gmail.com\",\n    \"countryCode\": \"VN\",\n    \"roleId\": \"role-user\",\n    \"roleName\": \"User\",\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n    \"updatedAt\": \"2025-04-07T10:30:00.000Z\"\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"user-member-1\",\n    \"name\": \"Member One Updated\",\n    \"email\": \"member1@gmail.com\",\n    \"countryCode\": \"VN\",\n    \"roleId\": \"role-user\",\n    \"roleName\": \"User\",\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n    \"updatedAt\": \"2025-01-04T00:00:00.000Z\"\n  },\n  \"message\": \"Profile updated successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users/me\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Email Already Exists",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Nguyen Van Me\",\n  \"email\": \"newuser@gmail.com\",\n  \"countryCode\": \"VN\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/me",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me"]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Email already exists\",\n  \"error\": \"USER_EMAIL_ALREADY_EXISTS\",\n  \"statusCode\": 409,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users/me\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "Validation Error",
@@ -1304,7 +1593,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"Nguyen Van Me\",\n  \"email\": \"invalid-email\",\n  \"countryCode\": \"VN\"\n}",
+                  "raw": "{\n  \"name\": \"Nguyen Van Me\",\n  \"email\": \"newuser@gmail.com\",\n  \"countryCode\": \"VN\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1326,7 +1615,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": \"Bad Request\",\n  \"statusCode\": 400,\n  \"message\": \"email must be an email\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Country code must be a 2-letter code\",\n  \"error\": \"Bad Request\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users/me\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -1372,7 +1661,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"message\": \"User deleted successfully\"\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"message\": \"User deleted successfully\"\n  },\n  \"message\": \"User deleted successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users/user-member-1\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "User Not Found",
@@ -1399,7 +1688,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": \"USER_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"message\": \"User not found\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"User not found\",\n  \"error\": \"USER_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users/user-missing\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -1445,7 +1734,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"id\": \"user-member-1\",\n    \"name\": \"Member One\",\n    \"email\": \"member1@gmail.com\",\n    \"countryCode\": \"VN\",\n    \"roleId\": \"role-user\",\n    \"roleName\": \"User\",\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n    \"updatedAt\": \"2025-01-04T00:00:00.000Z\"\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"user-deleted\",\n    \"name\": \"Deleted User\",\n    \"email\": \"deleted@gmail.com\",\n    \"countryCode\": \"VN\",\n    \"roleId\": \"role-user\",\n    \"roleName\": \"User\",\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n    \"updatedAt\": \"2025-01-04T00:00:00.000Z\"\n  },\n  \"message\": \"User restored successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users/user-deleted\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "User Not Found",
@@ -1472,7 +1761,34 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": \"USER_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"message\": \"User not found\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"User not found\",\n  \"error\": \"USER_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users/user-missing/restore\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "User Not Deleted",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}/restore",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "{{USER_ID}}", "restore"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"User is not deleted\",\n  \"error\": \"USER_NOT_DELETED\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users/user-member-1/restore\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -1544,7 +1860,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"changed\": true\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"changed\": true\n  },\n  \"message\": \"Password changed successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users/me/password\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "Invalid Current Password",
@@ -1562,7 +1878,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"currentPassword\": \"WrongPassword123\",\n  \"newPassword\": \"NewPassword123A\",\n  \"confirmNewPassword\": \"NewPassword123A\"\n}",
+                  "raw": "{\n  \"currentPassword\": \"OldPassword1\",\n  \"newPassword\": \"NewPassword1\",\n  \"confirmNewPassword\": \"NewPassword1\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1584,7 +1900,47 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": \"INVALID_CURRENT_PASSWORD\",\n  \"statusCode\": 400,\n  \"message\": \"Current password is incorrect\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Current password is incorrect\",\n  \"error\": \"INVALID_CURRENT_PASSWORD\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users/me/password\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Validation Error",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currentPassword\": \"OldPassword1\",\n  \"newPassword\": \"NewPassword1\",\n  \"confirmNewPassword\": \"NewPassword1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/me/password",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me", "password"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"confirmNewPassword must match newPassword\",\n  \"error\": \"Bad Request\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users/me/password\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         }
@@ -1671,7 +2027,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"role-user\",\n        \"key\": \"user\",\n        \"name\": \"User\",\n        \"isSystem\": false,\n        \"activeUsersCount\": 3,\n        \"deletedUsersCount\": 1,\n        \"createdAt\": \"2025-01-02T00:00:00.000Z\",\n        \"updatedAt\": \"2025-01-02T00:00:00.000Z\"\n      }\n    ],\n    \"meta\": {\n      \"page\": 1,\n      \"limit\": 10,\n      \"total\": 1,\n      \"totalPages\": 1\n    }\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"role-admin\",\n        \"key\": \"admin\",\n        \"name\": \"Admin\",\n        \"isSystem\": true,\n        \"activeUsersCount\": 1,\n        \"deletedUsersCount\": 0,\n        \"createdAt\": \"2025-01-01T00:00:00.000Z\",\n        \"updatedAt\": \"2025-01-01T00:00:00.000Z\"\n      },\n      {\n        \"id\": \"role-user\",\n        \"key\": \"user\",\n        \"name\": \"User\",\n        \"isSystem\": false,\n        \"activeUsersCount\": 3,\n        \"deletedUsersCount\": 1,\n        \"createdAt\": \"2025-01-02T00:00:00.000Z\",\n        \"updatedAt\": \"2025-01-02T00:00:00.000Z\"\n      }\n    ],\n    \"meta\": {\n      \"page\": 1,\n      \"limit\": 10,\n      \"total\": 2,\n      \"totalPages\": 1\n    }\n  },\n  \"message\": \"Roles fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/roles?page=1&limit=10&keyword=&isSystem=false\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "Forbidden",
@@ -1716,7 +2072,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": \"Forbidden\",\n  \"statusCode\": 403,\n  \"message\": \"Forbidden resource\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Forbidden resource\",\n  \"error\": \"Forbidden\",\n  \"statusCode\": 403,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/roles?page=1&limit=10&keyword=&isSystem=false\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -1762,7 +2118,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"id\": \"role-user\",\n    \"key\": \"user\",\n    \"name\": \"User\",\n    \"isSystem\": false,\n    \"activeUsersCount\": 3,\n    \"deletedUsersCount\": 1,\n    \"createdAt\": \"2025-01-02T00:00:00.000Z\",\n    \"updatedAt\": \"2025-01-02T00:00:00.000Z\"\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"role-user\",\n    \"key\": \"user\",\n    \"name\": \"User\",\n    \"isSystem\": false,\n    \"activeUsersCount\": 3,\n    \"deletedUsersCount\": 1,\n    \"createdAt\": \"2025-01-02T00:00:00.000Z\",\n    \"updatedAt\": \"2025-01-02T00:00:00.000Z\"\n  },\n  \"message\": \"Role fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/roles/role-user\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "Role Not Found",
@@ -1789,7 +2145,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": \"ROLE_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"message\": \"Role not found\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Role not found\",\n  \"error\": \"ROLE_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/roles/role-missing\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -1861,7 +2217,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 201,\n  \"data\": {\n    \"id\": \"role-manager\",\n    \"key\": \"manager\",\n    \"name\": \"Manager\",\n    \"isSystem\": false,\n    \"activeUsersCount\": 0,\n    \"deletedUsersCount\": 0,\n    \"createdAt\": \"2025-04-07T10:40:00.000Z\",\n    \"updatedAt\": \"2025-04-07T10:40:00.000Z\"\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"role-editor\",\n    \"key\": \"editor\",\n    \"name\": \"Editor\",\n    \"isSystem\": false,\n    \"activeUsersCount\": 0,\n    \"deletedUsersCount\": 0,\n    \"createdAt\": \"2026-04-08T07:15:00.000Z\",\n    \"updatedAt\": \"2026-04-08T07:15:00.000Z\"\n  },\n  \"message\": \"Role created successfully\",\n  \"error\": null,\n  \"statusCode\": 201,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/roles\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "Role Name Already Exists",
@@ -1879,7 +2235,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"User\"\n}",
+                  "raw": "{\n  \"name\": \"Manager\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1901,7 +2257,47 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": \"ROLE_NAME_ALREADY_EXISTS\",\n  \"statusCode\": 409,\n  \"message\": \"Role name already exists\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Role name already exists\",\n  \"error\": \"ROLE_NAME_ALREADY_EXISTS\",\n  \"statusCode\": 409,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/roles\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Role Key Already Exists",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Manager\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/roles",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles"]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Role key already exists\",\n  \"error\": \"ROLE_KEY_ALREADY_EXISTS\",\n  \"statusCode\": 409,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/roles\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -1973,7 +2369,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"id\": \"role-user\",\n    \"key\": \"user\",\n    \"name\": \"Moderator\",\n    \"isSystem\": false,\n    \"activeUsersCount\": 3,\n    \"deletedUsersCount\": 1,\n    \"createdAt\": \"2025-01-02T00:00:00.000Z\",\n    \"updatedAt\": \"2025-04-07T10:50:00.000Z\"\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"role-user\",\n    \"key\": \"user\",\n    \"name\": \"Team Member\",\n    \"isSystem\": false,\n    \"activeUsersCount\": 3,\n    \"deletedUsersCount\": 1,\n    \"createdAt\": \"2025-01-02T00:00:00.000Z\",\n    \"updatedAt\": \"2026-04-08T07:15:00.000Z\"\n  },\n  \"message\": \"Role updated successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/roles/role-user\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "Role Not Found",
@@ -2013,7 +2409,47 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": \"ROLE_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"message\": \"Role not found\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Role not found\",\n  \"error\": \"ROLE_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/roles/role-missing\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Role Name Already Exists",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Moderator\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Role name already exists\",\n  \"error\": \"ROLE_NAME_ALREADY_EXISTS\",\n  \"statusCode\": 409,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/roles/role-user\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -2059,7 +2495,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"message\": \"Role deleted successfully\"\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"message\": \"Role deleted successfully\"\n  },\n  \"message\": \"Role deleted successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/roles/role-editor\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "Role In Use",
@@ -2086,7 +2522,34 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": \"ROLE_IN_USE\",\n  \"statusCode\": 409,\n  \"message\": \"Role is in use\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Role is in use\",\n  \"error\": \"ROLE_IN_USE\",\n  \"statusCode\": 409,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/roles/role-user\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Cannot Delete System Role",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Cannot delete system role\",\n  \"error\": \"CANNOT_DELETE_SYSTEM_ROLE\",\n  \"statusCode\": 403,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/roles/role-admin\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -2160,7 +2623,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"user-member-1\",\n        \"name\": \"Member One\",\n        \"email\": \"member1@gmail.com\",\n        \"countryCode\": \"VN\",\n        \"roleId\": \"role-user\",\n        \"isActive\": true,\n        \"deletedAt\": null,\n        \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n        \"updatedAt\": \"2025-01-04T00:00:00.000Z\"\n      }\n    ],\n    \"meta\": {\n      \"page\": 1,\n      \"limit\": 10,\n      \"total\": 1,\n      \"totalPages\": 1\n    }\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"user-member-1\",\n        \"name\": \"Member One\",\n        \"email\": \"member1@gmail.com\",\n        \"countryCode\": \"VN\",\n        \"roleId\": \"role-user\",\n        \"isActive\": true,\n        \"deletedAt\": null,\n        \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n        \"updatedAt\": \"2025-01-04T00:00:00.000Z\"\n      }\n    ],\n    \"meta\": {\n      \"page\": 1,\n      \"limit\": 10,\n      \"total\": 4,\n      \"totalPages\": 1\n    }\n  },\n  \"message\": \"Role users fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/roles/role-user/users?status=all&page=1&limit=10\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "Role Not Found",
@@ -2201,7 +2664,48 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": \"ROLE_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"message\": \"Role not found\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Role not found\",\n  \"error\": \"ROLE_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/roles/role-missing/users?status=all&page=1&limit=10\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Validation Error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}/users?status=all&page=1&limit=10",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles", "{{ROLE_ID}}", "users"],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "all"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"status must be one of the following values: all, active, deleted\",\n  \"error\": \"Bad Request\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/roles/role-user/users?status=invalid&page=1&limit=10\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         }
@@ -2242,7 +2746,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"status\": \"ok\",\n    \"info\": {},\n    \"error\": {},\n    \"details\": {}\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"status\": \"ok\",\n    \"info\": {},\n    \"error\": {},\n    \"details\": {}\n  },\n  \"message\": \"Request successful\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/health/live\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -2278,7 +2782,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"status\": \"ok\",\n    \"info\": {\n      \"memory_heap\": {\n        \"status\": \"up\"\n      },\n      \"database\": {\n        \"status\": \"up\"\n      }\n    },\n    \"error\": {},\n    \"details\": {\n      \"memory_heap\": {\n        \"status\": \"up\"\n      },\n      \"database\": {\n        \"status\": \"up\"\n      }\n    }\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"status\": \"ok\",\n    \"info\": {\n      \"memory_heap\": {\n        \"status\": \"up\"\n      },\n      \"database\": {\n        \"status\": \"up\"\n      }\n    },\n    \"error\": {},\n    \"details\": {\n      \"memory_heap\": {\n        \"status\": \"up\"\n      },\n      \"database\": {\n        \"status\": \"up\"\n      }\n    }\n  },\n  \"message\": \"Request successful\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/health/ready\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         }

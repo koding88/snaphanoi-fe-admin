@@ -1,195 +1,187 @@
-frontend-admin/
-├── public/
-│   ├── images/
-│   │   ├── auth/
-│   │   ├── brand/
-│   │   └── placeholders/
-│   └── icons/
-│
-├── src/
-│   ├── app/
-│   │   ├── (public)/
-│   │   │   ├── login/
-│   │   │   │   └── page.tsx
-│   │   │   ├── register/
-│   │   │   │   └── page.tsx
-│   │   │   ├── register-confirm/
-│   │   │   │   └── page.tsx
-│   │   │   ├── forgot-password/
-│   │   │   │   └── page.tsx
-│   │   │   ├── reset-password/
-│   │   │   │   └── page.tsx
-│   │   │   └── layout.tsx
-│   │   │
-│   │   ├── (admin)/
-│   │   │   ├── admin/
-│   │   │   │   ├── page.tsx
-│   │   │   │   ├── users/
-│   │   │   │   │   ├── page.tsx
-│   │   │   │   │   ├── create/
+src
+├── app
+│   ├── (admin)
+│   │   ├── admin
+│   │   │   ├── page.tsx
+│   │   │   ├── roles
+│   │   │   │   ├── [id]
+│   │   │   │   │   ├── edit
 │   │   │   │   │   │   └── page.tsx
-│   │   │   │   │   ├── [id]/
-│   │   │   │   │   │   ├── page.tsx
-│   │   │   │   │   │   └── edit/
-│   │   │   │   │   │       └── page.tsx
-│   │   │   │   │   ├── me/
-│   │   │   │   │   │   └── page.tsx
-│   │   │   │   │   └── change-password/
-│   │   │   │   │       └── page.tsx
-│   │   │   │   ├── roles/
-│   │   │   │   │   ├── page.tsx
-│   │   │   │   │   ├── create/
-│   │   │   │   │   │   └── page.tsx
-│   │   │   │   │   └── [id]/
-│   │   │   │   │       ├── page.tsx
-│   │   │   │   │       └── edit/
-│   │   │   │   │           └── page.tsx
-│   │   │   │   └── layout.tsx
-│   │   │   └── layout.tsx
-│   │   │
-│   │   ├── globals.css
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── create
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── page.tsx
+│   │   │   └── users
+│   │   │       ├── [id]
+│   │   │       │   ├── edit
+│   │   │       │   │   └── page.tsx
+│   │   │       │   └── page.tsx
+│   │   │       ├── change-password
+│   │   │       │   └── page.tsx
+│   │   │       ├── create
+│   │   │       │   └── page.tsx
+│   │   │       ├── me
+│   │   │       │   └── page.tsx
+│   │   │       └── page.tsx
+│   │   └── layout.tsx
+│   ├── (public)
+│   │   ├── forgot-password
+│   │   │   └── page.tsx
 │   │   ├── layout.tsx
-│   │   └── page.tsx
-│   │
-│   ├── components/
-│   │   ├── ui/                        # shadcn generated components
-│   │   ├── shared/
-│   │   │   ├── app-logo.tsx
-│   │   │   ├── page-header.tsx
-│   │   │   ├── stat-card.tsx
-│   │   │   ├── empty-state.tsx
-│   │   │   ├── error-state.tsx
-│   │   │   ├── loading-state.tsx
-│   │   │   ├── confirm-dialog.tsx
-│   │   │   ├── data-table/
-│   │   │   └── form/
-│   │   ├── auth/
-│   │   │   ├── auth-shell.tsx
-│   │   │   ├── auth-card.tsx
-│   │   │   ├── login-form.tsx
-│   │   │   ├── register-form.tsx
-│   │   │   ├── register-confirm-form.tsx
-│   │   │   ├── forgot-password-form.tsx
-│   │   │   └── reset-password-form.tsx
-│   │   ├── admin/
-│   │   │   ├── admin-shell.tsx
-│   │   │   ├── admin-sidebar.tsx
-│   │   │   ├── admin-topbar.tsx
-│   │   │   ├── admin-page-container.tsx
-│   │   │   └── dashboard-placeholder.tsx
-│   │   ├── users/
-│   │   │   ├── users-table.tsx
-│   │   │   ├── user-form.tsx
-│   │   │   ├── user-detail-card.tsx
-│   │   │   ├── user-status-badge.tsx
-│   │   │   └── restore-user-dialog.tsx
-│   │   └── roles/
-│   │       ├── roles-table.tsx
-│   │       ├── role-form.tsx
-│   │       ├── role-detail-card.tsx
-│   │       └── role-users-table.tsx
-│   │
-│   ├── features/
-│   │   ├── auth/
-│   │   │   ├── api/
-│   │   │   │   ├── login.ts
-│   │   │   │   ├── logout.ts
-│   │   │   │   ├── logout-all.ts
-│   │   │   │   ├── me.ts
-│   │   │   │   ├── refresh.ts
-│   │   │   │   ├── register.ts
-│   │   │   │   ├── register-confirm.ts
-│   │   │   │   ├── forgot-password.ts
-│   │   │   │   └── reset-password.ts
-│   │   │   ├── hooks/
-│   │   │   │   ├── use-auth-bootstrap.ts
-│   │   │   │   ├── use-login.ts
-│   │   │   │   ├── use-logout.ts
-│   │   │   │   ├── use-register.ts
-│   │   │   │   ├── use-register-confirm.ts
-│   │   │   │   ├── use-forgot-password.ts
-│   │   │   │   └── use-reset-password.ts
-│   │   │   ├── store/
-│   │   │   │   └── auth.store.ts
-│   │   │   ├── types/
-│   │   │   │   ├── auth.types.ts
-│   │   │   │   └── auth-api.types.ts
-│   │   │   └── utils/
-│   │   │       ├── auth-guards.ts
-│   │   │       └── auth-mappers.ts
-│   │   │
-│   │   ├── users/
-│   │   │   ├── api/
-│   │   │   │   ├── list-users.ts
-│   │   │   │   ├── get-user.ts
-│   │   │   │   ├── create-user.ts
-│   │   │   │   ├── update-user.ts
-│   │   │   │   ├── delete-user.ts
-│   │   │   │   ├── restore-user.ts
-│   │   │   │   ├── update-my-profile.ts
-│   │   │   │   └── change-my-password.ts
-│   │   │   ├── hooks/
-│   │   │   ├── types/
-│   │   │   └── utils/
-│   │   │
-│   │   └── roles/
-│   │       ├── api/
-│   │       │   ├── list-roles.ts
-│   │       │   ├── get-role.ts
-│   │       │   ├── create-role.ts
-│   │       │   ├── update-role.ts
-│   │       │   ├── delete-role.ts
-│   │       │   └── list-role-users.ts
-│   │       ├── hooks/
-│   │       ├── types/
-│   │       └── utils/
-│   │
-│   ├── lib/
-│   │   ├── api/
-│   │   │   ├── client.ts
-│   │   │   ├── request.ts
-│   │   │   ├── endpoints.ts
-│   │   │   └── errors.ts
-│   │   ├── utils/
-│   │   │   ├── cn.ts
-│   │   │   ├── format.ts
-│   │   │   ├── query.ts
-│   │   │   └── validation.ts
-│   │   ├── constants/
-│   │   │   ├── routes.ts
-│   │   │   ├── nav.ts
-│   │   │   └── app.ts
-│   │   └── icons/
-│   │       └── fa.ts
-│   │
-│   ├── hooks/
-│   │   ├── use-mobile.ts
-│   │   ├── use-mounted.ts
-│   │   └── use-page-title.ts
-│   │
-│   ├── providers/
-│   │   ├── app-provider.tsx
-│   │   ├── query-provider.tsx          # nếu sau này dùng TanStack Query
-│   │   ├── theme-provider.tsx
-│   │   └── toast-provider.tsx
-│   │
-│   ├── styles/
-│   │   ├── theme.css
-│   │   └── motion.css
-│   │
-│   ├── types/
-│   │   ├── api-response.ts
-│   │   ├── common.ts
-│   │   └── env.d.ts
-│   │
-│   └── middleware.ts
-│
-├── components.json                      # shadcn config
-├── next.config.ts
-├── package.json
-├── postcss.config.js
-├── tailwind.config.ts
-├── tsconfig.json
-├── .env.local
-├── .env.example
-└── README.md
+│   │   ├── login
+│   │   │   └── page.tsx
+│   │   ├── register
+│   │   │   └── page.tsx
+│   │   ├── register-confirm
+│   │   │   └── page.tsx
+│   │   └── reset-password
+│   │       └── page.tsx
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── components
+│   ├── admin
+│   │   ├── admin-kpi-card.tsx
+│   │   ├── admin-module-placeholder.tsx
+│   │   ├── admin-page-container.tsx
+│   │   ├── admin-section-heading.tsx
+│   │   ├── admin-shell-banner.tsx
+│   │   ├── admin-shell.tsx
+│   │   ├── admin-sidebar.tsx
+│   │   ├── admin-surface.tsx
+│   │   ├── admin-topbar.tsx
+│   │   └── dashboard-placeholder.tsx
+│   ├── auth
+│   │   ├── admin-route-guard.tsx
+│   │   ├── auth-bootstrap.tsx
+│   │   ├── auth-card.tsx
+│   │   ├── auth-feedback.tsx
+│   │   ├── auth-field.tsx
+│   │   ├── auth-form-shell.tsx
+│   │   ├── auth-password-hint.tsx
+│   │   ├── auth-shell.tsx
+│   │   ├── auth-stage-placeholder.tsx
+│   │   ├── forgot-password-form.tsx
+│   │   ├── login-form.tsx
+│   │   ├── public-route-guard.tsx
+│   │   ├── register-confirm-form.tsx
+│   │   ├── register-form.tsx
+│   │   └── reset-password-form.tsx
+│   ├── roles
+│   │   ├── role-create-page.tsx
+│   │   ├── role-detail-card.tsx
+│   │   ├── role-detail-page.tsx
+│   │   ├── role-edit-page.tsx
+│   │   ├── role-form.tsx
+│   │   ├── role-system-badge.tsx
+│   │   ├── role-users-table.tsx
+│   │   ├── roles-list-page.tsx
+│   │   └── roles-table.tsx
+│   ├── shared
+│   │   ├── app-logo.tsx
+│   │   ├── confirm-dialog.tsx
+│   │   ├── empty-state.tsx
+│   │   ├── error-state.tsx
+│   │   ├── foundation-placeholder.tsx
+│   │   ├── loading-state.tsx
+│   │   ├── page-header.tsx
+│   │   └── status-badge.tsx
+│   ├── ui
+│   │   ├── button.tsx
+│   │   └── input.tsx
+│   └── users
+│       ├── change-password-form.tsx
+│       ├── change-password-page.tsx
+│       ├── my-profile-page.tsx
+│       ├── profile-form.tsx
+│       ├── user-create-page.tsx
+│       ├── user-detail-card.tsx
+│       ├── user-detail-page.tsx
+│       ├── user-edit-page.tsx
+│       ├── user-form.tsx
+│       ├── user-role-badge.tsx
+│       ├── user-status-badge.tsx
+│       ├── users-list-page.tsx
+│       └── users-table.tsx
+├── features
+│   ├── auth
+│   │   ├── api
+│   │   │   ├── forgot-password.ts
+│   │   │   ├── login.ts
+│   │   │   ├── me.ts
+│   │   │   ├── refresh.ts
+│   │   │   ├── register-confirm.ts
+│   │   │   ├── register.ts
+│   │   │   └── reset-password.ts
+│   │   ├── hooks
+│   │   │   └── use-auth-bootstrap.ts
+│   │   ├── store
+│   │   │   └── auth.store.ts
+│   │   ├── types
+│   │   │   ├── auth-api.types.ts
+│   │   │   └── auth.types.ts
+│   │   └── utils
+│   │       ├── auth-errors.ts
+│   │       ├── auth-storage.ts
+│   │       └── password-policy.ts
+│   ├── roles
+│   │   ├── api
+│   │   │   ├── create-role.ts
+│   │   │   ├── delete-role.ts
+│   │   │   ├── get-role.ts
+│   │   │   ├── list-role-users.ts
+│   │   │   ├── list-roles.ts
+│   │   │   └── update-role.ts
+│   │   ├── types
+│   │   │   ├── roles-api.types.ts
+│   │   │   └── roles.types.ts
+│   │   └── utils
+│   │       └── roles-errors.ts
+│   ├── ui
+│   │   └── store
+│   │       └── app-shell.store.ts
+│   └── users
+│       ├── api
+│       │   ├── change-my-password.ts
+│       │   ├── create-user.ts
+│       │   ├── delete-user.ts
+│       │   ├── get-user.ts
+│       │   ├── list-role-options.ts
+│       │   ├── list-users.ts
+│       │   ├── restore-user.ts
+│       │   ├── update-my-profile.ts
+│       │   └── update-user.ts
+│       ├── types
+│       │   ├── users-api.types.ts
+│       │   └── users.types.ts
+│       └── utils
+│           ├── users-errors.ts
+│           └── users-format.ts
+├── lib
+│   ├── api
+│   │   ├── client.ts
+│   │   ├── endpoints.ts
+│   │   ├── errors.ts
+│   │   └── request.ts
+│   ├── constants
+│   │   ├── app.ts
+│   │   ├── nav.ts
+│   │   └── routes.ts
+│   ├── env.ts
+│   ├── icons
+│   │   └── fa.ts
+│   └── utils.ts
+├── providers
+│   ├── app-provider.tsx
+│   └── theme-provider.tsx
+├── proxy.ts
+├── styles
+│   ├── motion.css
+│   └── theme.css
+└── types
+    ├── api-response.ts
+    ├── common.ts
+    └── env.d.ts
+
+51 directories, 134 files

@@ -5,7 +5,7 @@ import { useState, type FormEvent } from "react";
 import { AuthFeedback } from "@/components/auth/auth-feedback";
 import { AuthPasswordHint } from "@/components/auth/auth-password-hint";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { isStrongPassword } from "@/features/auth/utils/password-policy";
 import { getFriendlyUsersError } from "@/features/users/utils/users-errors";
 
@@ -28,21 +28,42 @@ export function ChangePasswordForm({
     confirmNewPassword: "",
   });
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<{
+    currentPassword?: string;
+    newPassword?: string;
+    confirmNewPassword?: string;
+  }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
+    const nextFieldErrors: {
+      currentPassword?: string;
+      newPassword?: string;
+      confirmNewPassword?: string;
+    } = {};
 
-    if (!isStrongPassword(values.newPassword)) {
-      setError(
-        "New password must be at least 8 characters and include uppercase, lowercase, and a number.",
-      );
-      return;
+    if (!values.currentPassword) {
+      nextFieldErrors.currentPassword = "Current password is required.";
     }
 
-    if (values.newPassword !== values.confirmNewPassword) {
-      setError("Password confirmation does not match.");
+    if (!values.newPassword) {
+      nextFieldErrors.newPassword = "New password is required.";
+    } else if (!isStrongPassword(values.newPassword)) {
+      nextFieldErrors.newPassword =
+        "New password must be at least 8 characters and include uppercase, lowercase, and a number.";
+    }
+
+    if (!values.confirmNewPassword) {
+      nextFieldErrors.confirmNewPassword = "Password confirmation is required.";
+    } else if (values.newPassword !== values.confirmNewPassword) {
+      nextFieldErrors.confirmNewPassword = "Password confirmation does not match.";
+    }
+
+    setFieldErrors(nextFieldErrors);
+
+    if (Object.keys(nextFieldErrors).length > 0) {
       return;
     }
 
@@ -63,49 +84,52 @@ export function ChangePasswordForm({
   }
 
   return (
-    <form className="space-y-6" onSubmit={handleSubmit}>
+    <form className="space-y-6" noValidate onSubmit={handleSubmit}>
       {successMessage ? <AuthFeedback variant="success">{successMessage}</AuthFeedback> : null}
       {error ? <AuthFeedback variant="error">{error}</AuthFeedback> : null}
       <label className="space-y-2 block">
         <span className="text-sm font-medium text-foreground">Current password</span>
-        <Input
-          type="password"
+        <PasswordInput
           value={values.currentPassword}
-          onChange={(event) =>
-            setValues((current) => ({ ...current, currentPassword: event.target.value }))
-          }
-          required
+          onChange={(event) => {
+            setValues((current) => ({ ...current, currentPassword: event.target.value }));
+            setFieldErrors((current) => ({ ...current, currentPassword: undefined }));
+          }}
+          aria-invalid={Boolean(fieldErrors.currentPassword)}
         />
+        {fieldErrors.currentPassword ? <p className="text-sm text-red-600">{fieldErrors.currentPassword}</p> : null}
       </label>
       <label className="space-y-2 block">
         <span className="text-sm font-medium text-foreground">New password</span>
-        <Input
-          type="password"
+        <PasswordInput
           value={values.newPassword}
-          onChange={(event) =>
-            setValues((current) => ({ ...current, newPassword: event.target.value }))
-          }
-          required
+          onChange={(event) => {
+            setValues((current) => ({ ...current, newPassword: event.target.value }));
+            setFieldErrors((current) => ({ ...current, newPassword: undefined }));
+          }}
+          aria-invalid={Boolean(fieldErrors.newPassword)}
         />
-        <AuthPasswordHint />
+        {fieldErrors.newPassword ? <p className="text-sm text-red-600">{fieldErrors.newPassword}</p> : null}
+        <AuthPasswordHint tone="light" />
       </label>
       <label className="space-y-2 block">
         <span className="text-sm font-medium text-foreground">Confirm new password</span>
-        <Input
-          type="password"
+        <PasswordInput
           value={values.confirmNewPassword}
-          onChange={(event) =>
+          onChange={(event) => {
             setValues((current) => ({
               ...current,
               confirmNewPassword: event.target.value,
-            }))
-          }
-          required
+            }));
+            setFieldErrors((current) => ({ ...current, confirmNewPassword: undefined }));
+          }}
+          aria-invalid={Boolean(fieldErrors.confirmNewPassword)}
         />
+        {fieldErrors.confirmNewPassword ? <p className="text-sm text-red-600">{fieldErrors.confirmNewPassword}</p> : null}
       </label>
       <div className="flex justify-end pt-2">
         <Button type="submit" size="lg" className="min-w-44 rounded-full" disabled={isSubmitting}>
-          {isSubmitting ? "Updating..." : "Change password"}
+          {isSubmitting ? "Updating..." : "Save new password"}
         </Button>
       </div>
     </form>

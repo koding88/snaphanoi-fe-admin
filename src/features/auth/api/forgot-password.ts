@@ -6,7 +6,7 @@ import type {
 } from "@/features/auth/types/auth-api.types";
 
 export function forgotPassword(payload: ForgotPasswordPayload) {
-  return apiClient.post<RequestAcceptedPayload>(
+  return apiClient.postEnvelope<RequestAcceptedPayload>(
     API_ENDPOINTS.auth.forgotPassword,
     payload,
   );

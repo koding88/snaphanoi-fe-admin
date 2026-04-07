@@ -13,6 +13,7 @@ import { ROUTES } from "@/lib/constants/routes";
 import { faRotateLeft, faTrashCan, faUserPen } from "@/lib/icons/fa";
 import { cn } from "@/lib/utils";
 import type { UserRecord } from "@/features/users/types/users.types";
+import { formatCountryCode } from "@/features/users/utils/users-format";
 
 type UsersTableProps = {
   users: UserRecord[];
@@ -92,7 +93,7 @@ export function UsersTable({ users, isBusy = false, onDelete, onRestore }: Users
                     <UserRoleBadge roleName={user.roleName} />
                   </td>
                   <td className="px-5 py-4 text-sm text-muted-foreground">
-                    {user.countryCode ?? "N/A"}
+                    {formatCountryCode(user.countryCode)}
                   </td>
                   <td className="px-5 py-4">
                     <UserStatusBadge isActive={user.isActive} deletedAt={user.deletedAt} />
@@ -146,8 +147,8 @@ export function UsersTable({ users, isBusy = false, onDelete, onRestore }: Users
         }
         description={
           pendingAction?.type === "delete"
-            ? "This performs a soft delete through the backend. The user can be restored later."
-            : "This will restore the soft-deleted user and return them to an active record."
+            ? "This archives the account for now. It can still be restored later."
+            : "This returns the archived account to the active roster."
         }
         confirmLabel={pendingAction?.type === "delete" ? "Delete user" : "Restore user"}
         confirmVariant={pendingAction?.type === "delete" ? "destructive" : "default"}

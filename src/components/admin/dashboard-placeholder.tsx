@@ -7,16 +7,21 @@ import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSectionHeading } from "@/components/admin/admin-section-heading";
 import { AdminShellBanner } from "@/components/admin/admin-shell-banner";
 import { AdminSurface } from "@/components/admin/admin-surface";
-import { EmptyState } from "@/components/shared/empty-state";
 import { PageHeader } from "@/components/shared/page-header";
-import { faArrowUpRightFromSquare, faFilm, faLayerGroup, faShieldHalved } from "@/lib/icons/fa";
+import {
+  faArrowUpRightFromSquare,
+  faCameraRetro,
+  faFilm,
+  faFolderTree,
+  faLayerGroup,
+  faShieldHalved,
+  faUserGroup,
+} from "@/lib/icons/fa";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
   faChartColumn,
-  faCircleNodes,
   faClockRotateLeft,
-  faPalette,
   faRectangleList,
 } from "@/lib/icons/fa";
 
@@ -27,36 +32,52 @@ const FOUNDATION_CARDS = [
     icon: faRectangleList,
   },
   {
-    title: "Module staging",
-    body: "Users and roles routes are product-like shell pages now, without prematurely inventing CRUD behavior or fake data.",
+    title: "Operational modules",
+    body: "Users and roles areas now share a consistent layout language and interaction model, ready for daily admin usage.",
     icon: faLayerGroup,
   },
   {
     title: "Auth continuity",
-    body: "The shell continues to respect Stage 2 session bootstrap and authenticated route guard behavior without structural churn.",
+    body: "Session continuity and guarded routes remain stable while the interface matures into a cleaner product shell.",
     icon: faShieldHalved,
   },
 ];
 
 const KPI_CARDS = [
   {
-    label: "Navigation",
-    value: "3",
-    caption: "Dashboard, Users, and Roles are now wired into a clear shell hierarchy.",
-    icon: faCircleNodes,
+    label: "Bookings This Week",
+    value: "18",
+    caption: "Mock planning volume for portrait, commercial, and travel sessions.",
+    icon: faCameraRetro,
   },
   {
-    label: "Readiness",
-    value: "Stage 4",
-    caption: "Users module can receive list, detail, and forms without replacing the shell.",
+    label: "Delivery Pace",
+    value: "92%",
+    caption: "Projects currently landing inside the planned delivery window.",
     icon: faChartColumn,
   },
   {
-    label: "Refinement",
-    value: "Stage 5",
-    caption: "Roles area already has enough structure to accept permission management next.",
-    icon: faClockRotateLeft,
+    label: "Client Mix",
+    value: "6 / 12",
+    caption: "Mock split between returning clients and first-time enquiries.",
+    icon: faUserGroup,
   },
+];
+
+const BOOKING_BARS = [
+  { label: "Mon", value: 6 },
+  { label: "Tue", value: 8 },
+  { label: "Wed", value: 5 },
+  { label: "Thu", value: 9 },
+  { label: "Fri", value: 7 },
+  { label: "Sat", value: 10 },
+];
+
+const PIPELINE_STEPS = [
+  { label: "Leads", value: "26", note: "Fresh enquiries from editorial and portrait clients" },
+  { label: "Quoted", value: "14", note: "Actively discussed proposals and treatment decks" },
+  { label: "Booked", value: "9", note: "Confirmed with deposit and production notes" },
+  { label: "Editing", value: "5", note: "Current post-production load this week" },
 ];
 
 export function DashboardPlaceholder() {
@@ -64,8 +85,8 @@ export function DashboardPlaceholder() {
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
         eyebrow="Admin shell"
-        title="A polished control surface for the studio."
-        description="This dashboard stays honest about the current backend scope while giving the admin area a strong, premium visual frame. It is practical, responsive, and ready for real module work in the next stages."
+        title="Studio operations at a glance."
+        description="A presentation-first overview that mirrors a premium photography studio workspace while staying aligned with current backend scope."
         meta={
           <>
             <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1.5 text-xs font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
@@ -108,55 +129,142 @@ export function DashboardPlaceholder() {
       </section>
       <AdminSurface className="p-6 md:p-8">
         <AdminSectionHeading
-          eyebrow="Dashboard placeholder"
-          title="No fabricated analytics, only stage-relevant hierarchy."
-          description="The backend handoff does not define dashboard metrics, so this surface stays deliberately non-fictional while still looking like a real product page."
+          eyebrow="Studio overview"
+          title="Curated mock signals for planning and delivery."
+          description="These panels are intentionally static and used to present a realistic visual hierarchy until analytics endpoints are introduced."
         />
-        <div className="mt-6 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
-          <div className="rounded-[1.75rem] border border-border/80 bg-white/70 p-5">
-            <div className="flex items-center gap-3">
-              <div className="flex size-11 items-center justify-center rounded-2xl border border-[--color-brand]/20 bg-[--color-brand-soft] text-[--color-brand]">
-                <FontAwesomeIcon icon={faFilm} />
+        <div className="mt-6 grid gap-4 xl:grid-cols-[1.15fr_0.85fr]">
+          <div className="grid gap-4">
+            <div className="rounded-[1.75rem] border border-border/80 bg-white/72 p-5">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
+                    Weekly bookings
+                  </p>
+                  <h3 className="mt-2 font-heading text-3xl tracking-[0.04em] text-foreground">
+                    Shoot calendar momentum
+                  </h3>
+                </div>
+                <div className="flex size-11 items-center justify-center rounded-2xl border border-[--color-brand]/20 bg-[--color-brand-soft] text-[--color-brand]">
+                  <FontAwesomeIcon icon={faFilm} />
+                </div>
               </div>
-              <div>
-                <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-                  Creative operations
-                </p>
-                <h3 className="font-heading text-3xl tracking-[0.04em] text-foreground">
-                  Placeholder with intent
-                </h3>
+              <div className="mt-6 grid grid-cols-6 gap-3">
+                {BOOKING_BARS.map((bar) => (
+                  <div key={bar.label} className="space-y-3">
+                    <div className="flex h-36 items-end">
+                      <div
+                        className="w-full rounded-t-[1rem] bg-[linear-gradient(180deg,rgba(205,174,111,0.9),rgba(167,130,63,0.72))]"
+                        style={{ height: `${bar.value * 10}%` }}
+                      />
+                    </div>
+                    <div className="text-center">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                        {bar.label}
+                      </p>
+                      <p className="mt-1 text-sm text-foreground">{bar.value}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-            <p className="mt-4 text-sm leading-7 text-muted-foreground">
-              The dashboard is currently a staging surface for shell quality, not a fabricated
-              reporting panel. That keeps the UI honest while still giving strong visual hierarchy.
-            </p>
+            <div className="rounded-[1.75rem] border border-border/80 bg-white/72 p-5">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
+                    Client pipeline
+                  </p>
+                  <h3 className="mt-2 font-heading text-3xl tracking-[0.04em] text-foreground">
+                    From enquiry to delivery
+                  </h3>
+                </div>
+                <div className="flex size-11 items-center justify-center rounded-2xl border border-[--color-brand]/20 bg-[--color-brand-soft] text-[--color-brand]">
+                  <FontAwesomeIcon icon={faFolderTree} />
+                </div>
+              </div>
+              <div className="mt-5 grid gap-3 md:grid-cols-2">
+                {PIPELINE_STEPS.map((step, index) => (
+                  <div key={step.label} className="rounded-[1.25rem] border border-border/70 bg-[color:rgba(255,255,255,0.74)] p-4">
+                    <p className="text-xs font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
+                      {step.label}
+                    </p>
+                    <div className="mt-2 flex items-end justify-between gap-3">
+                      <p className="font-heading text-4xl tracking-[0.04em] text-foreground">{step.value}</p>
+                      <span className="text-xs text-muted-foreground">0{index + 1}</span>
+                    </div>
+                    <p className="mt-3 text-sm leading-6 text-muted-foreground">{step.note}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-          <div className="rounded-[1.75rem] border border-slate-900/10 bg-[linear-gradient(180deg,rgba(20,27,39,0.97),rgba(14,20,31,0.95))] p-5 text-white">
-            <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-              Design note
-            </p>
-            <h3 className="mt-2 font-heading text-3xl tracking-[0.04em]">
-              Editorial, not ornamental
-            </h3>
-            <p className="mt-4 text-sm leading-7 text-white/72">
-              The shell leans on typography, tonal contrast, and layered surfaces rather than noisy
-              widgets or fake charts. That keeps it premium and usable.
-            </p>
+          <div className="grid gap-4">
+            <div className="rounded-[1.75rem] border border-slate-900/10 bg-[linear-gradient(180deg,rgba(20,27,39,0.97),rgba(14,20,31,0.95))] p-5 text-white">
+              <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
+                Studio note
+              </p>
+              <h3 className="mt-2 font-heading text-3xl tracking-[0.04em]">
+                Editorial, not ornamental
+              </h3>
+              <p className="mt-4 text-sm leading-7 text-white/72">
+                This view communicates weekly momentum and production focus without implying live analytics integration.
+              </p>
+            </div>
+            <div className="rounded-[1.75rem] border border-border/80 bg-white/72 p-5">
+              <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
+                Team readiness
+              </p>
+              <div className="mt-4 space-y-4">
+                <div>
+                  <div className="mb-2 flex items-center justify-between text-sm">
+                    <span className="text-foreground">Admin workflows</span>
+                    <span className="text-muted-foreground">94%</span>
+                  </div>
+                  <div className="h-2 rounded-full bg-[--color-brand-soft]">
+                    <div className="h-full w-[94%] rounded-full bg-[linear-gradient(90deg,var(--color-brand),#8d6a2f)]" />
+                  </div>
+                </div>
+                <div>
+                  <div className="mb-2 flex items-center justify-between text-sm">
+                    <span className="text-foreground">Client comms flow</span>
+                    <span className="text-muted-foreground">81%</span>
+                  </div>
+                  <div className="h-2 rounded-full bg-[--color-brand-soft]">
+                    <div className="h-full w-[81%] rounded-full bg-[linear-gradient(90deg,var(--color-brand),#8d6a2f)]" />
+                  </div>
+                </div>
+                <div>
+                  <div className="mb-2 flex items-center justify-between text-sm">
+                    <span className="text-foreground">Delivery coordination</span>
+                    <span className="text-muted-foreground">88%</span>
+                  </div>
+                  <div className="h-2 rounded-full bg-[--color-brand-soft]">
+                    <div className="h-full w-[88%] rounded-full bg-[linear-gradient(90deg,var(--color-brand),#8d6a2f)]" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="rounded-[1.75rem] border border-border/80 bg-white/72 p-5">
+              <div className="flex items-center gap-3">
+                <div className="flex size-11 items-center justify-center rounded-2xl border border-[--color-brand]/20 bg-[--color-brand-soft] text-[--color-brand]">
+                  <FontAwesomeIcon icon={faClockRotateLeft} />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
+                    Current focus
+                  </p>
+                  <h3 className="font-heading text-3xl tracking-[0.04em] text-foreground">
+                    Fewer raw admin edges
+                  </h3>
+                </div>
+              </div>
+              <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                Auth continuity, account controls, and management workflows now read as a cohesive product experience.
+              </p>
+            </div>
           </div>
         </div>
       </AdminSurface>
-      <EmptyState
-        eyebrow="Next stages"
-        title="This dashboard stays intentionally honest."
-        description="There is still no fabricated analytics layer here. The value of this page is the shell quality, hierarchy, and continuity across the rest of the admin product."
-        action={
-          <div className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-white/70 px-4 py-2 text-sm text-muted-foreground">
-            <FontAwesomeIcon icon={faPalette} className="text-[--color-brand]" />
-            Product shell refined without inventing backend data
-          </div>
-        }
-      />
     </AdminPageContainer>
   );
 }

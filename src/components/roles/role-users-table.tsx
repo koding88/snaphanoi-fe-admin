@@ -3,6 +3,7 @@ import Link from "next/link";
 import { UserStatusBadge } from "@/components/users/user-status-badge";
 import { ROUTES } from "@/lib/constants/routes";
 import type { RoleUserRecord } from "@/features/roles/types/roles.types";
+import { formatCountryCode } from "@/features/users/utils/users-format";
 
 export function RoleUsersTable({ users }: { users: RoleUserRecord[] }) {
   return (
@@ -31,7 +32,7 @@ export function RoleUsersTable({ users }: { users: RoleUserRecord[] }) {
                   </div>
                 </td>
                 <td className="px-5 py-4 text-sm text-muted-foreground">
-                  {user.countryCode ?? "N/A"}
+                  {formatCountryCode(user.countryCode)}
                 </td>
                 <td className="px-5 py-4">
                   <UserStatusBadge isActive={user.isActive} deletedAt={user.deletedAt} />

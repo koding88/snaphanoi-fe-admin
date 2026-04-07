@@ -1,13 +1,21 @@
-export type ApiSuccessEnvelope<T> = {
+export type ApiEnvelopeMeta = {
+  message?: string | null;
+  statusCode: number;
+  timestamp?: string;
+  path?: string;
+  requestId?: string;
+};
+
+export type ApiSuccessEnvelope<T> = ApiEnvelopeMeta & {
   success: true;
   error: null;
-  statusCode: number;
   data: T;
 };
 
-export type ApiErrorEnvelope = {
+export type ApiErrorEnvelope = ApiEnvelopeMeta & {
   success: false;
-  error: string;
-  statusCode: number;
-  message?: string;
+  error: string | null;
+  data: null;
 };
+
+export type ApiEnvelope<T> = ApiSuccessEnvelope<T> | ApiErrorEnvelope;

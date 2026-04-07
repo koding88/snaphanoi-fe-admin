@@ -9,7 +9,7 @@ import type {
 export async function updateMyProfile(payload: UpdateMyProfilePayload) {
   const accessToken = useAuthStore.getState().session.accessToken;
 
-  return apiClient.patch<UserMutationResult>(API_ENDPOINTS.users.me, payload, {
+  return apiClient.patchEnvelope<UserMutationResult>(API_ENDPOINTS.users.me, payload, {
     accessToken,
   });
 }

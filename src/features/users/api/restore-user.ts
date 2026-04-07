@@ -6,7 +6,7 @@ import type { UserMutationResult } from "@/features/users/types/users-api.types"
 export async function restoreUser(id: string) {
   const accessToken = useAuthStore.getState().session.accessToken;
 
-  return apiClient.patch<UserMutationResult>(API_ENDPOINTS.users.restore(id), undefined, {
+  return apiClient.patchEnvelope<UserMutationResult>(API_ENDPOINTS.users.restore(id), undefined, {
     accessToken,
   });
 }

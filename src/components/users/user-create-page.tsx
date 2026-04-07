@@ -37,7 +37,7 @@ export function UserCreatePage() {
   }, []);
 
   async function handleSubmit(values: UserFormValues) {
-    const user = await createUser({
+    const response = await createUser({
       name: values.name,
       email: values.email,
       password: values.password,
@@ -45,15 +45,15 @@ export function UserCreatePage() {
       roleId: values.roleId,
     });
 
-    router.replace(ROUTES.admin.users.detail(user.id));
+    router.replace(ROUTES.admin.users.detail(response.data.id));
   }
 
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
         eyebrow="Create user"
-        title="Add a new user account."
-        description="This form maps directly to the backend create-user semantics, including role assignment and initial password."
+        title="Add a new team member."
+        description="Create a new studio account with the right role, location, and a first-time password."
       />
       {isLoading ? (
         <LoadingState
@@ -67,8 +67,8 @@ export function UserCreatePage() {
           <UserForm
             mode="create"
             roles={roles}
-            submitLabel="Create user"
-            description="Create-user is an admin action. Duplicate email conflicts are surfaced from the backend."
+            submitLabel="Create account"
+            description="Choose a role and country, then set a first-time password for this account."
             onSubmit={handleSubmit}
           />
         </AdminSurface>

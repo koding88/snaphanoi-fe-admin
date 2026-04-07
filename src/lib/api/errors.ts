@@ -1,23 +1,37 @@
+import type { ApiErrorEnvelope } from "@/types/api-response";
+
 export class ApiError extends Error {
   code: string | null;
   statusCode: number;
-  details?: unknown;
+  requestId?: string;
+  path?: string;
+  timestamp?: string;
+  details?: ApiErrorEnvelope | null;
 
   constructor({
     code,
     message,
     statusCode,
+    requestId,
+    path,
+    timestamp,
     details,
   }: {
     code: string | null;
     message: string;
     statusCode: number;
-    details?: unknown;
+    requestId?: string;
+    path?: string;
+    timestamp?: string;
+    details?: ApiErrorEnvelope | null;
   }) {
     super(message);
     this.name = "ApiError";
     this.code = code;
     this.statusCode = statusCode;
+    this.requestId = requestId;
+    this.path = path;
+    this.timestamp = timestamp;
     this.details = details;
   }
 }

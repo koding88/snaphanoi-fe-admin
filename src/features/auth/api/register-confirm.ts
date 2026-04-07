@@ -6,7 +6,7 @@ import type {
 } from "@/features/auth/types/auth-api.types";
 
 export function registerConfirm(payload: RegisterConfirmPayload) {
-  return apiClient.post<RegisterConfirmedPayload>(
+  return apiClient.postEnvelope<RegisterConfirmedPayload>(
     API_ENDPOINTS.auth.registerConfirm,
     payload,
   );

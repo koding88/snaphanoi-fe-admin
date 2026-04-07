@@ -6,7 +6,7 @@ import type { DeleteRoleResult } from "@/features/roles/types/roles-api.types";
 export async function deleteRole(id: string) {
   const accessToken = useAuthStore.getState().session.accessToken;
 
-  return apiClient.delete<DeleteRoleResult>(API_ENDPOINTS.roles.byId(id), {
+  return apiClient.deleteEnvelope<DeleteRoleResult>(API_ENDPOINTS.roles.byId(id), {
     accessToken,
   });
 }

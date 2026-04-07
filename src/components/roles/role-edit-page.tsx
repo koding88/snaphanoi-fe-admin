@@ -38,16 +38,16 @@ export function RoleEditPage({ id }: { id: string }) {
   }, [id]);
 
   async function handleSubmit(payload: { name: string }) {
-    const updated = await updateRole(id, payload);
-    router.replace(ROUTES.admin.roles.detail(updated.id));
+    const response = await updateRole(id, payload);
+    router.replace(ROUTES.admin.roles.detail(response.data.id));
   }
 
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
         eyebrow="Edit role"
-        title="Update a role definition."
-        description="The current backend update-role contract only accepts a role name change."
+        title="Update a role."
+        description="Adjust the role name while keeping the role key and usage history intact."
       />
       {isLoading ? (
         <LoadingState title="Loading role" description="Fetching the current role record." />
@@ -58,7 +58,7 @@ export function RoleEditPage({ id }: { id: string }) {
           <RoleForm
             initialName={role.name}
             submitLabel="Save changes"
-            description="Role key and usage counts are backend-managed and shown on the detail page."
+            description="Rename this role to keep your access model clear and consistent."
             onSubmit={handleSubmit}
           />
         </AdminSurface>

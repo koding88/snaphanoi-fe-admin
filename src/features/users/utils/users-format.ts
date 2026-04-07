@@ -1,3 +1,5 @@
+import { getCountryByCode } from "@/lib/constants/countries";
+
 export function formatDateTime(value: string | null) {
   if (!value) {
     return "N/A";
@@ -10,5 +12,15 @@ export function formatDateTime(value: string | null) {
 }
 
 export function formatCountryCode(value: string | null) {
-  return value || "N/A";
+  if (!value) {
+    return "N/A";
+  }
+
+  const country = getCountryByCode(value);
+
+  if (!country) {
+    return value;
+  }
+
+  return `${country.flag} ${country.name}`;
 }

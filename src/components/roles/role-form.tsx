@@ -24,11 +24,19 @@ export function RoleForm({
 }: RoleFormProps) {
   const [name, setName] = useState(initialName);
   const [error, setError] = useState<string | null>(null);
+  const [fieldError, setFieldError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
+    setFieldError(null);
+
+    if (!name.trim()) {
+      setFieldError("Role name is required.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -41,7 +49,7 @@ export function RoleForm({
   }
 
   return (
-    <form className="space-y-6" onSubmit={handleSubmit}>
+    <form className="space-y-6" noValidate onSubmit={handleSubmit}>
       {description ? <p className="text-sm leading-7 text-muted-foreground">{description}</p> : null}
       {successMessage ? <AuthFeedback variant="success">{successMessage}</AuthFeedback> : null}
       {error ? <AuthFeedback variant="error">{error}</AuthFeedback> : null}
@@ -49,10 +57,14 @@ export function RoleForm({
         <span className="text-sm font-medium text-foreground">Role name</span>
         <Input
           value={name}
-          onChange={(event) => setName(event.target.value)}
+          onChange={(event) => {
+            setName(event.target.value);
+            setFieldError(null);
+          }}
           placeholder="Manager"
-          required
+          aria-invalid={Boolean(fieldError)}
         />
+        {fieldError ? <p className="text-sm text-red-600">{fieldError}</p> : null}
       </label>
       <div className="flex justify-end pt-2">
         <Button type="submit" size="lg" className="min-w-40 rounded-full" disabled={isSubmitting}>

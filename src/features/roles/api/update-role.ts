@@ -6,7 +6,7 @@ import type { RolePayload, RoleMutationResult } from "@/features/roles/types/rol
 export async function updateRole(id: string, payload: RolePayload) {
   const accessToken = useAuthStore.getState().session.accessToken;
 
-  return apiClient.patch<RoleMutationResult>(API_ENDPOINTS.roles.byId(id), payload, {
+  return apiClient.patchEnvelope<RoleMutationResult>(API_ENDPOINTS.roles.byId(id), payload, {
     accessToken,
   });
 }

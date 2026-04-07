@@ -13,21 +13,21 @@ export function RoleCreatePage() {
   const router = useRouter();
 
   async function handleSubmit(payload: { name: string }) {
-    const role = await createRole(payload);
-    router.replace(ROUTES.admin.roles.detail(role.id));
+    const response = await createRole(payload);
+    router.replace(ROUTES.admin.roles.detail(response.data.id));
   }
 
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
         eyebrow="Create role"
-        title="Add a new role."
-        description="Create-role currently accepts only the role name. The backend generates and returns the role key."
+        title="Create a new role."
+        description="Define a clear role name for your studio team."
       />
       <AdminSurface className="p-6 md:p-8">
         <RoleForm
           submitLabel="Create role"
-          description="Duplicate role names return a backend conflict and are surfaced inline."
+          description="Use role names that are easy to understand at a glance."
           onSubmit={handleSubmit}
         />
       </AdminSurface>

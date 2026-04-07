@@ -27,21 +27,22 @@ export function MyProfilePage() {
   const currentUser = user;
 
   async function handleSubmit(payload: { name: string; email: string; countryCode: string }) {
-    const updated = await updateMyProfile(payload);
+    const response = await updateMyProfile(payload);
+    const updated = response.data;
     setUser({
       ...currentUser,
       ...updated,
       roleKey: currentUser.roleKey ?? null,
     });
-    setSuccessMessage("Profile updated successfully.");
+    setSuccessMessage(response.message ?? "Profile updated successfully.");
   }
 
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
         eyebrow="My profile"
-        title="Update your own profile."
-        description="This page maps to the dedicated self-service endpoint rather than the generic admin update-user action."
+        title="Profile settings."
+        description="Keep your own name, email, and country details up to date without opening the admin user editor."
       />
       <AdminSurface className="p-6 md:p-8">
         <ProfileForm user={currentUser} onSubmit={handleSubmit} successMessage={successMessage} />

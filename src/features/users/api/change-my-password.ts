@@ -9,7 +9,7 @@ import type {
 export async function changeMyPassword(payload: ChangeMyPasswordPayload) {
   const accessToken = useAuthStore.getState().session.accessToken;
 
-  return apiClient.patch<ChangeMyPasswordResult>(API_ENDPOINTS.users.changePassword, payload, {
+  return apiClient.patchEnvelope<ChangeMyPasswordResult>(API_ENDPOINTS.users.changePassword, payload, {
     accessToken,
   });
 }

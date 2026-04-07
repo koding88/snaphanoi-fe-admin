@@ -7,41 +7,72 @@ import { AuthFeedback } from "@/components/auth/auth-feedback";
 import { AuthField } from "@/components/auth/auth-field";
 import { AuthFormShell } from "@/components/auth/auth-form-shell";
 import { AuthPasswordHint } from "@/components/auth/auth-password-hint";
+import { CountrySelect } from "@/components/shared/country-select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { register } from "@/features/auth/api/register";
 import { getFriendlyAuthError } from "@/features/auth/utils/auth-errors";
 import { isStrongPassword } from "@/features/auth/utils/password-policy";
+import { DEFAULT_COUNTRY_CODE } from "@/lib/constants/countries";
 
-const COUNTRY_OPTIONS = ["VN", "SG", "US", "JP", "KR"];
+type RegisterFieldErrors = {
+  name?: string;
+  email?: string;
+  password?: string;
+};
 
 export function RegisterForm() {
   const [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
-    countryCode: "VN",
+    countryCode: DEFAULT_COUNTRY_CODE,
   });
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<RegisterFieldErrors>({});
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  function validateFields() {
+    const nextErrors: RegisterFieldErrors = {};
+
+    if (!form.name.trim()) {
+      nextErrors.name = "Full name is required.";
+    }
+
+    if (!form.email.trim()) {
+      nextErrors.email = "Email is required.";
+    } else if (!/\S+@\S+\.\S+/.test(form.email.trim())) {
+      nextErrors.email = "Enter a valid email address.";
+    }
+
+    if (!form.password) {
+      nextErrors.password = "Password is required.";
+    } else if (!isStrongPassword(form.password)) {
+      nextErrors.password =
+        "Password must be at least 8 characters and include uppercase, lowercase, and a number.";
+    }
+
+    return nextErrors;
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
+    setSuccessMessage(null);
+    const nextFieldErrors = validateFields();
+    setFieldErrors(nextFieldErrors);
 
-    if (!isStrongPassword(form.password)) {
-      setError(
-        "Password must be at least 8 characters and include uppercase, lowercase, and a number.",
-      );
+    if (Object.keys(nextFieldErrors).length > 0) {
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      await register(form);
-      setSuccess(true);
+      const response = await register(form);
+      setSuccessMessage(response.message ?? "Registration confirmation email sent successfully.");
     } catch (submissionError) {
       setError(getFriendlyAuthError(submissionError, "register"));
     } finally {
@@ -52,8 +83,8 @@ export function RegisterForm() {
   return (
     <AuthFormShell
       eyebrow="Register"
-      title="Request a new admin registration."
-      description="Registration is a two-step flow. Submitting this form only creates a pending registration request and sends a confirmation email."
+      title="Request studio access."
+      description="We will create a pending registration request and send a confirmation link to your email before the account becomes active."
       footer={
         <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-white/65">
           <span>Registration does not create a usable account immediately.</span>
@@ -63,70 +94,64 @@ export function RegisterForm() {
         </div>
       }
     >
-      <form className="space-y-5" onSubmit={handleSubmit}>
-        {success ? (
-          <AuthFeedback variant="success">
-            Registration requested. Check your email for the confirmation token, then continue on the confirm page.
-          </AuthFeedback>
-        ) : null}
+      <form className="space-y-5" noValidate onSubmit={handleSubmit}>
+        {successMessage ? <AuthFeedback variant="success">{successMessage}</AuthFeedback> : null}
         {error ? <AuthFeedback variant="error">{error}</AuthFeedback> : null}
-        <AuthField label="Full name" htmlFor="name">
+        <AuthField label="Full name" htmlFor="name" error={fieldErrors.name ?? null}>
           <Input
             id="name"
             name="name"
             autoComplete="name"
             value={form.name}
-            onChange={(event) => setForm((current) => ({ ...current, name: event.target.value }))}
+            onChange={(event) => {
+              setForm((current) => ({ ...current, name: event.target.value }));
+              setFieldErrors((current) => ({ ...current, name: undefined }));
+            }}
             placeholder="Nguyen Van C"
-            required
+            aria-invalid={Boolean(fieldErrors.name)}
           />
         </AuthField>
-        <AuthField label="Email" htmlFor="register-email">
+        <AuthField label="Email" htmlFor="register-email" error={fieldErrors.email ?? null}>
           <Input
             id="register-email"
             name="email"
             type="email"
             autoComplete="email"
             value={form.email}
-            onChange={(event) => setForm((current) => ({ ...current, email: event.target.value }))}
+            onChange={(event) => {
+              setForm((current) => ({ ...current, email: event.target.value }));
+              setFieldErrors((current) => ({ ...current, email: undefined }));
+            }}
             placeholder="newuser@gmail.com"
-            required
+            aria-invalid={Boolean(fieldErrors.email)}
           />
         </AuthField>
-        <AuthField label="Password" htmlFor="register-password">
-          <Input
+        <AuthField label="Password" htmlFor="register-password" error={fieldErrors.password ?? null}>
+          <PasswordInput
             id="register-password"
             name="password"
-            type="password"
             autoComplete="new-password"
             value={form.password}
             onChange={(event) =>
-              setForm((current) => ({ ...current, password: event.target.value }))
+              {
+                setForm((current) => ({ ...current, password: event.target.value }));
+                setFieldErrors((current) => ({ ...current, password: undefined }));
+              }
             }
             placeholder="Password123A"
-            required
+            aria-invalid={Boolean(fieldErrors.password)}
           />
           <AuthPasswordHint />
         </AuthField>
-        <AuthField label="Country code" htmlFor="countryCode" hint="ISO alpha-2">
-          <select
+        <AuthField label="Country" htmlFor="countryCode" hint="Search by name">
+          <CountrySelect
             id="countryCode"
-            name="countryCode"
             value={form.countryCode}
-            onChange={(event) =>
-              setForm((current) => ({ ...current, countryCode: event.target.value }))
-            }
-            className="flex h-12 w-full rounded-2xl border border-border/80 bg-background/92 px-4 text-sm text-foreground outline-none transition-colors focus:border-[--color-brand]/40 focus:ring-3 focus:ring-[--color-brand]/12"
-          >
-            {COUNTRY_OPTIONS.map((countryCode) => (
-              <option key={countryCode} value={countryCode}>
-                {countryCode}
-              </option>
-            ))}
-          </select>
+            onChange={(countryCode) => setForm((current) => ({ ...current, countryCode }))}
+          />
         </AuthField>
         <Button type="submit" size="lg" className="h-12 w-full rounded-full" disabled={isSubmitting}>
-          {isSubmitting ? "Submitting..." : "Request registration"}
+          {isSubmitting ? "Submitting..." : "Send confirmation link"}
         </Button>
       </form>
     </AuthFormShell>

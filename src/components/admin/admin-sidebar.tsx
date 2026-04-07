@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { useAuthStore } from "@/features/auth/store/auth.store";
-import { ADMIN_NAV_ITEMS } from "@/lib/constants/nav";
+import { ADMIN_NAV_ITEMS, isAdminNavItemActive } from "@/lib/constants/nav";
 import { AppLogo } from "@/components/shared/app-logo";
 import { faChevronRight, faUserLarge, faWandMagicSparkles } from "@/lib/icons/fa";
 import { cn } from "@/lib/utils";
@@ -50,7 +50,7 @@ export function AdminSidebar({ mobile = false, onNavigate }: AdminSidebarProps) 
       </div>
       <nav className="mt-3 flex flex-1 flex-col gap-2 overflow-y-auto pr-1">
         {ADMIN_NAV_ITEMS.map((item) => {
-          const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+          const isActive = isAdminNavItemActive(item.href, pathname);
 
           return (
             <Link
@@ -58,10 +58,10 @@ export function AdminSidebar({ mobile = false, onNavigate }: AdminSidebarProps) 
               href={item.href}
               onClick={onNavigate}
               className={cn(
-                "group surface-float flex items-center gap-3 rounded-2xl px-3 py-3 text-sm transition-colors",
+                "group flex items-center gap-3 rounded-2xl border px-3 py-3 text-sm transition-colors",
                 isActive
                   ? "border border-[--color-brand]/15 bg-[--color-brand-soft] text-foreground shadow-[0_14px_30px_rgba(205,174,111,0.12)]"
-                  : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
+                  : "border-transparent text-muted-foreground hover:border-border/70 hover:bg-muted/60 hover:text-foreground",
               )}
             >
               <span
@@ -87,11 +87,10 @@ export function AdminSidebar({ mobile = false, onNavigate }: AdminSidebarProps) 
       </nav>
       <div className="mt-5 rounded-2xl border border-border/80 bg-background/90 p-4">
         <p className="text-xs font-semibold tracking-[0.26em] text-[--color-brand-muted] uppercase">
-          Shell status
+          Account
         </p>
         <p className="mt-2 text-sm leading-6 text-muted-foreground">
-          Auth, users, and roles now share one refined surface language. This panel remains a calm
-          anchor on smaller and larger screens.
+          Personal settings and password now live in the top-right account menu, separate from user administration.
         </p>
       </div>
     </aside>

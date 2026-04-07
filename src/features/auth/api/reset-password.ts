@@ -6,7 +6,7 @@ import type {
 } from "@/features/auth/types/auth-api.types";
 
 export function resetPassword(payload: ResetPasswordPayload) {
-  return apiClient.post<ResetPasswordSuccessPayload>(
+  return apiClient.postEnvelope<ResetPasswordSuccessPayload>(
     API_ENDPOINTS.auth.resetPassword,
     payload,
   );

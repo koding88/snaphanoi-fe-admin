@@ -36,8 +36,7 @@ export function AdminShellBanner() {
               Refined, not overbuilt
             </h3>
             <p className="text-sm leading-6 text-muted-foreground">
-              Auth, users, and roles remain grounded in the backend handoff. This pass only
-              improves readability, responsiveness, and consistency.
+              The product now feels calmer, clearer, and more intentional without changing the approved feature set.
             </p>
           </div>
         </div>

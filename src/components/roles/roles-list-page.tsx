@@ -12,7 +12,8 @@ import { ErrorState } from "@/components/shared/error-state";
 import { LoadingState } from "@/components/shared/loading-state";
 import { PageHeader } from "@/components/shared/page-header";
 import { buttonVariants } from "@/components/ui/button";
-import { Input, selectChrome } from "@/components/ui/input";
+import { Input } from "@/components/ui/input";
+import { AppSelect } from "@/components/ui/select";
 import { RolesTable } from "@/components/roles/roles-table";
 import { deleteRole } from "@/features/roles/api/delete-role";
 import { listRoles } from "@/features/roles/api/list-roles";
@@ -71,8 +72,8 @@ export function RolesListPage() {
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
         eyebrow="Roles"
-        title="Manage role definitions."
-        description="This page maps directly to the backend role endpoints: list, create, update, delete, and inspect users assigned to a role."
+        title="Manage access roles."
+        description="Keep role naming clear, review adoption, and maintain a clean access structure for the studio team."
         meta={
           <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1.5 text-xs font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
             Admin only
@@ -94,7 +95,7 @@ export function RolesListPage() {
             Role identity
           </span>
           <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-            In-use feedback handled by backend
+            Type and usage overview
           </span>
         </div>
         <div className="grid gap-4 md:grid-cols-3">
@@ -114,29 +115,29 @@ export function RolesListPage() {
           </label>
           <label className="space-y-2">
             <span className="text-sm font-medium text-foreground">Role type</span>
-            <select
+            <AppSelect
               value={String(query.isSystem)}
-              onChange={(event) =>
+              onChange={(roleType) =>
                 setQuery((current) => ({
                   ...current,
                   page: 1,
                   isSystem:
-                    event.target.value === "all" ? "all" : event.target.value === "true",
+                    roleType === "all" ? "all" : roleType === "true",
                 }))
               }
-              className={selectChrome}
-            >
-              <option value="all">All</option>
-              <option value="false">Custom</option>
-              <option value="true">System</option>
-            </select>
+              options={[
+                { value: "all", label: "All role types" },
+                { value: "false", label: "Custom roles" },
+                { value: "true", label: "System roles" },
+              ]}
+            />
           </label>
         </div>
       </AdminSurface>
       {isLoading ? (
         <LoadingState
           title="Loading roles"
-          description="Fetching role definitions and their usage counts from the backend."
+          description="Preparing role definitions and usage counts."
         />
       ) : error ? (
         <ErrorState
@@ -192,7 +193,7 @@ export function RolesListPage() {
         <EmptyState
           eyebrow="Roles"
           title="No roles matched the current filters."
-          description="Try adjusting the keyword or system-role filter. Only backend-supported role filters are used here."
+          description="Try a broader keyword or switch role type."
           action={
             <Link
               href={ROUTES.admin.roles.create}

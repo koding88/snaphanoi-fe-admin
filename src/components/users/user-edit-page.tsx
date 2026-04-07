@@ -41,7 +41,7 @@ export function UserEditPage({ id }: { id: string }) {
   }, [id]);
 
   async function handleSubmit(values: UserFormValues) {
-    const updated = await updateUser(id, {
+    const response = await updateUser(id, {
       name: values.name,
       email: values.email,
       password: values.password || undefined,
@@ -50,15 +50,15 @@ export function UserEditPage({ id }: { id: string }) {
       isActive: values.isActive,
     });
 
-    router.replace(ROUTES.admin.users.detail(updated.id));
+    router.replace(ROUTES.admin.users.detail(response.data.id));
   }
 
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
         eyebrow="Edit user"
-        title="Update an existing user."
-        description="This form maps to the admin update-user endpoint, including role, status, and optional password replacement."
+        title="Update account details."
+        description="Adjust role, availability, profile details, or replace the password when needed."
       />
       {isLoading ? (
         <LoadingState title="Loading user" description="Fetching the current user record and role options." />
@@ -71,7 +71,7 @@ export function UserEditPage({ id }: { id: string }) {
             roles={roles}
             initialValues={getUserFormInitialValues(user)}
             submitLabel="Save changes"
-            description="Leave the password field blank if the current password should remain unchanged."
+            description="Leave the password field empty if the current password should stay in place."
             onSubmit={handleSubmit}
           />
         </AdminSurface>

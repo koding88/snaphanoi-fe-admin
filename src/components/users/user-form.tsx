@@ -4,8 +4,12 @@ import { useState, type FormEvent } from "react";
 
 import { AuthPasswordHint } from "@/components/auth/auth-password-hint";
 import { AuthFeedback } from "@/components/auth/auth-feedback";
+import { CountrySelect } from "@/components/shared/country-select";
 import { Button } from "@/components/ui/button";
-import { Input, selectChrome } from "@/components/ui/input";
+import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
+import { AppSelect } from "@/components/ui/select";
+import { DEFAULT_COUNTRY_CODE } from "@/lib/constants/countries";
 import type { RoleOption, UserRecord } from "@/features/users/types/users.types";
 import { getFriendlyUsersError } from "@/features/users/utils/users-errors";
 import { isStrongPassword } from "@/features/auth/utils/password-policy";
@@ -42,28 +46,54 @@ export function UserForm({
     name: initialValues?.name ?? "",
     email: initialValues?.email ?? "",
     password: initialValues?.password ?? "",
-    countryCode: initialValues?.countryCode ?? "VN",
+    countryCode: initialValues?.countryCode ?? DEFAULT_COUNTRY_CODE,
     roleId: initialValues?.roleId ?? roles[0]?.id ?? "",
     isActive: initialValues?.isActive ?? true,
   });
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<{
+    name?: string;
+    email?: string;
+    password?: string;
+  }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
+    const nextFieldErrors: {
+      name?: string;
+      email?: string;
+      password?: string;
+    } = {};
 
-    if (mode === "create" && !isStrongPassword(values.password)) {
-      setError(
-        "Password must be at least 8 characters and include uppercase, lowercase, and a number.",
-      );
-      return;
+    if (!values.name.trim()) {
+      nextFieldErrors.name = "Full name is required.";
+    }
+
+    if (!values.email.trim()) {
+      nextFieldErrors.email = "Email is required.";
+    } else if (!/\S+@\S+\.\S+/.test(values.email.trim())) {
+      nextFieldErrors.email = "Enter a valid email address.";
+    }
+
+    if (mode === "create") {
+      if (!values.password) {
+        nextFieldErrors.password = "Password is required.";
+      } else if (!isStrongPassword(values.password)) {
+        nextFieldErrors.password =
+          "Password must be at least 8 characters and include uppercase, lowercase, and a number.";
+      }
     }
 
     if (mode === "edit" && values.password && !isStrongPassword(values.password)) {
-      setError(
-        "If you provide a new password, it must be at least 8 characters and include uppercase, lowercase, and a number.",
-      );
+      nextFieldErrors.password =
+        "If you provide a new password, it must be at least 8 characters and include uppercase, lowercase, and a number.";
+    }
+
+    setFieldErrors(nextFieldErrors);
+
+    if (Object.keys(nextFieldErrors).length > 0) {
       return;
     }
 
@@ -79,7 +109,7 @@ export function UserForm({
   }
 
   return (
-    <form className="space-y-6" onSubmit={handleSubmit}>
+    <form className="space-y-6" noValidate onSubmit={handleSubmit}>
       {description ? <p className="text-sm leading-7 text-muted-foreground">{description}</p> : null}
       {successMessage ? <AuthFeedback variant="success">{successMessage}</AuthFeedback> : null}
       {error ? <AuthFeedback variant="error">{error}</AuthFeedback> : null}
@@ -88,82 +118,85 @@ export function UserForm({
           <span className="text-sm font-medium text-foreground">Full name</span>
           <Input
             value={values.name}
-            onChange={(event) => setValues((current) => ({ ...current, name: event.target.value }))}
+            onChange={(event) => {
+              setValues((current) => ({ ...current, name: event.target.value }));
+              setFieldErrors((current) => ({ ...current, name: undefined }));
+            }}
             placeholder="Nguyen Van A"
-            required
+            aria-invalid={Boolean(fieldErrors.name)}
           />
+          {fieldErrors.name ? <p className="text-sm text-red-600">{fieldErrors.name}</p> : null}
         </label>
         <label className="space-y-2">
           <span className="text-sm font-medium text-foreground">Email</span>
           <Input
             type="email"
             value={values.email}
-            onChange={(event) =>
-              setValues((current) => ({ ...current, email: event.target.value }))
-            }
+            onChange={(event) => {
+              setValues((current) => ({ ...current, email: event.target.value }));
+              setFieldErrors((current) => ({ ...current, email: undefined }));
+            }}
             placeholder="user@gmail.com"
-            required
+            aria-invalid={Boolean(fieldErrors.email)}
           />
+          {fieldErrors.email ? <p className="text-sm text-red-600">{fieldErrors.email}</p> : null}
         </label>
         <label className="space-y-2">
           <span className="text-sm font-medium text-foreground">
             {mode === "create" ? "Password" : "New password"}
           </span>
-          <Input
-            type="password"
+          <PasswordInput
             value={values.password}
             onChange={(event) =>
-              setValues((current) => ({ ...current, password: event.target.value }))
+              {
+                setValues((current) => ({ ...current, password: event.target.value }));
+                setFieldErrors((current) => ({ ...current, password: undefined }));
+              }
             }
             placeholder={mode === "create" ? "MySecurePass1" : "Leave blank to keep current password"}
-            required={mode === "create"}
+            aria-invalid={Boolean(fieldErrors.password)}
           />
-          <AuthPasswordHint />
+          {fieldErrors.password ? <p className="text-sm text-red-600">{fieldErrors.password}</p> : null}
+          <AuthPasswordHint tone="light" />
         </label>
         <label className="space-y-2">
-          <span className="text-sm font-medium text-foreground">Country code</span>
-          <Input
+          <span className="text-sm font-medium text-foreground">Country</span>
+          <CountrySelect
             value={values.countryCode}
-            onChange={(event) =>
-              setValues((current) => ({ ...current, countryCode: event.target.value.toUpperCase() }))
+            onChange={(countryCode) =>
+              setValues((current) => ({ ...current, countryCode }))
             }
-            placeholder="VN"
-            required
           />
         </label>
         <label className="space-y-2">
           <span className="text-sm font-medium text-foreground">Role</span>
-          <select
+          <AppSelect
             value={values.roleId}
-            onChange={(event) =>
-              setValues((current) => ({ ...current, roleId: event.target.value }))
-            }
-            className={selectChrome}
-            required
-          >
-            {roles.map((role) => (
-              <option key={role.id} value={role.id}>
-                {role.name}
-              </option>
-            ))}
-          </select>
+            onChange={(roleId) => setValues((current) => ({ ...current, roleId }))}
+            options={roles.map((role) => ({
+              value: role.id,
+              label: role.name,
+              description: role.isSystem ? "System role" : "Custom role",
+            }))}
+            placeholder="Choose a role"
+          />
         </label>
         {mode === "edit" ? (
           <label className="space-y-2">
             <span className="text-sm font-medium text-foreground">Status</span>
-            <select
+            <AppSelect
               value={String(values.isActive)}
-              onChange={(event) =>
+              onChange={(statusValue) =>
                 setValues((current) => ({
                   ...current,
-                  isActive: event.target.value === "true",
+                  isActive: statusValue === "true",
                 }))
               }
-              className={selectChrome}
-            >
-              <option value="true">Active</option>
-              <option value="false">Inactive</option>
-            </select>
+              options={[
+                { value: "true", label: "Active", description: "Can sign in and use the app" },
+                { value: "false", label: "Inactive", description: "Kept on record but cannot sign in" },
+              ]}
+            />
           </label>
         ) : null}
       </div>
@@ -180,7 +213,7 @@ export function getUserFormInitialValues(user: UserRecord): Partial<UserFormValu
   return {
     name: user.name,
     email: user.email,
-    countryCode: user.countryCode ?? "VN",
+    countryCode: user.countryCode ?? DEFAULT_COUNTRY_CODE,
     roleId: user.roleId ?? "",
     isActive: user.isActive,
     password: "",

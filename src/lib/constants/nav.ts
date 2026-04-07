@@ -10,6 +10,14 @@ export type AdminNavItem = {
   icon: IconDefinition;
 };
 
+export function isAdminNavItemActive(href: string, pathname: string) {
+  if (href === ROUTES.admin.dashboard) {
+    return pathname === href;
+  }
+
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export const ADMIN_NAV_ITEMS: AdminNavItem[] = [
   {
     href: ROUTES.admin.dashboard,
@@ -26,7 +34,7 @@ export const ADMIN_NAV_ITEMS: AdminNavItem[] = [
   {
     href: ROUTES.admin.roles.root,
     label: "Roles",
-    description: "Permissions model",
+    description: "Role definitions",
     icon: faShieldHalved,
   },
 ];

@@ -6,7 +6,7 @@ import type { CreateUserPayload, UserMutationResult } from "@/features/users/typ
 export async function createUser(payload: CreateUserPayload) {
   const accessToken = useAuthStore.getState().session.accessToken;
 
-  return apiClient.post<UserMutationResult>(API_ENDPOINTS.users.list, payload, {
+  return apiClient.postEnvelope<UserMutationResult>(API_ENDPOINTS.users.list, payload, {
     accessToken,
   });
 }

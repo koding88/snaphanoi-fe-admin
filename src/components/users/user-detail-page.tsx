@@ -60,8 +60,8 @@ export function UserDetailPage({ id }: { id: string }) {
         return;
       }
 
-      const nextUser = await restoreUser(user.id);
-      setUser(nextUser);
+      const response = await restoreUser(user.id);
+      setUser(response.data);
       setDialogMode(null);
     } catch (actionError) {
       setError(getFriendlyUsersError(actionError));
@@ -74,8 +74,8 @@ export function UserDetailPage({ id }: { id: string }) {
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
         eyebrow="User detail"
-        title="Inspect an individual user record."
-        description="This surface respects the backend self-or-admin detail semantics. In the admin area it is used as the main detail view for user management."
+        title="Review this account."
+        description="See the person, role, location, and account state in one place before making changes."
         actions={
           user ? (
             <div className="flex flex-wrap gap-2">
@@ -121,8 +121,7 @@ export function UserDetailPage({ id }: { id: string }) {
               Admin actions
             </p>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">
-              Soft delete and restore actions are available here because the backend exposes them as
-              separate admin operations.
+              Archive and restore controls stay here so account lifecycle actions remain deliberate.
             </p>
           </AdminSurface>
         </>
@@ -136,8 +135,8 @@ export function UserDetailPage({ id }: { id: string }) {
         }
         description={
           dialogMode === "delete"
-            ? "This performs the backend soft-delete action. The user can be restored later."
-            : "This restores the selected user record from soft-deleted state."
+            ? "This archives the account for now. You can restore it later if needed."
+            : "This will bring the archived account back into the active roster."
         }
         confirmLabel={dialogMode === "delete" ? "Delete user" : "Restore user"}
         confirmVariant={dialogMode === "delete" ? "destructive" : "default"}

@@ -47,7 +47,7 @@ export function RolesTable({ roles, onDelete, isBusy = false }: RolesTableProps)
             Role records
           </p>
           <p className="mt-1 text-sm text-muted-foreground">
-            Role identity and usage stay central, without inventing a permissions matrix the backend does not provide.
+            Role identity and usage stay central, without adding extra permission complexity to this screen.
           </p>
         </div>
         <div className="overflow-x-auto">
@@ -115,7 +115,7 @@ export function RolesTable({ roles, onDelete, isBusy = false }: RolesTableProps)
       <ConfirmDialog
         open={Boolean(pendingRole)}
         title={`Delete ${pendingRole?.name}?`}
-        description="This will call the backend delete-role action. If the role is currently in use, the backend may return a conflict."
+        description="Delete is only available when the role is no longer being used. Otherwise you will see a conflict message."
         confirmLabel="Delete role"
         confirmVariant="destructive"
         isSubmitting={isSubmitting}

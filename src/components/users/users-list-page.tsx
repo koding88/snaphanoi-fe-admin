@@ -12,7 +12,8 @@ import { ErrorState } from "@/components/shared/error-state";
 import { LoadingState } from "@/components/shared/loading-state";
 import { PageHeader } from "@/components/shared/page-header";
 import { buttonVariants } from "@/components/ui/button";
-import { Input, selectChrome } from "@/components/ui/input";
+import { Input } from "@/components/ui/input";
+import { AppSelect } from "@/components/ui/select";
 import { UsersTable } from "@/components/users/users-table";
 import { deleteUser } from "@/features/users/api/delete-user";
 import { listRoleOptions } from "@/features/users/api/list-role-options";
@@ -21,7 +22,7 @@ import { restoreUser } from "@/features/users/api/restore-user";
 import type { RoleOption, UserListQuery, UserRecord, UsersListResult } from "@/features/users/types/users.types";
 import { getFriendlyUsersError } from "@/features/users/utils/users-errors";
 import { ROUTES } from "@/lib/constants/routes";
-import { faPlus, faRotateLeft, faUserPen } from "@/lib/icons/fa";
+import { faPlus, faRotateLeft } from "@/lib/icons/fa";
 import { cn } from "@/lib/utils";
 
 const INITIAL_QUERY: UserListQuery = {
@@ -32,6 +33,7 @@ const INITIAL_QUERY: UserListQuery = {
   roleId: "",
   includeDeleted: false,
 };
+const ALL_ROLES_VALUE = "__all__";
 
 export function UsersListPage() {
   const [query, setQuery] = useState<UserListQuery>(INITIAL_QUERY);
@@ -95,49 +97,31 @@ export function UsersListPage() {
       <PageHeader
         eyebrow="Users"
         title="Manage user accounts."
-        description="This page maps directly to the current backend capabilities: list, search, filter, create, update, soft delete, restore, and self-service profile surfaces."
+        description="Create, update, archive, and restore team access while keeping self-service account settings in a separate place."
         meta={
           <>
             <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1.5 text-xs font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
               Admin only
             </span>
-            <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1.5 text-xs font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
-              Self-service included
-            </span>
           </>
         }
         actions={
-          <div className="flex flex-wrap gap-2">
-            <Link
-              href={ROUTES.admin.users.me}
-              className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-5")}
-            >
-              <FontAwesomeIcon icon={faUserPen} />
-              My profile
-            </Link>
-            <Link
-              href={ROUTES.admin.users.changePassword}
-              className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-5")}
-            >
-              Password
-            </Link>
-            <Link
-              href={ROUTES.admin.users.create}
-              className={cn(buttonVariants(), "rounded-full px-5")}
-            >
-              <FontAwesomeIcon icon={faPlus} />
-              Create user
-            </Link>
-          </div>
+          <Link
+            href={ROUTES.admin.users.create}
+            className={cn(buttonVariants(), "rounded-full px-5")}
+          >
+            <FontAwesomeIcon icon={faPlus} />
+            Add user
+          </Link>
         }
       />
       <AdminSurface className="p-6 md:p-8">
         <div className="mb-5 flex flex-wrap gap-2">
           <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-            Search and lifecycle controls
+            Search and account states
           </span>
           <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-            Backend-aligned filters only
+            Quick filters
           </span>
         </div>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
@@ -157,67 +141,67 @@ export function UsersListPage() {
           </label>
           <label className="space-y-2">
             <span className="text-sm font-medium text-foreground">Status</span>
-            <select
+            <AppSelect
               value={String(query.isActive)}
-              onChange={(event) =>
+              onChange={(statusValue) =>
                 setQuery((current) => ({
                   ...current,
                   page: 1,
                   isActive:
-                    event.target.value === "all" ? "all" : event.target.value === "true",
+                    statusValue === "all" ? "all" : statusValue === "true",
                 }))
               }
-              className={selectChrome}
-            >
-              <option value="all">All</option>
-              <option value="true">Active</option>
-              <option value="false">Inactive</option>
-            </select>
+              options={[
+                { value: "all", label: "All users" },
+                { value: "true", label: "Active only" },
+                { value: "false", label: "Inactive only" },
+              ]}
+            />
           </label>
           <label className="space-y-2">
             <span className="text-sm font-medium text-foreground">Role</span>
-            <select
-              value={query.roleId ?? ""}
-              onChange={(event) =>
+            <AppSelect
+              value={query.roleId ? query.roleId : ALL_ROLES_VALUE}
+              onChange={(roleId) =>
                 setQuery((current) => ({
                   ...current,
                   page: 1,
-                  roleId: event.target.value,
+                  roleId: roleId === ALL_ROLES_VALUE ? "" : roleId,
                 }))
               }
-              className={selectChrome}
-            >
-              <option value="">All roles</option>
-              {roles.map((role) => (
-                <option key={role.id} value={role.id}>
-                  {role.name}
-                </option>
-              ))}
-            </select>
+              options={[
+                { value: ALL_ROLES_VALUE, label: "All roles", description: "No role filter" },
+                ...roles.map((role) => ({
+                  value: role.id,
+                  label: role.name,
+                  description: role.isSystem ? "System role" : "Custom role",
+                })),
+              ]}
+            />
           </label>
           <label className="space-y-2">
             <span className="text-sm font-medium text-foreground">Deleted records</span>
-            <select
+            <AppSelect
               value={String(Boolean(query.includeDeleted))}
-              onChange={(event) =>
+              onChange={(includeDeleted) =>
                 setQuery((current) => ({
                   ...current,
                   page: 1,
-                  includeDeleted: event.target.value === "true",
+                  includeDeleted: includeDeleted === "true",
                 }))
               }
-              className={selectChrome}
-            >
-              <option value="false">Exclude deleted</option>
-              <option value="true">Include deleted</option>
-            </select>
+              options={[
+                { value: "false", label: "Hide archived" },
+                { value: "true", label: "Show archived too" },
+              ]}
+            />
           </label>
         </div>
       </AdminSurface>
       {isLoading ? (
         <LoadingState
           title="Loading users"
-          description="Fetching the current page of users and practical filter options from the backend."
+          description="Preparing the latest user list and filter options."
         />
       ) : error ? (
         <ErrorState
@@ -267,7 +251,7 @@ export function UsersListPage() {
         <EmptyState
           eyebrow="Users"
           title="No users matched the current filters."
-          description="Try adjusting the search, role, or status filters. The query controls only use backend-supported parameters."
+          description="Try a broader keyword or reset one of the filters."
           action={
             <Link
               href={ROUTES.admin.users.create}

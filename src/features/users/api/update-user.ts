@@ -6,7 +6,7 @@ import type { UpdateUserPayload, UserMutationResult } from "@/features/users/typ
 export async function updateUser(id: string, payload: UpdateUserPayload) {
   const accessToken = useAuthStore.getState().session.accessToken;
 
-  return apiClient.patch<UserMutationResult>(API_ENDPOINTS.users.byId(id), payload, {
+  return apiClient.patchEnvelope<UserMutationResult>(API_ENDPOINTS.users.byId(id), payload, {
     accessToken,
   });
 }

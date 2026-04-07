@@ -5,11 +5,12 @@ import { usePathname } from "next/navigation";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { AccountMenu } from "@/components/admin/account-menu";
 import { AppLogo } from "@/components/shared/app-logo";
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/features/auth/store/auth.store";
-import { ADMIN_NAV_ITEMS } from "@/lib/constants/nav";
-import { faBarsStaggered, faBell, faSearch } from "@/lib/icons/fa";
+import { ADMIN_NAV_ITEMS, isAdminNavItemActive } from "@/lib/constants/nav";
+import { faBarsStaggered, faSearch } from "@/lib/icons/fa";
 
 type AdminTopbarProps = {
   onMenuClick: () => void;
@@ -20,8 +21,7 @@ export function AdminTopbar({ onMenuClick }: AdminTopbarProps) {
   const user = useAuthStore((state) => state.user);
   const status = useAuthStore((state) => state.status);
   const activeItem = useMemo(
-    () =>
-      ADMIN_NAV_ITEMS.find((item) => pathname === item.href || pathname.startsWith(`${item.href}/`)),
+    () => ADMIN_NAV_ITEMS.find((item) => isAdminNavItemActive(item.href, pathname)),
     [pathname],
   );
 
@@ -48,27 +48,19 @@ export function AdminTopbar({ onMenuClick }: AdminTopbarProps) {
             <p className="truncate text-sm text-muted-foreground">
               {activeItem?.description ??
                 (status === "authenticated" && user
-                  ? `Authenticated as ${user.name} (${user.roleName ?? "Unknown role"})`
+                  ? `${user.name} · ${user.roleName ?? "Studio member"}`
                   : "Bootstrapping authenticated session")}
             </p>
           </div>
           <div className="hidden min-w-0 flex-1 items-center gap-3 rounded-full border border-border/80 bg-white/72 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] xl:flex">
             <FontAwesomeIcon icon={faSearch} className="text-muted-foreground" />
             <span className="truncate text-sm text-muted-foreground">
-              Consistent controls, calmer motion, and better mobile reading across auth and admin.
+              Profile and security now live in the account menu, separate from team management.
             </span>
           </div>
         </div>
         <div className="ml-auto flex items-center gap-2">
-          <Button variant="outline" size="icon" className="rounded-full">
-            <FontAwesomeIcon icon={faBell} />
-          </Button>
-          <div className="hidden rounded-full border border-border/80 bg-white/76 px-4 py-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.82)] md:block">
-            <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-              Session
-            </p>
-            <p className="text-sm text-foreground">{user?.email ?? "Studio admin"}</p>
-          </div>
+          <AccountMenu />
         </div>
       </div>
     </header>
