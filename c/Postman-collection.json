@@ -1,0 +1,2322 @@
+{
+  "info": {
+    "_postman_id": "c83e6067-0a09-4447-aa25-3454d0d44139",
+    "name": "SnapHanoi",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Nguyen Van C\",\n  \"email\": \"newuser@gmail.com\",\n  \"password\": \"Password@123\",\n  \"countryCode\": \"VN\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Initiate registration. This does not create the account immediately; it sends a confirmation email with a registration token.",
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/auth/register",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "auth", "register"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Nguyen Van C\",\n  \"email\": \"newuser@gmail.com\",\n  \"password\": \"Password@123\",\n  \"countryCode\": \"VN\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Initiate registration. This does not create the account immediately; it sends a confirmation email with a registration token.",
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/auth/register",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "register"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 201,\n  \"data\": {\n    \"requested\": true\n  }\n}"
+            },
+            {
+              "name": "Email Already Exists",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Nguyen Van C\",\n  \"email\": \"member1@gmail.com\",\n  \"password\": \"Password123A\",\n  \"countryCode\": \"VN\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Initiate registration. This does not create the account immediately; it sends a confirmation email with a registration token.",
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/auth/register",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "register"]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"USER_EMAIL_ALREADY_EXISTS\",\n  \"statusCode\": 409,\n  \"message\": \"Email already exists\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Register Confirm",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Confirm registration with the token received in the confirmation email. This creates the account for real.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"raw-registration-token\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/auth/register/confirm",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "auth", "register", "confirm"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "description": "Confirm registration with the token received in the confirmation email. This creates the account for real.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"raw-registration-token\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/auth/register/confirm",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "register", "confirm"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 201,\n  \"data\": {\n    \"registered\": true\n  }\n}"
+            },
+            {
+              "name": "Invalid Or Expired Token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "description": "Confirm registration with the token received in the confirmation email. This creates the account for real.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"invalid-registration-token\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/auth/register/confirm",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "register", "confirm"]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"REGISTRATION_TOKEN_INVALID\",\n  \"statusCode\": 401,\n  \"message\": \"Registration token is invalid or expired\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"newuser@gmail.com\",\n  \"password\": \"Password@123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/auth/login",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "auth", "login"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "const token = json?.data?.accessToken || json?.accessToken;",
+                  "if (token) {",
+                  "  pm.collectionVariables.set('ACCESS_TOKEN', token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"newuser@gmail.com\",\n  \"password\": \"Password@123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/auth/login",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "login"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 201,\n  \"data\": {\n    \"accessToken\": \"<jwt-access-token>\",\n    \"user\": {\n      \"id\": \"user-member-1\",\n      \"name\": \"Member One\",\n      \"email\": \"member1@gmail.com\",\n      \"countryCode\": \"VN\",\n      \"roleId\": \"role-user\",\n      \"roleName\": \"User\",\n      \"roleKey\": \"user\",\n      \"isActive\": true,\n      \"deletedAt\": null,\n      \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n      \"updatedAt\": \"2025-01-04T00:00:00.000Z\"\n    }\n  }\n}"
+            },
+            {
+              "name": "Invalid Credentials",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"member1@gmail.com\",\n  \"password\": \"WrongPassword123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/auth/login",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "login"]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"INVALID_CREDENTIALS\",\n  \"statusCode\": 401,\n  \"message\": \"Invalid email or password\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Request a password reset email. This endpoint always returns generic success and does not reveal whether the account exists.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@gmail.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/auth/forgot-password",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "auth", "forgot-password"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "description": "Request a password reset email. This endpoint always returns generic success and does not reveal whether the account exists.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"user@gmail.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/auth/forgot-password",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "forgot-password"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 201,\n  \"data\": {\n    \"requested\": true\n  }\n}"
+            },
+            {
+              "name": "Validation Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "description": "Request a password reset email. This endpoint always returns generic success and does not reveal whether the account exists.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"invalid-email\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/auth/forgot-password",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "forgot-password"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"Bad Request\",\n  \"statusCode\": 400,\n  \"message\": \"email must be an email\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Reset password with the raw token received by email. New password must be at least 8 characters and include uppercase, lowercase, and a number.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"raw-reset-token\",\n  \"newPassword\": \"NewPassword123A\",\n  \"confirmNewPassword\": \"NewPassword123A\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/auth/reset-password",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "auth", "reset-password"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "description": "Reset password with the raw token received by email. New password must be at least 8 characters and include uppercase, lowercase, and a number.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"raw-reset-token\",\n  \"newPassword\": \"NewPassword123A\",\n  \"confirmNewPassword\": \"NewPassword123A\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/auth/reset-password",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "reset-password"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 201,\n  \"data\": {\n    \"reset\": true\n  }\n}"
+            },
+            {
+              "name": "Invalid Or Expired Token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "description": "Reset password with the raw token received by email. New password must be at least 8 characters and include uppercase, lowercase, and a number.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"invalid-token\",\n  \"newPassword\": \"NewPassword123A\",\n  \"confirmNewPassword\": \"NewPassword123A\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/auth/reset-password",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "reset-password"]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"PASSWORD_RESET_TOKEN_INVALID\",\n  \"statusCode\": 401,\n  \"message\": \"Password reset token is invalid or expired\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/auth/refresh",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "auth", "refresh"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/auth/refresh",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "refresh"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 201,\n  \"data\": {\n    \"accessToken\": \"<jwt-access-token>\",\n    \"user\": {\n      \"id\": \"user-member-1\",\n      \"name\": \"Member One\",\n      \"email\": \"member1@gmail.com\",\n      \"countryCode\": \"VN\",\n      \"roleId\": \"role-user\",\n      \"roleName\": \"User\",\n      \"roleKey\": \"user\",\n      \"isActive\": true,\n      \"deletedAt\": null,\n      \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n      \"updatedAt\": \"2025-01-04T00:00:00.000Z\"\n    }\n  }\n}"
+            },
+            {
+              "name": "Missing Refresh Token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/auth/refresh",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "refresh"]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"REFRESH_TOKEN_NOT_FOUND\",\n  \"statusCode\": 401,\n  \"message\": \"Refresh token is invalid\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/auth/logout",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "auth", "logout"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/auth/logout",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "logout"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 201,\n  \"data\": {\n    \"loggedOut\": true\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Logout All",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/auth/logout-all",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "auth", "logout-all"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/auth/logout-all",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "logout-all"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 201,\n  \"data\": {\n    \"loggedOut\": true\n  }\n}"
+            },
+            {
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/auth/logout-all",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "logout-all"]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"Unauthorized\",\n  \"statusCode\": 401,\n  \"message\": \"Unauthorized\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Me",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/auth/me",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "auth", "me"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/auth/me",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "me"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"id\": \"user-admin\",\n    \"name\": \"Admin User\",\n    \"email\": \"admin@gmail.com\",\n    \"countryCode\": \"VN\",\n    \"roleId\": \"role-admin\",\n    \"roleName\": \"Admin\",\n    \"roleKey\": \"admin\",\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2025-01-03T00:00:00.000Z\",\n    \"updatedAt\": \"2025-01-03T00:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/auth/me",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "me"]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"Unauthorized\",\n  \"statusCode\": 401,\n  \"message\": \"Unauthorized\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/users?page=1&limit=10&keyword=&isActive=true&roleId=&includeDeleted=false",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "users"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "keyword",
+                  "value": ""
+                },
+                {
+                  "key": "isActive",
+                  "value": "true"
+                },
+                {
+                  "key": "roleId",
+                  "value": ""
+                },
+                {
+                  "key": "includeDeleted",
+                  "value": "false"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users?page=1&limit=10&keyword=&isActive=true&roleId=&includeDeleted=false",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users"],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "keyword",
+                      "value": ""
+                    },
+                    {
+                      "key": "isActive",
+                      "value": "true"
+                    },
+                    {
+                      "key": "roleId",
+                      "value": ""
+                    },
+                    {
+                      "key": "includeDeleted",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"user-member-1\",\n        \"name\": \"Member One\",\n        \"email\": \"member1@gmail.com\",\n        \"countryCode\": \"VN\",\n        \"roleId\": \"role-user\",\n        \"roleName\": \"User\",\n        \"isActive\": true,\n        \"deletedAt\": null,\n        \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n        \"updatedAt\": \"2025-01-04T00:00:00.000Z\"\n      }\n    ],\n    \"meta\": {\n      \"page\": 1,\n      \"limit\": 10,\n      \"total\": 1,\n      \"totalPages\": 1\n    }\n  }\n}"
+            },
+            {
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users?page=1&limit=10&keyword=&isActive=true&roleId=&includeDeleted=false",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users"],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "keyword",
+                      "value": ""
+                    },
+                    {
+                      "key": "isActive",
+                      "value": "true"
+                    },
+                    {
+                      "key": "roleId",
+                      "value": ""
+                    },
+                    {
+                      "key": "includeDeleted",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"Forbidden\",\n  \"statusCode\": 403,\n  \"message\": \"Forbidden resource\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "users", "{{USER_ID}}"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "{{USER_ID}}"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"id\": \"user-member-1\",\n    \"name\": \"Member One\",\n    \"email\": \"member1@gmail.com\",\n    \"countryCode\": \"VN\",\n    \"roleId\": \"role-user\",\n    \"roleName\": \"User\",\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n    \"updatedAt\": \"2025-01-04T00:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "{{USER_ID}}"]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"Forbidden\",\n  \"statusCode\": 403,\n  \"message\": \"Forbidden resource\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Nguyen Van A\",\n  \"email\": \"user@gmail.com\",\n  \"password\": \"MySecurePass1\",\n  \"countryCode\": \"VN\",\n  \"roleId\": \"{{ROLE_ID}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/users",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "users"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Nguyen Van A\",\n  \"email\": \"user@gmail.com\",\n  \"password\": \"MySecurePass1\",\n  \"countryCode\": \"VN\",\n  \"roleId\": \"{{ROLE_ID}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 201,\n  \"data\": {\n    \"id\": \"user-created-1\",\n    \"name\": \"Nguyen Van A\",\n    \"email\": \"user@gmail.com\",\n    \"countryCode\": \"VN\",\n    \"roleId\": \"role-user\",\n    \"roleName\": \"User\",\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2025-04-07T10:10:00.000Z\",\n    \"updatedAt\": \"2025-04-07T10:10:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "Email Already Exists",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Nguyen Van A\",\n  \"email\": \"member1@gmail.com\",\n  \"password\": \"Password123A\",\n  \"countryCode\": \"VN\",\n  \"roleId\": \"role-user\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users"]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"USER_EMAIL_ALREADY_EXISTS\",\n  \"statusCode\": 409,\n  \"message\": \"Email already exists\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Nguyen Van B\",\n  \"email\": \"updated@gmail.com\",\n  \"password\": \"MySecurePass1\",\n  \"countryCode\": \"VN\",\n  \"roleId\": \"{{ROLE_ID}}\",\n  \"isActive\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "users", "{{USER_ID}}"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Nguyen Van B\",\n  \"email\": \"updated@gmail.com\",\n  \"password\": \"MySecurePass1\",\n  \"countryCode\": \"VN\",\n  \"roleId\": \"{{ROLE_ID}}\",\n  \"isActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "{{USER_ID}}"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"id\": \"user-member-1\",\n    \"name\": \"Nguyen Van B\",\n    \"email\": \"updated@gmail.com\",\n    \"countryCode\": \"VN\",\n    \"roleId\": \"role-user\",\n    \"roleName\": \"User\",\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n    \"updatedAt\": \"2025-04-07T10:20:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "User Not Found",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Nguyen Van B\",\n  \"email\": \"updated@gmail.com\",\n  \"password\": \"MySecurePass1\",\n  \"countryCode\": \"VN\",\n  \"roleId\": \"{{ROLE_ID}}\",\n  \"isActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "{{USER_ID}}"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"USER_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"message\": \"User not found\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update My Profile",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Nguyen Van Me\",\n  \"email\": \"newuser@gmail.com\",\n  \"countryCode\": \"VN\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/users/me",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "users", "me"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Nguyen Van Me\",\n  \"email\": \"newuser@gmail.com\",\n  \"countryCode\": \"VN\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/me",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"id\": \"user-member-1\",\n    \"name\": \"Nguyen Van Me\",\n    \"email\": \"newuser@gmail.com\",\n    \"countryCode\": \"VN\",\n    \"roleId\": \"role-user\",\n    \"roleName\": \"User\",\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n    \"updatedAt\": \"2025-04-07T10:30:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "Validation Error",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Nguyen Van Me\",\n  \"email\": \"invalid-email\",\n  \"countryCode\": \"VN\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/me",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"Bad Request\",\n  \"statusCode\": 400,\n  \"message\": \"email must be an email\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "users", "{{USER_ID}}"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "{{USER_ID}}"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"message\": \"User deleted successfully\"\n  }\n}"
+            },
+            {
+              "name": "User Not Found",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "{{USER_ID}}"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"USER_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"message\": \"User not found\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Restore User",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}/restore",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "users", "{{USER_ID}}", "restore"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}/restore",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "{{USER_ID}}", "restore"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"id\": \"user-member-1\",\n    \"name\": \"Member One\",\n    \"email\": \"member1@gmail.com\",\n    \"countryCode\": \"VN\",\n    \"roleId\": \"role-user\",\n    \"roleName\": \"User\",\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n    \"updatedAt\": \"2025-01-04T00:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "User Not Found",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}/restore",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "{{USER_ID}}", "restore"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"USER_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"message\": \"User not found\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Change My Password",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currentPassword\": \"OldPassword1\",\n  \"newPassword\": \"NewPassword1\",\n  \"confirmNewPassword\": \"NewPassword1\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/users/me/password",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "users", "me", "password"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currentPassword\": \"OldPassword1\",\n  \"newPassword\": \"NewPassword1\",\n  \"confirmNewPassword\": \"NewPassword1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/me/password",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me", "password"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"changed\": true\n  }\n}"
+            },
+            {
+              "name": "Invalid Current Password",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currentPassword\": \"WrongPassword123\",\n  \"newPassword\": \"NewPassword123A\",\n  \"confirmNewPassword\": \"NewPassword123A\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/me/password",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me", "password"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"INVALID_CURRENT_PASSWORD\",\n  \"statusCode\": 400,\n  \"message\": \"Current password is incorrect\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Roles",
+      "item": [
+        {
+          "name": "Get All Roles",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/roles?page=1&limit=10&keyword=&isSystem=false",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "roles"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "keyword",
+                  "value": ""
+                },
+                {
+                  "key": "isSystem",
+                  "value": "false"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/roles?page=1&limit=10&keyword=&isSystem=false",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles"],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "keyword",
+                      "value": ""
+                    },
+                    {
+                      "key": "isSystem",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"role-user\",\n        \"key\": \"user\",\n        \"name\": \"User\",\n        \"isSystem\": false,\n        \"activeUsersCount\": 3,\n        \"deletedUsersCount\": 1,\n        \"createdAt\": \"2025-01-02T00:00:00.000Z\",\n        \"updatedAt\": \"2025-01-02T00:00:00.000Z\"\n      }\n    ],\n    \"meta\": {\n      \"page\": 1,\n      \"limit\": 10,\n      \"total\": 1,\n      \"totalPages\": 1\n    }\n  }\n}"
+            },
+            {
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/roles?page=1&limit=10&keyword=&isSystem=false",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles"],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "keyword",
+                      "value": ""
+                    },
+                    {
+                      "key": "isSystem",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"Forbidden\",\n  \"statusCode\": 403,\n  \"message\": \"Forbidden resource\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Role",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"id\": \"role-user\",\n    \"key\": \"user\",\n    \"name\": \"User\",\n    \"isSystem\": false,\n    \"activeUsersCount\": 3,\n    \"deletedUsersCount\": 1,\n    \"createdAt\": \"2025-01-02T00:00:00.000Z\",\n    \"updatedAt\": \"2025-01-02T00:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "Role Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"ROLE_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"message\": \"Role not found\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Role",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Manager\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/roles",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "roles"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Manager\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/roles",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 201,\n  \"data\": {\n    \"id\": \"role-manager\",\n    \"key\": \"manager\",\n    \"name\": \"Manager\",\n    \"isSystem\": false,\n    \"activeUsersCount\": 0,\n    \"deletedUsersCount\": 0,\n    \"createdAt\": \"2025-04-07T10:40:00.000Z\",\n    \"updatedAt\": \"2025-04-07T10:40:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "Role Name Already Exists",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"User\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/roles",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles"]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"ROLE_NAME_ALREADY_EXISTS\",\n  \"statusCode\": 409,\n  \"message\": \"Role name already exists\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Role",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Moderator\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Moderator\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"id\": \"role-user\",\n    \"key\": \"user\",\n    \"name\": \"Moderator\",\n    \"isSystem\": false,\n    \"activeUsersCount\": 3,\n    \"deletedUsersCount\": 1,\n    \"createdAt\": \"2025-01-02T00:00:00.000Z\",\n    \"updatedAt\": \"2025-04-07T10:50:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "Role Not Found",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Moderator\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"ROLE_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"message\": \"Role not found\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Role",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"message\": \"Role deleted successfully\"\n  }\n}"
+            },
+            {
+              "name": "Role In Use",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"ROLE_IN_USE\",\n  \"statusCode\": 409,\n  \"message\": \"Role is in use\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "List Role Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}/users?status=all&page=1&limit=10",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "roles", "{{ROLE_ID}}", "users"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "all"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}/users?status=all&page=1&limit=10",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles", "{{ROLE_ID}}", "users"],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "all"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"user-member-1\",\n        \"name\": \"Member One\",\n        \"email\": \"member1@gmail.com\",\n        \"countryCode\": \"VN\",\n        \"roleId\": \"role-user\",\n        \"isActive\": true,\n        \"deletedAt\": null,\n        \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n        \"updatedAt\": \"2025-01-04T00:00:00.000Z\"\n      }\n    ],\n    \"meta\": {\n      \"page\": 1,\n      \"limit\": 10,\n      \"total\": 1,\n      \"totalPages\": 1\n    }\n  }\n}"
+            },
+            {
+              "name": "Role Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}/users?status=all&page=1&limit=10",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles", "{{ROLE_ID}}", "users"],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "all"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"ROLE_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"message\": \"Role not found\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Check Live",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/health/live",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "health", "live"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/health/live",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "health", "live"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"status\": \"ok\",\n    \"info\": {},\n    \"error\": {},\n    \"details\": {}\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Check Ready",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/health/ready",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "health", "ready"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/health/ready",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "health", "ready"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": null,\n  \"statusCode\": 200,\n  \"data\": {\n    \"status\": \"ok\",\n    \"info\": {\n      \"memory_heap\": {\n        \"status\": \"up\"\n      },\n      \"database\": {\n        \"status\": \"up\"\n      }\n    },\n    \"error\": {},\n    \"details\": {\n      \"memory_heap\": {\n        \"status\": \"up\"\n      },\n      \"database\": {\n        \"status\": \"up\"\n      }\n    }\n  }\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "LOCAL_URL",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "USER_ID",
+      "value": ""
+    },
+    {
+      "key": "ROLE_ID",
+      "value": ""
+    },
+    {
+      "key": "ACCESS_TOKEN",
+      "value": ""
+    }
+  ]
+}
