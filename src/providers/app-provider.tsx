@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 
+import { AuthBootstrap } from "@/components/auth/auth-bootstrap";
 import { ThemeProvider } from "@/providers/theme-provider";
 
 type AppProviderProps = {
@@ -9,5 +10,9 @@ type AppProviderProps = {
 };
 
 export function AppProvider({ children }: AppProviderProps) {
-  return <ThemeProvider>{children}</ThemeProvider>;
+  return (
+    <ThemeProvider>
+      <AuthBootstrap>{children}</AuthBootstrap>
+    </ThemeProvider>
+  );
 }

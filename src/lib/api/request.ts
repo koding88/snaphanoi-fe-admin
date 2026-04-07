@@ -29,6 +29,7 @@ export async function apiRequest<T>(path: string, init: ApiRequestInit = {}) {
   }
 
   const response = await fetch(`${env.NEXT_PUBLIC_API_BASE_URL}${path}`, {
+    credentials: "include",
     ...init,
     headers,
     body: toRequestBody(init.body),
