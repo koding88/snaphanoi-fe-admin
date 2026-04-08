@@ -60,6 +60,108 @@ Không được tự sang stage tiếp theo nếu tôi chưa xác nhận.
 6. Những gì chưa làm vì thuộc stage sau
 7. Rủi ro / assumption nhỏ nếu có
 
+## Backend contract notes phải giữ đúng
+
+### Core backend snapshot
+- Backend hiện có `auth`, `users`, `roles`, `galleries`, `health`.
+- Response envelope chuẩn:
+  - `success`
+  - `data`
+  - `message`
+  - `error`
+  - `statusCode`
+  - `timestamp`
+  - `path`
+  - `requestId`
+- Health routes không versioned:
+  - `/api/health/live`
+  - `/api/health/ready`
+
+### Auth semantics
+- `register` chỉ initiate registration, chưa tạo account usable ngay.
+- `register/confirm` mới tạo account thật.
+- `register/confirm` không auto login.
+- `forgot-password` luôn generic success, không lộ account existence.
+- `reset-password` thành công sẽ invalidate auth state cũ.
+- `logout` là idempotent.
+
+### Users / roles semantics
+- Users admin CRUD và roles admin CRUD bám Postman/backend brief hiện tại.
+- `GET /api/v1/users/:id` là self-or-admin, không phải admin-only tuyệt đối.
+
+### Galleries semantics bắt buộc
+- Galleries đã có backend round 1 hoàn chỉnh.
+- Admin routes:
+  - `GET /api/v1/galleries`
+  - `GET /api/v1/galleries/:id`
+  - `POST /api/v1/galleries`
+  - `PATCH /api/v1/galleries/:id`
+  - `DELETE /api/v1/galleries/:id`
+  - `PATCH /api/v1/galleries/:id/restore`
+- Public route:
+  - `GET /api/v1/galleries/public`
+- Tất cả admin gallery routes là admin-only.
+- Public galleries route không cần auth.
+- Gallery create/update request body chỉ có multilingual `name`:
+```json
+{
+  "name": {
+    "en": "Couple",
+    "vi": "Cap doi",
+    "cn": "情侣"
+  }
+}
+```
+- `createdBy` không do FE gửi; backend lấy từ current authenticated user.
+- Admin list query:
+  - `page`
+  - `limit`
+  - `keyword`
+  - `isActive`
+- Admin list/detail response trả:
+  - `id`
+  - `name: { en, vi, cn }`
+  - `createdBy: { id, name }`
+  - `isActive`
+  - `deletedAt`
+  - `createdAt`
+  - `updatedAt`
+- Delete gallery là soft delete business-wise.
+- Restore trả lại full admin gallery response.
+
+### Public galleries semantics bắt buộc
+- Public route dùng `Accept-Language`.
+- Supported locale:
+  - `vi`
+  - `en`
+  - `cn`
+- Mapping practical:
+  - `vi`, `vi-VN` -> `vi`
+  - `en`, `en-US`, `en-GB` -> `en`
+  - `zh`, `zh-CN`, `zh-Hans`, `cn` -> `cn`
+- Fallback locale hiện tại là `en`.
+- Public response chỉ:
+```json
+{
+  "id": "gallery-id",
+  "name": "Localized gallery name"
+}
+```
+- Không assume public response có:
+  - `createdBy`
+  - `isActive`
+  - `deletedAt`
+  - full multilingual object
+- Backend hiện đã cache public galleries list theo locale; FE không cần custom cache protocol riêng.
+
+### Galleries errors hữu ích cho FE
+- `GALLERY_NOT_FOUND`
+- `GALLERY_NAME_EN_ALREADY_EXISTS`
+- `GALLERY_NAME_VI_ALREADY_EXISTS`
+- `GALLERY_NAME_CN_ALREADY_EXISTS`
+- `GALLERY_ALREADY_DELETED`
+- `GALLERY_NOT_DELETED`
+
 ## Stage list tổng thể
 
 ### Stage 0 — Planning only
@@ -104,7 +206,7 @@ Chỉ làm:
 - auth UX states
 
 Chưa làm admin shell phức tạp.
-Chưa làm users/roles CRUD.
+Chưa làm users/roles/galleries CRUD.
 
 ### Stage 3 — Admin shell
 Chỉ làm:
@@ -114,7 +216,7 @@ Chỉ làm:
 - common loading/empty/error states
 - navigation structure
 
-Chưa làm users/roles CRUD hoàn chỉnh.
+Chưa làm users/roles/galleries CRUD hoàn chỉnh.
 
 ### Stage 4 — Users management
 Chỉ làm:
@@ -136,7 +238,21 @@ Chỉ làm:
 - delete role
 - list role users
 
-### Stage 6 — Polish
+### Stage 6 — Galleries management
+Chỉ làm:
+- admin galleries list
+- gallery detail
+- create gallery
+- update gallery
+- delete gallery
+- restore gallery
+- multilingual form UX cho `en/vi/cn`
+- list filter với `page`, `limit`, `keyword`, `isActive`
+- conflict/error handling cho 3 field locale name
+
+Không làm public galleries UI ở repo này.
+
+### Stage 7 — Polish
 Chỉ làm:
 - responsive refinement
 - animation/motion polish
@@ -168,3 +284,10 @@ Nếu không khả dụng thì tiếp tục best effort bình thường.
 - Đúng backend
 - Đẹp, polished, responsive
 - Không cần tôi giải thích lại từ đầu
+
+## Scope guard cực kỳ quan trọng
+- Implement admin galleries trong repo admin này khi tới đúng stage.
+- Không implement public galleries UI trong repo admin này nếu tôi chưa yêu cầu riêng.
+- Không bịa route/API ngoài backend brief và Postman hiện tại.
+- Không invent public gallery detail API.
+- Không assume locale fallback là `vi`; current fallback là `en`.

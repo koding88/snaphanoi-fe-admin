@@ -2712,6 +2712,642 @@
       ]
     },
     {
+      "name": "Galleries",
+      "item": [
+        {
+          "name": "Get All Galleries",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/galleries?page=1&limit=10&keyword=&isActive=true",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "galleries"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "keyword",
+                  "value": ""
+                },
+                {
+                  "key": "isActive",
+                  "value": "true"
+                }
+              ]
+            },
+            "description": "Admin-only gallery list with pagination, keyword filter, and optional isActive filter."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/galleries?page=1&limit=10&keyword=&isActive=true",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "galleries"],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "keyword",
+                      "value": ""
+                    },
+                    {
+                      "key": "isActive",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"gallery-couple\",\n        \"name\": {\n          \"en\": \"Couple\",\n          \"vi\": \"Cap doi\",\n          \"cn\": \"情侣\"\n        },\n        \"createdBy\": {\n          \"id\": \"user-admin\",\n          \"name\": \"Admin User\"\n        },\n        \"isActive\": true,\n        \"deletedAt\": null,\n        \"createdAt\": \"2026-04-08T07:15:00.000Z\",\n        \"updatedAt\": \"2026-04-08T07:15:00.000Z\"\n      }\n    ],\n    \"meta\": {\n      \"page\": 1,\n      \"limit\": 10,\n      \"total\": 1,\n      \"totalPages\": 1\n    }\n  },\n  \"message\": \"Galleries fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/galleries?page=1&limit=10&keyword=&isActive=true\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/galleries?page=1&limit=10&keyword=&isActive=true",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "galleries"],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "keyword",
+                      "value": ""
+                    },
+                    {
+                      "key": "isActive",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Forbidden resource\",\n  \"error\": \"Forbidden\",\n  \"statusCode\": 403,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/galleries?page=1&limit=10&keyword=&isActive=true\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Gallery",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"gallery-couple\",\n    \"name\": {\n      \"en\": \"Couple\",\n      \"vi\": \"Cap doi\",\n      \"cn\": \"情侣\"\n    },\n    \"createdBy\": {\n      \"id\": \"user-admin\",\n      \"name\": \"Admin User\"\n    },\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2026-04-08T07:15:00.000Z\",\n    \"updatedAt\": \"2026-04-08T07:15:00.000Z\"\n  },\n  \"message\": \"Gallery fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/galleries/gallery-couple\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Gallery Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Gallery not found\",\n  \"error\": \"GALLERY_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/galleries/gallery-missing\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Gallery",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": {\n    \"en\": \"Couple\",\n    \"vi\": \"Cap doi\",\n    \"cn\": \"情侣\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/galleries",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "galleries"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": {\n    \"en\": \"Couple\",\n    \"vi\": \"Cap doi\",\n    \"cn\": \"情侣\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/galleries",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "galleries"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"gallery-couple\",\n    \"name\": {\n      \"en\": \"Couple\",\n      \"vi\": \"Cap doi\",\n      \"cn\": \"情侣\"\n    },\n    \"createdBy\": {\n      \"id\": \"user-admin\",\n      \"name\": \"Admin User\"\n    },\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2026-04-08T07:15:00.000Z\",\n    \"updatedAt\": \"2026-04-08T07:15:00.000Z\"\n  },\n  \"message\": \"Gallery created successfully\",\n  \"error\": null,\n  \"statusCode\": 201,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/galleries\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "English Name Already Exists",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": {\n    \"en\": \"Couple\",\n    \"vi\": \"Cap doi\",\n    \"cn\": \"情侣\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/galleries",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "galleries"]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Gallery English name already exists\",\n  \"error\": \"GALLERY_NAME_EN_ALREADY_EXISTS\",\n  \"statusCode\": 409,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/galleries\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Gallery",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": {\n    \"en\": \"Updated Couple\",\n    \"vi\": \"Cap doi moi\",\n    \"cn\": \"新情侣\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": {\n    \"en\": \"Updated Couple\",\n    \"vi\": \"Cap doi moi\",\n    \"cn\": \"新情侣\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"gallery-couple\",\n    \"name\": {\n      \"en\": \"Updated Couple\",\n      \"vi\": \"Cap doi moi\",\n      \"cn\": \"新情侣\"\n    },\n    \"createdBy\": {\n      \"id\": \"user-admin\",\n      \"name\": \"Admin User\"\n    },\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2026-04-08T07:15:00.000Z\",\n    \"updatedAt\": \"2026-04-08T07:20:00.000Z\"\n  },\n  \"message\": \"Gallery updated successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:20:00.000Z\",\n  \"path\": \"/api/v1/galleries/gallery-couple\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Gallery Not Found",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": {\n    \"en\": \"Updated Couple\",\n    \"vi\": \"Cap doi moi\",\n    \"cn\": \"新情侣\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Gallery not found\",\n  \"error\": \"GALLERY_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-08T07:20:00.000Z\",\n  \"path\": \"/api/v1/galleries/gallery-missing\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Gallery",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
+            },
+            "description": "Soft delete only. The gallery becomes inactive and receives deletedAt."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"message\": \"Gallery deleted successfully\"\n  },\n  \"message\": \"Gallery deleted successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:20:00.000Z\",\n  \"path\": \"/api/v1/galleries/gallery-couple\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Already Deleted",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Gallery is already deleted\",\n  \"error\": \"GALLERY_ALREADY_DELETED\",\n  \"statusCode\": 409,\n  \"timestamp\": \"2026-04-08T07:20:00.000Z\",\n  \"path\": \"/api/v1/galleries/gallery-couple\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Restore Gallery",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}/restore",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "galleries", "{{GALLERY_ID}}", "restore"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}/restore",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": [
+                    "api",
+                    "v1",
+                    "galleries",
+                    "{{GALLERY_ID}}",
+                    "restore"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"gallery-couple\",\n    \"name\": {\n      \"en\": \"Couple\",\n      \"vi\": \"Cap doi\",\n      \"cn\": \"情侣\"\n    },\n    \"createdBy\": {\n      \"id\": \"user-admin\",\n      \"name\": \"Admin User\"\n    },\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2026-04-08T07:15:00.000Z\",\n    \"updatedAt\": \"2026-04-08T07:25:00.000Z\"\n  },\n  \"message\": \"Gallery restored successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:25:00.000Z\",\n  \"path\": \"/api/v1/galleries/gallery-couple/restore\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Gallery Not Deleted",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}/restore",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": [
+                    "api",
+                    "v1",
+                    "galleries",
+                    "{{GALLERY_ID}}",
+                    "restore"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Gallery is not deleted\",\n  \"error\": \"GALLERY_NOT_DELETED\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-08T07:25:00.000Z\",\n  \"path\": \"/api/v1/galleries/gallery-couple/restore\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Public Galleries",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept-Language",
+                "value": "en-US"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/galleries/public",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "galleries", "public"]
+            },
+            "description": "Public gallery list for FE header/nav. Uses Accept-Language to resolve vi/en/cn. Fallback locale is en when the header is missing or unsupported."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept-Language",
+                    "value": "en-US"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/galleries/public",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "galleries", "public"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": \"gallery-couple\",\n      \"name\": \"Couple\"\n    },\n    {\n      \"id\": \"gallery-family\",\n      \"name\": \"Family\"\n    }\n  ],\n  \"message\": \"Galleries fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:25:00.000Z\",\n  \"path\": \"/api/v1/galleries/public\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Health",
       "item": [
         {
@@ -2816,6 +3452,10 @@
     },
     {
       "key": "ROLE_ID",
+      "value": ""
+    },
+    {
+      "key": "GALLERY_ID",
       "value": ""
     },
     {

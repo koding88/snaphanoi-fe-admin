@@ -1,14 +1,17 @@
 1. **Kết luận ngắn**
-- Backend hiện có 4 nhóm endpoint chính: `auth`, `users`, `roles`, `health`.
-- Auth dùng JWT access token + refresh token flow; `me` cần access token hợp lệ.
-- `register` hiện là 2 bước: đăng ký chỉ tạo pending registration và gửi mail xác nhận; bấm confirm mới tạo account thật.
-- `register/confirm` không auto login.
-- `forgot-password` luôn trả generic success, không lộ account existence.
-- `reset-password` nếu thành công sẽ kill auth state cũ: refresh tokens/sessions cũ không còn dùng được.
-- `logout` là idempotent.
-- `users` và `roles` chủ yếu là admin-only; `GET /users/:id` có rule self-or-admin.
-- Response API dùng envelope thống nhất: `success`, `error`, `statusCode`, `data`.
-- Health routes hiện không versioned: `/api/health/*`.
+- Backend snapshot hiện tại có 5 nhóm endpoint chính: `auth`, `users`, `roles`, `galleries`, `health`.
+- `galleries` đã hoàn tất round 1 ở backend:
+  - admin CRUD
+  - soft delete / restore
+  - admin list có pagination/filter
+  - public list riêng
+  - Accept-Language mapping
+  - fallback locale hiện tại là `en`
+  - public list có cache theo locale và invalidate khi write
+- `users`, `roles`, `galleries` admin routes đều là admin-only.
+- `GET /api/v1/galleries/public` là public, không cần auth.
+- Response API dùng envelope thống nhất: `success`, `data`, `message`, `error`, `statusCode`, `timestamp`, `path`, `requestId`.
+- Health routes hiện không versioned: `/api/health/live`, `/api/health/ready`.
 
 2. **Frontend-facing backend brief**
 
@@ -44,6 +47,17 @@
   - `DELETE /api/v1/roles/:id`
   - `GET /api/v1/roles/:id/users`
 
+**galleries endpoints + flow**
+- Admin galleries:
+  - `GET /api/v1/galleries`
+  - `GET /api/v1/galleries/:id`
+  - `POST /api/v1/galleries`
+  - `PATCH /api/v1/galleries/:id`
+  - `DELETE /api/v1/galleries/:id`
+  - `PATCH /api/v1/galleries/:id/restore`
+- Public galleries:
+  - `GET /api/v1/galleries/public`
+
 **health endpoints**
 - `GET /api/health/live`
 - `GET /api/health/ready`
@@ -55,6 +69,7 @@
   - `register/confirm`
   - `forgot-password`
   - `reset-password`
+  - `GET /api/v1/galleries/public`
   - health endpoints
 - Protected:
   - `me`
@@ -65,6 +80,7 @@
 - Admin-only:
   - gần như toàn bộ `users` admin routes
   - toàn bộ `roles` routes
+  - toàn bộ `galleries` admin routes
 - Self-or-admin:
   - `GET /api/v1/users/:id`
 
@@ -73,259 +89,263 @@
 ```json
 {
   "success": true,
+  "data": {},
+  "message": "Request successful",
   "error": null,
   "statusCode": 200,
-  "data": {}
+  "timestamp": "2026-04-08T07:15:00.000Z",
+  "path": "/api/v1/example",
+  "requestId": "uuid"
 }
 ```
 - Error:
 ```json
 {
   "success": false,
-  "error": "ERROR_CODE_OR_MESSAGE",
-  "statusCode": 400
+  "data": null,
+  "message": "Human readable message",
+  "error": "DOMAIN_OR_HTTP_ERROR_CODE",
+  "statusCode": 400,
+  "timestamp": "2026-04-08T07:15:00.000Z",
+  "path": "/api/v1/example",
+  "requestId": "uuid"
 }
 ```
-- Validation/domain errors có thể thêm `message`.
-
-**FE must-know notes**
-- Không assume register xong là có account usable ngay.
-- Không assume confirm registration sẽ login luôn.
-- Forgot password luôn success kiểu generic.
-- Reset password thành công thì nên coi session hiện tại là hết hiệu lực.
-- Health path không có `/api/v1`.
 
 3. **Auth model cho frontend**
 
-**login**
-- Endpoint: `POST /api/v1/auth/login`
-- Request chính:
-```json
-{ "email": "user@gmail.com", "password": "Password123A" }
-```
-- Response chính: auth payload thành công, dùng để set authenticated state.
-- FE implication: login xong mới coi user authenticated.
-- Error/security note: sai credentials trả `401`, không dùng để suy luận sâu hơn.
-
-**refresh**
-- Endpoint: `POST /api/v1/auth/refresh`
-- Request chính: refresh token flow của backend.
-- Response chính: token/session mới.
-- FE implication: dùng để renew auth state.
-- Error/security note: refresh token invalid/revoked/missing => `401`, phải logout local.
-
-**logout**
-- Endpoint: `POST /api/v1/auth/logout`
-- Request chính: authenticated request.
-- Response chính: success.
-- FE implication: clear local auth state.
-- Error/security note: idempotent, không cần treat như flow lỗi nghiệp vụ.
-
-**logout-all**
-- Endpoint: `POST /api/v1/auth/logout-all`
-- Request chính: authenticated request.
-- Response chính: success.
-- FE implication: logout khỏi mọi session; clear local auth state luôn.
-- Error/security note: thiếu auth => `401`.
-
-**me**
-- Endpoint: `GET /api/v1/auth/me`
-- Request chính: access token hợp lệ.
-- Response chính: current user.
-- FE implication: endpoint chuẩn để bootstrap current session.
-- Error/security note: token/session invalid => `401`.
-
 **register**
-- Endpoint: `POST /api/v1/auth/register`
-- Request chính:
+- `POST /api/v1/auth/register`
+- Chỉ initiate registration, chưa tạo account thật.
+- Response success:
 ```json
-{
-  "name": "Duong Ngoc Anh",
-  "email": "user@gmail.com",
-  "password": "Password123A",
-  "countryCode": "VN"
-}
+{ "requested": true }
 ```
-- Response chính:
-```json
-{
-  "success": true,
-  "error": null,
-  "statusCode": 201,
-  "data": { "requested": true }
-}
-```
-- Success UX implication: chỉ báo “check your email to confirm registration”.
-- Error/security note: chưa tạo account ngay; email đã tồn tại vẫn có thể trả domain error phù hợp.
 
 **register/confirm**
-- Endpoint: `POST /api/v1/auth/register/confirm`
-- Request chính:
+- `POST /api/v1/auth/register/confirm`
+- Xác nhận token rồi mới tạo account thật.
+- Không auto login.
+- Response success:
 ```json
-{ "token": "raw-registration-token" }
+{ "registered": true }
 ```
-- Response chính:
-```json
-{
-  "success": true,
-  "error": null,
-  "statusCode": 201,
-  "data": { "registered": true }
-}
-```
-- Success UX implication: account đã được tạo; FE nên điều hướng sang login.
-- Error/security note: token invalid/expired => lỗi domain; confirm không auto login.
 
 **forgot-password**
-- Endpoint: `POST /api/v1/auth/forgot-password`
-- Request chính:
+- `POST /api/v1/auth/forgot-password`
+- Luôn generic success, không lộ account existence.
+- Response success:
 ```json
-{ "email": "user@gmail.com" }
+{ "requested": true }
 ```
-- Response chính:
-```json
-{
-  "success": true,
-  "error": null,
-  "statusCode": 201,
-  "data": { "requested": true }
-}
-```
-- Success UX implication: luôn show generic “if account exists, email was sent”.
-- Error/security note: không lộ account existence.
 
 **reset-password**
-- Endpoint: `POST /api/v1/auth/reset-password`
-- Request chính:
+- `POST /api/v1/auth/reset-password`
+- Reset thành công thì auth state cũ bị invalidate.
+- Response success:
 ```json
-{
-  "token": "raw-reset-token",
-  "newPassword": "NewPassword123A",
-  "confirmNewPassword": "NewPassword123A"
-}
+{ "reset": true }
 ```
-- Response chính:
-```json
-{
-  "success": true,
-  "error": null,
-  "statusCode": 201,
-  "data": { "reset": true }
-}
-```
-- Success UX implication: password đổi xong, nên đưa user về login.
-- Error/security note:
-  - token invalid/expired => `401` với `PASSWORD_RESET_TOKEN_INVALID`
-  - password policy: tối thiểu 8 ký tự, có uppercase, lowercase, number
-  - reset xong auth state cũ bị invalidate
 
-4. **Admin capabilities cho frontend**
-
-**users**
-- List users
-  - Endpoint: `GET /api/v1/users`
-  - Boundary: admin-only
-  - Note: hỗ trợ query/filter/pagination; FE admin list dùng endpoint này.
-- User detail
-  - Endpoint: `GET /api/v1/users/:id`
-  - Boundary: self-or-admin
-  - Note: admin xem user khác được; user thường chỉ xem chính mình qua id của họ.
-- Create user
-  - Endpoint: `POST /api/v1/users`
-  - Boundary: admin-only
-  - Note: lỗi hữu ích nhất là duplicate email.
-- Update user
-  - Endpoint: `PATCH /api/v1/users/:id`
-  - Boundary: admin-only
-  - Note: dùng cho role/isActive/profile fields của user khác.
-- Delete user
-  - Endpoint: `DELETE /api/v1/users/:id`
-  - Boundary: admin-only
-  - Note: là soft delete.
-- Restore user
-  - Endpoint: `PATCH /api/v1/users/:id/restore`
-  - Boundary: admin-only
-  - Note: restore soft-deleted user.
-- Update my profile
-  - Endpoint: `PATCH /api/v1/users/me`
-  - Boundary: authenticated user
-  - Note: self-service profile update.
-- Change my password
-  - Endpoint: `PATCH /api/v1/users/me/password`
-  - Boundary: authenticated user
-  - Note: cần current password đúng.
-
-**roles**
-- List roles
-  - Endpoint: `GET /api/v1/roles`
-  - Boundary: admin-only
-  - Note: source cho role management UI/select options admin.
-- Role detail
-  - Endpoint: `GET /api/v1/roles/:id`
-  - Boundary: admin-only
-  - Note: dùng cho edit/detail role.
-- Create role
-  - Endpoint: `POST /api/v1/roles`
-  - Boundary: admin-only
-  - Note: lỗi chính là duplicate name/key semantics.
-- Update role
-  - Endpoint: `PATCH /api/v1/roles/:id`
-  - Boundary: admin-only
-  - Note: không assume mọi role đều editable như nhau.
-- Delete role
-  - Endpoint: `DELETE /api/v1/roles/:id`
-  - Boundary: admin-only
-  - Note: role đang được dùng có thể trả conflict.
-- List role users
-  - Endpoint: `GET /api/v1/roles/:id/users`
-  - Boundary: admin-only
-  - Note: có query behavior theo status/filter.
-
-5. **FE must-not-misunderstand**
-- `register` không tạo account ngay.
-- `register/confirm` mới tạo account thật.
-- `register/confirm` không auto login.
-- `forgot-password` không lộ account existence.
-- `forgot-password` generic success không có nghĩa email chắc chắn đã được gửi.
-- `reset-password` thành công sẽ invalidate auth state cũ.
+**login / refresh / me / logout**
+- FE vẫn bám flow auth hiện có trong Postman.
 - `logout` là idempotent.
-- `GET /users/:id` không phải admin-only tuyệt đối; self cũng được.
-- Health routes là `/api/health/live` và `/api/health/ready`, không versioned.
-- Toàn bộ API dùng response envelope; FE không nên parse response như raw DTO trần.
-- Password policy cho reset/login-related forms: ít nhất 8 ký tự, có uppercase, lowercase, number.
+- `me` là endpoint bootstrap session chuẩn.
 
-6. **Short handoff block**
+4. **Galleries contract cho frontend**
+
+**admin galleries list**
+- Endpoint: `GET /api/v1/galleries`
+- Boundary: admin-only
+- Query:
+  - `page`
+  - `limit`
+  - `keyword`
+  - `isActive`
+- Response item:
+```json
+{
+  "id": "gallery-id",
+  "name": {
+    "en": "Couple",
+    "vi": "Cap doi",
+    "cn": "情侣"
+  },
+  "createdBy": {
+    "id": "user-admin",
+    "name": "Admin User"
+  },
+  "isActive": true,
+  "deletedAt": null,
+  "createdAt": "2026-04-08T07:15:00.000Z",
+  "updatedAt": "2026-04-08T07:15:00.000Z"
+}
+```
+- Note practical:
+  - admin list đã được tối ưu creator lookup ở backend, không còn loop `findById` từng gallery item
+  - FE không cần xử lý thêm creator hydrate
+
+**admin gallery detail**
+- Endpoint: `GET /api/v1/galleries/:id`
+- Boundary: admin-only
+- Shape giống item của admin list
+
+**create gallery**
+- Endpoint: `POST /api/v1/galleries`
+- Boundary: admin-only
+- Request body:
+```json
+{
+  "name": {
+    "en": "Couple",
+    "vi": "Cap doi",
+    "cn": "情侣"
+  }
+}
+```
+- `createdBy` không gửi từ FE; backend lấy từ current authenticated user.
+- Tất cả `en/vi/cn` đều required.
+- `createdBy` phải là user active ở backend.
+
+**update gallery**
+- Endpoint: `PATCH /api/v1/galleries/:id`
+- Boundary: admin-only
+- Request body giống create:
+```json
+{
+  "name": {
+    "en": "Updated Couple",
+    "vi": "Cap doi moi",
+    "cn": "新情侣"
+  }
+}
+```
+
+**delete gallery**
+- Endpoint: `DELETE /api/v1/galleries/:id`
+- Boundary: admin-only
+- Business semantics: soft delete
+  - `isActive = false`
+  - `deletedAt = now`
+- Response contract hiện tại:
+```json
+{
+  "message": "Gallery deleted successfully"
+}
+```
+
+**restore gallery**
+- Endpoint: `PATCH /api/v1/galleries/:id/restore`
+- Boundary: admin-only
+- Restore thành công trả full admin gallery response
+
+**public galleries list**
+- Endpoint: `GET /api/v1/galleries/public`
+- Boundary: public
+- Dùng header `Accept-Language`
+- Supported locale:
+  - `vi`
+  - `en`
+  - `cn`
+- Mapping practical:
+  - `vi`, `vi-VN` -> `vi`
+  - `en`, `en-US`, `en-GB` -> `en`
+  - `zh`, `zh-CN`, `zh-Hans`, `cn` -> `cn`
+- Fallback hiện tại: `en`
+- Chỉ trả gallery active
+- Public response item:
+```json
+{
+  "id": "gallery-id",
+  "name": "Localized gallery name"
+}
+```
+- Không trả:
+  - `createdBy`
+  - `isActive`
+  - `deletedAt`
+  - full multilingual object
+
+**public galleries cache behavior**
+- Backend hiện đã cache public galleries list theo locale
+- Key thực tế theo locale normalized:
+  - `galleries:public:list:vi`
+  - `galleries:public:list:en`
+  - `galleries:public:list:cn`
+- Create/update/delete/restore sẽ invalidate toàn bộ public list cache
+- Đây là backend concern; FE không cần xử lý cache protocol riêng
+
+5. **Galleries errors hữu ích cho FE**
+
+- `GALLERY_NOT_FOUND`
+- `GALLERY_NAME_EN_ALREADY_EXISTS`
+- `GALLERY_NAME_VI_ALREADY_EXISTS`
+- `GALLERY_NAME_CN_ALREADY_EXISTS`
+- `GALLERY_ALREADY_DELETED`
+- `GALLERY_NOT_DELETED`
+
+Practical FE handling:
+- create/update form nên map 3 lỗi duplicate name theo từng locale field
+- delete/restore action nên handle `not found`, `already deleted`, `not deleted` như action-state error bình thường
+
+6. **Frontend planning notes cho FE admin repo**
+
+- Repo admin này nên implement:
+  - admin galleries list
+  - admin gallery detail
+  - create gallery
+  - update gallery
+  - delete gallery
+  - restore gallery
+- Chưa implement public galleries UI trong repo này.
+- Public galleries hiện dùng cho app/customer-facing context khác; chỉ cần hiểu contract để tránh invent sai API.
+- Galleries admin pages/components nên follow pattern đang có hoặc sẽ có của `users` / `roles`:
+  - list page có query state `page`, `limit`, `keyword`, `isActive`
+  - create/update form dùng multilingual object local cho 3 field `en/vi/cn`
+  - detail/edit page đọc full multilingual object, không dùng localized string
+
+7. **FE must-not-misunderstand**
+
+- Không assume `createdBy` là editable field ở gallery form.
+- Không assume public galleries response có full object `name`.
+- Không assume locale fallback là `vi`; hiện tại là `en`.
+- Không assume delete gallery là hard delete.
+- Không parse API như raw DTO trần; luôn unwrap envelope trước.
+- Không bịa public detail API cho galleries; backend hiện chưa có.
+- Không bịa cache contract riêng cho FE; backend tự cache public list.
+
+8. **Short handoff block**
 ```md
 Backend snapshot:
-- NestJS admin/auth backend with modules: auth, users, roles, health.
-- API uses envelope: `{ success, error, statusCode, data }`.
-- Health routes are `/api/health/live` and `/api/health/ready` (not versioned).
+- Modules: auth, users, roles, galleries, health.
+- API uses envelope: `{ success, data, message, error, statusCode, timestamp, path, requestId }`.
+- Health routes are `/api/health/live` and `/api/health/ready`.
 
-Auth model:
-- `POST /api/v1/auth/login`: login user.
-- `POST /api/v1/auth/refresh`: refresh auth state.
-- `POST /api/v1/auth/logout`: idempotent logout.
-- `POST /api/v1/auth/logout-all`: logout all sessions.
-- `GET /api/v1/auth/me`: fetch current user.
-- `POST /api/v1/auth/register`: initiate registration only, returns `{ requested: true }`, no account created yet.
-- `POST /api/v1/auth/register/confirm`: confirm token, creates account, returns `{ registered: true }`, no auto login.
-- `POST /api/v1/auth/forgot-password`: always generic success `{ requested: true }`.
-- `POST /api/v1/auth/reset-password`: resets password, returns `{ reset: true }`, invalidates old auth state.
+Galleries snapshot:
+- Admin routes:
+  - `GET /api/v1/galleries`
+  - `GET /api/v1/galleries/:id`
+  - `POST /api/v1/galleries`
+  - `PATCH /api/v1/galleries/:id`
+  - `DELETE /api/v1/galleries/:id`
+  - `PATCH /api/v1/galleries/:id/restore`
+- Public route:
+  - `GET /api/v1/galleries/public`
+- Admin-only for all admin gallery routes.
+- Public list uses `Accept-Language`, supports `vi/en/cn`, fallback `en`.
+- Public list response is minimal: `{ id, name }`.
+- Admin list/detail returns full multilingual `name` plus `createdBy`, `isActive`, `deletedAt`, `createdAt`, `updatedAt`.
+- Delete is soft delete.
+- Important gallery errors:
+  - `GALLERY_NOT_FOUND`
+  - `GALLERY_NAME_EN_ALREADY_EXISTS`
+  - `GALLERY_NAME_VI_ALREADY_EXISTS`
+  - `GALLERY_NAME_CN_ALREADY_EXISTS`
+  - `GALLERY_ALREADY_DELETED`
+  - `GALLERY_NOT_DELETED`
 
-Admin capabilities:
-- Users: list/detail/create/update/delete/restore, plus self profile update and self password change.
-- Roles: list/detail/create/update/delete/list-role-users.
-- Most users/roles management is admin-only; `GET /users/:id` is self-or-admin.
-
-Boundary notes:
-- Public: login, register, register/confirm, forgot-password, reset-password, health.
-- Protected: me, logout, logout-all, users/me, users/me/password.
-- Admin-only: users management routes, all role routes.
-- Self-or-admin: `GET /api/v1/users/:id`.
-
-Security semantics:
-- Do not assume register == account created.
-- Do not assume confirm registration == logged in.
-- Forgot-password does not reveal whether email exists.
-- Reset-password success should force FE to treat old session as invalid.
+FE admin scope:
+- Implement admin galleries in this repo.
+- Do not implement public galleries UI in this repo.
+- Follow users/roles admin CRUD patterns.
 ```
