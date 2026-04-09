@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -22,6 +22,7 @@ import { restoreUser } from "@/features/users/api/restore-user";
 import type { RoleOption, UserListQuery, UserRecord, UsersListResult } from "@/features/users/types/users.types";
 import { getFriendlyUsersError } from "@/features/users/utils/users-errors";
 import { ROUTES } from "@/lib/constants/routes";
+import { useDebouncedValue } from "@/lib/hooks/use-debounced-value";
 import { faPlus, faRotateLeft } from "@/lib/icons/fa";
 import { notifyError, notifySuccess } from "@/lib/toast";
 import { cn } from "@/lib/utils";
@@ -38,34 +39,79 @@ const ALL_ROLES_VALUE = "__all__";
 
 export function UsersListPage() {
   const [query, setQuery] = useState<UserListQuery>(INITIAL_QUERY);
+  const [keywordInput, setKeywordInput] = useState(INITIAL_QUERY.keyword ?? "");
   const [roles, setRoles] = useState<RoleOption[]>([]);
   const [result, setResult] = useState<UsersListResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [isMutating, setIsMutating] = useState(false);
+  const [isLoadingRoles, setIsLoadingRoles] = useState(true);
+  const debouncedKeyword = useDebouncedValue(keywordInput, 300);
+  const hasLoadedOnceRef = useRef(false);
 
   const loadData = useCallback(async (nextQuery: UserListQuery) => {
-    setIsLoading(true);
-    setError(null);
+    const isInitialLoad = !hasLoadedOnceRef.current;
+    if (isInitialLoad) {
+      setIsLoading(true);
+      setError(null);
+    } else {
+      setIsRefreshing(true);
+    }
 
     try {
-      const [usersResult, rolesResult] = await Promise.all([
-        listUsers(nextQuery),
-        listRoleOptions(),
-      ]);
-
+      const usersResult = await listUsers(nextQuery);
       setResult(usersResult);
-      setRoles(rolesResult.items);
+      setError(null);
+      hasLoadedOnceRef.current = true;
     } catch (loadError) {
-      setError(getFriendlyUsersError(loadError));
+      const friendlyError = getFriendlyUsersError(loadError);
+
+      if (!hasLoadedOnceRef.current) {
+        setError(friendlyError);
+      } else {
+        notifyError(friendlyError);
+      }
     } finally {
       setIsLoading(false);
+      setIsRefreshing(false);
     }
   }, []);
 
   useEffect(() => {
     void loadData(query);
   }, [loadData, query]);
+
+  useEffect(() => {
+    const loadRoles = async () => {
+      setIsLoadingRoles(true);
+
+      try {
+        const rolesResult = await listRoleOptions();
+        setRoles(rolesResult.items);
+      } catch (loadError) {
+        notifyError(getFriendlyUsersError(loadError));
+      } finally {
+        setIsLoadingRoles(false);
+      }
+    };
+
+    void loadRoles();
+  }, []);
+
+  useEffect(() => {
+    setQuery((current) => {
+      if ((current.keyword ?? "") === debouncedKeyword) {
+        return current;
+      }
+
+      return {
+        ...current,
+        page: 1,
+        keyword: debouncedKeyword,
+      };
+    });
+  }, [debouncedKeyword]);
 
   async function handleDelete(user: UserRecord) {
     setIsMutating(true);
@@ -131,14 +177,8 @@ export function UsersListPage() {
           <label className="space-y-2 xl:col-span-2">
             <span className="text-sm font-medium text-foreground">Search keyword</span>
             <Input
-              value={query.keyword ?? ""}
-              onChange={(event) =>
-                setQuery((current) => ({
-                  ...current,
-                  page: 1,
-                  keyword: event.target.value,
-                }))
-              }
+              value={keywordInput}
+              onChange={(event) => setKeywordInput(event.target.value)}
               placeholder="Search by name or email"
             />
           </label>
@@ -165,6 +205,7 @@ export function UsersListPage() {
             <span className="text-sm font-medium text-foreground">Role</span>
             <AppSelect
               value={query.roleId ? query.roleId : ALL_ROLES_VALUE}
+              disabled={isLoadingRoles}
               onChange={(roleId) =>
                 setQuery((current) => ({
                   ...current,
@@ -201,7 +242,7 @@ export function UsersListPage() {
           </label>
         </div>
       </AdminSurface>
-      {isLoading ? (
+      {isLoading && !result ? (
         <LoadingState
           title="Loading users"
           description="Preparing the latest user list and filter options."
@@ -223,11 +264,12 @@ export function UsersListPage() {
         />
       ) : result && result.items.length > 0 ? (
         <>
-          <UsersTable users={result.items} isBusy={isMutating} onDelete={handleDelete} onRestore={handleRestore} />
+          <UsersTable users={result.items} isBusy={isMutating || isRefreshing} onDelete={handleDelete} onRestore={handleRestore} />
           <AdminSurface className="p-5">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <p className="text-sm text-muted-foreground">
                 Page {result.meta.page} of {result.meta.totalPages}. Total users: {result.meta.total}.
+                {isRefreshing ? " Updating…" : ""}
               </p>
               <div className="flex gap-2">
                 <button

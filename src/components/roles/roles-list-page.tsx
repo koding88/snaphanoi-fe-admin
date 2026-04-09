@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -20,6 +20,7 @@ import { listRoles } from "@/features/roles/api/list-roles";
 import type { RoleListQuery, RoleRecord, RolesListResult } from "@/features/roles/types/roles.types";
 import { getFriendlyRolesError } from "@/features/roles/utils/roles-errors";
 import { ROUTES } from "@/lib/constants/routes";
+import { useDebouncedValue } from "@/lib/hooks/use-debounced-value";
 import { faPlus, faRotateLeft } from "@/lib/icons/fa";
 import { notifyError, notifySuccess } from "@/lib/toast";
 import { cn } from "@/lib/utils";
@@ -33,28 +34,60 @@ const INITIAL_QUERY: RoleListQuery = {
 
 export function RolesListPage() {
   const [query, setQuery] = useState<RoleListQuery>(INITIAL_QUERY);
+  const [keywordInput, setKeywordInput] = useState(INITIAL_QUERY.keyword ?? "");
   const [result, setResult] = useState<RolesListResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [isMutating, setIsMutating] = useState(false);
+  const debouncedKeyword = useDebouncedValue(keywordInput, 300);
+  const hasLoadedOnceRef = useRef(false);
 
   const loadData = useCallback(async (nextQuery: RoleListQuery) => {
-    setIsLoading(true);
-    setError(null);
+    const isInitialLoad = !hasLoadedOnceRef.current;
+    if (isInitialLoad) {
+      setIsLoading(true);
+      setError(null);
+    } else {
+      setIsRefreshing(true);
+    }
 
     try {
       const rolesResult = await listRoles(nextQuery);
       setResult(rolesResult);
+      setError(null);
+      hasLoadedOnceRef.current = true;
     } catch (loadError) {
-      setError(getFriendlyRolesError(loadError));
+      const friendlyError = getFriendlyRolesError(loadError);
+
+      if (!hasLoadedOnceRef.current) {
+        setError(friendlyError);
+      } else {
+        notifyError(friendlyError);
+      }
     } finally {
       setIsLoading(false);
+      setIsRefreshing(false);
     }
   }, []);
 
   useEffect(() => {
     void loadData(query);
   }, [loadData, query]);
+
+  useEffect(() => {
+    setQuery((current) => {
+      if ((current.keyword ?? "") === debouncedKeyword) {
+        return current;
+      }
+
+      return {
+        ...current,
+        page: 1,
+        keyword: debouncedKeyword,
+      };
+    });
+  }, [debouncedKeyword]);
 
   async function handleDelete(role: RoleRecord) {
     setIsMutating(true);
@@ -104,14 +137,8 @@ export function RolesListPage() {
           <label className="space-y-2 md:col-span-2">
             <span className="text-sm font-medium text-foreground">Search keyword</span>
             <Input
-              value={query.keyword ?? ""}
-              onChange={(event) =>
-                setQuery((current) => ({
-                  ...current,
-                  page: 1,
-                  keyword: event.target.value,
-                }))
-              }
+              value={keywordInput}
+              onChange={(event) => setKeywordInput(event.target.value)}
               placeholder="Search role name"
             />
           </label>
@@ -136,7 +163,7 @@ export function RolesListPage() {
           </label>
         </div>
       </AdminSurface>
-      {isLoading ? (
+      {isLoading && !result ? (
         <LoadingState
           title="Loading roles"
           description="Preparing role definitions and usage counts."
@@ -158,11 +185,12 @@ export function RolesListPage() {
         />
       ) : result && result.items.length > 0 ? (
         <>
-          <RolesTable roles={result.items} onDelete={handleDelete} isBusy={isMutating} />
+          <RolesTable roles={result.items} onDelete={handleDelete} isBusy={isMutating || isRefreshing} />
           <AdminSurface className="p-5">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <p className="text-sm text-muted-foreground">
                 Page {result.meta.page} of {result.meta.totalPages}. Total roles: {result.meta.total}.
+                {isRefreshing ? " Updating…" : ""}
               </p>
               <div className="flex gap-2">
                 <button

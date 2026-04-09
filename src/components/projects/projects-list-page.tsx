@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
@@ -20,6 +20,7 @@ import { restoreProject } from "@/features/projects/api/restore-project";
 import type { ProjectListQuery, ProjectRecord, ProjectsListResult } from "@/features/projects/types/projects.types";
 import { getFriendlyProjectsError } from "@/features/projects/utils/projects-errors";
 import { ROUTES } from "@/lib/constants/routes";
+import { useDebouncedValue } from "@/lib/hooks/use-debounced-value";
 import { faPlus, faRotateLeft } from "@/lib/icons/fa";
 import { notifyError, notifySuccess } from "@/lib/toast";
 import { cn } from "@/lib/utils";
@@ -34,28 +35,60 @@ const INITIAL_QUERY: ProjectListQuery = {
 
 export function ProjectsListPage() {
   const [query, setQuery] = useState<ProjectListQuery>(INITIAL_QUERY);
+  const [keywordInput, setKeywordInput] = useState(INITIAL_QUERY.keyword ?? "");
   const [result, setResult] = useState<ProjectsListResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [isMutating, setIsMutating] = useState(false);
+  const debouncedKeyword = useDebouncedValue(keywordInput, 300);
+  const hasLoadedOnceRef = useRef(false);
 
   const loadData = useCallback(async (nextQuery: ProjectListQuery) => {
-    setIsLoading(true);
-    setError(null);
+    const isInitialLoad = !hasLoadedOnceRef.current;
+    if (isInitialLoad) {
+      setIsLoading(true);
+      setError(null);
+    } else {
+      setIsRefreshing(true);
+    }
 
     try {
       const projectResult = await listProjects(nextQuery);
       setResult(projectResult);
+      setError(null);
+      hasLoadedOnceRef.current = true;
     } catch (loadError) {
-      setError(getFriendlyProjectsError(loadError));
+      const friendlyError = getFriendlyProjectsError(loadError);
+
+      if (!hasLoadedOnceRef.current) {
+        setError(friendlyError);
+      } else {
+        notifyError(friendlyError);
+      }
     } finally {
       setIsLoading(false);
+      setIsRefreshing(false);
     }
   }, []);
 
   useEffect(() => {
     void loadData(query);
   }, [loadData, query]);
+
+  useEffect(() => {
+    setQuery((current) => {
+      if ((current.keyword ?? "") === debouncedKeyword) {
+        return current;
+      }
+
+      return {
+        ...current,
+        page: 1,
+        keyword: debouncedKeyword,
+      };
+    });
+  }, [debouncedKeyword]);
 
   async function handleDelete(project: ProjectRecord) {
     setIsMutating(true);
@@ -121,14 +154,8 @@ export function ProjectsListPage() {
           <label className="space-y-2 xl:col-span-2">
             <span className="text-sm font-medium text-foreground">Search keyword</span>
             <Input
-              value={query.keyword ?? ""}
-              onChange={(event) =>
-                setQuery((current) => ({
-                  ...current,
-                  page: 1,
-                  keyword: event.target.value,
-                }))
-              }
+              value={keywordInput}
+              onChange={(event) => setKeywordInput(event.target.value)}
               placeholder="Search by project title"
             />
           </label>
@@ -188,7 +215,7 @@ export function ProjectsListPage() {
           </label>
         </div>
       </AdminSurface>
-      {isLoading ? (
+      {isLoading && !result ? (
         <LoadingState
           title="Loading projects"
           description="Preparing the latest projects, filters, and content states."
@@ -212,7 +239,7 @@ export function ProjectsListPage() {
         <>
           <ProjectsTable
             projects={result.items}
-            isBusy={isMutating}
+            isBusy={isMutating || isRefreshing}
             onDelete={handleDelete}
             onRestore={handleRestore}
           />
@@ -220,6 +247,7 @@ export function ProjectsListPage() {
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <p className="text-sm text-muted-foreground">
                 Page {result.meta.page} of {result.meta.totalPages}. Total projects: {result.meta.total}.
+                {isRefreshing ? " Updating…" : ""}
               </p>
               <div className="flex gap-2">
                 <button
