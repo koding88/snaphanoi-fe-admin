@@ -27,6 +27,14 @@ export const API_ENDPOINTS = {
     byId: (id: string) => `/api/v1/galleries/${id}`,
     restore: (id: string) => `/api/v1/galleries/${id}/restore`,
   },
+  projects: {
+    list: "/api/v1/projects",
+    byId: (id: string) => `/api/v1/projects/${id}`,
+    restore: (id: string) => `/api/v1/projects/${id}/restore`,
+  },
+  files: {
+    requestUpload: "/api/v1/files/request-upload",
+  },
   health: {
     live: "/api/health/live",
     ready: "/api/health/ready",

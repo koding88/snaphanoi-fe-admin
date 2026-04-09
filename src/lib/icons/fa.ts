@@ -2,6 +2,7 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 import {
   faArrowRightFromBracket,
   faArrowRight,
+  faArrowRotateRight,
   faArrowUpRightFromSquare,
   faBarsStaggered,
   faBell,
@@ -26,6 +27,7 @@ import {
   faRotateLeft,
   faSearch,
   faShieldHalved,
+  faSpinner,
   faTrashCan,
   faUserGear,
   faUserPen,
@@ -41,6 +43,7 @@ config.autoAddCss = false;
 export {
   faArrowRightFromBracket,
   faArrowRight,
+  faArrowRotateRight,
   faArrowUpRightFromSquare,
   faBarsStaggered,
   faBell,
@@ -65,6 +68,7 @@ export {
   faRotateLeft,
   faSearch,
   faShieldHalved,
+  faSpinner,
   faTrashCan,
   faUserGear,
   faUserPen,
