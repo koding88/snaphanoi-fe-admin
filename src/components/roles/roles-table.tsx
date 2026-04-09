@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { type KeyboardEvent, type MouseEvent, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -20,8 +21,16 @@ type RolesTableProps = {
 };
 
 export function RolesTable({ roles, onDelete, isBusy = false }: RolesTableProps) {
+  const router = useRouter();
   const [pendingRole, setPendingRole] = useState<RoleRecord | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const handleRowActionClick = (event: MouseEvent | KeyboardEvent) => {
+    event.stopPropagation();
+  };
+
+  function navigateToRole(roleId: string) {
+    router.push(ROUTES.admin.roles.detail(roleId));
+  }
 
   async function handleConfirm() {
     if (!pendingRole) {
@@ -54,40 +63,49 @@ export function RolesTable({ roles, onDelete, isBusy = false }: RolesTableProps)
           <table className="min-w-[720px] w-full text-left">
             <thead className="border-b border-border/80 bg-white/55">
               <tr className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
-                <th className="px-5 py-4">Role</th>
-                <th className="px-5 py-4">Type</th>
-                <th className="px-5 py-4">Users</th>
-                <th className="px-5 py-4">Actions</th>
+                <th className="w-[32%] px-5 py-4">Role</th>
+                <th className="w-[16%] px-5 py-4">Type</th>
+                <th className="w-[30%] px-5 py-4">Users</th>
+                <th className="w-[22%] px-5 py-4 text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
               {roles.map((role) => (
                 <tr
                   key={role.id}
-                  className="border-b border-border/60 transition-colors hover:bg-white/46 last:border-b-0"
+                  role="link"
+                  tabIndex={0}
+                  onClick={() => navigateToRole(role.id)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      navigateToRole(role.id);
+                    }
+                  }}
+                  className="cursor-pointer border-b border-border/60 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0"
                 >
-                  <td className="px-5 py-4">
+                  <td className="align-middle px-5 py-5">
                     <div className="space-y-1">
-                      <Link
-                        href={ROUTES.admin.roles.detail(role.id)}
-                        className="font-medium text-foreground transition-opacity hover:opacity-75"
-                      >
-                        {role.name}
-                      </Link>
+                      <p className="font-medium text-foreground">{role.name}</p>
                       <p className="text-sm text-muted-foreground">{role.key}</p>
                     </div>
                   </td>
-                  <td className="px-5 py-4">
+                  <td className="align-middle px-5 py-5">
                     <RoleSystemBadge isSystem={role.isSystem} />
                   </td>
-                  <td className="px-5 py-4 text-sm text-muted-foreground">
+                  <td className="align-middle px-5 py-5 text-sm text-muted-foreground">
                     Active {role.activeUsersCount} / Deleted {role.deletedUsersCount}
                   </td>
-                  <td className="px-5 py-4">
-                    <div className="flex flex-wrap gap-2">
+                  <td className="align-middle px-5 py-5">
+                    <div
+                      className="flex flex-wrap justify-end gap-2"
+                      onClick={handleRowActionClick}
+                      onKeyDown={handleRowActionClick}
+                    >
                       <Link
                         href={ROUTES.admin.roles.edit(role.id)}
                         className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
+                        onClick={handleRowActionClick}
                       >
                         <FontAwesomeIcon icon={faUserPen} />
                         Edit
@@ -95,7 +113,10 @@ export function RolesTable({ roles, onDelete, isBusy = false }: RolesTableProps)
                       <button
                         type="button"
                         disabled={isBusy}
-                        onClick={() => setPendingRole(role)}
+                        onClick={(event) => {
+                          handleRowActionClick(event);
+                          setPendingRole(role);
+                        }}
                         className={cn(
                           buttonVariants({ variant: "destructive", size: "sm" }),
                           "disabled:pointer-events-none disabled:opacity-50",

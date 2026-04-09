@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { type KeyboardEvent, type MouseEvent, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
@@ -22,11 +23,21 @@ type ProjectsTableProps = {
 };
 
 export function ProjectsTable({ projects, isBusy = false, onDelete, onRestore }: ProjectsTableProps) {
+  const router = useRouter();
+  const columnLayout =
+    "grid-cols-[minmax(0,1.65fr)_minmax(0,0.9fr)_minmax(0,1.55fr)_minmax(0,0.85fr)_minmax(0,0.9fr)_minmax(0,0.88fr)_minmax(0,0.95fr)_minmax(0,0.9fr)]";
   const [pendingAction, setPendingAction] = useState<{
     type: "delete" | "restore";
     project: ProjectRecord;
   } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const handleRowActionClick = (event: MouseEvent | KeyboardEvent) => {
+    event.stopPropagation();
+  };
+
+  function navigateToProject(projectId: string) {
+    router.push(ROUTES.admin.projects.detail(projectId));
+  }
 
   async function handleConfirm() {
     if (!pendingAction) {
@@ -61,98 +72,120 @@ export function ProjectsTable({ projects, isBusy = false, onDelete, onRestore }:
             Review story titles, gallery placement, cover assets, and lifecycle state from one table.
           </p>
         </div>
-        <div className="overflow-x-auto">
-          <table className="min-w-[1080px] w-full text-left">
-            <thead className="border-b border-border/80 bg-white/55">
-              <tr className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
-                <th className="px-5 py-4">Project</th>
-                <th className="px-5 py-4">Cover</th>
-                <th className="px-5 py-4">Localized names</th>
-                <th className="px-5 py-4">Gallery</th>
-                <th className="px-5 py-4">Publish</th>
-                <th className="px-5 py-4">Status</th>
-                <th className="px-5 py-4">Updated</th>
-                <th className="px-5 py-4">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {projects.map((project) => (
-                <tr
-                  key={project.id}
-                  className="border-b border-border/60 transition-colors hover:bg-white/46 last:border-b-0"
-                >
-                  <td className="px-5 py-4">
-                    <div className="space-y-1">
-                      <Link
-                        href={ROUTES.admin.projects.detail(project.id)}
-                        className="font-medium text-foreground transition-opacity hover:opacity-75"
+        <div className="border-t border-border/10">
+          <div
+            className={cn(
+              "grid items-center gap-x-6 border-b border-border/80 bg-white/55 px-5 py-4 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
+              columnLayout,
+            )}
+          >
+            <div>Project</div>
+            <div className="text-center">Cover</div>
+            <div className="text-center">Localized names</div>
+            <div className="text-center">Gallery</div>
+            <div className="text-center">Publish</div>
+            <div className="text-center">Status</div>
+            <div className="text-center">Updated</div>
+            <div className="text-center">Actions</div>
+          </div>
+          <div>
+            {projects.map((project) => (
+              <div
+                key={project.id}
+                role="link"
+                tabIndex={0}
+                onClick={() => navigateToProject(project.id)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    navigateToProject(project.id);
+                  }
+                }}
+                className={cn(
+                  "grid cursor-pointer items-center gap-x-6 border-b border-border/60 px-5 py-5 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0",
+                  columnLayout,
+                )}
+              >
+                <div>
+                  <p className="truncate font-medium text-foreground">{project.name.en}</p>
+                </div>
+                <div className="flex justify-center">
+                  <div className="overflow-hidden rounded-2xl border border-border/80 bg-muted/40 shadow-[0_12px_30px_-24px_rgba(32,24,18,0.45)]">
+                    {/* Table thumbnails use backend storage URLs directly and stay intentionally unoptimized here. */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={project.coverImage.url}
+                      alt={project.name.en}
+                      className="block h-20 w-28 object-cover"
+                    />
+                  </div>
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  <div className="mx-auto w-fit max-w-full text-left">
+                    <p className="truncate">vi: {project.name.vi}</p>
+                    <p className="truncate">cn: {project.name.cn}</p>
+                  </div>
+                </div>
+                <div className="text-center text-sm text-muted-foreground">
+                  <p className="truncate">{project.gallery.name}</p>
+                </div>
+                <div className="flex justify-center">
+                  <ProjectPublishBadge isPublished={project.isPublished} />
+                </div>
+                <div className="flex justify-center">
+                  <ProjectStatusBadge isActive={project.isActive} deletedAt={project.deletedAt} />
+                </div>
+                <div className="text-center text-sm text-muted-foreground">
+                  <p className="leading-relaxed">{formatDateTime(project.updatedAt)}</p>
+                </div>
+                <div className="text-center">
+                  <div
+                    className="grid justify-items-center gap-2"
+                    onClick={handleRowActionClick}
+                    onKeyDown={handleRowActionClick}
+                  >
+                    <Link
+                      href={ROUTES.admin.projects.edit(project.id)}
+                      className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
+                      onClick={handleRowActionClick}
+                    >
+                      <FontAwesomeIcon icon={faUserPen} />
+                      Edit
+                    </Link>
+                    {project.deletedAt ? (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        disabled={isBusy}
+                        onClick={(event) => {
+                          handleRowActionClick(event);
+                          setPendingAction({ type: "restore", project });
+                        }}
                       >
-                        {project.name.en}
-                      </Link>
-                      <p className="text-sm text-muted-foreground">{project.id}</p>
-                    </div>
-                  </td>
-                  <td className="px-5 py-4">
-                    <div className="overflow-hidden rounded-2xl border border-border/80 bg-muted/40">
-                      {/* Table thumbnails use backend storage URLs directly and stay intentionally unoptimized here. */}
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={project.coverImage.url}
-                        alt={project.name.en}
-                        className="block h-20 w-28 object-cover"
-                      />
-                    </div>
-                  </td>
-                  <td className="px-5 py-4 text-sm text-muted-foreground">
-                    <p>vi: {project.name.vi}</p>
-                    <p>cn: {project.name.cn}</p>
-                  </td>
-                  <td className="px-5 py-4 text-sm text-muted-foreground">{project.gallery.name}</td>
-                  <td className="px-5 py-4">
-                    <ProjectPublishBadge isPublished={project.isPublished} />
-                  </td>
-                  <td className="px-5 py-4">
-                    <ProjectStatusBadge isActive={project.isActive} deletedAt={project.deletedAt} />
-                  </td>
-                  <td className="px-5 py-4 text-sm text-muted-foreground">{formatDateTime(project.updatedAt)}</td>
-                  <td className="px-5 py-4">
-                    <div className="flex flex-wrap gap-2">
-                      <Link
-                        href={ROUTES.admin.projects.edit(project.id)}
-                        className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
+                        <FontAwesomeIcon icon={faRotateLeft} />
+                        Restore
+                      </Button>
+                    ) : (
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        size="sm"
+                        disabled={isBusy}
+                        onClick={(event) => {
+                          handleRowActionClick(event);
+                          setPendingAction({ type: "delete", project });
+                        }}
                       >
-                        <FontAwesomeIcon icon={faUserPen} />
-                        Edit
-                      </Link>
-                      {project.deletedAt ? (
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="sm"
-                          disabled={isBusy}
-                          onClick={() => setPendingAction({ type: "restore", project })}
-                        >
-                          <FontAwesomeIcon icon={faRotateLeft} />
-                          Restore
-                        </Button>
-                      ) : (
-                        <Button
-                          type="button"
-                          variant="destructive"
-                          size="sm"
-                          disabled={isBusy}
-                          onClick={() => setPendingAction({ type: "delete", project })}
-                        >
-                          <FontAwesomeIcon icon={faTrashCan} />
-                          Delete
-                        </Button>
-                      )}
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                        <FontAwesomeIcon icon={faTrashCan} />
+                        Delete
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
       <ConfirmDialog

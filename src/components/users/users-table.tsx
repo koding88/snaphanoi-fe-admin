@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { type KeyboardEvent, type MouseEvent, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -23,11 +24,19 @@ type UsersTableProps = {
 };
 
 export function UsersTable({ users, isBusy = false, onDelete, onRestore }: UsersTableProps) {
+  const router = useRouter();
   const [pendingAction, setPendingAction] = useState<{
     type: "delete" | "restore";
     user: UserRecord;
   } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const handleRowActionClick = (event: MouseEvent | KeyboardEvent) => {
+    event.stopPropagation();
+  };
+
+  function navigateToUser(userId: string) {
+    router.push(ROUTES.admin.users.detail(userId));
+  }
 
   async function handleConfirm() {
     if (!pendingAction) {
@@ -65,44 +74,53 @@ export function UsersTable({ users, isBusy = false, onDelete, onRestore }: Users
           <table className="min-w-[760px] w-full text-left">
             <thead className="border-b border-border/80 bg-white/55">
               <tr className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
-                <th className="px-5 py-4">User</th>
-                <th className="px-5 py-4">Role</th>
-                <th className="px-5 py-4">Country</th>
-                <th className="px-5 py-4">Status</th>
-                <th className="px-5 py-4">Actions</th>
+                <th className="w-[34%] px-5 py-4">User</th>
+                <th className="w-[18%] px-5 py-4">Role</th>
+                <th className="w-[16%] px-5 py-4">Country</th>
+                <th className="w-[14%] px-5 py-4">Status</th>
+                <th className="w-[18%] px-5 py-4 text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
               {users.map((user) => (
                 <tr
                   key={user.id}
-                  className="border-b border-border/60 transition-colors hover:bg-white/46 last:border-b-0"
+                  role="link"
+                  tabIndex={0}
+                  onClick={() => navigateToUser(user.id)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      navigateToUser(user.id);
+                    }
+                  }}
+                  className="cursor-pointer border-b border-border/60 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0"
                 >
-                  <td className="px-5 py-4">
+                  <td className="align-middle px-5 py-5">
                     <div className="space-y-1">
-                      <Link
-                        href={ROUTES.admin.users.detail(user.id)}
-                        className="font-medium text-foreground transition-opacity hover:opacity-75"
-                      >
-                        {user.name}
-                      </Link>
+                      <p className="font-medium text-foreground">{user.name}</p>
                       <p className="text-sm text-muted-foreground">{user.email}</p>
                     </div>
                   </td>
-                  <td className="px-5 py-4">
+                  <td className="align-middle px-5 py-5">
                     <UserRoleBadge roleName={user.roleName} />
                   </td>
-                  <td className="px-5 py-4 text-sm text-muted-foreground">
+                  <td className="align-middle px-5 py-5 text-sm text-muted-foreground">
                     {formatCountryCode(user.countryCode)}
                   </td>
-                  <td className="px-5 py-4">
+                  <td className="align-middle px-5 py-5">
                     <UserStatusBadge isActive={user.isActive} deletedAt={user.deletedAt} />
                   </td>
-                  <td className="px-5 py-4">
-                    <div className="flex flex-wrap gap-2">
+                  <td className="align-middle px-5 py-5">
+                    <div
+                      className="flex flex-wrap justify-end gap-2"
+                      onClick={handleRowActionClick}
+                      onKeyDown={handleRowActionClick}
+                    >
                       <Link
                         href={ROUTES.admin.users.edit(user.id)}
                         className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
+                        onClick={handleRowActionClick}
                       >
                         <FontAwesomeIcon icon={faUserPen} />
                         Edit
@@ -113,7 +131,10 @@ export function UsersTable({ users, isBusy = false, onDelete, onRestore }: Users
                           variant="outline"
                           size="sm"
                           disabled={isBusy}
-                          onClick={() => setPendingAction({ type: "restore", user })}
+                          onClick={(event) => {
+                            handleRowActionClick(event);
+                            setPendingAction({ type: "restore", user });
+                          }}
                         >
                           <FontAwesomeIcon icon={faRotateLeft} />
                           Restore
@@ -124,7 +145,10 @@ export function UsersTable({ users, isBusy = false, onDelete, onRestore }: Users
                           variant="destructive"
                           size="sm"
                           disabled={isBusy}
-                          onClick={() => setPendingAction({ type: "delete", user })}
+                          onClick={(event) => {
+                            handleRowActionClick(event);
+                            setPendingAction({ type: "delete", user });
+                          }}
                         >
                           <FontAwesomeIcon icon={faTrashCan} />
                           Delete

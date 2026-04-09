@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { type KeyboardEvent, type MouseEvent, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -22,11 +23,19 @@ type GalleriesTableProps = {
 };
 
 export function GalleriesTable({ galleries, isBusy = false, onDelete, onRestore }: GalleriesTableProps) {
+  const router = useRouter();
   const [pendingAction, setPendingAction] = useState<{
     type: "delete" | "restore";
     gallery: GalleryRecord;
   } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const handleRowActionClick = (event: MouseEvent | KeyboardEvent) => {
+    event.stopPropagation();
+  };
+
+  function navigateToGallery(galleryId: string) {
+    router.push(ROUTES.admin.galleries.detail(galleryId));
+  }
 
   async function handleConfirm() {
     if (!pendingAction) {
@@ -63,45 +72,51 @@ export function GalleriesTable({ galleries, isBusy = false, onDelete, onRestore 
           <table className="min-w-[860px] w-full text-left">
             <thead className="border-b border-border/80 bg-white/55">
               <tr className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
-                <th className="px-5 py-4">Gallery</th>
-                <th className="px-5 py-4">Localized names</th>
-                <th className="px-5 py-4">Created by</th>
-                <th className="px-5 py-4">Updated</th>
-                <th className="px-5 py-4">Status</th>
-                <th className="px-5 py-4">Actions</th>
+                <th className="w-[24%] px-5 py-4">Gallery</th>
+                <th className="w-[22%] px-5 py-4">Localized names</th>
+                <th className="w-[16%] px-5 py-4">Created by</th>
+                <th className="w-[16%] px-5 py-4">Updated</th>
+                <th className="w-[10%] px-5 py-4">Status</th>
+                <th className="w-[12%] px-5 py-4 text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
               {galleries.map((gallery) => (
                 <tr
                   key={gallery.id}
-                  className="border-b border-border/60 transition-colors hover:bg-white/46 last:border-b-0"
+                  role="link"
+                  tabIndex={0}
+                  onClick={() => navigateToGallery(gallery.id)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      navigateToGallery(gallery.id);
+                    }
+                  }}
+                  className="cursor-pointer border-b border-border/60 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0"
                 >
-                  <td className="px-5 py-4">
-                    <div className="space-y-1">
-                      <Link
-                        href={ROUTES.admin.galleries.detail(gallery.id)}
-                        className="font-medium text-foreground transition-opacity hover:opacity-75"
-                      >
-                        {gallery.name.en}
-                      </Link>
-                      <p className="text-sm text-muted-foreground">{gallery.id}</p>
-                    </div>
+                  <td className="align-middle px-5 py-5">
+                    <p className="font-medium text-foreground">{gallery.name.en}</p>
                   </td>
-                  <td className="px-5 py-4 text-sm text-muted-foreground">
+                  <td className="align-middle px-5 py-5 text-sm text-muted-foreground">
                     <p>vi: {gallery.name.vi}</p>
                     <p>cn: {gallery.name.cn}</p>
                   </td>
-                  <td className="px-5 py-4 text-sm text-muted-foreground">{gallery.createdBy.name}</td>
-                  <td className="px-5 py-4 text-sm text-muted-foreground">{formatDateTime(gallery.updatedAt)}</td>
-                  <td className="px-5 py-4">
+                  <td className="align-middle px-5 py-5 text-sm text-muted-foreground">{gallery.createdBy.name}</td>
+                  <td className="align-middle px-5 py-5 text-sm text-muted-foreground">{formatDateTime(gallery.updatedAt)}</td>
+                  <td className="align-middle px-5 py-5">
                     <GalleryStatusBadge isActive={gallery.isActive} deletedAt={gallery.deletedAt} />
                   </td>
-                  <td className="px-5 py-4">
-                    <div className="flex flex-wrap gap-2">
+                  <td className="align-middle px-5 py-5">
+                    <div
+                      className="flex flex-wrap justify-end gap-2"
+                      onClick={handleRowActionClick}
+                      onKeyDown={handleRowActionClick}
+                    >
                       <Link
                         href={ROUTES.admin.galleries.edit(gallery.id)}
                         className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
+                        onClick={handleRowActionClick}
                       >
                         <FontAwesomeIcon icon={faUserPen} />
                         Edit
@@ -112,7 +127,10 @@ export function GalleriesTable({ galleries, isBusy = false, onDelete, onRestore 
                           variant="outline"
                           size="sm"
                           disabled={isBusy}
-                          onClick={() => setPendingAction({ type: "restore", gallery })}
+                          onClick={(event) => {
+                            handleRowActionClick(event);
+                            setPendingAction({ type: "restore", gallery });
+                          }}
                         >
                           <FontAwesomeIcon icon={faRotateLeft} />
                           Restore
@@ -123,7 +141,10 @@ export function GalleriesTable({ galleries, isBusy = false, onDelete, onRestore 
                           variant="destructive"
                           size="sm"
                           disabled={isBusy}
-                          onClick={() => setPendingAction({ type: "delete", gallery })}
+                          onClick={(event) => {
+                            handleRowActionClick(event);
+                            setPendingAction({ type: "delete", gallery });
+                          }}
                         >
                           <FontAwesomeIcon icon={faTrashCan} />
                           Delete
