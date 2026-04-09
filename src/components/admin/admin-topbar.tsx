@@ -10,7 +10,7 @@ import { AppLogo } from "@/components/shared/app-logo";
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/features/auth/store/auth.store";
 import { ADMIN_NAV_ITEMS, isAdminNavItemActive } from "@/lib/constants/nav";
-import { faBarsStaggered, faSearch } from "@/lib/icons/fa";
+import { faBarsStaggered } from "@/lib/icons/fa";
 
 type AdminTopbarProps = {
   onMenuClick: () => void;
@@ -51,12 +51,6 @@ export function AdminTopbar({ onMenuClick }: AdminTopbarProps) {
                   ? `${user.name} · ${user.roleName ?? "Studio member"}`
                   : "Bootstrapping authenticated session")}
             </p>
-          </div>
-          <div className="hidden min-w-0 flex-1 items-center gap-3 rounded-full border border-border/80 bg-white/72 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] xl:flex">
-            <FontAwesomeIcon icon={faSearch} className="text-muted-foreground" />
-            <span className="truncate text-sm text-muted-foreground">
-              Profile and security now live in the account menu, separate from team management.
-            </span>
           </div>
         </div>
         <div className="ml-auto flex items-center gap-2">
