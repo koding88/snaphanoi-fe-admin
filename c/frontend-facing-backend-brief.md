@@ -1,5 +1,5 @@
 1. **Kết luận ngắn**
-- Backend snapshot hiện tại có 5 nhóm endpoint chính: `auth`, `users`, `roles`, `galleries`, `health`.
+- Backend snapshot hiện tại có 7 nhóm endpoint chính: `auth`, `users`, `roles`, `galleries`, `projects`, `files`, `health`.
 - `galleries` đã hoàn tất round 1 ở backend:
   - admin CRUD
   - soft delete / restore
@@ -8,8 +8,10 @@
   - Accept-Language mapping
   - fallback locale hiện tại là `en`
   - public list có cache theo locale và invalidate khi write
-- `users`, `roles`, `galleries` admin routes đều là admin-only.
+- `users`, `roles`, `galleries`, `projects` admin routes đều là admin-only.
 - `GET /api/v1/galleries/public` là public, không cần auth.
+- `GET /api/v1/projects/public` và `GET /api/v1/projects/public/:id` là public.
+- `POST /api/v1/files/request-upload` là public.
 - Response API dùng envelope thống nhất: `success`, `data`, `message`, `error`, `statusCode`, `timestamp`, `path`, `requestId`.
 - Health routes hiện không versioned: `/api/health/live`, `/api/health/ready`.
 
@@ -58,6 +60,22 @@
 - Public galleries:
   - `GET /api/v1/galleries/public`
 
+**projects endpoints + flow**
+- Admin projects:
+  - `GET /api/v1/projects`
+  - `GET /api/v1/projects/:id`
+  - `POST /api/v1/projects`
+  - `PATCH /api/v1/projects/:id`
+  - `DELETE /api/v1/projects/:id`
+  - `PATCH /api/v1/projects/:id/restore`
+- Public projects:
+  - `GET /api/v1/projects/public`
+  - `GET /api/v1/projects/public/:id`
+
+**files endpoints + flow**
+- Public files:
+  - `POST /api/v1/files/request-upload`
+
 **health endpoints**
 - `GET /api/health/live`
 - `GET /api/health/ready`
@@ -70,6 +88,9 @@
   - `forgot-password`
   - `reset-password`
   - `GET /api/v1/galleries/public`
+  - `GET /api/v1/projects/public`
+  - `GET /api/v1/projects/public/:id`
+  - `POST /api/v1/files/request-upload`
   - health endpoints
 - Protected:
   - `me`
@@ -81,6 +102,7 @@
   - gần như toàn bộ `users` admin routes
   - toàn bộ `roles` routes
   - toàn bộ `galleries` admin routes
+  - toàn bộ `projects` admin routes
 - Self-or-admin:
   - `GET /api/v1/users/:id`
 
@@ -268,14 +290,148 @@
 
 **public galleries cache behavior**
 - Backend hiện đã cache public galleries list theo locale
-- Key thực tế theo locale normalized:
-  - `galleries:public:list:vi`
-  - `galleries:public:list:en`
-  - `galleries:public:list:cn`
-- Create/update/delete/restore sẽ invalidate toàn bộ public list cache
+- Cache key hiện dùng generation strategy (cùng style với projects public cache), không nên FE phụ thuộc vào key cụ thể.
+- Create/update/delete/restore sẽ bump generation để invalid tất cả variant list cache liên quan.
 - Đây là backend concern; FE không cần xử lý cache protocol riêng
 
-5. **Galleries errors hữu ích cho FE**
+5. **Projects contract cho frontend**
+
+**admin projects list**
+- Endpoint: `GET /api/v1/projects`
+- Boundary: admin-only
+- Query:
+  - `page`
+  - `limit`
+  - `keyword`
+  - `isActive`
+  - `isPublished`
+- Response item (practical):
+```json
+{
+  "id": "project-id",
+  "gallery": {
+    "id": "gallery-id",
+    "name": "Localized gallery name"
+  },
+  "name": {
+    "en": "Spring Romance",
+    "vi": "Tinh yeu mua xuan",
+    "cn": "春日恋曲"
+  },
+  "coverImage": {
+    "id": "file-id",
+    "url": "https://...",
+    "mimeType": "image/jpeg",
+    "size": 5242880,
+    "originalName": "cover.jpg"
+  },
+  "isPublished": true,
+  "isActive": true,
+  "deletedAt": null,
+  "createdBy": {
+    "id": "user-admin",
+    "name": "Admin User"
+  },
+  "createdAt": "2026-04-09T09:10:00.000Z",
+  "updatedAt": "2026-04-09T09:10:00.000Z"
+}
+```
+- FE note:
+  - response không có `galleryId` trần; dùng `gallery.id`.
+  - list thường không có `content` field.
+
+**admin project detail**
+- Endpoint: `GET /api/v1/projects/:id`
+- Boundary: admin-only
+- Shape giống admin list item nhưng có `content` đầy đủ.
+
+**create project**
+- Endpoint: `POST /api/v1/projects`
+- Body:
+```json
+{
+  "galleryId": "gallery-id",
+  "name": { "en": "...", "vi": "...", "cn": "..." },
+  "coverImageUploadToken": "token",
+  "content": { "time": 1, "version": "2.x", "blocks": [] },
+  "isPublished": true
+}
+```
+
+**update project**
+- Endpoint: `PATCH /api/v1/projects/:id`
+- Optional fields:
+  - `galleryId`
+  - `name`
+  - `coverImageUploadToken`
+  - `content`
+  - `isPublished`
+- Có support đổi gallery nếu gallery mới active/hợp lệ.
+
+**delete/restore project**
+- `DELETE /api/v1/projects/:id` -> soft delete, response `{ "message": "Project deleted successfully" }`
+- `PATCH /api/v1/projects/:id/restore` -> trả full admin project response
+
+**public projects list by gallery**
+- Endpoint: `GET /api/v1/projects/public`
+- Query:
+  - `galleryId` (required)
+  - `page`
+  - `limit`
+- Response item:
+```json
+{
+  "id": "project-id",
+  "name": "Localized project name",
+  "coverImage": {
+    "id": "file-id",
+    "url": "https://...",
+    "mimeType": "image/jpeg",
+    "size": 5242880,
+    "originalName": "cover.jpg"
+  }
+}
+```
+
+**public project detail**
+- Endpoint: `GET /api/v1/projects/public/:id`
+- Response:
+```json
+{
+  "id": "project-id",
+  "gallery": { "id": "gallery-id", "name": "Localized gallery name" },
+  "name": "Localized project name",
+  "coverImage": {
+    "id": "file-id",
+    "url": "https://...",
+    "mimeType": "image/jpeg",
+    "size": 5242880,
+    "originalName": "cover.jpg"
+  },
+  "content": { "time": 1, "version": "2.x", "blocks": [] },
+  "createdAt": "2026-04-09T09:10:00.000Z",
+  "updatedAt": "2026-04-09T09:10:00.000Z"
+}
+```
+
+**projects errors hữu ích cho FE**
+- `PROJECT_NOT_FOUND`
+- `INVALID_PROJECT_GALLERY`
+- `PROJECT_NAME_EN_ALREADY_EXISTS`
+- `PROJECT_NAME_VI_ALREADY_EXISTS`
+- `PROJECT_NAME_CN_ALREADY_EXISTS`
+- `PROJECT_ALREADY_DELETED`
+- `PROJECT_NOT_DELETED`
+- `INVALID_PROJECT_CONTENT`
+- `PROJECT_COVER_IMAGE_NOT_FOUND`
+- `INVALID_FILE_UPLOAD_TOKEN`
+- `INVALID_FILE_UPLOAD_STATE`
+
+6. **Files request-upload contract (phục vụ create/update projects)**
+- Endpoint: `POST /api/v1/files/request-upload` (public).
+- FE upload flow cho cover/content image cần gọi endpoint này để nhận upload token trước khi gửi create/update project.
+
+7. **Galleries errors hữu ích cho FE**
 
 - `GALLERY_NOT_FOUND`
 - `GALLERY_NAME_EN_ALREADY_EXISTS`
@@ -288,7 +444,7 @@ Practical FE handling:
 - create/update form nên map 3 lỗi duplicate name theo từng locale field
 - delete/restore action nên handle `not found`, `already deleted`, `not deleted` như action-state error bình thường
 
-6. **Frontend planning notes cho FE admin repo**
+8. **Frontend planning notes cho FE admin repo**
 
 - Repo admin này nên implement:
   - admin galleries list
@@ -297,6 +453,7 @@ Practical FE handling:
   - update gallery
   - delete gallery
   - restore gallery
+  - admin projects list/detail/create/update/delete/restore
 - Chưa implement public galleries UI trong repo này.
 - Public galleries hiện dùng cho app/customer-facing context khác; chỉ cần hiểu contract để tránh invent sai API.
 - Galleries admin pages/components nên follow pattern đang có hoặc sẽ có của `users` / `roles`:
@@ -304,7 +461,7 @@ Practical FE handling:
   - create/update form dùng multilingual object local cho 3 field `en/vi/cn`
   - detail/edit page đọc full multilingual object, không dùng localized string
 
-7. **FE must-not-misunderstand**
+9. **FE must-not-misunderstand**
 
 - Không assume `createdBy` là editable field ở gallery form.
 - Không assume public galleries response có full object `name`.
@@ -313,15 +470,17 @@ Practical FE handling:
 - Không parse API như raw DTO trần; luôn unwrap envelope trước.
 - Không bịa public detail API cho galleries; backend hiện chưa có.
 - Không bịa cache contract riêng cho FE; backend tự cache public list.
+- Không assume project admin response có `galleryId`; dùng `gallery.id`.
+- Không assume project public list có `gallery`; list chỉ có `id`, localized `name`, `coverImage`.
 
-8. **Short handoff block**
+10. **Short handoff block**
 ```md
 Backend snapshot:
-- Modules: auth, users, roles, galleries, health.
+- Modules: auth, users, roles, galleries, projects, files, health.
 - API uses envelope: `{ success, data, message, error, statusCode, timestamp, path, requestId }`.
 - Health routes are `/api/health/live` and `/api/health/ready`.
 
-Galleries snapshot:
+Galleries + Projects snapshot:
 - Admin routes:
   - `GET /api/v1/galleries`
   - `GET /api/v1/galleries/:id`
@@ -329,8 +488,16 @@ Galleries snapshot:
   - `PATCH /api/v1/galleries/:id`
   - `DELETE /api/v1/galleries/:id`
   - `PATCH /api/v1/galleries/:id/restore`
+  - `GET /api/v1/projects`
+  - `GET /api/v1/projects/:id`
+  - `POST /api/v1/projects`
+  - `PATCH /api/v1/projects/:id`
+  - `DELETE /api/v1/projects/:id`
+  - `PATCH /api/v1/projects/:id/restore`
 - Public route:
   - `GET /api/v1/galleries/public`
+  - `GET /api/v1/projects/public`
+  - `GET /api/v1/projects/public/:id`
 - Admin-only for all admin gallery routes.
 - Public list uses `Accept-Language`, supports `vi/en/cn`, fallback `en`.
 - Public list response is minimal: `{ id, name }`.

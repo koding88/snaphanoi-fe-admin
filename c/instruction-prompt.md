@@ -63,7 +63,7 @@ Không được tự sang stage tiếp theo nếu tôi chưa xác nhận.
 ## Backend contract notes phải giữ đúng
 
 ### Core backend snapshot
-- Backend hiện có `auth`, `users`, `roles`, `galleries`, `health`.
+- Backend hiện có `auth`, `users`, `roles`, `galleries`, `projects`, `files`, `health`.
 - Response envelope chuẩn:
   - `success`
   - `data`
@@ -154,6 +154,58 @@ Không được tự sang stage tiếp theo nếu tôi chưa xác nhận.
   - full multilingual object
 - Backend hiện đã cache public galleries list theo locale; FE không cần custom cache protocol riêng.
 
+### Projects semantics bắt buộc
+- Projects đã có cả admin routes và public routes.
+- Admin routes:
+  - `GET /api/v1/projects`
+  - `GET /api/v1/projects/:id`
+  - `POST /api/v1/projects`
+  - `PATCH /api/v1/projects/:id`
+  - `DELETE /api/v1/projects/:id`
+  - `PATCH /api/v1/projects/:id/restore`
+- Public routes:
+  - `GET /api/v1/projects/public?galleryId=...&page=...&limit=...`
+  - `GET /api/v1/projects/public/:id`
+- Admin list query support:
+  - `page`
+  - `limit`
+  - `keyword`
+  - `isActive`
+  - `isPublished`
+- Admin response hiện trả `gallery` object:
+```json
+{
+  "gallery": {
+    "id": "gallery-id",
+    "name": "Localized gallery name"
+  }
+}
+```
+- Không assume admin/project response có `galleryId` ở output.
+- Public list item chỉ có:
+  - `id`
+  - localized `name`
+  - `coverImage`
+- Public detail có:
+  - `id`
+  - `gallery { id, name }`
+  - localized `name`
+  - `coverImage`
+  - `content`
+  - `createdAt`
+  - `updatedAt`
+- Public detail không có:
+  - `isPublished`
+  - `isActive`
+  - `deletedAt`
+  - `createdBy`
+
+### Files upload-token semantics (liên quan projects)
+- Endpoint `POST /api/v1/files/request-upload` là public.
+- FE phải request upload token trước khi gửi:
+  - `coverImageUploadToken` cho project cover
+  - `uploadToken` cho image item trong `content.blocks[].mediaLayout.data.items[]`.
+
 ### Galleries errors hữu ích cho FE
 - `GALLERY_NOT_FOUND`
 - `GALLERY_NAME_EN_ALREADY_EXISTS`
@@ -161,6 +213,19 @@ Không được tự sang stage tiếp theo nếu tôi chưa xác nhận.
 - `GALLERY_NAME_CN_ALREADY_EXISTS`
 - `GALLERY_ALREADY_DELETED`
 - `GALLERY_NOT_DELETED`
+
+### Projects errors hữu ích cho FE
+- `PROJECT_NOT_FOUND`
+- `INVALID_PROJECT_GALLERY`
+- `PROJECT_NAME_EN_ALREADY_EXISTS`
+- `PROJECT_NAME_VI_ALREADY_EXISTS`
+- `PROJECT_NAME_CN_ALREADY_EXISTS`
+- `PROJECT_ALREADY_DELETED`
+- `PROJECT_NOT_DELETED`
+- `INVALID_PROJECT_CONTENT`
+- `PROJECT_COVER_IMAGE_NOT_FOUND`
+- `INVALID_FILE_UPLOAD_TOKEN`
+- `INVALID_FILE_UPLOAD_STATE`
 
 ## Stage list tổng thể
 
@@ -252,7 +317,21 @@ Chỉ làm:
 
 Không làm public galleries UI ở repo này.
 
-### Stage 7 — Polish
+### Stage 7 — Projects management
+Chỉ làm:
+- admin projects list
+- project detail
+- create project
+- update project
+- delete project
+- restore project
+- query/filter với `page`, `limit`, `keyword`, `isActive`, `isPublished`
+- map đúng response `gallery { id, name }`
+- flow upload token cover/content theo backend contract
+
+Không làm public projects UI trong repo admin này nếu chưa có yêu cầu riêng.
+
+### Stage 8 — Polish
 Chỉ làm:
 - responsive refinement
 - animation/motion polish
