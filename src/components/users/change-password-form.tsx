@@ -2,12 +2,12 @@
 
 import { useState, type FormEvent } from "react";
 
-import { AuthFeedback } from "@/components/auth/auth-feedback";
 import { AuthPasswordHint } from "@/components/auth/auth-password-hint";
 import { Button } from "@/components/ui/button";
 import { PasswordInput } from "@/components/ui/password-input";
 import { isStrongPassword } from "@/features/auth/utils/password-policy";
 import { getFriendlyUsersError } from "@/features/users/utils/users-errors";
+import { notifyError } from "@/lib/toast";
 
 type ChangePasswordFormProps = {
   onSubmit: (payload: {
@@ -15,19 +15,16 @@ type ChangePasswordFormProps = {
     newPassword: string;
     confirmNewPassword: string;
   }) => Promise<void>;
-  successMessage?: string | null;
 };
 
 export function ChangePasswordForm({
   onSubmit,
-  successMessage,
 }: ChangePasswordFormProps) {
   const [values, setValues] = useState({
     currentPassword: "",
     newPassword: "",
     confirmNewPassword: "",
   });
-  const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<{
     currentPassword?: string;
     newPassword?: string;
@@ -37,7 +34,6 @@ export function ChangePasswordForm({
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setError(null);
     const nextFieldErrors: {
       currentPassword?: string;
       newPassword?: string;
@@ -77,7 +73,7 @@ export function ChangePasswordForm({
         confirmNewPassword: "",
       });
     } catch (submissionError) {
-      setError(getFriendlyUsersError(submissionError));
+      notifyError(getFriendlyUsersError(submissionError));
     } finally {
       setIsSubmitting(false);
     }
@@ -85,8 +81,6 @@ export function ChangePasswordForm({
 
   return (
     <form className="space-y-6" noValidate onSubmit={handleSubmit}>
-      {successMessage ? <AuthFeedback variant="success">{successMessage}</AuthFeedback> : null}
-      {error ? <AuthFeedback variant="error">{error}</AuthFeedback> : null}
       <label className="space-y-2 block">
         <span className="text-sm font-medium text-foreground">Current password</span>
         <PasswordInput

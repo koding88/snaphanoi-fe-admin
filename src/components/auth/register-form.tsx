@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
 
-import { AuthFeedback } from "@/components/auth/auth-feedback";
 import { AuthField } from "@/components/auth/auth-field";
 import { AuthFormShell } from "@/components/auth/auth-form-shell";
 import { AuthPasswordHint } from "@/components/auth/auth-password-hint";
@@ -15,6 +14,7 @@ import { register } from "@/features/auth/api/register";
 import { getFriendlyAuthError } from "@/features/auth/utils/auth-errors";
 import { isStrongPassword } from "@/features/auth/utils/password-policy";
 import { DEFAULT_COUNTRY_CODE } from "@/lib/constants/countries";
+import { notifyError, notifySuccess } from "@/lib/toast";
 
 type RegisterFieldErrors = {
   name?: string;
@@ -29,9 +29,7 @@ export function RegisterForm() {
     password: "",
     countryCode: DEFAULT_COUNTRY_CODE,
   });
-  const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<RegisterFieldErrors>({});
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   function validateFields() {
@@ -59,8 +57,6 @@ export function RegisterForm() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setError(null);
-    setSuccessMessage(null);
     const nextFieldErrors = validateFields();
     setFieldErrors(nextFieldErrors);
 
@@ -72,9 +68,13 @@ export function RegisterForm() {
 
     try {
       const response = await register(form);
-      setSuccessMessage(response.message ?? "Registration confirmation email sent successfully.");
+      notifySuccess(
+        response.message,
+        "Registration request submitted.",
+        "Check your email for the confirmation link.",
+      );
     } catch (submissionError) {
-      setError(getFriendlyAuthError(submissionError, "register"));
+      notifyError(getFriendlyAuthError(submissionError, "register"));
     } finally {
       setIsSubmitting(false);
     }
@@ -95,8 +95,6 @@ export function RegisterForm() {
       }
     >
       <form className="space-y-5" noValidate onSubmit={handleSubmit}>
-        {successMessage ? <AuthFeedback variant="success">{successMessage}</AuthFeedback> : null}
-        {error ? <AuthFeedback variant="error">{error}</AuthFeedback> : null}
         <AuthField label="Full name" htmlFor="name" error={fieldErrors.name ?? null}>
           <Input
             id="name"

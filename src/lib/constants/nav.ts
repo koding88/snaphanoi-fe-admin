@@ -1,7 +1,7 @@
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 import { ROUTES } from "@/lib/constants/routes";
-import { faHouse, faShieldHalved, faUserGroup } from "@/lib/icons/fa";
+import { faFilm, faHouse, faShieldHalved, faUserGroup } from "@/lib/icons/fa";
 
 export type AdminNavItem = {
   href: string;
@@ -36,5 +36,11 @@ export const ADMIN_NAV_ITEMS: AdminNavItem[] = [
     label: "Roles",
     description: "Role definitions",
     icon: faShieldHalved,
+  },
+  {
+    href: ROUTES.admin.galleries.root,
+    label: "Galleries",
+    description: "Portfolio groups",
+    icon: faFilm,
   },
 ];

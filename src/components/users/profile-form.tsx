@@ -2,33 +2,30 @@
 
 import { useState, type FormEvent } from "react";
 
-import { AuthFeedback } from "@/components/auth/auth-feedback";
 import { CountrySelect } from "@/components/shared/country-select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { UserRecord } from "@/features/users/types/users.types";
 import { getFriendlyUsersError } from "@/features/users/utils/users-errors";
 import { DEFAULT_COUNTRY_CODE } from "@/lib/constants/countries";
+import { notifyError } from "@/lib/toast";
 
 type ProfileFormProps = {
   user: UserRecord;
   onSubmit: (payload: { name: string; email: string; countryCode: string }) => Promise<void>;
-  successMessage?: string | null;
 };
 
-export function ProfileForm({ user, onSubmit, successMessage }: ProfileFormProps) {
+export function ProfileForm({ user, onSubmit }: ProfileFormProps) {
   const [values, setValues] = useState({
     name: user.name,
     email: user.email,
     countryCode: user.countryCode ?? DEFAULT_COUNTRY_CODE,
   });
-  const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<{ name?: string; email?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setError(null);
     const nextFieldErrors: { name?: string; email?: string } = {};
 
     if (!values.name.trim()) {
@@ -52,7 +49,7 @@ export function ProfileForm({ user, onSubmit, successMessage }: ProfileFormProps
     try {
       await onSubmit(values);
     } catch (submissionError) {
-      setError(getFriendlyUsersError(submissionError));
+      notifyError(getFriendlyUsersError(submissionError));
     } finally {
       setIsSubmitting(false);
     }
@@ -60,8 +57,6 @@ export function ProfileForm({ user, onSubmit, successMessage }: ProfileFormProps
 
   return (
     <form className="space-y-6" noValidate onSubmit={handleSubmit}>
-      {successMessage ? <AuthFeedback variant="success">{successMessage}</AuthFeedback> : null}
-      {error ? <AuthFeedback variant="error">{error}</AuthFeedback> : null}
       <div className="grid gap-5 md:grid-cols-2">
         <label className="space-y-2">
           <span className="text-sm font-medium text-foreground">Full name</span>

@@ -8,25 +8,25 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
+import { GalleryDetailCard } from "@/components/galleries/gallery-detail-card";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { ErrorState } from "@/components/shared/error-state";
 import { LoadingState } from "@/components/shared/loading-state";
 import { PageHeader } from "@/components/shared/page-header";
-import { UserDetailCard } from "@/components/users/user-detail-card";
-import { deleteUser } from "@/features/users/api/delete-user";
-import { getUser } from "@/features/users/api/get-user";
-import { restoreUser } from "@/features/users/api/restore-user";
-import type { UserRecord } from "@/features/users/types/users.types";
-import { getFriendlyUsersError } from "@/features/users/utils/users-errors";
+import { buttonVariants } from "@/components/ui/button";
+import { deleteGallery } from "@/features/galleries/api/delete-gallery";
+import { getGallery } from "@/features/galleries/api/get-gallery";
+import { restoreGallery } from "@/features/galleries/api/restore-gallery";
+import type { GalleryRecord } from "@/features/galleries/types/galleries.types";
+import { getFriendlyGalleriesError } from "@/features/galleries/utils/galleries-errors";
 import { ROUTES } from "@/lib/constants/routes";
 import { faRotateLeft, faTrashCan, faUserPen } from "@/lib/icons/fa";
-import { buttonVariants } from "@/components/ui/button";
 import { consumeNavigationToast, notifyError, notifySuccess } from "@/lib/toast";
 import { cn } from "@/lib/utils";
 
-export function UserDetailPage({ id }: { id: string }) {
+export function GalleryDetailPage({ id }: { id: string }) {
   const router = useRouter();
-  const [user, setUser] = useState<UserRecord | null>(null);
+  const [gallery, setGallery] = useState<GalleryRecord | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [dialogMode, setDialogMode] = useState<"delete" | "restore" | null>(null);
@@ -40,10 +40,10 @@ export function UserDetailPage({ id }: { id: string }) {
     async function bootstrap() {
       setIsLoading(true);
       try {
-        const userResult = await getUser(id);
-        setUser(userResult);
+        const galleryResult = await getGallery(id);
+        setGallery(galleryResult);
       } catch (loadError) {
-        setError(getFriendlyUsersError(loadError));
+        setError(getFriendlyGalleriesError(loadError));
       } finally {
         setIsLoading(false);
       }
@@ -53,25 +53,27 @@ export function UserDetailPage({ id }: { id: string }) {
   }, [id]);
 
   async function handleAction() {
-    if (!user || !dialogMode) {
+    if (!gallery || !dialogMode) {
       return;
     }
 
     setIsSubmitting(true);
+    setError(null);
+
     try {
       if (dialogMode === "delete") {
-        const response = await deleteUser(user.id);
-        notifySuccess(response.message ?? response.data.message, "User archived.");
-        router.replace(ROUTES.admin.users.root);
+        const response = await deleteGallery(gallery.id);
+        notifySuccess(response.message ?? response.data.message, "Gallery archived.");
+        router.replace(ROUTES.admin.galleries.root);
         return;
       }
 
-      const response = await restoreUser(user.id);
-      setUser(response.data);
-      notifySuccess(response.message, "User restored.");
+      const response = await restoreGallery(gallery.id);
+      setGallery(response.data);
+      notifySuccess(response.message, "Gallery restored successfully.");
       setDialogMode(null);
     } catch (actionError) {
-      notifyError(getFriendlyUsersError(actionError));
+      notifyError(getFriendlyGalleriesError(actionError));
     } finally {
       setIsSubmitting(false);
     }
@@ -80,20 +82,20 @@ export function UserDetailPage({ id }: { id: string }) {
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
-        eyebrow="User detail"
-        title="Review this account."
-        description="See the person, role, location, and account state in one place before making changes."
+        eyebrow="Gallery detail"
+        title="Review this gallery."
+        description="Inspect multilingual names, lifecycle state, and ownership context before making changes."
         actions={
-          user ? (
+          gallery ? (
             <div className="flex flex-wrap gap-2">
               <Link
-                href={ROUTES.admin.users.edit(user.id)}
+                href={ROUTES.admin.galleries.edit(gallery.id)}
                 className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-5")}
               >
                 <FontAwesomeIcon icon={faUserPen} />
                 Edit
               </Link>
-              {user.deletedAt ? (
+              {gallery.deletedAt ? (
                 <button
                   type="button"
                   onClick={() => setDialogMode("restore")}
@@ -117,35 +119,31 @@ export function UserDetailPage({ id }: { id: string }) {
         }
       />
       {isLoading ? (
-        <LoadingState title="Loading user" description="Fetching the selected user record." />
-      ) : error || !user ? (
-        <ErrorState title="Unable to load this user" description={error ?? "User not found."} />
+        <LoadingState title="Loading gallery" description="Fetching the selected gallery record." />
+      ) : error || !gallery ? (
+        <ErrorState title="Unable to load this gallery" description={error ?? "Gallery not found."} />
       ) : (
         <>
-          <UserDetailCard user={user} />
+          <GalleryDetailCard gallery={gallery} />
           <AdminSurface className="p-6 md:p-8">
             <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
               Admin actions
             </p>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">
-              Archive and restore controls stay here so account lifecycle actions remain deliberate.
+              Archive and restore controls are kept here so gallery lifecycle changes stay deliberate.
             </p>
           </AdminSurface>
         </>
       )}
       <ConfirmDialog
-        open={Boolean(dialogMode && user)}
-        title={
-          dialogMode === "delete"
-            ? `Delete ${user?.name}?`
-            : `Restore ${user?.name}?`
-        }
+        open={Boolean(dialogMode && gallery)}
+        title={dialogMode === "delete" ? `Delete ${gallery?.name.en}?` : `Restore ${gallery?.name.en}?`}
         description={
           dialogMode === "delete"
-            ? "This archives the account for now. You can restore it later if needed."
-            : "This will bring the archived account back into the active roster."
+            ? "This archives the gallery for now. You can restore it later if needed."
+            : "This will bring the archived gallery back into the active collection."
         }
-        confirmLabel={dialogMode === "delete" ? "Delete user" : "Restore user"}
+        confirmLabel={dialogMode === "delete" ? "Delete gallery" : "Restore gallery"}
         confirmVariant={dialogMode === "delete" ? "destructive" : "default"}
         isSubmitting={isSubmitting}
         onCancel={() => setDialogMode(null)}

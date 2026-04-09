@@ -3,25 +3,21 @@
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
 
-import { AuthFeedback } from "@/components/auth/auth-feedback";
 import { AuthField } from "@/components/auth/auth-field";
 import { AuthFormShell } from "@/components/auth/auth-form-shell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { forgotPassword } from "@/features/auth/api/forgot-password";
 import { getFriendlyAuthError } from "@/features/auth/utils/auth-errors";
+import { notifyError, notifySuccess } from "@/lib/toast";
 
 export function ForgotPasswordForm() {
   const [email, setEmail] = useState("");
-  const [error, setError] = useState<string | null>(null);
   const [fieldError, setFieldError] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setError(null);
-    setSuccessMessage(null);
     setFieldError(null);
 
     if (!email.trim()) {
@@ -38,11 +34,13 @@ export function ForgotPasswordForm() {
 
     try {
       const response = await forgotPassword({ email });
-      setSuccessMessage(
-        response.message ?? "If the account exists, a password reset email has been sent.",
+      notifySuccess(
+        response.message,
+        "Reset request received.",
+        "If the account exists, a reset link has been sent.",
       );
     } catch (submissionError) {
-      setError(getFriendlyAuthError(submissionError, "forgotPassword"));
+      notifyError(getFriendlyAuthError(submissionError, "forgotPassword"));
     } finally {
       setIsSubmitting(false);
     }
@@ -62,8 +60,6 @@ export function ForgotPasswordForm() {
       }
     >
       <form className="space-y-5" noValidate onSubmit={handleSubmit}>
-        {successMessage ? <AuthFeedback variant="success">{successMessage}</AuthFeedback> : null}
-        {error ? <AuthFeedback variant="error">{error}</AuthFeedback> : null}
         <AuthField label="Email" htmlFor="forgot-email" error={fieldError}>
           <Input
             id="forgot-email"

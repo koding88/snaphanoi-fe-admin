@@ -23,6 +23,7 @@ import type { RoleOption, UserListQuery, UserRecord, UsersListResult } from "@/f
 import { getFriendlyUsersError } from "@/features/users/utils/users-errors";
 import { ROUTES } from "@/lib/constants/routes";
 import { faPlus, faRotateLeft } from "@/lib/icons/fa";
+import { notifyError, notifySuccess } from "@/lib/toast";
 import { cn } from "@/lib/utils";
 
 const INITIAL_QUERY: UserListQuery = {
@@ -69,10 +70,11 @@ export function UsersListPage() {
   async function handleDelete(user: UserRecord) {
     setIsMutating(true);
     try {
-      await deleteUser(user.id);
+      const response = await deleteUser(user.id);
+      notifySuccess(response.message ?? response.data.message, "User archived.");
       await loadData(query);
     } catch (actionError) {
-      setError(getFriendlyUsersError(actionError));
+      notifyError(getFriendlyUsersError(actionError));
       throw actionError;
     } finally {
       setIsMutating(false);
@@ -82,10 +84,11 @@ export function UsersListPage() {
   async function handleRestore(user: UserRecord) {
     setIsMutating(true);
     try {
-      await restoreUser(user.id);
+      const response = await restoreUser(user.id);
+      notifySuccess(response.message, "User restored.");
       await loadData(query);
     } catch (actionError) {
-      setError(getFriendlyUsersError(actionError));
+      notifyError(getFriendlyUsersError(actionError));
       throw actionError;
     } finally {
       setIsMutating(false);

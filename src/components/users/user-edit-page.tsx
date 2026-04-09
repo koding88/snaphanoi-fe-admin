@@ -15,6 +15,7 @@ import { updateUser } from "@/features/users/api/update-user";
 import type { RoleOption, UserRecord } from "@/features/users/types/users.types";
 import { getFriendlyUsersError } from "@/features/users/utils/users-errors";
 import { ROUTES } from "@/lib/constants/routes";
+import { queueNavigationToast } from "@/lib/toast";
 
 export function UserEditPage({ id }: { id: string }) {
   const router = useRouter();
@@ -50,6 +51,10 @@ export function UserEditPage({ id }: { id: string }) {
       isActive: values.isActive,
     });
 
+    queueNavigationToast({
+      intent: "success",
+      title: response.message ?? "User updated successfully.",
+    });
     router.replace(ROUTES.admin.users.detail(response.data.id));
   }
 

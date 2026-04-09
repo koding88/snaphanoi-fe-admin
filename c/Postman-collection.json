@@ -3348,6 +3348,1358 @@
       ]
     },
     {
+      "name": "Files",
+      "item": [
+        {
+          "name": "Request Upload URL",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/files/request-upload",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "files", "request-upload"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fileName\": \"project-cover.jpg\",\n  \"mimeType\": \"image/jpeg\",\n  \"size\": 5242880,\n  \"kind\": \"image\",\n  \"purpose\": \"project-cover\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Public endpoint. Returns an upload token plus a presigned PUT URL for direct S3/MinIO upload. Do not send Authorization header."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/files/request-upload",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "files", "request-upload"]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fileName\": \"project-cover.jpg\",\n  \"mimeType\": \"image/jpeg\",\n  \"size\": 5242880,\n  \"kind\": \"image\",\n  \"purpose\": \"project-cover\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Public endpoint. Returns an upload token plus a presigned PUT URL for direct S3/MinIO upload. Do not send Authorization header."
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"uploadToken\": \"4abcf84a0b8c7fd31b4fe1a1f6e0f5a8d1c0b9e6f3a7c2d4e5f60718293a4b5c6d7e8f9012345678\",\n    \"key\": \"assets/project-cover/2026/04/7a5f3d4c-project-cover.jpg\",\n    \"url\": \"http://localhost:9000/snaphanoi/assets/project-cover/2026/04/7a5f3d4c-project-cover.jpg\",\n    \"uploadUrl\": \"http://localhost:9000/snaphanoi/assets/project-cover/2026/04/7a5f3d4c-project-cover.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=example\",\n    \"expiresInSeconds\": 600,\n    \"headers\": {\n      \"Content-Type\": \"image/jpeg\"\n    }\n  },\n  \"message\": \"Upload URL requested successfully\",\n  \"error\": null,\n  \"statusCode\": 201,\n  \"timestamp\": \"2026-04-09T09:00:00.000Z\",\n  \"path\": \"/api/v1/files/request-upload\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Mime Type",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/files/request-upload",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "files", "request-upload"]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fileName\": \"project-cover.jpg\",\n  \"mimeType\": \"image/jpeg\",\n  \"size\": 5242880,\n  \"kind\": \"image\",\n  \"purpose\": \"project-cover\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Public endpoint. Returns an upload token plus a presigned PUT URL for direct S3/MinIO upload. Do not send Authorization header."
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Unsupported mime type for project-cover: image/gif\",\n  \"error\": \"Bad Request\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-09T09:00:00.000Z\",\n  \"path\": \"/api/v1/files/request-upload\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "File Too Large",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/files/request-upload",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "files", "request-upload"]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fileName\": \"project-cover.jpg\",\n  \"mimeType\": \"image/jpeg\",\n  \"size\": 5242880,\n  \"kind\": \"image\",\n  \"purpose\": \"project-cover\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Public endpoint. Returns an upload token plus a presigned PUT URL for direct S3/MinIO upload. Do not send Authorization header."
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"File size exceeds the limit for project-cover: 52428800 bytes\",\n  \"error\": \"Bad Request\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-09T09:00:00.000Z\",\n  \"path\": \"/api/v1/files/request-upload\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Kind",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/files/request-upload",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "files", "request-upload"]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fileName\": \"project-cover.jpg\",\n  \"mimeType\": \"image/jpeg\",\n  \"size\": 5242880,\n  \"kind\": \"image\",\n  \"purpose\": \"project-cover\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Public endpoint. Returns an upload token plus a presigned PUT URL for direct S3/MinIO upload. Do not send Authorization header."
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"kind must be one of the following values: image\",\n  \"error\": \"Bad Request\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-09T09:00:00.000Z\",\n  \"path\": \"/api/v1/files/request-upload\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Purpose",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/files/request-upload",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "files", "request-upload"]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fileName\": \"project-cover.jpg\",\n  \"mimeType\": \"image/jpeg\",\n  \"size\": 5242880,\n  \"kind\": \"image\",\n  \"purpose\": \"project-cover\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Public endpoint. Returns an upload token plus a presigned PUT URL for direct S3/MinIO upload. Do not send Authorization header."
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"purpose must be one of the following values: project-cover, project-content, blog-cover, package-cover, gallery-cover\",\n  \"error\": \"Bad Request\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-09T09:00:00.000Z\",\n  \"path\": \"/api/v1/files/request-upload\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Projects",
+      "item": [
+        {
+          "name": "Create Project",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/projects",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "projects"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"galleryId\": \"gallery-couple\",\n  \"name\": {\n    \"en\": \"Spring Romance\",\n    \"vi\": \"Tinh yeu mua xuan\",\n    \"cn\": \"春日恋曲\"\n  },\n  \"coverImageUploadToken\": \"cover-upload-token\",\n  \"content\": {\n    \"time\": 1775715600000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"A spring couple session in Hanoi old quarter.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-1\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"content-upload-token-1\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPublished\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects"]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"galleryId\": \"gallery-couple\",\n  \"name\": {\n    \"en\": \"Spring Romance\",\n    \"vi\": \"Tinh yeu mua xuan\",\n    \"cn\": \"春日恋曲\"\n  },\n  \"coverImageUploadToken\": \"cover-upload-token\",\n  \"content\": {\n    \"time\": 1775715600000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"A spring couple session in Hanoi old quarter.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-1\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"content-upload-token-1\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPublished\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"project-spring-romance\",\n    \"gallery\": {\n      \"id\": \"gallery-couple\",\n      \"name\": \"Couple\"\n    },\n    \"name\": {\n      \"en\": \"Spring Romance\",\n      \"vi\": \"Tinh yeu mua xuan\",\n      \"cn\": \"春日恋曲\"\n    },\n    \"coverImage\": {\n      \"id\": \"file-cover-1\",\n      \"url\": \"http://localhost:9000/snaphanoi/assets/project-cover/2026/04/7a5f3d4c-project-cover.jpg\",\n      \"mimeType\": \"image/jpeg\",\n      \"size\": 5242880,\n      \"originalName\": \"project-cover.jpg\"\n    },\n    \"content\": {\n      \"time\": 1775715600000,\n      \"version\": \"2.30.6\",\n      \"blocks\": [\n        {\n          \"id\": \"intro-1\",\n          \"type\": \"paragraph\",\n          \"data\": {\n            \"text\": \"A spring couple session in Hanoi old quarter.\"\n          }\n        },\n        {\n          \"id\": \"media-1\",\n          \"type\": \"mediaLayout\",\n          \"data\": {\n            \"items\": [\n              {\n                \"id\": \"item-image-1\",\n                \"kind\": \"image\",\n                \"fileId\": \"file-content-1\",\n                \"url\": \"http://localhost:9000/snaphanoi/assets/project-content/2026/04/1d2e3f-story-image.jpg\"\n              },\n              {\n                \"id\": \"item-youtube-1\",\n                \"kind\": \"youtube\",\n                \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n              }\n            ]\n          }\n        }\n      ]\n    },\n    \"isPublished\": true,\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdBy\": {\n      \"id\": \"user-admin\",\n      \"name\": \"Admin User\"\n    },\n    \"createdAt\": \"2026-04-09T09:10:00.000Z\",\n    \"updatedAt\": \"2026-04-09T09:10:00.000Z\"\n  },\n  \"message\": \"Project created successfully\",\n  \"error\": null,\n  \"statusCode\": 201,\n  \"timestamp\": \"2026-04-09T09:10:00.000Z\",\n  \"path\": \"/api/v1/projects\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Gallery",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects"]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"galleryId\": \"gallery-couple\",\n  \"name\": {\n    \"en\": \"Spring Romance\",\n    \"vi\": \"Tinh yeu mua xuan\",\n    \"cn\": \"春日恋曲\"\n  },\n  \"coverImageUploadToken\": \"cover-upload-token\",\n  \"content\": {\n    \"time\": 1775715600000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"A spring couple session in Hanoi old quarter.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-1\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"content-upload-token-1\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPublished\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"The selected gallery is invalid or inactive\",\n  \"error\": \"INVALID_PROJECT_GALLERY\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-09T09:10:00.000Z\",\n  \"path\": \"/api/v1/projects\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "English Name Already Exists",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects"]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"galleryId\": \"gallery-couple\",\n  \"name\": {\n    \"en\": \"Spring Romance\",\n    \"vi\": \"Tinh yeu mua xuan\",\n    \"cn\": \"春日恋曲\"\n  },\n  \"coverImageUploadToken\": \"cover-upload-token\",\n  \"content\": {\n    \"time\": 1775715600000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"A spring couple session in Hanoi old quarter.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-1\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"content-upload-token-1\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPublished\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Project English name already exists\",\n  \"error\": \"PROJECT_NAME_EN_ALREADY_EXISTS\",\n  \"statusCode\": 409,\n  \"timestamp\": \"2026-04-09T09:10:00.000Z\",\n  \"path\": \"/api/v1/projects\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Upload Token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects"]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"galleryId\": \"gallery-couple\",\n  \"name\": {\n    \"en\": \"Spring Romance\",\n    \"vi\": \"Tinh yeu mua xuan\",\n    \"cn\": \"春日恋曲\"\n  },\n  \"coverImageUploadToken\": \"cover-upload-token\",\n  \"content\": {\n    \"time\": 1775715600000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"A spring couple session in Hanoi old quarter.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-1\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"content-upload-token-1\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPublished\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"The upload token is invalid or expired\",\n  \"error\": \"INVALID_FILE_UPLOAD_TOKEN\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-09T09:10:00.000Z\",\n  \"path\": \"/api/v1/projects\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Upload State",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects"]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"galleryId\": \"gallery-couple\",\n  \"name\": {\n    \"en\": \"Spring Romance\",\n    \"vi\": \"Tinh yeu mua xuan\",\n    \"cn\": \"春日恋曲\"\n  },\n  \"coverImageUploadToken\": \"cover-upload-token\",\n  \"content\": {\n    \"time\": 1775715600000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"A spring couple session in Hanoi old quarter.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-1\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"content-upload-token-1\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPublished\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"The uploaded file is not ready to be consumed\",\n  \"error\": \"INVALID_FILE_UPLOAD_STATE\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-09T09:10:00.000Z\",\n  \"path\": \"/api/v1/projects\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Content",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects"]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"galleryId\": \"gallery-couple\",\n  \"name\": {\n    \"en\": \"Spring Romance\",\n    \"vi\": \"Tinh yeu mua xuan\",\n    \"cn\": \"春日恋曲\"\n  },\n  \"coverImageUploadToken\": \"cover-upload-token\",\n  \"content\": {\n    \"time\": 1775715600000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"A spring couple session in Hanoi old quarter.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-1\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"content-upload-token-1\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPublished\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"mediaLayout.data.items must be an array\",\n  \"error\": \"INVALID_PROJECT_CONTENT\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-09T09:10:00.000Z\",\n  \"path\": \"/api/v1/projects\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get All Projects",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/projects?page=1&limit=10&keyword=spring&isActive=true&isPublished=true",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "projects"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "keyword",
+                  "value": "spring"
+                },
+                {
+                  "key": "isActive",
+                  "value": "true"
+                },
+                {
+                  "key": "isPublished",
+                  "value": "true"
+                }
+              ]
+            },
+            "description": "Admin-only project list with pagination, keyword filter, and optional isActive/isPublished filters."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects?page=1&limit=10&keyword=spring&isActive=true&isPublished=true",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects"],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "keyword",
+                      "value": "spring"
+                    },
+                    {
+                      "key": "isActive",
+                      "value": "true"
+                    },
+                    {
+                      "key": "isPublished",
+                      "value": "true"
+                    }
+                  ]
+                },
+                "description": "Admin-only project list with pagination, keyword filter, and optional isActive/isPublished filters."
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"project-spring-romance\",\n        \"gallery\": {\n          \"id\": \"gallery-couple\",\n          \"name\": \"Couple\"\n        },\n        \"name\": {\n          \"en\": \"Spring Romance\",\n          \"vi\": \"Tinh yeu mua xuan\",\n          \"cn\": \"春日恋曲\"\n        },\n        \"coverImage\": {\n          \"id\": \"file-cover-1\",\n          \"url\": \"http://localhost:9000/snaphanoi/assets/project-cover/2026/04/7a5f3d4c-project-cover.jpg\",\n          \"mimeType\": \"image/jpeg\",\n          \"size\": 5242880,\n          \"originalName\": \"project-cover.jpg\"\n        },\n        \"isPublished\": true,\n        \"isActive\": true,\n        \"deletedAt\": null,\n        \"createdBy\": {\n          \"id\": \"user-admin\",\n          \"name\": \"Admin User\"\n        },\n        \"createdAt\": \"2026-04-09T09:10:00.000Z\",\n        \"updatedAt\": \"2026-04-09T09:10:00.000Z\"\n      }\n    ],\n    \"meta\": {\n      \"page\": 1,\n      \"limit\": 10,\n      \"total\": 1,\n      \"totalPages\": 1\n    }\n  },\n  \"message\": \"Projects fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-09T09:15:00.000Z\",\n  \"path\": \"/api/v1/projects?page=1&limit=10&keyword=spring&isActive=true&isPublished=true\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects?page=1&limit=10&keyword=spring&isActive=true",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects"],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "keyword",
+                      "value": "spring"
+                    },
+                    {
+                      "key": "isActive",
+                      "value": "true"
+                    }
+                  ]
+                },
+                "description": "Admin-only project list with pagination, keyword filter, and optional isActive filter."
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Forbidden resource\",\n  \"error\": \"Forbidden\",\n  \"statusCode\": 403,\n  \"timestamp\": \"2026-04-09T09:15:00.000Z\",\n  \"path\": \"/api/v1/projects?page=1&limit=10&keyword=spring&isActive=true\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Project",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"project-spring-romance\",\n    \"gallery\": {\n      \"id\": \"gallery-couple\",\n      \"name\": \"Couple\"\n    },\n    \"name\": {\n      \"en\": \"Spring Romance\",\n      \"vi\": \"Tinh yeu mua xuan\",\n      \"cn\": \"春日恋曲\"\n    },\n    \"coverImage\": {\n      \"id\": \"file-cover-1\",\n      \"url\": \"http://localhost:9000/snaphanoi/assets/project-cover/2026/04/7a5f3d4c-project-cover.jpg\",\n      \"mimeType\": \"image/jpeg\",\n      \"size\": 5242880,\n      \"originalName\": \"project-cover.jpg\"\n    },\n    \"content\": {\n      \"time\": 1775715600000,\n      \"version\": \"2.30.6\",\n      \"blocks\": [\n        {\n          \"id\": \"intro-1\",\n          \"type\": \"paragraph\",\n          \"data\": {\n            \"text\": \"A spring couple session in Hanoi old quarter.\"\n          }\n        },\n        {\n          \"id\": \"media-1\",\n          \"type\": \"mediaLayout\",\n          \"data\": {\n            \"items\": [\n              {\n                \"id\": \"item-image-1\",\n                \"kind\": \"image\",\n                \"fileId\": \"file-content-1\",\n                \"url\": \"http://localhost:9000/snaphanoi/assets/project-content/2026/04/1d2e3f-story-image.jpg\"\n              },\n              {\n                \"id\": \"item-youtube-1\",\n                \"kind\": \"youtube\",\n                \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n              }\n            ]\n          }\n        }\n      ]\n    },\n    \"isPublished\": true,\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdBy\": {\n      \"id\": \"user-admin\",\n      \"name\": \"Admin User\"\n    },\n    \"createdAt\": \"2026-04-09T09:10:00.000Z\",\n    \"updatedAt\": \"2026-04-09T09:10:00.000Z\"\n  },\n  \"message\": \"Project fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-09T09:20:00.000Z\",\n  \"path\": \"/api/v1/projects/project-spring-romance\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Project Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Project not found\",\n  \"error\": \"PROJECT_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-09T09:20:00.000Z\",\n  \"path\": \"/api/v1/projects/project-missing\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Project Cover Image Missing",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Project cover image is unavailable\",\n  \"error\": \"PROJECT_COVER_IMAGE_NOT_FOUND\",\n  \"statusCode\": 500,\n  \"timestamp\": \"2026-04-09T09:20:00.000Z\",\n  \"path\": \"/api/v1/projects/project-spring-romance\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Public - List Projects By Gallery",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/projects/public?galleryId={{GALLERY_ID}}&page=1&limit=10",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "projects", "public"],
+              "query": [
+                {
+                  "key": "galleryId",
+                  "value": "{{GALLERY_ID}}"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Public endpoint. Lists published + active + not-deleted projects in a gallery. Returns only id, localized name, and coverImage."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects/public?galleryId={{GALLERY_ID}}&page=1&limit=10",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "public"],
+                  "query": [
+                    {
+                      "key": "galleryId",
+                      "value": "{{GALLERY_ID}}"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"project-spring-romance\",\n        \"name\": \"Tinh yeu mua xuan\",\n        \"coverImage\": {\n          \"id\": \"file-cover-1\",\n          \"url\": \"http://localhost:9000/snaphanoi/assets/project-cover/2026/04/7a5f3d4c-project-cover.jpg\",\n          \"mimeType\": \"image/jpeg\",\n          \"size\": 5242880,\n          \"originalName\": \"project-cover.jpg\"\n        }\n      }\n    ],\n    \"meta\": {\n      \"page\": 1,\n      \"limit\": 10,\n      \"total\": 1,\n      \"totalPages\": 1\n    }\n  },\n  \"message\": \"Projects fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-09T10:00:00.000Z\",\n  \"path\": \"/api/v1/projects/public?galleryId=gallery-couple&page=1&limit=10\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Gallery",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects/public?galleryId={{GALLERY_ID}}&page=1&limit=10",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "public"],
+                  "query": [
+                    {
+                      "key": "galleryId",
+                      "value": "{{GALLERY_ID}}"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Gallery \\\"gallery-missing\\\" is invalid or inactive\",\n  \"error\": \"INVALID_PROJECT_GALLERY\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-09T10:00:00.000Z\",\n  \"path\": \"/api/v1/projects/public?galleryId=gallery-missing&page=1&limit=10\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Public - Get Project Detail",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/projects/public/{{PROJECT_ID}}",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "projects", "public", "{{PROJECT_ID}}"]
+            },
+            "description": "Public endpoint. Returns a published + active + not-deleted project detail and re-checks gallery visibility consistency before serving cached data. Does not include isPublished/isActive/deletedAt/createdBy."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects/public/{{PROJECT_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "public", "{{PROJECT_ID}}"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"project-spring-romance\",\n    \"gallery\": {\n      \"id\": \"gallery-couple\",\n      \"name\": \"Couple\"\n    },\n    \"name\": \"Tinh yeu mua xuan\",\n    \"coverImage\": {\n      \"id\": \"file-cover-1\",\n      \"url\": \"http://localhost:9000/snaphanoi/assets/project-cover/2026/04/7a5f3d4c-project-cover.jpg\",\n      \"mimeType\": \"image/jpeg\",\n      \"size\": 5242880,\n      \"originalName\": \"project-cover.jpg\"\n    },\n    \"content\": {\n      \"time\": 1775715600000,\n      \"version\": \"2.30.6\",\n      \"blocks\": [\n        {\n          \"id\": \"intro-1\",\n          \"type\": \"paragraph\",\n          \"data\": {\n            \"text\": \"A spring couple session in Hanoi old quarter.\"\n          }\n        }\n      ]\n    },\n    \"createdAt\": \"2026-04-09T09:10:00.000Z\",\n    \"updatedAt\": \"2026-04-09T09:10:00.000Z\"\n  },\n  \"message\": \"Project fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-09T10:00:00.000Z\",\n  \"path\": \"/api/v1/projects/public/project-spring-romance\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Not Found (Unpublished/Deleted/Inactive/Missing)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects/public/{{PROJECT_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "public", "{{PROJECT_ID}}"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Project not found\",\n  \"error\": \"PROJECT_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-09T10:00:00.000Z\",\n  \"path\": \"/api/v1/projects/public/project-missing\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Gallery (Inactive/Deleted)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects/public/{{PROJECT_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "public", "{{PROJECT_ID}}"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Gallery \\\"gallery-deleted\\\" is invalid or inactive\",\n  \"error\": \"INVALID_PROJECT_GALLERY\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-09T10:00:00.000Z\",\n  \"path\": \"/api/v1/projects/public/project-spring-romance\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Project",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": {\n    \"en\": \"Spring Romance Updated\",\n    \"vi\": \"Tinh yeu mua xuan moi\",\n    \"cn\": \"春日恋曲新版\"\n  },\n  \"coverImageUploadToken\": \"new-cover-upload-token\",\n  \"content\": {\n    \"time\": 1775715600000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"Updated spring project story.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-existing\",\n              \"kind\": \"image\",\n              \"fileId\": \"file-content-1\",\n              \"url\": \"http://localhost:9000/snaphanoi/assets/project-content/2026/04/abc-existing.jpg\"\n            },\n            {\n              \"id\": \"item-image-new\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"content-upload-token-2\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPublished\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"galleryId\": \"gallery-family\",\n  \"name\": {\n    \"en\": \"Spring Romance Updated\",\n    \"vi\": \"Tinh yeu mua xuan moi\",\n    \"cn\": \"春日恋曲新版\"\n  },\n  \"coverImageUploadToken\": \"new-cover-upload-token\",\n  \"content\": {\n    \"time\": 1775715600000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"Updated spring project story.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-existing\",\n              \"kind\": \"image\",\n              \"fileId\": \"file-content-1\",\n              \"url\": \"http://localhost:9000/snaphanoi/assets/project-content/2026/04/abc-existing.jpg\"\n            },\n            {\n              \"id\": \"item-image-new\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"content-upload-token-2\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPublished\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"project-spring-romance\",\n    \"gallery\": {\n      \"id\": \"gallery-couple\",\n      \"name\": \"Couple\"\n    },\n    \"name\": {\n      \"en\": \"Spring Romance Updated\",\n      \"vi\": \"Tinh yeu mua xuan moi\",\n      \"cn\": \"春日恋曲新版\"\n    },\n    \"coverImage\": {\n      \"id\": \"file-cover-2\",\n      \"url\": \"http://localhost:9000/snaphanoi/assets/project-cover/2026/04/8b6f1a2e-project-cover-new.jpg\",\n      \"mimeType\": \"image/webp\",\n      \"size\": 6291456,\n      \"originalName\": \"project-cover-new.webp\"\n    },\n    \"content\": {\n      \"time\": 1775715600000,\n      \"version\": \"2.30.6\",\n      \"blocks\": [\n        {\n          \"id\": \"intro-1\",\n          \"type\": \"paragraph\",\n          \"data\": {\n            \"text\": \"Updated spring project story.\"\n          }\n        },\n        {\n          \"id\": \"media-1\",\n          \"type\": \"mediaLayout\",\n          \"data\": {\n            \"items\": [\n              {\n                \"id\": \"item-image-existing\",\n                \"kind\": \"image\",\n                \"fileId\": \"file-content-1\",\n                \"url\": \"http://localhost:9000/snaphanoi/assets/project-content/2026/04/abc-existing.jpg\"\n              },\n              {\n                \"id\": \"item-image-new\",\n                \"kind\": \"image\",\n                \"fileId\": \"file-content-2\",\n                \"url\": \"http://localhost:9000/snaphanoi/assets/project-content/2026/04/xyz-new.jpg\"\n              },\n              {\n                \"id\": \"item-youtube-1\",\n                \"kind\": \"youtube\",\n                \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n              }\n            ]\n          }\n        }\n      ]\n    },\n    \"isPublished\": false,\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdBy\": {\n      \"id\": \"user-admin\",\n      \"name\": \"Admin User\"\n    },\n    \"createdAt\": \"2026-04-09T09:10:00.000Z\",\n    \"updatedAt\": \"2026-04-09T09:30:00.000Z\"\n  },\n  \"message\": \"Project updated successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-09T09:30:00.000Z\",\n  \"path\": \"/api/v1/projects/project-spring-romance\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Project Not Found",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"galleryId\": \"gallery-family\",\n  \"name\": {\n    \"en\": \"Spring Romance Updated\",\n    \"vi\": \"Tinh yeu mua xuan moi\",\n    \"cn\": \"春日恋曲新版\"\n  },\n  \"coverImageUploadToken\": \"new-cover-upload-token\",\n  \"content\": {\n    \"time\": 1775715600000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"Updated spring project story.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-existing\",\n              \"kind\": \"image\",\n              \"fileId\": \"file-content-1\",\n              \"url\": \"http://localhost:9000/snaphanoi/assets/project-content/2026/04/abc-existing.jpg\"\n            },\n            {\n              \"id\": \"item-image-new\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"content-upload-token-2\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPublished\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Project not found\",\n  \"error\": \"PROJECT_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-09T09:30:00.000Z\",\n  \"path\": \"/api/v1/projects/project-missing\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Vietnamese Name Already Exists",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": {\n    \"en\": \"Spring Romance Updated\",\n    \"vi\": \"Tinh yeu mua xuan moi\",\n    \"cn\": \"春日恋曲新版\"\n  },\n  \"coverImageUploadToken\": \"new-cover-upload-token\",\n  \"content\": {\n    \"time\": 1775715600000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"Updated spring project story.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-existing\",\n              \"kind\": \"image\",\n              \"fileId\": \"file-content-1\",\n              \"url\": \"http://localhost:9000/snaphanoi/assets/project-content/2026/04/abc-existing.jpg\"\n            },\n            {\n              \"id\": \"item-image-new\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"content-upload-token-2\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPublished\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Project Vietnamese name already exists\",\n  \"error\": \"PROJECT_NAME_VI_ALREADY_EXISTS\",\n  \"statusCode\": 409,\n  \"timestamp\": \"2026-04-09T09:30:00.000Z\",\n  \"path\": \"/api/v1/projects/project-spring-romance\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Existing Image Ref",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": {\n    \"en\": \"Spring Romance Updated\",\n    \"vi\": \"Tinh yeu mua xuan moi\",\n    \"cn\": \"春日恋曲新版\"\n  },\n  \"coverImageUploadToken\": \"new-cover-upload-token\",\n  \"content\": {\n    \"time\": 1775715600000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"Updated spring project story.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-existing\",\n              \"kind\": \"image\",\n              \"fileId\": \"file-content-1\",\n              \"url\": \"http://localhost:9000/snaphanoi/assets/project-content/2026/04/abc-existing.jpg\"\n            },\n            {\n              \"id\": \"item-image-new\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"content-upload-token-2\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPublished\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Referenced image file \\\"file-content-1\\\" does not match the canonical file url\",\n  \"error\": \"INVALID_PROJECT_CONTENT\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-09T09:30:00.000Z\",\n  \"path\": \"/api/v1/projects/project-spring-romance\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Upload Token",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": {\n    \"en\": \"Spring Romance Updated\",\n    \"vi\": \"Tinh yeu mua xuan moi\",\n    \"cn\": \"春日恋曲新版\"\n  },\n  \"coverImageUploadToken\": \"new-cover-upload-token\",\n  \"content\": {\n    \"time\": 1775715600000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"Updated spring project story.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-existing\",\n              \"kind\": \"image\",\n              \"fileId\": \"file-content-1\",\n              \"url\": \"http://localhost:9000/snaphanoi/assets/project-content/2026/04/abc-existing.jpg\"\n            },\n            {\n              \"id\": \"item-image-new\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"content-upload-token-2\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPublished\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"The upload token is invalid or expired\",\n  \"error\": \"INVALID_FILE_UPLOAD_TOKEN\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-09T09:30:00.000Z\",\n  \"path\": \"/api/v1/projects/project-spring-romance\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Project",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+            },
+            "description": "Soft delete only. The project becomes inactive and receives deletedAt."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+                },
+                "description": "Soft delete only. The project becomes inactive and receives deletedAt."
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"message\": \"Project deleted successfully\"\n  },\n  \"message\": \"Project deleted successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-09T09:35:00.000Z\",\n  \"path\": \"/api/v1/projects/project-spring-romance\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Project Not Found",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+                },
+                "description": "Soft delete only. The project becomes inactive and receives deletedAt."
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Project not found\",\n  \"error\": \"PROJECT_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-09T09:35:00.000Z\",\n  \"path\": \"/api/v1/projects/project-missing\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Already Deleted",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+                },
+                "description": "Soft delete only. The project becomes inactive and receives deletedAt."
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Project is already deleted\",\n  \"error\": \"PROJECT_ALREADY_DELETED\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-09T09:35:00.000Z\",\n  \"path\": \"/api/v1/projects/project-spring-romance\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Restore Project",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}/restore",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "projects", "{{PROJECT_ID}}", "restore"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}/restore",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}", "restore"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"project-spring-romance\",\n    \"gallery\": {\n      \"id\": \"gallery-couple\",\n      \"name\": \"Couple\"\n    },\n    \"name\": {\n      \"en\": \"Spring Romance Updated\",\n      \"vi\": \"Tinh yeu mua xuan moi\",\n      \"cn\": \"春日恋曲新版\"\n    },\n    \"coverImage\": {\n      \"id\": \"file-cover-2\",\n      \"url\": \"http://localhost:9000/snaphanoi/assets/project-cover/2026/04/8b6f1a2e-project-cover-new.jpg\",\n      \"mimeType\": \"image/webp\",\n      \"size\": 6291456,\n      \"originalName\": \"project-cover-new.webp\"\n    },\n    \"content\": {\n      \"time\": 1775715600000,\n      \"version\": \"2.30.6\",\n      \"blocks\": [\n        {\n          \"id\": \"intro-1\",\n          \"type\": \"paragraph\",\n          \"data\": {\n            \"text\": \"Updated spring project story.\"\n          }\n        },\n        {\n          \"id\": \"media-1\",\n          \"type\": \"mediaLayout\",\n          \"data\": {\n            \"items\": [\n              {\n                \"id\": \"item-image-existing\",\n                \"kind\": \"image\",\n                \"fileId\": \"file-content-1\",\n                \"url\": \"http://localhost:9000/snaphanoi/assets/project-content/2026/04/abc-existing.jpg\"\n              },\n              {\n                \"id\": \"item-image-new\",\n                \"kind\": \"image\",\n                \"fileId\": \"file-content-2\",\n                \"url\": \"http://localhost:9000/snaphanoi/assets/project-content/2026/04/xyz-new.jpg\"\n              },\n              {\n                \"id\": \"item-youtube-1\",\n                \"kind\": \"youtube\",\n                \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n              }\n            ]\n          }\n        }\n      ]\n    },\n    \"isPublished\": false,\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdBy\": {\n      \"id\": \"user-admin\",\n      \"name\": \"Admin User\"\n    },\n    \"createdAt\": \"2026-04-09T09:10:00.000Z\",\n    \"updatedAt\": \"2026-04-09T09:40:00.000Z\"\n  },\n  \"message\": \"Project restored successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-09T09:40:00.000Z\",\n  \"path\": \"/api/v1/projects/project-spring-romance/restore\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Project Not Deleted",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}/restore",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}", "restore"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Project is not deleted\",\n  \"error\": \"PROJECT_NOT_DELETED\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-09T09:40:00.000Z\",\n  \"path\": \"/api/v1/projects/project-spring-romance/restore\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Chinese Name Already Exists",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}/restore",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}", "restore"]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Project Chinese name already exists\",\n  \"error\": \"PROJECT_NAME_CN_ALREADY_EXISTS\",\n  \"statusCode\": 409,\n  \"timestamp\": \"2026-04-09T09:40:00.000Z\",\n  \"path\": \"/api/v1/projects/project-spring-romance/restore\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Health",
       "item": [
         {
@@ -3456,6 +4808,10 @@
     },
     {
       "key": "GALLERY_ID",
+      "value": ""
+    },
+    {
+      "key": "PROJECT_ID",
       "value": ""
     },
     {

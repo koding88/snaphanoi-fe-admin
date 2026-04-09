@@ -3,13 +3,13 @@
 import { useState, type FormEvent } from "react";
 
 import { AuthPasswordHint } from "@/components/auth/auth-password-hint";
-import { AuthFeedback } from "@/components/auth/auth-feedback";
 import { CountrySelect } from "@/components/shared/country-select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
 import { AppSelect } from "@/components/ui/select";
 import { DEFAULT_COUNTRY_CODE } from "@/lib/constants/countries";
+import { notifyError } from "@/lib/toast";
 import type { RoleOption, UserRecord } from "@/features/users/types/users.types";
 import { getFriendlyUsersError } from "@/features/users/utils/users-errors";
 import { isStrongPassword } from "@/features/auth/utils/password-policy";
@@ -30,7 +30,6 @@ type UserFormProps = {
   submitLabel: string;
   description?: string;
   onSubmit: (values: UserFormValues) => Promise<void>;
-  successMessage?: string | null;
 };
 
 export function UserForm({
@@ -40,7 +39,6 @@ export function UserForm({
   submitLabel,
   description,
   onSubmit,
-  successMessage,
 }: UserFormProps) {
   const [values, setValues] = useState<UserFormValues>({
     name: initialValues?.name ?? "",
@@ -50,7 +48,6 @@ export function UserForm({
     roleId: initialValues?.roleId ?? roles[0]?.id ?? "",
     isActive: initialValues?.isActive ?? true,
   });
-  const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<{
     name?: string;
     email?: string;
@@ -60,7 +57,6 @@ export function UserForm({
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setError(null);
     const nextFieldErrors: {
       name?: string;
       email?: string;
@@ -102,7 +98,7 @@ export function UserForm({
     try {
       await onSubmit(values);
     } catch (submissionError) {
-      setError(getFriendlyUsersError(submissionError));
+      notifyError(getFriendlyUsersError(submissionError));
     } finally {
       setIsSubmitting(false);
     }
@@ -111,8 +107,6 @@ export function UserForm({
   return (
     <form className="space-y-6" noValidate onSubmit={handleSubmit}>
       {description ? <p className="text-sm leading-7 text-muted-foreground">{description}</p> : null}
-      {successMessage ? <AuthFeedback variant="success">{successMessage}</AuthFeedback> : null}
-      {error ? <AuthFeedback variant="error">{error}</AuthFeedback> : null}
       <div className="grid gap-5 md:grid-cols-2">
         <label className="space-y-2">
           <span className="text-sm font-medium text-foreground">Full name</span>

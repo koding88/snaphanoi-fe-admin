@@ -17,6 +17,7 @@ import { clearClientSession } from "@/features/auth/utils/auth-storage";
 import { getFriendlyAuthError } from "@/features/auth/utils/auth-errors";
 import { isStrongPassword } from "@/features/auth/utils/password-policy";
 import { ROUTES } from "@/lib/constants/routes";
+import { notifyError, notifySuccess } from "@/lib/toast";
 
 export function ResetPasswordForm() {
   const router = useRouter();
@@ -28,13 +29,12 @@ export function ResetPasswordForm() {
   });
   const [prefilledFromLink, setPrefilledFromLink] = useState(false);
   const [showManualToken, setShowManualToken] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<{
     token?: string;
     newPassword?: string;
     confirmNewPassword?: string;
   }>({});
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [didReset, setDidReset] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export function ResetPasswordForm() {
   }, [searchParams]);
 
   useEffect(() => {
-    if (!successMessage) {
+    if (!didReset) {
       return;
     }
 
@@ -57,12 +57,10 @@ export function ResetPasswordForm() {
     return () => {
       window.clearTimeout(timeoutId);
     };
-  }, [router, successMessage]);
+  }, [didReset, router]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setError(null);
-    setSuccessMessage(null);
     const nextFieldErrors: {
       token?: string;
       newPassword?: string;
@@ -97,9 +95,14 @@ export function ResetPasswordForm() {
     try {
       const response = await resetPassword(form);
       clearClientSession();
-      setSuccessMessage(response.message ?? "Password reset successfully.");
+      notifySuccess(
+        response.message,
+        "Password updated successfully.",
+        "Please sign in again with your new password.",
+      );
+      setDidReset(true);
     } catch (submissionError) {
-      setError(getFriendlyAuthError(submissionError, "resetPassword"));
+      notifyError(getFriendlyAuthError(submissionError, "resetPassword"));
     } finally {
       setIsSubmitting(false);
     }
@@ -119,8 +122,6 @@ export function ResetPasswordForm() {
       }
     >
       <form className="space-y-5" noValidate onSubmit={handleSubmit}>
-        {successMessage ? <AuthFeedback variant="success">{successMessage}</AuthFeedback> : null}
-        {error ? <AuthFeedback variant="error">{error}</AuthFeedback> : null}
         {prefilledFromLink && !showManualToken ? (
           <AuthFeedback variant="info">
             Reset link detected. Continue below, or switch to manual token entry if needed.

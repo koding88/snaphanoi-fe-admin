@@ -8,12 +8,17 @@ import { PageHeader } from "@/components/shared/page-header";
 import { RoleForm } from "@/components/roles/role-form";
 import { createRole } from "@/features/roles/api/create-role";
 import { ROUTES } from "@/lib/constants/routes";
+import { queueNavigationToast } from "@/lib/toast";
 
 export function RoleCreatePage() {
   const router = useRouter();
 
   async function handleSubmit(payload: { name: string }) {
     const response = await createRole(payload);
+    queueNavigationToast({
+      intent: "success",
+      title: response.message ?? "Role created successfully.",
+    });
     router.replace(ROUTES.admin.roles.detail(response.data.id));
   }
 

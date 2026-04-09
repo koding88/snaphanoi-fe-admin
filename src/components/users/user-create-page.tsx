@@ -14,6 +14,7 @@ import { listRoleOptions } from "@/features/users/api/list-role-options";
 import type { RoleOption } from "@/features/users/types/users.types";
 import { getFriendlyUsersError } from "@/features/users/utils/users-errors";
 import { ROUTES } from "@/lib/constants/routes";
+import { queueNavigationToast } from "@/lib/toast";
 
 export function UserCreatePage() {
   const router = useRouter();
@@ -45,6 +46,10 @@ export function UserCreatePage() {
       roleId: values.roleId,
     });
 
+    queueNavigationToast({
+      intent: "success",
+      title: response.message ?? "User created successfully.",
+    });
     router.replace(ROUTES.admin.users.detail(response.data.id));
   }
 

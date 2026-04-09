@@ -14,6 +14,7 @@ import { updateRole } from "@/features/roles/api/update-role";
 import type { RoleRecord } from "@/features/roles/types/roles.types";
 import { getFriendlyRolesError } from "@/features/roles/utils/roles-errors";
 import { ROUTES } from "@/lib/constants/routes";
+import { queueNavigationToast } from "@/lib/toast";
 
 export function RoleEditPage({ id }: { id: string }) {
   const router = useRouter();
@@ -39,6 +40,10 @@ export function RoleEditPage({ id }: { id: string }) {
 
   async function handleSubmit(payload: { name: string }) {
     const response = await updateRole(id, payload);
+    queueNavigationToast({
+      intent: "success",
+      title: response.message ?? "Role updated successfully.",
+    });
     router.replace(ROUTES.admin.roles.detail(response.data.id));
   }
 

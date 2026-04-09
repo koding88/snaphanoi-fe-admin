@@ -28,6 +28,7 @@ import type {
 import { getFriendlyRolesError } from "@/features/roles/utils/roles-errors";
 import { ROUTES } from "@/lib/constants/routes";
 import { faTrashCan, faUserPen } from "@/lib/icons/fa";
+import { consumeNavigationToast, notifyError, notifySuccess } from "@/lib/toast";
 import { cn } from "@/lib/utils";
 
 const INITIAL_USERS_QUERY: RoleUsersQuery = {
@@ -45,6 +46,10 @@ export function RoleDetailPage({ id }: { id: string }) {
   const [isLoading, setIsLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    consumeNavigationToast();
+  }, []);
 
   const loadRoleData = useCallback(async (nextUsersQuery: RoleUsersQuery) => {
     setIsLoading(true);
@@ -75,10 +80,11 @@ export function RoleDetailPage({ id }: { id: string }) {
 
     setIsSubmitting(true);
     try {
-      await deleteRole(role.id);
+      const response = await deleteRole(role.id);
+      notifySuccess(response.message ?? response.data.message, "Role deleted.");
       router.replace(ROUTES.admin.roles.root);
     } catch (actionError) {
-      setError(getFriendlyRolesError(actionError));
+      notifyError(getFriendlyRolesError(actionError));
     } finally {
       setIsSubmitting(false);
       setDialogOpen(false);

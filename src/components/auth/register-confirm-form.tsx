@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { registerConfirm } from "@/features/auth/api/register-confirm";
 import { getFriendlyAuthError } from "@/features/auth/utils/auth-errors";
 import { ROUTES } from "@/lib/constants/routes";
+import { notifyError, notifySuccess } from "@/lib/toast";
 
 export function RegisterConfirmForm() {
   const router = useRouter();
@@ -20,9 +21,8 @@ export function RegisterConfirmForm() {
   const [token, setToken] = useState("");
   const [prefilledFromLink, setPrefilledFromLink] = useState(false);
   const [showManualToken, setShowManualToken] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [fieldError, setFieldError] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [didConfirm, setDidConfirm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export function RegisterConfirmForm() {
   }, [searchParams]);
 
   useEffect(() => {
-    if (!successMessage) {
+    if (!didConfirm) {
       return;
     }
 
@@ -45,12 +45,10 @@ export function RegisterConfirmForm() {
     return () => {
       window.clearTimeout(timeoutId);
     };
-  }, [router, successMessage]);
+  }, [didConfirm, router]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setError(null);
-    setSuccessMessage(null);
     setFieldError(null);
 
     if (!token.trim()) {
@@ -62,9 +60,14 @@ export function RegisterConfirmForm() {
 
     try {
       const response = await registerConfirm({ token });
-      setSuccessMessage(response.message ?? "Registration confirmed successfully.");
+      notifySuccess(
+        response.message,
+        "Registration confirmed.",
+        "You can now sign in with your new account.",
+      );
+      setDidConfirm(true);
     } catch (submissionError) {
-      setError(getFriendlyAuthError(submissionError, "registerConfirm"));
+      notifyError(getFriendlyAuthError(submissionError, "registerConfirm"));
     } finally {
       setIsSubmitting(false);
     }
@@ -84,8 +87,6 @@ export function RegisterConfirmForm() {
       }
     >
       <form className="space-y-5" noValidate onSubmit={handleSubmit}>
-        {successMessage ? <AuthFeedback variant="success">{successMessage}</AuthFeedback> : null}
-        {error ? <AuthFeedback variant="error">{error}</AuthFeedback> : null}
         {prefilledFromLink && !showManualToken ? (
           <AuthFeedback variant="info">
             Confirmation link detected. Continue below, or enter a different token manually.

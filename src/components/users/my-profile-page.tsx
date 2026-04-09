@@ -1,18 +1,16 @@
 "use client";
 
-import { useState } from "react";
-
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
 import { PageHeader } from "@/components/shared/page-header";
 import { ProfileForm } from "@/components/users/profile-form";
 import { useAuthStore } from "@/features/auth/store/auth.store";
 import { updateMyProfile } from "@/features/users/api/update-my-profile";
+import { notifySuccess } from "@/lib/toast";
 
 export function MyProfilePage() {
   const user = useAuthStore((state) => state.user);
   const setUser = useAuthStore((state) => state.setUser);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   if (!user) {
     return (
@@ -34,7 +32,7 @@ export function MyProfilePage() {
       ...updated,
       roleKey: currentUser.roleKey ?? null,
     });
-    setSuccessMessage(response.message ?? "Profile updated successfully.");
+    notifySuccess(response.message, "Profile updated successfully.");
   }
 
   return (
@@ -45,7 +43,7 @@ export function MyProfilePage() {
         description="Keep your own name, email, and country details up to date without opening the admin user editor."
       />
       <AdminSurface className="p-6 md:p-8">
-        <ProfileForm user={currentUser} onSubmit={handleSubmit} successMessage={successMessage} />
+        <ProfileForm user={currentUser} onSubmit={handleSubmit} />
       </AdminSurface>
     </AdminPageContainer>
   );

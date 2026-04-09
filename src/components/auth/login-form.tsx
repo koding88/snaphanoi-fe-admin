@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 
-import { AuthFeedback } from "@/components/auth/auth-feedback";
 import { AuthField } from "@/components/auth/auth-field";
 import { AuthFormShell } from "@/components/auth/auth-form-shell";
 import { Button } from "@/components/ui/button";
@@ -14,6 +13,8 @@ import { login } from "@/features/auth/api/login";
 import { useAuthStore } from "@/features/auth/store/auth.store";
 import { getFriendlyAuthError } from "@/features/auth/utils/auth-errors";
 import { persistClientSession } from "@/features/auth/utils/auth-storage";
+import { ROUTES } from "@/lib/constants/routes";
+import { notifyError, notifySuccess } from "@/lib/toast";
 
 type LoginFieldErrors = {
   email?: string;
@@ -26,9 +27,19 @@ export function LoginForm() {
   const setAuthenticated = useAuthStore((state) => state.setAuthenticated);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<LoginFieldErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (searchParams.get("passwordChanged") === "1") {
+      notifySuccess(
+        "Password updated successfully.",
+        "Password updated successfully.",
+        "Please sign in again with your new password.",
+      );
+      router.replace(ROUTES.login);
+    }
+  }, [router, searchParams]);
 
   function validateFields() {
     const nextErrors: LoginFieldErrors = {};
@@ -48,7 +59,6 @@ export function LoginForm() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setError(null);
     const nextFieldErrors = validateFields();
     setFieldErrors(nextFieldErrors);
 
@@ -66,7 +76,7 @@ export function LoginForm() {
       const nextPath = searchParams.get("next");
       router.replace(nextPath?.startsWith("/") ? nextPath : "/admin");
     } catch (submissionError) {
-      setError(getFriendlyAuthError(submissionError, "login"));
+      notifyError(getFriendlyAuthError(submissionError, "login"));
     } finally {
       setIsSubmitting(false);
     }
@@ -89,7 +99,6 @@ export function LoginForm() {
       }
     >
       <form className="space-y-5" noValidate onSubmit={handleSubmit}>
-        {error ? <AuthFeedback variant="error">{error}</AuthFeedback> : null}
         <AuthField label="Email" htmlFor="email" error={fieldErrors.email ?? null}>
           <Input
             id="email"

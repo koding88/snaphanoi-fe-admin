@@ -22,6 +22,11 @@ export const API_ENDPOINTS = {
     byId: (id: string) => `/api/v1/roles/${id}`,
     users: (id: string) => `/api/v1/roles/${id}/users`,
   },
+  galleries: {
+    list: "/api/v1/galleries",
+    byId: (id: string) => `/api/v1/galleries/${id}`,
+    restore: (id: string) => `/api/v1/galleries/${id}/restore`,
+  },
   health: {
     live: "/api/health/live",
     ready: "/api/health/ready",

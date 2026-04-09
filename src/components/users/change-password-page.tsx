@@ -12,11 +12,11 @@ import { useAuthStore } from "@/features/auth/store/auth.store";
 import { clearClientSession } from "@/features/auth/utils/auth-storage";
 import { changeMyPassword } from "@/features/users/api/change-my-password";
 import { ROUTES } from "@/lib/constants/routes";
+import { notifySuccess } from "@/lib/toast";
 
 export function ChangePasswordPage() {
   const router = useRouter();
   const clear = useAuthStore((state) => state.clear);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [shouldRedirect, setShouldRedirect] = useState(false);
 
   useEffect(() => {
@@ -47,8 +47,10 @@ export function ChangePasswordPage() {
     confirmNewPassword: string;
   }) {
     const response = await changeMyPassword(payload);
-    setSuccessMessage(
-      response.message ?? "Password changed successfully. You will sign in again with the new password.",
+    notifySuccess(
+      response.message,
+      "Password changed successfully.",
+      "You will sign in again with the new password.",
     );
     setShouldRedirect(true);
   }
@@ -61,7 +63,7 @@ export function ChangePasswordPage() {
         description="For security, this flow signs you out after a successful update so the new password becomes the next point of entry."
       />
       <AdminSurface className="p-6 md:p-8">
-        <ChangePasswordForm onSubmit={handleSubmit} successMessage={successMessage} />
+        <ChangePasswordForm onSubmit={handleSubmit} />
       </AdminSurface>
     </AdminPageContainer>
   );

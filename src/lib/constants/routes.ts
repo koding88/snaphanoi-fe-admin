@@ -21,5 +21,11 @@ export const ROUTES = {
       detail: (id: string) => `/admin/roles/${id}`,
       edit: (id: string) => `/admin/roles/${id}/edit`,
     },
+    galleries: {
+      root: "/admin/galleries",
+      create: "/admin/galleries/create",
+      detail: (id: string) => `/admin/galleries/${id}`,
+      edit: (id: string) => `/admin/galleries/${id}/edit`,
+    },
   },
 } as const;
