@@ -59,8 +59,8 @@ export function ProjectCreatePage() {
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
         eyebrow="Create project"
-        title="Create a new project story."
-        description="Set the gallery, upload the cover, and shape the editor document that will travel with this project."
+        title="Create a new project story"
+        description="Set the core metadata first, then shape the full story in the editor workspace below."
       />
       {isLoading ? (
         <LoadingState title="Loading project form" description="Preparing galleries and editor dependencies." />
@@ -73,12 +73,12 @@ export function ProjectCreatePage() {
           description="Projects must belong to an active gallery. Add at least one gallery before creating a project."
         />
       ) : (
-        <AdminSurface className="p-6 md:p-8">
+        <AdminSurface className="overflow-hidden border-white/60 bg-white/84 p-6 shadow-[0_30px_100px_-70px_rgba(15,23,42,0.5)] md:p-8">
           <ProjectForm
             mode="create"
             galleries={galleries}
             submitLabel="Create project"
-            description="The backend expects a gallery, three localized names, one cover upload token, the full content document, and the publication state."
+            description="Create keeps the same backend contract while giving the story editor a clearer, full-width workspace."
             onSubmit={handleSubmit}
           />
         </AdminSurface>

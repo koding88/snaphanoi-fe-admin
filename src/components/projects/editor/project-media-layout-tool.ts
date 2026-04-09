@@ -29,6 +29,17 @@ type PendingMediaItem = {
   errorMessage?: string;
 };
 
+type VisualMediaEntry = {
+  id: string;
+  item: {
+    id: string;
+    kind: "image" | "youtube";
+    url: string;
+  };
+  status: "ready" | "uploading" | "error";
+  errorMessage?: string;
+};
+
 const ensureData = (data?: Partial<ProjectEditorMediaLayoutData>): ProjectEditorMediaLayoutData => ({
   items: Array.isArray(data?.items) ? (data.items as ProjectEditorMediaItem[]) : [],
   layout: Array.isArray(data?.layout) ? (data.layout as Layout) : [],
@@ -240,20 +251,16 @@ class ProjectMediaLayoutTool {
     void this.handleUpload([pending.file]);
   }
 
-  private renderReact() {
-    if (!this.reactMountEl) {
-      return;
-    }
 
-    if (!this.reactRoot) {
-      this.reactRoot = createRoot(this.reactMountEl);
-    }
-
-
-    const visualItems = [
+  private buildVisualItems(): VisualMediaEntry[] {
+    return [
       ...this.data.items.map((item) => ({
         id: item.id,
-        item,
+        item: {
+          id: item.id,
+          kind: item.kind,
+          url: item.url,
+        },
         status: "ready" as const,
       })),
       ...this.pendingItems.map((item) => ({
@@ -267,6 +274,68 @@ class ProjectMediaLayoutTool {
         errorMessage: item.errorMessage,
       })),
     ];
+  }
+
+  private renderGridItem(entry: VisualMediaEntry) {
+    return createElement(
+      "div",
+      { key: entry.id, className: "ce-grid-item" },
+      createElement(ProjectMediaTile, {
+        item: entry.item,
+        className: "ce-grid-media-frame",
+        mediaClassName: "ce-grid-media",
+      }),
+      createElement(
+        "div",
+        { className: "ce-grid-overlay" },
+        createElement(
+          "button",
+          {
+            type: "button",
+            className: "ce-grid-remove",
+            onClick: () => this.remove(entry.id),
+          },
+          "×",
+        ),
+        entry.status === "uploading"
+          ? createElement(
+              "div",
+              { className: "ce-grid-status ce-grid-status--loading" },
+              createElement("span", { className: "ce-grid-spinner" }),
+              createElement("span", null, "Uploading"),
+            )
+          : null,
+        entry.status === "error"
+          ? createElement(
+              "div",
+              { className: "ce-grid-status ce-grid-status--error" },
+              createElement("span", null, entry.errorMessage ?? "Upload failed"),
+              createElement(
+                "button",
+                {
+                  type: "button",
+                  className: "ce-grid-retry",
+                  onClick: () => this.retry(entry.id),
+                },
+                "Retry",
+              ),
+            )
+          : null,
+      ),
+    );
+  }
+
+  private renderReact() {
+    if (!this.reactMountEl) {
+      return;
+    }
+
+    if (!this.reactRoot) {
+      this.reactRoot = createRoot(this.reactMountEl);
+    }
+
+
+    const visualItems = this.buildVisualItems();
     const visualLayout = [...(this.draftLayout ?? this.data.layout), ...this.pendingLayout];
 
     const uploadBox = createElement(
@@ -307,54 +376,7 @@ class ProjectMediaLayoutTool {
       ),
     );
 
-    const gridChildren = visualItems.map((entry) =>
-      createElement(
-        "div",
-        { key: entry.id, className: "ce-grid-item" },
-        createElement(ProjectMediaTile, {
-          item: entry.item,
-          className: "ce-grid-media-frame",
-          mediaClassName: "ce-grid-media",
-        }),
-        createElement(
-          "div",
-          { className: "ce-grid-overlay" },
-          createElement(
-            "button",
-            {
-              type: "button",
-              className: "ce-grid-remove",
-              onClick: () => this.remove(entry.id),
-            },
-            "×",
-          ),
-          entry.status === "uploading"
-            ? createElement(
-                "div",
-                { className: "ce-grid-status ce-grid-status--loading" },
-                createElement("span", { className: "ce-grid-spinner" }),
-                createElement("span", null, "Uploading"),
-              )
-            : null,
-          entry.status === "error"
-            ? createElement(
-                "div",
-                { className: "ce-grid-status ce-grid-status--error" },
-                createElement("span", null, entry.errorMessage ?? "Upload failed"),
-                createElement(
-                  "button",
-                  {
-                    type: "button",
-                    className: "ce-grid-retry",
-                    onClick: () => this.retry(entry.id),
-                  },
-                  "Retry",
-                ),
-              )
-            : null,
-        ),
-      ),
-    );
+    const gridChildren = visualItems.map((entry) => this.renderGridItem(entry));
 
     const gridProps = {
       layout: visualLayout,

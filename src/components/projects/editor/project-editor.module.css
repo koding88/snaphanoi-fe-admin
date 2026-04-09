@@ -1,18 +1,21 @@
 .editorCanvas {
-  --editor-gutter: 4.5rem;
+  --editor-gutter: 4.25rem;
   position: relative;
+  padding-inline: 1rem 1rem;
 }
 
 .editorCanvas :global(.codex-editor__redactor) {
-  padding-bottom: 0 !important;
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
+  padding-left: var(--editor-gutter) !important;
   margin-right: 0 !important;
 }
 
 .editorCanvas :global(.ce-toolbar__content),
 .editorCanvas :global(.ce-block__content) {
   max-width: none;
-  width: calc(100% - var(--editor-gutter));
-  margin-left: var(--editor-gutter);
+  width: 100%;
+  margin-left: 0;
 }
 
 .editorCanvas :global(.ce-toolbar__content) {
@@ -21,11 +24,20 @@
 
 .editorCanvas :global(.ce-toolbar) {
   left: 0;
+  right: 0;
 }
 
 .editorCanvas :global(.ce-toolbar__plus),
 .editorCanvas :global(.ce-toolbar__settings-btn) {
   color: #6b7280;
+}
+
+.editorCanvas :global(.ce-toolbar__plus) {
+  left: 0.75rem;
+}
+
+.editorCanvas :global(.ce-toolbar__settings-btn) {
+  right: 0.35rem;
 }
 
 .editorCanvas :global(.ce-inline-toolbar) {
@@ -242,6 +254,7 @@
   border-radius: 18px;
   background: transparent;
   cursor: grab;
+  contain: layout paint style;
 }
 
 .editorCanvas :global(.ce-grid-overlay) {

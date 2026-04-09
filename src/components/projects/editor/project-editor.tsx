@@ -209,8 +209,10 @@ export function ProjectEditor({ value, onChange, uploadImage }: ProjectEditorPro
       ) : null}
       <div className="relative overflow-hidden rounded-[30px] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(246,242,235,0.96))] p-3 shadow-[0_32px_90px_-60px_rgba(15,23,42,0.42)] sm:p-4 lg:p-5">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-[radial-gradient(circle_at_top_left,rgba(159,106,52,0.14),transparent_60%)]" />
-        <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[4.25rem] border-r border-white/50 bg-[linear-gradient(180deg,rgba(245,240,231,0.88),rgba(255,255,255,0.25))] lg:block" />
-        <div ref={holderRef} className={`${styles.editorCanvas} min-h-[560px]`} />
+        <div className="relative overflow-hidden rounded-[1.65rem] border border-white/70 bg-white/72">
+          <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[4.25rem] border-r border-white/60 bg-[linear-gradient(180deg,rgba(245,240,231,0.92),rgba(255,255,255,0.34))] lg:block" />
+          <div ref={holderRef} className={`${styles.editorCanvas} min-h-[560px]`} />
+        </div>
         {isBootstrapping ? (
           <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-center px-6 pt-6">
             <div className="rounded-full border border-border/80 bg-white/88 px-4 py-2 text-xs font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase shadow-soft">

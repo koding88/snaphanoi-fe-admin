@@ -65,22 +65,22 @@ export function ProjectEditPage({ id }: { id: string }) {
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
         eyebrow="Edit project"
-        title="Update project story and assets."
-        description="Refine content, swap the cover when needed, and keep the same project record intact."
+        title="Update project story and assets"
+        description="Review the metadata quickly, then continue editing the project story in the full-width workspace."
       />
       {isLoading ? (
         <LoadingState title="Loading project" description="Fetching the project record and active gallery options." />
       ) : error || !project ? (
         <ErrorState title="Unable to load this project" description={error ?? "Project not found."} />
       ) : (
-        <AdminSurface className="p-6 md:p-8">
+        <AdminSurface className="overflow-hidden border-white/60 bg-white/84 p-6 shadow-[0_30px_100px_-70px_rgba(15,23,42,0.5)] md:p-8">
           <ProjectForm
             mode="edit"
             galleries={galleries}
             initialValues={getProjectFormInitialValues(project)}
             existingCoverImage={project.coverImage}
             submitLabel="Save changes"
-            description="Edit sends the full practical payload back to the backend, while keeping the current cover unless you replace it."
+            description="Edit keeps the current project semantics intact while making the story editor easier to scan and use."
             onSubmit={handleSubmit}
           />
         </AdminSurface>
