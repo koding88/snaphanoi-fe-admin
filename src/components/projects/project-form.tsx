@@ -34,8 +34,8 @@ const ProjectEditor = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="rounded-[28px] border border-border/80 bg-gradient-to-b from-white to-slate-50 p-6 shadow-inner shadow-slate-200/60">
-        <div className="flex min-h-[560px] items-center justify-center rounded-[1.4rem] border border-dashed border-border/80 bg-white/70">
+      <div className="rounded-2xl border border-border/70 bg-white p-6 shadow-sm">
+        <div className="flex min-h-[560px] items-center justify-center rounded-xl border border-dashed border-border/60 bg-white">
           <p className="text-xs font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
             Loading editor
           </p>
@@ -442,8 +442,8 @@ export function ProjectForm({
         </div>
       </section>
 
-      <section className="space-y-4 rounded-[2rem] border border-slate-200/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(244,241,235,0.92))] p-5 shadow-[0_32px_90px_-60px_rgba(15,23,42,0.46)] md:p-7">
-        <div className="flex flex-col gap-2 border-b border-border/60 pb-5 lg:flex-row lg:items-end lg:justify-between">
+      <section className="space-y-5 rounded-[2rem] border border-border/70 bg-white p-5 shadow-sm md:p-7">
+        <div className="flex flex-col gap-2 pb-1 lg:flex-row lg:items-end lg:justify-between">
           <div className="space-y-2">
             <p className="text-xs font-semibold tracking-[0.2em] text-[--color-brand-muted] uppercase">
               Story content
