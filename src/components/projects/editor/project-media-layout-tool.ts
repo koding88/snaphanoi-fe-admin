@@ -14,6 +14,8 @@ import type {
 } from "@/components/projects/editor/project-editor.types";
 import { ProjectMediaTile } from "@/components/projects/editor/project-media-tile";
 
+const EditableGrid = WidthProvider(GridLayout);
+
 type ProjectMediaLayoutToolConfig = {
   onChange?: (data: ProjectEditorMediaLayoutData) => void;
   uploadImage: ProjectEditorImageUploader;
@@ -36,6 +38,8 @@ const buildSafeLayout = (items: Array<{ id: string }>, layout: Layout): Layout =
   const ids = new Set(items.map((item) => item.id));
   return layout.filter((entry) => ids.has(entry.i));
 };
+
+const cloneLayout = (layout: Layout): Layout => layout.map((entry) => ({ ...entry }));
 
 const getImageDimensions = (
   url: string,
@@ -94,6 +98,7 @@ class ProjectMediaLayoutTool {
   private reactMountEl: HTMLDivElement | null = null;
   private reactRoot: Root | null = null;
   private dragging = false;
+  private draftLayout: Layout | null = null;
 
   static get toolbox() {
     return {
@@ -148,6 +153,7 @@ class ProjectMediaLayoutTool {
 
   private publishChange() {
     this.data.layout = buildSafeLayout(this.data.items, this.data.layout);
+    this.draftLayout = null;
     this.config.onChange?.(this.data);
   }
 
@@ -243,7 +249,7 @@ class ProjectMediaLayoutTool {
       this.reactRoot = createRoot(this.reactMountEl);
     }
 
-    const EditableGrid = WidthProvider(GridLayout);
+
     const visualItems = [
       ...this.data.items.map((item) => ({
         id: item.id,
@@ -261,7 +267,7 @@ class ProjectMediaLayoutTool {
         errorMessage: item.errorMessage,
       })),
     ];
-    const visualLayout = [...this.data.layout, ...this.pendingLayout];
+    const visualLayout = [...(this.draftLayout ?? this.data.layout), ...this.pendingLayout];
 
     const uploadBox = createElement(
       "button",
@@ -359,6 +365,22 @@ class ProjectMediaLayoutTool {
       compactType: "vertical" as const,
       preventCollision: false,
       onLayoutChange: (nextLayout: Layout) => {
+        this.draftLayout = nextLayout.filter((entry) => this.data.items.some((item) => item.id === entry.i));
+        this.pendingLayout = nextLayout.filter((entry) => this.pendingItems.some((item) => item.id === entry.i));
+      },
+      onDragStart: () => {
+        this.draftLayout = cloneLayout(this.data.layout);
+      },
+      onDragStop: (nextLayout: Layout) => {
+        this.data.layout = nextLayout.filter((entry) => this.data.items.some((item) => item.id === entry.i));
+        this.pendingLayout = nextLayout.filter((entry) => this.pendingItems.some((item) => item.id === entry.i));
+        this.publishChange();
+        this.renderReact();
+      },
+      onResizeStart: () => {
+        this.draftLayout = cloneLayout(this.data.layout);
+      },
+      onResizeStop: (nextLayout: Layout) => {
         this.data.layout = nextLayout.filter((entry) => this.data.items.some((item) => item.id === entry.i));
         this.pendingLayout = nextLayout.filter((entry) => this.pendingItems.some((item) => item.id === entry.i));
         this.publishChange();

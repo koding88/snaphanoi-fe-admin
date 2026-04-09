@@ -24,7 +24,13 @@ export function ProjectMediaTile({
       ) : (
         // Editor media can point to arbitrary storage URLs that are not known to Next image optimization.
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={item.url} alt="Project media" className={mediaClassName} />
+        <img
+          src={item.url}
+          alt="Project media"
+          className={mediaClassName}
+          decoding="async"
+          draggable={false}
+        />
       )}
     </div>
   );

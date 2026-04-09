@@ -1,5 +1,5 @@
 .editorCanvas {
-  --editor-gutter: 3.5rem;
+  --editor-gutter: 4.5rem;
   position: relative;
 }
 
@@ -17,6 +17,19 @@
 
 .editorCanvas :global(.ce-toolbar__content) {
   padding-inline-end: 0.5rem;
+}
+
+.editorCanvas :global(.ce-toolbar) {
+  left: 0;
+}
+
+.editorCanvas :global(.ce-toolbar__plus),
+.editorCanvas :global(.ce-toolbar__settings-btn) {
+  color: #6b7280;
+}
+
+.editorCanvas :global(.ce-inline-toolbar) {
+  z-index: 31;
 }
 
 .editorCanvas :global(.ce-popover) {
@@ -104,6 +117,11 @@
   color: #020617;
 }
 
+.editorCanvas :global(.ce-paragraph),
+.editorCanvas :global(.cdx-input) {
+  color: #334155;
+}
+
 .editorCanvas :global(h1.ce-header) {
   font-size: 2.5rem;
   line-height: 1.1;
@@ -141,8 +159,8 @@
   border: 1px solid rgba(209, 213, 219, 0.92);
   border-radius: 24px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 244, 237, 0.95));
-  padding: 16px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.68);
+  padding: 18px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.68), 0 20px 40px rgba(148, 163, 184, 0.12);
 }
 
 .editorCanvas :global(.ce-media-layout__content) {
@@ -197,20 +215,22 @@
 }
 
 .editorCanvas :global(.react-grid-item) {
-  transition: left 180ms ease, top 180ms ease, width 180ms ease, height 180ms ease;
+  transition: left 120ms ease, top 120ms ease;
 }
 
 .editorCanvas :global(.react-grid-item.cssTransforms) {
-  transition-property: transform, width, height;
+  transition-property: transform;
 }
 
 .editorCanvas :global(.react-grid-item.resizing) {
   z-index: 3;
+  transition: none;
   will-change: width, height;
 }
 
 .editorCanvas :global(.react-grid-item.react-draggable-dragging) {
   z-index: 4;
+  transition: none;
   will-change: transform;
 }
 
@@ -245,11 +265,12 @@
 }
 
 .editorCanvas :global(.ce-grid-media-frame) {
+  position: relative;
   height: 100%;
   width: 100%;
   overflow: hidden;
   border-radius: 18px;
-  background: rgba(15, 23, 42, 0.08);
+  background: linear-gradient(180deg, rgba(226, 232, 240, 0.92), rgba(241, 245, 249, 0.88));
 }
 
 .editorCanvas :global(.ce-grid-media) {
@@ -258,11 +279,17 @@
   width: 100%;
   min-height: 0;
   object-fit: cover;
-  transition: transform 220ms ease;
+  transform: translateZ(0);
+  transition: transform 220ms ease, opacity 180ms ease;
 }
 
 .editorCanvas :global(.ce-grid-item:hover .ce-grid-media) {
   transform: scale(1.02);
+}
+
+.editorCanvas :global(.react-draggable-dragging .ce-grid-media),
+.editorCanvas :global(.resizing .ce-grid-media) {
+  transform: none;
 }
 
 .editorCanvas :global(.ce-grid-remove) {

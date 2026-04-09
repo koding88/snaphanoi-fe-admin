@@ -49,6 +49,7 @@ class BaseInlineColorTool {
   protected title: string;
   protected icon: string;
   protected colors: ColorOption[];
+  protected savedRange: Range | null = null;
 
   constructor({
     api,
@@ -89,11 +90,40 @@ class BaseInlineColorTool {
     };
   }
 
+
+  public checkState() {
+    this.captureSelection();
+  }
+
+  protected captureSelection() {
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0) {
+      return;
+    }
+
+    this.savedRange = selection.getRangeAt(0).cloneRange();
+  }
+
+  protected restoreSelection() {
+    this.api.selection.restore();
+    this.api.selection.removeFakeBackground();
+
+    const selection = window.getSelection();
+    if (!selection || !this.savedRange) {
+      return selection;
+    }
+
+    selection.removeAllRanges();
+    selection.addRange(this.savedRange.cloneRange());
+    return selection;
+  }
+
   protected createPanel() {
     const panel = document.createElement("div");
     panel.className = "ce-inline-color-panel";
     panel.onmousedown = (event) => {
       event.preventDefault();
+      this.captureSelection();
     };
 
     const title = document.createElement("div");
@@ -151,10 +181,7 @@ class BaseInlineColorTool {
   }
 
   protected applyStyle(value: string) {
-    this.api.selection.restore();
-    this.api.selection.removeFakeBackground();
-
-    const selection = window.getSelection();
+    const selection = this.restoreSelection();
     if (!selection || selection.rangeCount === 0) {
       return;
     }
@@ -167,6 +194,7 @@ class BaseInlineColorTool {
     const parent = this.findWrapper();
     if (parent) {
       this.applyWrapperStyle(parent, value);
+      this.captureSelection();
       return;
     }
 
@@ -180,6 +208,7 @@ class BaseInlineColorTool {
     const nextRange = document.createRange();
     nextRange.selectNodeContents(wrapper);
     selection.addRange(nextRange);
+    this.savedRange = nextRange.cloneRange();
   }
 
   protected findWrapper() {
