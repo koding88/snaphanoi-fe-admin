@@ -84,7 +84,7 @@ export function ProjectDetailPage({ id }: { id: string }) {
       <PageHeader
         eyebrow="Project detail"
         title="Review this project story."
-        description="Inspect the gallery placement, cover image, publishing state, and readonly story document before making changes."
+        description="Inspect the studio-facing cover, multilingual naming, publication state, and saved story document before making changes."
         actions={
           project ? (
             <div className="flex flex-wrap gap-2">
@@ -126,28 +126,25 @@ export function ProjectDetailPage({ id }: { id: string }) {
         <>
           <ProjectDetailCard project={project} />
           <AdminSurface className="p-6 md:p-8">
-            <div className="space-y-3">
-              <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-                Story preview
-              </p>
-              <h2 className="font-heading text-3xl tracking-[0.04em] text-foreground">
-                Readonly project content
-              </h2>
-              <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
-                This preview reuses the same content model as the editor surface and renders the current saved document.
-              </p>
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+              <div className="space-y-3">
+                <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
+                  Story document
+                </p>
+                <h2 className="font-heading text-3xl tracking-[0.04em] text-foreground md:text-[2.35rem]">
+                  Saved editorial content
+                </h2>
+                <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
+                  This preview uses the same document model as the editor and renders the currently saved story exactly as the admin system holds it.
+                </p>
+              </div>
+              <div className="rounded-full border border-border/80 bg-white/70 px-4 py-2 text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
+                Readonly preview
+              </div>
             </div>
-            <div className="mt-6 rounded-[2rem] border border-border/80 bg-white/70 p-6 md:p-8">
+            <div className="mt-8 rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.88),rgba(249,245,238,0.92))] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.78)] md:p-8">
               <ProjectEditorPreview content={project.content} />
             </div>
-          </AdminSurface>
-          <AdminSurface className="p-6 md:p-8">
-            <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-              Admin actions
-            </p>
-            <p className="mt-3 text-sm leading-7 text-muted-foreground">
-              Archive and restore controls remain here so project lifecycle changes stay deliberate.
-            </p>
           </AdminSurface>
         </>
       )}
