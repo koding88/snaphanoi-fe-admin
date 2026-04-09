@@ -230,7 +230,7 @@ export function ProjectEditorPreview({ content }: { content: OutputData }) {
   const normalized = normalizeProjectContent(content);
 
   return (
-    <>
+    <div className="mx-auto max-w-4xl space-y-2 text-[1.02rem] leading-8 text-slate-700">
       {normalized.blocks.map((block, index) => {
         const blockId = block.id ?? `block-${index}`;
 
@@ -241,7 +241,7 @@ export function ProjectEditorPreview({ content }: { content: OutputData }) {
           };
 
           return (
-            <div key={blockId} className="not-prose my-8">
+            <div key={blockId} className="not-prose my-10">
               <PreviewMedia media={mediaData.items ?? []} layout={mediaData.layout ?? []} />
             </div>
           );
@@ -252,26 +252,26 @@ export function ProjectEditorPreview({ content }: { content: OutputData }) {
           const rich = renderInlineHtml(String((block.data as { text?: string }).text ?? ""));
 
           if (level === 1) {
-            return <h1 key={blockId} className="mb-4 text-4xl font-semibold tracking-tight text-slate-950">{rich}</h1>;
+            return <h1 key={blockId} className="mb-5 text-4xl font-semibold leading-tight tracking-[-0.03em] text-slate-950 md:text-5xl">{rich}</h1>;
           }
 
           if (level === 2) {
-            return <h2 key={blockId} className="mb-4 text-3xl font-semibold tracking-tight text-slate-950">{rich}</h2>;
+            return <h2 key={blockId} className="mb-5 mt-10 text-3xl font-semibold tracking-[-0.03em] text-slate-950 md:text-4xl">{rich}</h2>;
           }
 
           if (level === 3) {
-            return <h3 key={blockId} className="mb-3 text-2xl font-semibold tracking-tight text-slate-900">{rich}</h3>;
+            return <h3 key={blockId} className="mb-4 mt-8 text-2xl font-semibold tracking-tight text-slate-900">{rich}</h3>;
           }
 
           if (level === 4) {
-            return <h4 key={blockId} className="mb-3 text-xl font-semibold text-slate-900">{rich}</h4>;
+            return <h4 key={blockId} className="mb-3 mt-7 text-xl font-semibold text-slate-900">{rich}</h4>;
           }
 
           if (level === 5) {
-            return <h5 key={blockId} className="mb-3 text-lg font-semibold text-slate-900">{rich}</h5>;
+            return <h5 key={blockId} className="mb-3 mt-6 text-lg font-semibold text-slate-900">{rich}</h5>;
           }
 
-          return <h6 key={blockId} className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">{rich}</h6>;
+          return <h6 key={blockId} className="mb-3 mt-6 text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">{rich}</h6>;
         }
 
         if (block.type === "list") {
@@ -298,8 +298,8 @@ export function ProjectEditorPreview({ content }: { content: OutputData }) {
 
           if (youtubeUrl) {
             return (
-              <figure key={blockId} className="my-6">
-                <div className="overflow-hidden rounded-[24px] border border-slate-200 bg-slate-950 shadow-[0_18px_50px_rgba(15,23,42,0.14)]">
+              <figure key={blockId} className="my-8">
+                <div className="overflow-hidden rounded-[28px] border border-slate-200/80 bg-slate-950 shadow-[0_24px_60px_rgba(15,23,42,0.16)]">
                   <div className="relative w-full pt-[56.25%]">
                     <iframe
                       src={youtubeUrl}
@@ -311,7 +311,7 @@ export function ProjectEditorPreview({ content }: { content: OutputData }) {
                   </div>
                 </div>
                 {embedData.caption ? (
-                  <figcaption className="mt-3 text-sm leading-6 text-slate-500">
+                  <figcaption className="mt-4 text-sm leading-7 text-slate-500">
                     {renderInlineHtml(embedData.caption)}
                   </figcaption>
                 ) : null}
@@ -322,11 +322,11 @@ export function ProjectEditorPreview({ content }: { content: OutputData }) {
 
         const rich = renderInlineHtml(String((block.data as { text?: string }).text ?? ""));
         return (
-          <p key={blockId} className="mb-4 text-[15px] leading-8 text-slate-700">
+          <p key={blockId} className="mb-5 text-[1.02rem] leading-8 text-slate-700">
             {rich}
           </p>
         );
       })}
-    </>
+    </div>
   );
 }

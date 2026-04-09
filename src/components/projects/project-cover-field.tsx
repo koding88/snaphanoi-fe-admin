@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { ProjectCoverPreview } from "@/components/projects/project-cover-preview";
 import { Button } from "@/components/ui/button";
 import { faArrowRotateRight, faSpinner, faTrashCan } from "@/lib/icons/fa";
 
@@ -47,12 +48,11 @@ export function ProjectCoverField({
       />
       <div className="overflow-hidden rounded-[1.75rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(247,243,236,0.84))]">
         {previewUrl ? (
-          // Cover previews come from presigned storage uploads and existing backend file URLs.
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <ProjectCoverPreview
             src={previewUrl}
             alt={title ?? "Project cover"}
-            className="block aspect-[4/3] w-full object-cover"
+            className="rounded-none border-0 bg-transparent shadow-none"
+            imageClassName="rounded-[1.2rem]"
           />
         ) : (
           <div className="flex aspect-[4/3] items-center justify-center bg-muted/35 px-6 text-center">

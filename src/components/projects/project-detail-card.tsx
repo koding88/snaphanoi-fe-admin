@@ -1,4 +1,5 @@
 import { AdminSurface } from "@/components/admin/admin-surface";
+import { ProjectCoverPreview } from "@/components/projects/project-cover-preview";
 import { ProjectPublishBadge } from "@/components/projects/project-publish-badge";
 import { ProjectStatusBadge } from "@/components/projects/project-status-badge";
 import type { ProjectDetailRecord } from "@/features/projects/types/projects.types";
@@ -11,25 +12,20 @@ export function ProjectDetailCard({ project }: { project: ProjectDetailRecord })
     <AdminSurface className="overflow-hidden">
       <div className="grid gap-0 xl:grid-cols-[minmax(0,420px)_minmax(0,1fr)]">
         <div className="border-b border-border/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.28),rgba(245,239,230,0.82))] p-5 md:p-6 xl:border-b-0 xl:border-r xl:p-7">
-          <div className="relative overflow-hidden rounded-[2rem] border border-border/80 bg-muted/40 shadow-[0_28px_60px_-36px_rgba(19,17,14,0.45)]">
-            {/* Project cover URLs are backend-managed file assets, so plain img keeps the detail view flexible. */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={project.coverImage.url}
-              alt={project.name.en}
-              className="block aspect-[4/3] w-full object-cover"
-            />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-[linear-gradient(180deg,rgba(15,12,9,0),rgba(15,12,9,0.7))]" />
-            <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-4 text-white">
-              <div>
-                <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-white/72">
-                  Cover asset
-                </p>
-                <p className="mt-2 text-lg font-medium tracking-[0.02em]">{project.coverImage.originalName}</p>
-              </div>
-              <div className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[11px] font-semibold tracking-[0.18em] uppercase backdrop-blur-sm">
-                {coverSizeKb} KB
-              </div>
+          <ProjectCoverPreview
+            src={project.coverImage.url}
+            alt={project.name.en}
+            imageClassName="rounded-[1.35rem]"
+          />
+          <div className="mt-4 flex items-center justify-between gap-3 rounded-[1.3rem] border border-border/70 bg-white/72 px-4 py-3">
+            <div>
+              <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
+                Cover asset
+              </p>
+              <p className="mt-1 text-base font-medium text-foreground">{project.coverImage.originalName}</p>
+            </div>
+            <div className="rounded-full border border-border/70 bg-white/78 px-3 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
+              {coverSizeKb} KB
             </div>
           </div>
           <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
