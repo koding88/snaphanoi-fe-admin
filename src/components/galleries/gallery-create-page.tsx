@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
 import { GalleryForm } from "@/components/galleries/gallery-form";
+import { BackButton } from "@/components/shared/back-button";
 import { PageHeader } from "@/components/shared/page-header";
 import { createGallery } from "@/features/galleries/api/create-gallery";
 import { ROUTES } from "@/lib/constants/routes";
@@ -28,6 +29,15 @@ export function GalleryCreatePage() {
         eyebrow="Create gallery"
         title="Create a new gallery."
         description="Add multilingual names so this collection is ready across supported languages."
+        meta={
+          <BackButton
+            href={ROUTES.admin.galleries.root}
+            confirm
+            confirmTitle="Discard this new gallery?"
+            confirmDescription="The form will be cleared and you will return to the gallery list."
+            confirmLabel="Discard"
+          />
+        }
       />
       <AdminSurface className="p-6 md:p-8">
         <GalleryForm

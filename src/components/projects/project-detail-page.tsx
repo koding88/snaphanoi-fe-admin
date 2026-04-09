@@ -9,6 +9,7 @@ import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
 import { ProjectDetailCard } from "@/components/projects/project-detail-card";
 import { ProjectEditorPreview } from "@/components/projects/editor/project-editor-preview";
+import { BackButton } from "@/components/shared/back-button";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { ErrorState } from "@/components/shared/error-state";
 import { LoadingState } from "@/components/shared/loading-state";
@@ -85,6 +86,7 @@ export function ProjectDetailPage({ id }: { id: string }) {
         eyebrow="Project detail"
         title="Review this project story."
         description="Inspect the studio-facing cover, multilingual naming, publication state, and saved story document before making changes."
+        meta={<BackButton href={ROUTES.admin.projects.root} />}
         actions={
           project ? (
             <div className="flex flex-wrap gap-2">

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
+import { BackButton } from "@/components/shared/back-button";
 import { ErrorState } from "@/components/shared/error-state";
 import { LoadingState } from "@/components/shared/loading-state";
 import { PageHeader } from "@/components/shared/page-header";
@@ -64,6 +65,15 @@ export function UserEditPage({ id }: { id: string }) {
         eyebrow="Edit user"
         title="Update account details."
         description="Adjust role, availability, profile details, or replace the password when needed."
+        meta={
+          <BackButton
+            href={ROUTES.admin.users.detail(id)}
+            confirm
+            confirmTitle="Discard these changes?"
+            confirmDescription="Any modifications will be lost."
+            confirmLabel="Discard"
+          />
+        }
       />
       {isLoading ? (
         <LoadingState title="Loading user" description="Fetching the current user record and role options." />

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
+import { BackButton } from "@/components/shared/back-button";
 import { ErrorState } from "@/components/shared/error-state";
 import { LoadingState } from "@/components/shared/loading-state";
 import { PageHeader } from "@/components/shared/page-header";
@@ -59,6 +60,15 @@ export function UserCreatePage() {
         eyebrow="Create user"
         title="Add a new team member."
         description="Create a new studio account with the right role, location, and a first-time password."
+        meta={
+          <BackButton
+            href={ROUTES.admin.users.root}
+            confirm
+            confirmTitle="Discard this new user?"
+            confirmDescription="The form will be cleared and you will return to the user list."
+            confirmLabel="Discard"
+          />
+        }
       />
       {isLoading ? (
         <LoadingState

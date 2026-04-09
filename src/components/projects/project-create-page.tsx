@@ -7,6 +7,7 @@ import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
 import { ProjectForm } from "@/components/projects/project-form";
 import type { ProjectGalleryOption } from "@/components/projects/project-gallery-select";
+import { BackButton } from "@/components/shared/back-button";
 import { EmptyState } from "@/components/shared/empty-state";
 import { ErrorState } from "@/components/shared/error-state";
 import { LoadingState } from "@/components/shared/loading-state";
@@ -61,6 +62,15 @@ export function ProjectCreatePage() {
         eyebrow="Create project"
         title="Create a new project story"
         description="Set the core metadata first, then shape the full story in the editor workspace below."
+        meta={
+          <BackButton
+            href={ROUTES.admin.projects.root}
+            confirm
+            confirmTitle="Discard this new project?"
+            confirmDescription="The form will be cleared and you will return to the project list."
+            confirmLabel="Discard"
+          />
+        }
       />
       {isLoading ? (
         <LoadingState title="Loading project form" description="Preparing galleries and editor dependencies." />

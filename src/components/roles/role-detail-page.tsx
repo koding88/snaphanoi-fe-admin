@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
+import { BackButton } from "@/components/shared/back-button";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { EmptyState } from "@/components/shared/empty-state";
 import { ErrorState } from "@/components/shared/error-state";
@@ -97,6 +98,7 @@ export function RoleDetailPage({ id }: { id: string }) {
         eyebrow="Role detail"
         title="Inspect a role and its assigned users."
         description="Review the role itself, see where it is in use, and manage the next step from one page."
+        meta={<BackButton href={ROUTES.admin.roles.root} />}
         actions={
           role ? (
             <div className="flex flex-wrap gap-2">

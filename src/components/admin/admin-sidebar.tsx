@@ -39,9 +39,11 @@ export function AdminSidebar({ mobile = false, onNavigate, collapsed = false, on
   return (
     <aside
       className={cn(
-        "surface-enter flex h-full flex-col overflow-hidden rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,244,237,0.92))] shadow-soft transition-all duration-300",
-        collapsed ? "w-[88px] p-3" : "w-[280px] p-4",
+        "surface-enter flex h-full flex-col overflow-hidden rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,244,237,0.92))] shadow-soft",
         "sticky top-4 max-h-[calc(100vh-2rem)]",
+        // Smoother transition: 500ms with ease-out for natural feel
+        "transition-[width,padding] duration-500 ease-out",
+        collapsed ? "w-[88px] p-3" : "w-[280px] p-4",
       )}
     >
       {/* Header Section */}
@@ -55,13 +57,13 @@ export function AdminSidebar({ mobile = false, onNavigate, collapsed = false, on
           type="button"
           onClick={onToggle}
           className={cn(
-            "group mb-3 flex items-center justify-center rounded-xl border border-border/80 bg-background/60 text-muted-foreground transition-all hover:border-[--color-brand]/25 hover:bg-[--color-brand-soft] hover:text-[--color-brand]",
+            "group mb-3 flex items-center justify-center rounded-xl border border-border/80 bg-background/60 text-muted-foreground transition-all duration-300 hover:border-[--color-brand]/25 hover:bg-[--color-brand-soft] hover:text-[--color-brand]",
             collapsed ? "py-2" : "py-2 px-3",
           )}
         >
           <FontAwesomeIcon
             icon={faChevronRight}
-            className={cn("size-4 transition-transform", collapsed ? "" : "rotate-180")}
+            className={cn("size-4 transition-transform duration-300 ease-out", collapsed ? "" : "rotate-180")}
           />
           {!collapsed && (
             <span className="ml-2 text-xs font-medium">Collapse</span>
@@ -95,7 +97,9 @@ export function AdminSidebar({ mobile = false, onNavigate, collapsed = false, on
               href={item.href}
               onClick={onNavigate}
               className={cn(
-                "group relative flex items-center rounded-xl border text-sm transition-all duration-200",
+                "group relative flex items-center rounded-xl border text-sm",
+                // Smoother nav item transitions
+                "transition-all duration-300 ease-out",
                 isActive
                   ? "border-[--color-brand]/30 bg-[--color-brand-soft] text-foreground shadow-[0_4px_12px_rgba(205,174,111,0.15)]"
                   : "border-transparent text-muted-foreground hover:bg-muted/50 hover:text-foreground",

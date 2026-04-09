@@ -1,15 +1,7 @@
-import Link from "next/link";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { AdminSurface } from "@/components/admin/admin-surface";
 import { GalleryStatusBadge } from "@/components/galleries/gallery-status-badge";
-import { buttonVariants } from "@/components/ui/button";
 import type { GalleryRecord } from "@/features/galleries/types/galleries.types";
 import { formatDateTime } from "@/features/users/utils/users-format";
-import { ROUTES } from "@/lib/constants/routes";
-import { faUserPen } from "@/lib/icons/fa";
-import { cn } from "@/lib/utils";
 
 export function GalleryDetailCard({ gallery }: { gallery: GalleryRecord }) {
   const detailRows = [
@@ -34,13 +26,6 @@ export function GalleryDetailCard({ gallery }: { gallery: GalleryRecord }) {
             <p className="mt-1 text-sm text-muted-foreground">{gallery.id}</p>
           </div>
         </div>
-        <Link
-          href={ROUTES.admin.galleries.edit(gallery.id)}
-          className={cn(buttonVariants({ size: "lg" }), "rounded-full")}
-        >
-          <FontAwesomeIcon icon={faUserPen} />
-          Edit gallery
-        </Link>
       </div>
       <div className="mt-8 grid gap-4 md:grid-cols-2">
         {detailRows.map((row) => (

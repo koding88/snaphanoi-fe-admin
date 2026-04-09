@@ -1,13 +1,5 @@
-import Link from "next/link";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { AdminSurface } from "@/components/admin/admin-surface";
-import { buttonVariants } from "@/components/ui/button";
 import { RoleSystemBadge } from "@/components/roles/role-system-badge";
-import { ROUTES } from "@/lib/constants/routes";
-import { faUserPen } from "@/lib/icons/fa";
-import { cn } from "@/lib/utils";
 import type { RoleRecord } from "@/features/roles/types/roles.types";
 import { formatDateTime } from "@/features/users/utils/users-format";
 
@@ -32,13 +24,6 @@ export function RoleDetailCard({ role }: { role: RoleRecord }) {
             <p className="mt-1 text-sm text-muted-foreground">{role.id}</p>
           </div>
         </div>
-        <Link
-          href={ROUTES.admin.roles.edit(role.id)}
-          className={cn(buttonVariants({ size: "lg" }), "rounded-full")}
-        >
-          <FontAwesomeIcon icon={faUserPen} />
-          Edit role
-        </Link>
       </div>
       <div className="mt-8 grid gap-4 md:grid-cols-2">
         {detailRows.map((row) => (

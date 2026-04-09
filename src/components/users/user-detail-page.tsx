@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
+import { BackButton } from "@/components/shared/back-button";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { ErrorState } from "@/components/shared/error-state";
 import { LoadingState } from "@/components/shared/loading-state";
@@ -83,6 +84,7 @@ export function UserDetailPage({ id }: { id: string }) {
         eyebrow="User detail"
         title="Review this account."
         description="See the person, role, location, and account state in one place before making changes."
+        meta={<BackButton href={ROUTES.admin.users.root} />}
         actions={
           user ? (
             <div className="flex flex-wrap gap-2">

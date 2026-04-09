@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
 import { GalleryForm } from "@/components/galleries/gallery-form";
+import { BackButton } from "@/components/shared/back-button";
 import { ErrorState } from "@/components/shared/error-state";
 import { LoadingState } from "@/components/shared/loading-state";
 import { PageHeader } from "@/components/shared/page-header";
@@ -53,6 +54,15 @@ export function GalleryEditPage({ id }: { id: string }) {
         eyebrow="Edit gallery"
         title="Update gallery names."
         description="Refine localized naming while keeping the existing gallery record."
+        meta={
+          <BackButton
+            href={ROUTES.admin.galleries.detail(id)}
+            confirm
+            confirmTitle="Discard these changes?"
+            confirmDescription="Any modifications will be lost."
+            confirmLabel="Discard"
+          />
+        }
       />
       {isLoading ? (
         <LoadingState title="Loading gallery" description="Fetching the current gallery record." />

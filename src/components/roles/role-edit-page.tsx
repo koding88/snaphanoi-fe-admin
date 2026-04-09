@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
+import { BackButton } from "@/components/shared/back-button";
 import { ErrorState } from "@/components/shared/error-state";
 import { LoadingState } from "@/components/shared/loading-state";
 import { PageHeader } from "@/components/shared/page-header";
@@ -53,6 +54,15 @@ export function RoleEditPage({ id }: { id: string }) {
         eyebrow="Edit role"
         title="Update a role."
         description="Adjust the role name while keeping the role key and usage history intact."
+        meta={
+          <BackButton
+            href={ROUTES.admin.roles.detail(id)}
+            confirm
+            confirmTitle="Discard these changes?"
+            confirmDescription="Any modifications will be lost."
+            confirmLabel="Discard"
+          />
+        }
       />
       {isLoading ? (
         <LoadingState title="Loading role" description="Fetching the current role record." />

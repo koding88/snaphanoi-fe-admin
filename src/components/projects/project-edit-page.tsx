@@ -7,6 +7,7 @@ import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
 import { ProjectForm, getProjectFormInitialValues } from "@/components/projects/project-form";
 import type { ProjectGalleryOption } from "@/components/projects/project-gallery-select";
+import { BackButton } from "@/components/shared/back-button";
 import { ErrorState } from "@/components/shared/error-state";
 import { LoadingState } from "@/components/shared/loading-state";
 import { PageHeader } from "@/components/shared/page-header";
@@ -67,6 +68,15 @@ export function ProjectEditPage({ id }: { id: string }) {
         eyebrow="Edit project"
         title="Update project story and assets"
         description="Review the metadata quickly, then continue editing the project story in the full-width workspace."
+        meta={
+          <BackButton
+            href={ROUTES.admin.projects.detail(id)}
+            confirm
+            confirmTitle="Discard these changes?"
+            confirmDescription="Any modifications will be lost."
+            confirmLabel="Discard"
+          />
+        }
       />
       {isLoading ? (
         <LoadingState title="Loading project" description="Fetching the project record and active gallery options." />

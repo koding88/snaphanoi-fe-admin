@@ -1,14 +1,6 @@
-import Link from "next/link";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { AdminSurface } from "@/components/admin/admin-surface";
-import { buttonVariants } from "@/components/ui/button";
 import { UserRoleBadge } from "@/components/users/user-role-badge";
 import { UserStatusBadge } from "@/components/users/user-status-badge";
-import { ROUTES } from "@/lib/constants/routes";
-import { faUserPen } from "@/lib/icons/fa";
-import { cn } from "@/lib/utils";
 import type { UserRecord } from "@/features/users/types/users.types";
 import { formatCountryCode, formatDateTime } from "@/features/users/utils/users-format";
 
@@ -35,13 +27,6 @@ export function UserDetailCard({ user }: { user: UserRecord }) {
             <p className="mt-1 text-sm text-muted-foreground">{user.id}</p>
           </div>
         </div>
-        <Link
-          href={ROUTES.admin.users.edit(user.id)}
-          className={cn(buttonVariants({ size: "lg" }), "rounded-full")}
-        >
-          <FontAwesomeIcon icon={faUserPen} />
-          Edit user
-        </Link>
       </div>
       <div className="mt-8 grid gap-4 md:grid-cols-2">
         {detailRows.map((row) => (

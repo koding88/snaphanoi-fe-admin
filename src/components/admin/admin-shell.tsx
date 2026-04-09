@@ -23,7 +23,7 @@ export function AdminShell({ children }: AdminShellProps) {
       <div className="pointer-events-none fixed inset-0 -z-10 opacity-35 [background-image:linear-gradient(rgba(120,120,120,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(120,120,120,0.06)_1px,transparent_1px)] [background-position:center_center] [background-size:32px_32px]" />
       <div className="lg:hidden">
         <div
-          className={`fixed inset-0 z-40 bg-slate-950/45 transition-opacity ${
+          className={`fixed inset-0 z-40 bg-slate-950/45 transition-opacity duration-300 ${
             isMobileSidebarOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
           }`}
           onClick={closeMobileSidebar}
@@ -37,7 +37,7 @@ export function AdminShell({ children }: AdminShellProps) {
           <AdminSidebar mobile onNavigate={closeMobileSidebar} />
         </div>
       </div>
-      <div className={`mx-auto grid min-h-screen max-w-[1600px] grid-cols-1 lg:gap-5 lg:px-5 lg:py-4 xl:gap-6 xl:px-6 ${isSidebarCollapsed ? "lg:grid-cols-[88px_minmax(0,1fr)]" : "lg:grid-cols-[280px_minmax(0,1fr)]"}`}>
+      <div className={`mx-auto grid min-h-screen max-w-[1600px] grid-cols-1 lg:gap-5 lg:px-5 lg:py-4 xl:gap-6 xl:px-6 transition-[grid-template-columns] duration-500 ease-out ${isSidebarCollapsed ? "lg:grid-cols-[88px_minmax(0,1fr)]" : "lg:grid-cols-[280px_minmax(0,1fr)]"}`}>
         <div className="hidden lg:block">
           <AdminSidebar collapsed={isSidebarCollapsed} onToggle={toggleSidebar} />
         </div>

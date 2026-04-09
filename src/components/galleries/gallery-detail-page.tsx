@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
 import { GalleryDetailCard } from "@/components/galleries/gallery-detail-card";
+import { BackButton } from "@/components/shared/back-button";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { ErrorState } from "@/components/shared/error-state";
 import { LoadingState } from "@/components/shared/loading-state";
@@ -85,6 +86,7 @@ export function GalleryDetailPage({ id }: { id: string }) {
         eyebrow="Gallery detail"
         title="Review this gallery."
         description="Inspect multilingual names, lifecycle state, and ownership context before making changes."
+        meta={<BackButton href={ROUTES.admin.galleries.root} />}
         actions={
           gallery ? (
             <div className="flex flex-wrap gap-2">
