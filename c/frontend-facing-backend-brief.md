@@ -1,5 +1,5 @@
 1. **Kết luận ngắn**
-- Backend snapshot hiện tại có 7 nhóm endpoint chính: `auth`, `users`, `roles`, `galleries`, `projects`, `files`, `health`.
+- Backend snapshot hiện tại có 8 nhóm endpoint chính: `auth`, `users`, `roles`, `galleries`, `projects`, `blogs`, `files`, `health`.
 - `galleries` đã hoàn tất round 1 ở backend:
   - admin CRUD
   - soft delete / restore
@@ -8,7 +8,7 @@
   - Accept-Language mapping
   - fallback locale hiện tại là `en`
   - public list có cache theo locale và invalidate khi write
-- `users`, `roles`, `galleries`, `projects` admin routes đều là admin-only.
+- `users`, `roles`, `galleries`, `projects`, `blogs` admin routes đều là admin-only.
 - `GET /api/v1/galleries/public` là public, không cần auth.
 - `GET /api/v1/projects/public` và `GET /api/v1/projects/public/:id` là public.
 - `POST /api/v1/files/request-upload` là public.
@@ -72,6 +72,18 @@
   - `GET /api/v1/projects/public`
   - `GET /api/v1/projects/public/:id`
 
+**blogs endpoints + flow**
+- Admin blogs:
+  - `GET /api/v1/blogs`
+  - `GET /api/v1/blogs/:id`
+  - `POST /api/v1/blogs`
+  - `PATCH /api/v1/blogs/:id`
+  - `DELETE /api/v1/blogs/:id`
+  - `PATCH /api/v1/blogs/:id/restore`
+- Public blogs:
+  - `GET /api/v1/blogs/public`
+  - `GET /api/v1/blogs/public/:id`
+
 **files endpoints + flow**
 - Public files:
   - `POST /api/v1/files/request-upload`
@@ -90,6 +102,8 @@
   - `GET /api/v1/galleries/public`
   - `GET /api/v1/projects/public`
   - `GET /api/v1/projects/public/:id`
+  - `GET /api/v1/blogs/public`
+  - `GET /api/v1/blogs/public/:id`
   - `POST /api/v1/files/request-upload`
   - health endpoints
 - Protected:
@@ -103,6 +117,7 @@
   - toàn bộ `roles` routes
   - toàn bộ `galleries` admin routes
   - toàn bộ `projects` admin routes
+  - toàn bộ `blogs` admin routes
 - Self-or-admin:
   - `GET /api/v1/users/:id`
 
@@ -427,11 +442,140 @@
 - `INVALID_FILE_UPLOAD_TOKEN`
 - `INVALID_FILE_UPLOAD_STATE`
 
-6. **Files request-upload contract (phục vụ create/update projects)**
-- Endpoint: `POST /api/v1/files/request-upload` (public).
-- FE upload flow cho cover/content image cần gọi endpoint này để nhận upload token trước khi gửi create/update project.
+6. **Blogs contract cho frontend**
 
-7. **Galleries errors hữu ích cho FE**
+**blogs shape tổng quát**
+- `blogs` là single-language.
+- `name` là `string`, không multilingual.
+- `content` là whole JSON document.
+- Không có `language` field.
+- `coverImage` và `createdBy` expand theo cùng style của `projects`.
+
+**admin blogs list**
+- Endpoint: `GET /api/v1/blogs`
+- Boundary: admin-only
+- Query:
+  - `page`
+  - `limit`
+  - `keyword`
+  - `isActive`
+  - `isPublished`
+  - `isPinned`
+- Response item:
+```json
+{
+  "id": "blog-id",
+  "name": "Spring Story",
+  "coverImage": {
+    "id": "file-id",
+    "url": "https://...",
+    "mimeType": "image/jpeg",
+    "size": 5242880,
+    "originalName": "cover.jpg"
+  },
+  "isPinned": true,
+  "isPublished": true,
+  "isActive": true,
+  "deletedAt": null,
+  "createdBy": {
+    "id": "user-admin",
+    "name": "Admin User"
+  },
+  "createdAt": "2026-04-10T02:10:00.000Z",
+  "updatedAt": "2026-04-10T02:10:00.000Z"
+}
+```
+- Admin detail `GET /api/v1/blogs/:id` cùng shape nhưng có `content` đầy đủ.
+
+**create/update blog**
+- `POST /api/v1/blogs`
+- `PATCH /api/v1/blogs/:id`
+- Body practical:
+```json
+{
+  "name": "Spring Story",
+  "coverImageUploadToken": "token",
+  "content": { "time": 1, "version": "2.x", "blocks": [] },
+  "isPinned": true,
+  "isPublished": true
+}
+```
+- Update là partial update cho các field trên.
+
+**public blogs list/detail**
+- `GET /api/v1/blogs/public`
+- `GET /api/v1/blogs/public/:id`
+- Public list có pagination: `page`, `limit`.
+- Backend sort runtime: 
+  1. `isPinned desc`
+  2. `createdAt desc`
+- Public list item:
+```json
+{
+  "id": "blog-id",
+  "name": "Spring Story",
+  "coverImage": {
+    "id": "file-id",
+    "url": "https://...",
+    "mimeType": "image/jpeg",
+    "size": 5242880,
+    "originalName": "cover.jpg"
+  }
+}
+```
+- Public detail:
+```json
+{
+  "id": "blog-id",
+  "name": "Spring Story",
+  "coverImage": {
+    "id": "file-id",
+    "url": "https://...",
+    "mimeType": "image/jpeg",
+    "size": 5242880,
+    "originalName": "cover.jpg"
+  },
+  "content": { "time": 1, "version": "2.x", "blocks": [] },
+  "createdAt": "2026-04-10T02:10:00.000Z",
+  "updatedAt": "2026-04-10T02:10:00.000Z"
+}
+```
+- Public blogs không trả:
+  - `isPinned`
+  - `isPublished`
+  - `isActive`
+  - `deletedAt`
+  - `createdBy`
+
+**blogs content/upload semantics**
+- Cover upload dùng `POST /api/v1/files/request-upload` như projects.
+- `content` là whole JSON document, không base64.
+- Với `mediaLayout.data.items[]`:
+  - image mới dùng `uploadToken`
+  - image cũ dùng `{ fileId, url }`
+  - youtube item giữ `url`
+- FE không được assume generic image block ngoài semantics hiện backend đang support.
+
+**blogs errors hữu ích cho FE**
+- `BLOG_NOT_FOUND`
+- `BLOG_ALREADY_DELETED`
+- `BLOG_NOT_DELETED`
+- `INVALID_BLOG_NAME`
+- `INVALID_BLOG_CONTENT`
+- `BLOG_COVER_IMAGE_NOT_FOUND`
+- `INVALID_FILE_UPLOAD_TOKEN`
+- `INVALID_FILE_UPLOAD_STATE`
+
+7. **Files request-upload contract (phục vụ create/update projects + blogs)**
+- Endpoint: `POST /api/v1/files/request-upload` (public).
+- FE upload flow cho cover/content image của `projects` và `blogs` cần gọi endpoint này để nhận upload token trước khi gửi create/update payload.
+- Relevant purposes hiện tại gồm:
+  - `project-cover`
+  - `project-content`
+  - `blog-cover`
+  - `blog-content`
+
+8. **Galleries errors hữu ích cho FE**
 
 - `GALLERY_NOT_FOUND`
 - `GALLERY_NAME_EN_ALREADY_EXISTS`
@@ -444,7 +588,7 @@ Practical FE handling:
 - create/update form nên map 3 lỗi duplicate name theo từng locale field
 - delete/restore action nên handle `not found`, `already deleted`, `not deleted` như action-state error bình thường
 
-8. **Frontend planning notes cho FE admin repo**
+9. **Frontend planning notes cho FE admin repo**
 
 - Repo admin này nên implement:
   - admin galleries list
@@ -454,14 +598,16 @@ Practical FE handling:
   - delete gallery
   - restore gallery
   - admin projects list/detail/create/update/delete/restore
+  - admin blogs list/detail/create/update/delete/restore
 - Chưa implement public galleries UI trong repo này.
+- Chưa implement public blogs UI trong repo admin này nếu chưa có yêu cầu riêng.
 - Public galleries hiện dùng cho app/customer-facing context khác; chỉ cần hiểu contract để tránh invent sai API.
 - Galleries admin pages/components nên follow pattern đang có hoặc sẽ có của `users` / `roles`:
   - list page có query state `page`, `limit`, `keyword`, `isActive`
   - create/update form dùng multilingual object local cho 3 field `en/vi/cn`
   - detail/edit page đọc full multilingual object, không dùng localized string
 
-9. **FE must-not-misunderstand**
+10. **FE must-not-misunderstand**
 
 - Không assume `createdBy` là editable field ở gallery form.
 - Không assume public galleries response có full object `name`.
@@ -472,11 +618,13 @@ Practical FE handling:
 - Không bịa cache contract riêng cho FE; backend tự cache public list.
 - Không assume project admin response có `galleryId`; dùng `gallery.id`.
 - Không assume project public list có `gallery`; list chỉ có `id`, localized `name`, `coverImage`.
+- Không assume blogs có multilingual `name` hoặc `language` field.
+- Không gửi base64 image payload cho blog content; backend đang dùng upload-token flow.
 
-10. **Short handoff block**
+11. **Short handoff block**
 ```md
 Backend snapshot:
-- Modules: auth, users, roles, galleries, projects, files, health.
+- Modules: auth, users, roles, galleries, projects, blogs, files, health.
 - API uses envelope: `{ success, data, message, error, statusCode, timestamp, path, requestId }`.
 - Health routes are `/api/health/live` and `/api/health/ready`.
 
@@ -498,6 +646,8 @@ Galleries + Projects snapshot:
   - `GET /api/v1/galleries/public`
   - `GET /api/v1/projects/public`
   - `GET /api/v1/projects/public/:id`
+  - `GET /api/v1/blogs/public`
+  - `GET /api/v1/blogs/public/:id`
 - Admin-only for all admin gallery routes.
 - Public list uses `Accept-Language`, supports `vi/en/cn`, fallback `en`.
 - Public list response is minimal: `{ id, name }`.
@@ -513,6 +663,8 @@ Galleries + Projects snapshot:
 
 FE admin scope:
 - Implement admin galleries in this repo.
+- Implement admin projects/blogs in this repo when tới đúng stage.
 - Do not implement public galleries UI in this repo.
+- Do not implement public blogs UI in this repo unless explicitly requested.
 - Follow users/roles admin CRUD patterns.
 ```

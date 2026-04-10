@@ -63,7 +63,7 @@ Không được tự sang stage tiếp theo nếu tôi chưa xác nhận.
 ## Backend contract notes phải giữ đúng
 
 ### Core backend snapshot
-- Backend hiện có `auth`, `users`, `roles`, `galleries`, `projects`, `files`, `health`.
+- Backend hiện có `auth`, `users`, `roles`, `galleries`, `projects`, `blogs`, `files`, `health`.
 - Response envelope chuẩn:
   - `success`
   - `data`
@@ -200,11 +200,72 @@ Không được tự sang stage tiếp theo nếu tôi chưa xác nhận.
   - `deletedAt`
   - `createdBy`
 
-### Files upload-token semantics (liên quan projects)
+### Blogs semantics bắt buộc
+- Blogs đã có cả admin routes và public routes.
+- Admin routes:
+  - `GET /api/v1/blogs`
+  - `GET /api/v1/blogs/:id`
+  - `POST /api/v1/blogs`
+  - `PATCH /api/v1/blogs/:id`
+  - `DELETE /api/v1/blogs/:id`
+  - `PATCH /api/v1/blogs/:id/restore`
+- Public routes:
+  - `GET /api/v1/blogs/public?page=...&limit=...`
+  - `GET /api/v1/blogs/public/:id`
+- Blogs là single-language:
+  - `name` là `string`
+  - `content` là whole JSON document
+  - không multilingual `name`
+  - không multilingual `content`
+  - không có `language` field
+- Admin list query support:
+  - `page`
+  - `limit`
+  - `keyword`
+  - `isActive`
+  - `isPublished`
+  - `isPinned`
+- Admin response trả full:
+  - `id`
+  - `name`
+  - `coverImage`
+  - `content`
+  - `isPinned`
+  - `isPublished`
+  - `isActive`
+  - `deletedAt`
+  - `createdBy`
+  - `createdAt`
+  - `updatedAt`
+- Public list item chỉ có:
+  - `id`
+  - `name`
+  - `coverImage`
+- Public detail có:
+  - `id`
+  - `name`
+  - `coverImage`
+  - `content`
+  - `createdAt`
+  - `updatedAt`
+- Public blogs response không có:
+  - `isPinned`
+  - `isPublished`
+  - `isActive`
+  - `deletedAt`
+  - `createdBy`
+- Public list runtime sort:
+  - `isPinned desc`
+  - `createdAt desc`
+
+### Files upload-token semantics (liên quan projects + blogs)
 - Endpoint `POST /api/v1/files/request-upload` là public.
 - FE phải request upload token trước khi gửi:
   - `coverImageUploadToken` cho project cover
-  - `uploadToken` cho image item trong `content.blocks[].mediaLayout.data.items[]`.
+  - `uploadToken` cho image item trong `projects.content.blocks[].mediaLayout.data.items[]`
+  - `coverImageUploadToken` cho blog cover
+  - `uploadToken` cho image item trong `blogs.content.blocks[].mediaLayout.data.items[]`
+- Không dùng base64 payload cho projects/blogs content image flow.
 
 ### Galleries errors hữu ích cho FE
 - `GALLERY_NOT_FOUND`
@@ -224,6 +285,16 @@ Không được tự sang stage tiếp theo nếu tôi chưa xác nhận.
 - `PROJECT_NOT_DELETED`
 - `INVALID_PROJECT_CONTENT`
 - `PROJECT_COVER_IMAGE_NOT_FOUND`
+- `INVALID_FILE_UPLOAD_TOKEN`
+- `INVALID_FILE_UPLOAD_STATE`
+
+### Blogs errors hữu ích cho FE
+- `BLOG_NOT_FOUND`
+- `BLOG_ALREADY_DELETED`
+- `BLOG_NOT_DELETED`
+- `INVALID_BLOG_NAME`
+- `INVALID_BLOG_CONTENT`
+- `BLOG_COVER_IMAGE_NOT_FOUND`
 - `INVALID_FILE_UPLOAD_TOKEN`
 - `INVALID_FILE_UPLOAD_STATE`
 
@@ -331,7 +402,21 @@ Chỉ làm:
 
 Không làm public projects UI trong repo admin này nếu chưa có yêu cầu riêng.
 
-### Stage 8 — Polish
+### Stage 8 — Blogs management
+Chỉ làm:
+- admin blogs list
+- blog detail
+- create blog
+- update blog
+- delete blog
+- restore blog
+- query/filter với `page`, `limit`, `keyword`, `isActive`, `isPublished`, `isPinned`
+- map đúng single-language `name`
+- flow upload token cover/content theo backend contract của blogs
+
+Không làm public blogs UI trong repo admin này nếu chưa có yêu cầu riêng.
+
+### Stage 9 — Polish
 Chỉ làm:
 - responsive refinement
 - animation/motion polish
@@ -366,7 +451,9 @@ Nếu không khả dụng thì tiếp tục best effort bình thường.
 
 ## Scope guard cực kỳ quan trọng
 - Implement admin galleries trong repo admin này khi tới đúng stage.
+- Implement admin blogs trong repo admin này khi tới đúng stage.
 - Không implement public galleries UI trong repo admin này nếu tôi chưa yêu cầu riêng.
+- Không implement public blogs UI trong repo admin này nếu tôi chưa yêu cầu riêng.
 - Không bịa route/API ngoài backend brief và Postman hiện tại.
 - Không invent public gallery detail API.
 - Không assume locale fallback là `vi`; current fallback là `en`.

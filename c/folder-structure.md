@@ -1,9 +1,11 @@
 # File Tree: snaphanoi-fe-admin
 
-**Generated:** 4/9/2026, 10:48:16 PM
+**Generated:** 4/10/2026, 11:09:59 AM
 **Root Path:** `/Users/koding88/dev/project/snaphanoi-fe-admin`
 
 ```
+├── 📁 .claude
+│   └── ⚙️ settings.local.json
 ├── 📁 c
 │   ├── ⚙️ Postman-collection.json
 │   ├── 📝 folder-structure.md
@@ -22,6 +24,14 @@
 │   │   ├── 📁 (admin)
 │   │   │   ├── 📁 admin
 │   │   │   │   ├── 📁 galleries
+│   │   │   │   │   ├── 📁 [id]
+│   │   │   │   │   │   ├── 📁 edit
+│   │   │   │   │   │   │   └── 📄 page.tsx
+│   │   │   │   │   │   └── 📄 page.tsx
+│   │   │   │   │   ├── 📁 create
+│   │   │   │   │   │   └── 📄 page.tsx
+│   │   │   │   │   └── 📄 page.tsx
+│   │   │   │   ├── 📁 projects
 │   │   │   │   │   ├── 📁 [id]
 │   │   │   │   │   │   ├── 📁 edit
 │   │   │   │   │   │   │   └── 📄 page.tsx
@@ -105,6 +115,19 @@
 │   │   │   ├── 📄 gallery-edit-page.tsx
 │   │   │   ├── 📄 gallery-form.tsx
 │   │   │   └── 📄 gallery-status-badge.tsx
+│   │   ├── 📁 projects
+│   │   │   ├── 📄 project-cover-field.tsx
+│   │   │   ├── 📄 project-cover-preview.tsx
+│   │   │   ├── 📄 project-create-page.tsx
+│   │   │   ├── 📄 project-detail-card.tsx
+│   │   │   ├── 📄 project-detail-page.tsx
+│   │   │   ├── 📄 project-edit-page.tsx
+│   │   │   ├── 📄 project-form.tsx
+│   │   │   ├── 📄 project-gallery-select.tsx
+│   │   │   ├── 📄 project-publish-badge.tsx
+│   │   │   ├── 📄 project-status-badge.tsx
+│   │   │   ├── 📄 projects-list-page.tsx
+│   │   │   └── 📄 projects-table.tsx
 │   │   ├── 📁 roles
 │   │   │   ├── 📄 role-create-page.tsx
 │   │   │   ├── 📄 role-detail-card.tsx
@@ -117,6 +140,7 @@
 │   │   │   └── 📄 roles-table.tsx
 │   │   ├── 📁 shared
 │   │   │   ├── 📄 app-logo.tsx
+│   │   │   ├── 📄 back-button.tsx
 │   │   │   ├── 📄 confirm-dialog.tsx
 │   │   │   ├── 📄 country-select.tsx
 │   │   │   ├── 📄 empty-state.tsx
@@ -126,6 +150,7 @@
 │   │   │   ├── 📄 page-header.tsx
 │   │   │   └── 📄 status-badge.tsx
 │   │   ├── 📁 ui
+│   │   │   ├── 📄 alert-dialog.tsx
 │   │   │   ├── 📄 button.tsx
 │   │   │   ├── 📄 input.tsx
 │   │   │   ├── 📄 password-input.tsx
@@ -167,6 +192,12 @@
 │   │   │       ├── 📄 auth-errors.ts
 │   │   │       ├── 📄 auth-storage.ts
 │   │   │       └── 📄 password-policy.ts
+│   │   ├── 📁 files
+│   │   │   ├── 📁 api
+│   │   │   │   ├── 📄 request-upload.ts
+│   │   │   │   └── 📄 upload-file-to-storage.ts
+│   │   │   └── 📁 types
+│   │   │       └── 📄 files.types.ts
 │   │   ├── 📁 galleries
 │   │   │   ├── 📁 api
 │   │   │   │   ├── 📄 create-gallery.ts
@@ -180,6 +211,20 @@
 │   │   │   │   └── 📄 galleries.types.ts
 │   │   │   └── 📁 utils
 │   │   │       └── 📄 galleries-errors.ts
+│   │   ├── 📁 projects
+│   │   │   ├── 📁 api
+│   │   │   │   ├── 📄 create-project.ts
+│   │   │   │   ├── 📄 delete-project.ts
+│   │   │   │   ├── 📄 get-project.ts
+│   │   │   │   ├── 📄 list-projects.ts
+│   │   │   │   ├── 📄 restore-project.ts
+│   │   │   │   └── 📄 update-project.ts
+│   │   │   ├── 📁 types
+│   │   │   │   ├── 📄 projects-api.types.ts
+│   │   │   │   └── 📄 projects.types.ts
+│   │   │   └── 📁 utils
+│   │   │       ├── 📄 project-content.ts
+│   │   │       └── 📄 projects-errors.ts
 │   │   ├── 📁 roles
 │   │   │   ├── 📁 api
 │   │   │   │   ├── 📄 create-role.ts
@@ -226,6 +271,8 @@
 │   │   │   ├── 📄 country-codes.ts
 │   │   │   ├── 📄 nav.ts
 │   │   │   └── 📄 routes.ts
+│   │   ├── 📁 hooks
+│   │   │   └── 📄 use-debounced-value.ts
 │   │   ├── 📁 icons
 │   │   │   └── 📄 fa.ts
 │   │   ├── 📄 env.ts

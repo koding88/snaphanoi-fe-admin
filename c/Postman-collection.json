@@ -30,8 +30,15 @@
             "description": "Initiate registration. This does not create the account immediately; it sends a confirmation email with a registration token.",
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/auth/register",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "auth", "register"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
             }
           },
           "response": [
@@ -57,8 +64,15 @@
                 "description": "Initiate registration. This does not create the account immediately; it sends a confirmation email with a registration token.",
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/register",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "auth", "register"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "register"
+                  ]
                 }
               },
               "status": "Created",
@@ -94,8 +108,15 @@
                 "description": "Initiate registration. This does not create the account immediately; it sends a confirmation email with a registration token.",
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/register",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "auth", "register"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "register"
+                  ]
                 }
               },
               "status": "Conflict",
@@ -131,8 +152,15 @@
                 "description": "Initiate registration. This does not create the account immediately; it sends a confirmation email with a registration token.",
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/register",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "auth", "register"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "register"
+                  ]
                 }
               },
               "status": "Bad Request",
@@ -170,8 +198,16 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/auth/register/confirm",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "auth", "register", "confirm"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register",
+                "confirm"
+              ]
             }
           },
           "response": [
@@ -197,8 +233,16 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/register/confirm",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "auth", "register", "confirm"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "register",
+                    "confirm"
+                  ]
                 }
               },
               "status": "Created",
@@ -234,8 +278,16 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/register/confirm",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "auth", "register", "confirm"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "register",
+                    "confirm"
+                  ]
                 }
               },
               "status": "Unauthorized",
@@ -272,8 +324,15 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/auth/login",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "auth", "login"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
             }
           },
           "event": [
@@ -313,8 +372,15 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/login",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "auth", "login"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "login"
+                  ]
                 }
               },
               "status": "Created",
@@ -349,8 +415,15 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/login",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "auth", "login"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "login"
+                  ]
                 }
               },
               "status": "Unauthorized",
@@ -385,8 +458,15 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/login",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "auth", "login"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "login"
+                  ]
                 }
               },
               "status": "Bad Request",
@@ -424,8 +504,15 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/auth/forgot-password",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "auth", "forgot-password"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "forgot-password"
+              ]
             }
           },
           "response": [
@@ -451,8 +538,15 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/forgot-password",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "auth", "forgot-password"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "forgot-password"
+                  ]
                 }
               },
               "status": "Created",
@@ -488,8 +582,15 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/forgot-password",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "auth", "forgot-password"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "forgot-password"
+                  ]
                 }
               },
               "status": "Bad Request",
@@ -527,8 +628,15 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/auth/reset-password",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "auth", "reset-password"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "reset-password"
+              ]
             }
           },
           "response": [
@@ -554,8 +662,15 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/reset-password",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "auth", "reset-password"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "reset-password"
+                  ]
                 }
               },
               "status": "Created",
@@ -591,8 +706,15 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/reset-password",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "auth", "reset-password"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "reset-password"
+                  ]
                 }
               },
               "status": "Unauthorized",
@@ -628,8 +750,15 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/reset-password",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "auth", "reset-password"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "reset-password"
+                  ]
                 }
               },
               "status": "Bad Request",
@@ -652,8 +781,15 @@
             "header": [],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/auth/refresh",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "auth", "refresh"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "refresh"
+              ]
             }
           },
           "response": [
@@ -664,8 +800,15 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/refresh",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "auth", "refresh"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "refresh"
+                  ]
                 }
               },
               "status": "Created",
@@ -686,8 +829,15 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/refresh",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "auth", "refresh"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "refresh"
+                  ]
                 }
               },
               "status": "Unauthorized",
@@ -708,8 +858,15 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/refresh",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "auth", "refresh"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "refresh"
+                  ]
                 }
               },
               "status": "Unauthorized",
@@ -732,8 +889,15 @@
             "header": [],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/auth/logout",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "auth", "logout"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "logout"
+              ]
             }
           },
           "response": [
@@ -744,8 +908,15 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/logout",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "auth", "logout"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "logout"
+                  ]
                 }
               },
               "status": "Created",
@@ -773,8 +944,15 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/auth/logout-all",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "auth", "logout-all"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "logout-all"
+              ]
             }
           },
           "response": [
@@ -790,8 +968,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/logout-all",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "auth", "logout-all"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "logout-all"
+                  ]
                 }
               },
               "status": "Created",
@@ -817,8 +1002,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/logout-all",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "auth", "logout-all"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "logout-all"
+                  ]
                 }
               },
               "status": "Unauthorized",
@@ -846,8 +1038,15 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/auth/me",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "auth", "me"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "me"
+              ]
             }
           },
           "response": [
@@ -863,8 +1062,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/me",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "auth", "me"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "me"
+                  ]
                 }
               },
               "status": "OK",
@@ -890,8 +1096,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/me",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "auth", "me"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "me"
+                  ]
                 }
               },
               "status": "Unauthorized",
@@ -924,8 +1137,14 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/users?page=1&limit=10&keyword=&isActive=true&roleId=&includeDeleted=false",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "users"],
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ],
               "query": [
                 {
                   "key": "page",
@@ -967,8 +1186,14 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users?page=1&limit=10&keyword=&isActive=true&roleId=&includeDeleted=false",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "users"],
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users"
+                  ],
                   "query": [
                     {
                       "key": "page",
@@ -1020,8 +1245,14 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users?page=1&limit=10&keyword=&isActive=true&roleId=&includeDeleted=false",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "users"],
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users"
+                  ],
                   "query": [
                     {
                       "key": "page",
@@ -1075,8 +1306,15 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "users", "{{USER_ID}}"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "{{USER_ID}}"
+              ]
             }
           },
           "response": [
@@ -1092,8 +1330,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "users", "{{USER_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "{{USER_ID}}"
+                  ]
                 }
               },
               "status": "OK",
@@ -1119,8 +1364,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "users", "{{USER_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "{{USER_ID}}"
+                  ]
                 }
               },
               "status": "Not Found",
@@ -1146,8 +1398,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "users", "{{USER_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "{{USER_ID}}"
+                  ]
                 }
               },
               "status": "Forbidden",
@@ -1188,8 +1447,14 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/users",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "users"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ]
             }
           },
           "response": [
@@ -1218,8 +1483,14 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "users"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users"
+                  ]
                 }
               },
               "status": "Created",
@@ -1258,8 +1529,14 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "users"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users"
+                  ]
                 }
               },
               "status": "Conflict",
@@ -1298,8 +1575,14 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "users"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users"
+                  ]
                 }
               },
               "status": "Bad Request",
@@ -1340,8 +1623,15 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "users", "{{USER_ID}}"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "{{USER_ID}}"
+              ]
             }
           },
           "response": [
@@ -1370,8 +1660,15 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "users", "{{USER_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "{{USER_ID}}"
+                  ]
                 }
               },
               "status": "OK",
@@ -1410,8 +1707,15 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "users", "{{USER_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "{{USER_ID}}"
+                  ]
                 }
               },
               "status": "Not Found",
@@ -1450,8 +1754,15 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "users", "{{USER_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "{{USER_ID}}"
+                  ]
                 }
               },
               "status": "Bad Request",
@@ -1492,8 +1803,15 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/users/me",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "users", "me"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "me"
+              ]
             }
           },
           "response": [
@@ -1522,8 +1840,15 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/me",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "users", "me"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "me"
+                  ]
                 }
               },
               "status": "OK",
@@ -1562,8 +1887,15 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/me",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "users", "me"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "me"
+                  ]
                 }
               },
               "status": "Conflict",
@@ -1602,8 +1934,15 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/me",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "users", "me"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "me"
+                  ]
                 }
               },
               "status": "Bad Request",
@@ -1631,8 +1970,15 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "users", "{{USER_ID}}"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "{{USER_ID}}"
+              ]
             }
           },
           "response": [
@@ -1648,8 +1994,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "users", "{{USER_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "{{USER_ID}}"
+                  ]
                 }
               },
               "status": "OK",
@@ -1675,8 +2028,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "users", "{{USER_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "{{USER_ID}}"
+                  ]
                 }
               },
               "status": "Not Found",
@@ -1704,8 +2064,16 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}/restore",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "users", "{{USER_ID}}", "restore"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "{{USER_ID}}",
+                "restore"
+              ]
             }
           },
           "response": [
@@ -1721,8 +2089,16 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}/restore",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "users", "{{USER_ID}}", "restore"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "{{USER_ID}}",
+                    "restore"
+                  ]
                 }
               },
               "status": "OK",
@@ -1748,8 +2124,16 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}/restore",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "users", "{{USER_ID}}", "restore"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "{{USER_ID}}",
+                    "restore"
+                  ]
                 }
               },
               "status": "Not Found",
@@ -1775,8 +2159,16 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}/restore",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "users", "{{USER_ID}}", "restore"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "{{USER_ID}}",
+                    "restore"
+                  ]
                 }
               },
               "status": "Bad Request",
@@ -1817,8 +2209,16 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/users/me/password",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "users", "me", "password"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "me",
+                "password"
+              ]
             }
           },
           "response": [
@@ -1847,8 +2247,16 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/me/password",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "users", "me", "password"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "me",
+                    "password"
+                  ]
                 }
               },
               "status": "OK",
@@ -1887,8 +2295,16 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/me/password",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "users", "me", "password"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "me",
+                    "password"
+                  ]
                 }
               },
               "status": "Bad Request",
@@ -1927,8 +2343,16 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/me/password",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "users", "me", "password"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "me",
+                    "password"
+                  ]
                 }
               },
               "status": "Bad Request",
@@ -1961,8 +2385,14 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/roles?page=1&limit=10&keyword=&isSystem=false",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "roles"],
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "roles"
+              ],
               "query": [
                 {
                   "key": "page",
@@ -1996,8 +2426,14 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles?page=1&limit=10&keyword=&isSystem=false",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "roles"],
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "roles"
+                  ],
                   "query": [
                     {
                       "key": "page",
@@ -2041,8 +2477,14 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles?page=1&limit=10&keyword=&isSystem=false",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "roles"],
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "roles"
+                  ],
                   "query": [
                     {
                       "key": "page",
@@ -2088,8 +2530,15 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "roles",
+                "{{ROLE_ID}}"
+              ]
             }
           },
           "response": [
@@ -2105,8 +2554,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "roles",
+                    "{{ROLE_ID}}"
+                  ]
                 }
               },
               "status": "OK",
@@ -2132,8 +2588,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "roles",
+                    "{{ROLE_ID}}"
+                  ]
                 }
               },
               "status": "Not Found",
@@ -2174,8 +2637,14 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/roles",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "roles"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "roles"
+              ]
             }
           },
           "response": [
@@ -2204,8 +2673,14 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "roles"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "roles"
+                  ]
                 }
               },
               "status": "Created",
@@ -2244,8 +2719,14 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "roles"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "roles"
+                  ]
                 }
               },
               "status": "Conflict",
@@ -2284,8 +2765,14 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "roles"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "roles"
+                  ]
                 }
               },
               "status": "Conflict",
@@ -2326,8 +2813,15 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "roles",
+                "{{ROLE_ID}}"
+              ]
             }
           },
           "response": [
@@ -2356,8 +2850,15 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "roles",
+                    "{{ROLE_ID}}"
+                  ]
                 }
               },
               "status": "OK",
@@ -2396,8 +2897,15 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "roles",
+                    "{{ROLE_ID}}"
+                  ]
                 }
               },
               "status": "Not Found",
@@ -2436,8 +2944,15 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "roles",
+                    "{{ROLE_ID}}"
+                  ]
                 }
               },
               "status": "Conflict",
@@ -2465,8 +2980,15 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "roles",
+                "{{ROLE_ID}}"
+              ]
             }
           },
           "response": [
@@ -2482,8 +3004,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "roles",
+                    "{{ROLE_ID}}"
+                  ]
                 }
               },
               "status": "OK",
@@ -2509,8 +3038,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "roles",
+                    "{{ROLE_ID}}"
+                  ]
                 }
               },
               "status": "Conflict",
@@ -2536,8 +3072,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "roles",
+                    "{{ROLE_ID}}"
+                  ]
                 }
               },
               "status": "Forbidden",
@@ -2565,8 +3108,16 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}/users?status=all&page=1&limit=10",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "roles", "{{ROLE_ID}}", "users"],
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "roles",
+                "{{ROLE_ID}}",
+                "users"
+              ],
               "query": [
                 {
                   "key": "status",
@@ -2596,8 +3147,16 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}/users?status=all&page=1&limit=10",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "roles", "{{ROLE_ID}}", "users"],
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "roles",
+                    "{{ROLE_ID}}",
+                    "users"
+                  ],
                   "query": [
                     {
                       "key": "status",
@@ -2637,8 +3196,16 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}/users?status=all&page=1&limit=10",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "roles", "{{ROLE_ID}}", "users"],
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "roles",
+                    "{{ROLE_ID}}",
+                    "users"
+                  ],
                   "query": [
                     {
                       "key": "status",
@@ -2678,8 +3245,16 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}/users?status=all&page=1&limit=10",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "roles", "{{ROLE_ID}}", "users"],
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "roles",
+                    "{{ROLE_ID}}",
+                    "users"
+                  ],
                   "query": [
                     {
                       "key": "status",
@@ -2726,8 +3301,14 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/galleries?page=1&limit=10&keyword=&isActive=true",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "galleries"],
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "galleries"
+              ],
               "query": [
                 {
                   "key": "page",
@@ -2762,8 +3343,14 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries?page=1&limit=10&keyword=&isActive=true",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "galleries"],
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "galleries"
+                  ],
                   "query": [
                     {
                       "key": "page",
@@ -2807,8 +3394,14 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries?page=1&limit=10&keyword=&isActive=true",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "galleries"],
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "galleries"
+                  ],
                   "query": [
                     {
                       "key": "page",
@@ -2854,8 +3447,15 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "galleries",
+                "{{GALLERY_ID}}"
+              ]
             }
           },
           "response": [
@@ -2871,8 +3471,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "galleries",
+                    "{{GALLERY_ID}}"
+                  ]
                 }
               },
               "status": "OK",
@@ -2898,8 +3505,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "galleries",
+                    "{{GALLERY_ID}}"
+                  ]
                 }
               },
               "status": "Not Found",
@@ -2940,8 +3554,14 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/galleries",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "galleries"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "galleries"
+              ]
             }
           },
           "response": [
@@ -2970,8 +3590,14 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "galleries"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "galleries"
+                  ]
                 }
               },
               "status": "Created",
@@ -3010,8 +3636,14 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "galleries"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "galleries"
+                  ]
                 }
               },
               "status": "Conflict",
@@ -3052,8 +3684,15 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "galleries",
+                "{{GALLERY_ID}}"
+              ]
             }
           },
           "response": [
@@ -3082,8 +3721,15 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "galleries",
+                    "{{GALLERY_ID}}"
+                  ]
                 }
               },
               "status": "OK",
@@ -3122,8 +3768,15 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "galleries",
+                    "{{GALLERY_ID}}"
+                  ]
                 }
               },
               "status": "Not Found",
@@ -3151,8 +3804,15 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "galleries",
+                "{{GALLERY_ID}}"
+              ]
             },
             "description": "Soft delete only. The gallery becomes inactive and receives deletedAt."
           },
@@ -3169,8 +3829,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "galleries",
+                    "{{GALLERY_ID}}"
+                  ]
                 }
               },
               "status": "OK",
@@ -3196,8 +3863,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "galleries",
+                    "{{GALLERY_ID}}"
+                  ]
                 }
               },
               "status": "Conflict",
@@ -3225,8 +3899,16 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}/restore",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "galleries", "{{GALLERY_ID}}", "restore"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "galleries",
+                "{{GALLERY_ID}}",
+                "restore"
+              ]
             }
           },
           "response": [
@@ -3242,7 +3924,9 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}/restore",
-                  "host": ["{{LOCAL_URL}}"],
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
                   "path": [
                     "api",
                     "v1",
@@ -3275,7 +3959,9 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}/restore",
-                  "host": ["{{LOCAL_URL}}"],
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
                   "path": [
                     "api",
                     "v1",
@@ -3310,8 +3996,15 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/galleries/public",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "galleries", "public"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "galleries",
+                "public"
+              ]
             },
             "description": "Public gallery list for FE header/nav. Uses Accept-Language to resolve vi/en/cn. Fallback locale is en when the header is missing or unsupported."
           },
@@ -3328,8 +4021,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries/public",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "galleries", "public"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "galleries",
+                    "public"
+                  ]
                 }
               },
               "status": "OK",
@@ -3362,8 +4062,15 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/files/request-upload",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "files", "request-upload"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "files",
+                "request-upload"
+              ]
             },
             "body": {
               "mode": "raw",
@@ -3389,8 +4096,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/files/request-upload",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "files", "request-upload"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "files",
+                    "request-upload"
+                  ]
                 },
                 "body": {
                   "mode": "raw",
@@ -3426,8 +4140,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/files/request-upload",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "files", "request-upload"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "files",
+                    "request-upload"
+                  ]
                 },
                 "body": {
                   "mode": "raw",
@@ -3463,8 +4184,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/files/request-upload",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "files", "request-upload"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "files",
+                    "request-upload"
+                  ]
                 },
                 "body": {
                   "mode": "raw",
@@ -3500,8 +4228,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/files/request-upload",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "files", "request-upload"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "files",
+                    "request-upload"
+                  ]
                 },
                 "body": {
                   "mode": "raw",
@@ -3537,8 +4272,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/files/request-upload",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "files", "request-upload"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "files",
+                    "request-upload"
+                  ]
                 },
                 "body": {
                   "mode": "raw",
@@ -3585,8 +4327,14 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/projects",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "projects"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "projects"
+              ]
             },
             "body": {
               "mode": "raw",
@@ -3615,8 +4363,14 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects"
+                  ]
                 },
                 "body": {
                   "mode": "raw",
@@ -3655,8 +4409,14 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects"
+                  ]
                 },
                 "body": {
                   "mode": "raw",
@@ -3695,8 +4455,14 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects"
+                  ]
                 },
                 "body": {
                   "mode": "raw",
@@ -3735,8 +4501,14 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects"
+                  ]
                 },
                 "body": {
                   "mode": "raw",
@@ -3775,8 +4547,14 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects"
+                  ]
                 },
                 "body": {
                   "mode": "raw",
@@ -3815,8 +4593,14 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects"
+                  ]
                 },
                 "body": {
                   "mode": "raw",
@@ -3853,8 +4637,14 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/projects?page=1&limit=10&keyword=spring&isActive=true&isPublished=true",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "projects"],
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "projects"
+              ],
               "query": [
                 {
                   "key": "page",
@@ -3893,8 +4683,14 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects?page=1&limit=10&keyword=spring&isActive=true&isPublished=true",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects"],
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects"
+                  ],
                   "query": [
                     {
                       "key": "page",
@@ -3943,8 +4739,14 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects?page=1&limit=10&keyword=spring&isActive=true",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects"],
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects"
+                  ],
                   "query": [
                     {
                       "key": "page",
@@ -3991,8 +4793,15 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "projects",
+                "{{PROJECT_ID}}"
+              ]
             }
           },
           "response": [
@@ -4008,8 +4817,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects",
+                    "{{PROJECT_ID}}"
+                  ]
                 }
               },
               "status": "OK",
@@ -4035,8 +4851,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects",
+                    "{{PROJECT_ID}}"
+                  ]
                 }
               },
               "status": "Not Found",
@@ -4062,8 +4885,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects",
+                    "{{PROJECT_ID}}"
+                  ]
                 }
               },
               "status": "Internal Server Error",
@@ -4086,8 +4916,15 @@
             "header": [],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/projects/public?galleryId={{GALLERY_ID}}&page=1&limit=10",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "projects", "public"],
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "projects",
+                "public"
+              ],
               "query": [
                 {
                   "key": "galleryId",
@@ -4113,8 +4950,15 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/public?galleryId={{GALLERY_ID}}&page=1&limit=10",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects", "public"],
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects",
+                    "public"
+                  ],
                   "query": [
                     {
                       "key": "galleryId",
@@ -4149,8 +4993,15 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/public?galleryId={{GALLERY_ID}}&page=1&limit=10",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects", "public"],
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects",
+                    "public"
+                  ],
                   "query": [
                     {
                       "key": "galleryId",
@@ -4187,8 +5038,16 @@
             "header": [],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/projects/public/{{PROJECT_ID}}",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "projects", "public", "{{PROJECT_ID}}"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "projects",
+                "public",
+                "{{PROJECT_ID}}"
+              ]
             },
             "description": "Public endpoint. Returns a published + active + not-deleted project detail and re-checks gallery visibility consistency before serving cached data. Does not include isPublished/isActive/deletedAt/createdBy."
           },
@@ -4200,8 +5059,16 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/public/{{PROJECT_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects", "public", "{{PROJECT_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects",
+                    "public",
+                    "{{PROJECT_ID}}"
+                  ]
                 }
               },
               "status": "OK",
@@ -4222,8 +5089,16 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/public/{{PROJECT_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects", "public", "{{PROJECT_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects",
+                    "public",
+                    "{{PROJECT_ID}}"
+                  ]
                 }
               },
               "status": "Not Found",
@@ -4244,8 +5119,16 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/public/{{PROJECT_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects", "public", "{{PROJECT_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects",
+                    "public",
+                    "{{PROJECT_ID}}"
+                  ]
                 }
               },
               "status": "Bad Request",
@@ -4277,8 +5160,15 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "projects",
+                "{{PROJECT_ID}}"
+              ]
             },
             "body": {
               "mode": "raw",
@@ -4307,8 +5197,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects",
+                    "{{PROJECT_ID}}"
+                  ]
                 },
                 "body": {
                   "mode": "raw",
@@ -4347,8 +5244,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects",
+                    "{{PROJECT_ID}}"
+                  ]
                 },
                 "body": {
                   "mode": "raw",
@@ -4387,8 +5291,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects",
+                    "{{PROJECT_ID}}"
+                  ]
                 },
                 "body": {
                   "mode": "raw",
@@ -4427,8 +5338,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects",
+                    "{{PROJECT_ID}}"
+                  ]
                 },
                 "body": {
                   "mode": "raw",
@@ -4467,8 +5385,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects",
+                    "{{PROJECT_ID}}"
+                  ]
                 },
                 "body": {
                   "mode": "raw",
@@ -4505,8 +5430,15 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "projects",
+                "{{PROJECT_ID}}"
+              ]
             },
             "description": "Soft delete only. The project becomes inactive and receives deletedAt."
           },
@@ -4523,8 +5455,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects",
+                    "{{PROJECT_ID}}"
+                  ]
                 },
                 "description": "Soft delete only. The project becomes inactive and receives deletedAt."
               },
@@ -4551,8 +5490,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects",
+                    "{{PROJECT_ID}}"
+                  ]
                 },
                 "description": "Soft delete only. The project becomes inactive and receives deletedAt."
               },
@@ -4579,8 +5525,15 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects",
+                    "{{PROJECT_ID}}"
+                  ]
                 },
                 "description": "Soft delete only. The project becomes inactive and receives deletedAt."
               },
@@ -4609,8 +5562,16 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}/restore",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "projects", "{{PROJECT_ID}}", "restore"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "projects",
+                "{{PROJECT_ID}}",
+                "restore"
+              ]
             }
           },
           "response": [
@@ -4626,8 +5587,16 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}/restore",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}", "restore"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects",
+                    "{{PROJECT_ID}}",
+                    "restore"
+                  ]
                 }
               },
               "status": "OK",
@@ -4653,8 +5622,16 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}/restore",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}", "restore"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects",
+                    "{{PROJECT_ID}}",
+                    "restore"
+                  ]
                 }
               },
               "status": "Bad Request",
@@ -4680,8 +5657,16 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}/restore",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}", "restore"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "projects",
+                    "{{PROJECT_ID}}",
+                    "restore"
+                  ]
                 }
               },
               "status": "Conflict",
@@ -4700,6 +5685,1112 @@
       ]
     },
     {
+      "name": "Blogs",
+      "item": [
+        {
+          "name": "Create Blog",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/blogs",
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "blogs"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Spring Story\",\n  \"coverImageUploadToken\": \"blog-cover-upload-token\",\n  \"content\": {\n    \"time\": 1775798400000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"A short spring story captured in Hanoi.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-1\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"blog-content-upload-token-1\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPinned\": true,\n  \"isPublished\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Admin-only. Create a blog with a single-language name, coverImageUploadToken, and whole content JSON. For new mediaLayout image items use uploadToken; for existing items use fileId + url."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/blogs",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "blogs"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Spring Story\",\n  \"coverImageUploadToken\": \"blog-cover-upload-token\",\n  \"content\": {\n    \"time\": 1775798400000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"A short spring story captured in Hanoi.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-1\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"blog-content-upload-token-1\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPinned\": true,\n  \"isPublished\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Admin-only. Create a blog with a single-language name, coverImageUploadToken, and whole content JSON. For new mediaLayout image items use uploadToken; for existing items use fileId + url."
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"blog-spring-story\",\n    \"name\": \"Spring Story\",\n    \"coverImage\": {\n      \"id\": \"file-blog-cover-1\",\n      \"url\": \"http://localhost:9000/koding88-bucket/assets/blog-cover/2026/04/spring-story-cover.jpg\",\n      \"mimeType\": \"image/jpeg\",\n      \"size\": 5242880,\n      \"originalName\": \"blog-cover.jpg\"\n    },\n    \"content\": {\n      \"time\": 1775798400000,\n      \"version\": \"2.30.6\",\n      \"blocks\": [\n        {\n          \"id\": \"intro-1\",\n          \"type\": \"paragraph\",\n          \"data\": {\n            \"text\": \"A short spring story captured in Hanoi.\"\n          }\n        },\n        {\n          \"id\": \"media-1\",\n          \"type\": \"mediaLayout\",\n          \"data\": {\n            \"items\": [\n              {\n                \"id\": \"item-image-1\",\n                \"kind\": \"image\",\n                \"fileId\": \"file-blog-content-1\",\n                \"url\": \"http://localhost:9000/koding88-bucket/assets/blog-content/2026/04/spring-story-image.jpg\"\n              },\n              {\n                \"id\": \"item-youtube-1\",\n                \"kind\": \"youtube\",\n                \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n              }\n            ]\n          }\n        }\n      ]\n    },\n    \"isPinned\": true,\n    \"isPublished\": true,\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdBy\": {\n      \"id\": \"user-admin\",\n      \"name\": \"Admin User\"\n    },\n    \"createdAt\": \"2026-04-10T02:10:00.000Z\",\n    \"updatedAt\": \"2026-04-10T02:10:00.000Z\"\n  },\n  \"message\": \"Blog created successfully\",\n  \"error\": null,\n  \"statusCode\": 201,\n  \"timestamp\": \"2026-04-10T02:10:00.000Z\",\n  \"path\": \"/api/v1/blogs\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Content",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/blogs",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "blogs"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Spring Story\",\n  \"coverImageUploadToken\": \"blog-cover-upload-token\",\n  \"content\": {\n    \"time\": 1775798400000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"A short spring story captured in Hanoi.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-1\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"blog-content-upload-token-1\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPinned\": true,\n  \"isPublished\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Admin-only. Create a blog with a single-language name, coverImageUploadToken, and whole content JSON. For new mediaLayout image items use uploadToken; for existing items use fileId + url."
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"mediaLayout.data.items must be an array\",\n  \"error\": \"INVALID_BLOG_CONTENT\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-10T02:10:00.000Z\",\n  \"path\": \"/api/v1/blogs\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Upload Token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/blogs",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "blogs"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Spring Story\",\n  \"coverImageUploadToken\": \"blog-cover-upload-token\",\n  \"content\": {\n    \"time\": 1775798400000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"A short spring story captured in Hanoi.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-1\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"blog-content-upload-token-1\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPinned\": true,\n  \"isPublished\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Admin-only. Create a blog with a single-language name, coverImageUploadToken, and whole content JSON. For new mediaLayout image items use uploadToken; for existing items use fileId + url."
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"The upload token is invalid or expired\",\n  \"error\": \"INVALID_FILE_UPLOAD_TOKEN\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-10T02:10:00.000Z\",\n  \"path\": \"/api/v1/blogs\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Upload State",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/blogs",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "blogs"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Spring Story\",\n  \"coverImageUploadToken\": \"blog-cover-upload-token\",\n  \"content\": {\n    \"time\": 1775798400000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"A short spring story captured in Hanoi.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-1\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"blog-content-upload-token-1\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPinned\": true,\n  \"isPublished\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Admin-only. Create a blog with a single-language name, coverImageUploadToken, and whole content JSON. For new mediaLayout image items use uploadToken; for existing items use fileId + url."
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"The uploaded file is not ready to be consumed\",\n  \"error\": \"INVALID_FILE_UPLOAD_STATE\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-10T02:10:00.000Z\",\n  \"path\": \"/api/v1/blogs\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get All Blogs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/blogs?page=1&limit=10&keyword=spring&isActive=true&isPublished=true&isPinned=true",
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "blogs"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "keyword",
+                  "value": "spring"
+                },
+                {
+                  "key": "isActive",
+                  "value": "true"
+                },
+                {
+                  "key": "isPublished",
+                  "value": "true"
+                },
+                {
+                  "key": "isPinned",
+                  "value": "true"
+                }
+              ]
+            },
+            "description": "Admin-only blog list with pagination and optional keyword/isActive/isPublished/isPinned filters."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/blogs?page=1&limit=10&keyword=spring&isActive=true&isPublished=true&isPinned=true",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "blogs"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "keyword",
+                      "value": "spring"
+                    },
+                    {
+                      "key": "isActive",
+                      "value": "true"
+                    },
+                    {
+                      "key": "isPublished",
+                      "value": "true"
+                    },
+                    {
+                      "key": "isPinned",
+                      "value": "true"
+                    }
+                  ]
+                },
+                "description": "Admin-only blog list with pagination and optional keyword/isActive/isPublished/isPinned filters."
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"blog-spring-story\",\n        \"name\": \"Spring Story\",\n        \"coverImage\": {\n          \"id\": \"file-blog-cover-1\",\n          \"url\": \"http://localhost:9000/koding88-bucket/assets/blog-cover/2026/04/spring-story-cover.jpg\",\n          \"mimeType\": \"image/jpeg\",\n          \"size\": 5242880,\n          \"originalName\": \"blog-cover.jpg\"\n        },\n        \"content\": {\n          \"time\": 1775798400000,\n          \"version\": \"2.30.6\",\n          \"blocks\": []\n        },\n        \"isPinned\": true,\n        \"isPublished\": true,\n        \"isActive\": true,\n        \"deletedAt\": null,\n        \"createdBy\": {\n          \"id\": \"user-admin\",\n          \"name\": \"Admin User\"\n        },\n        \"createdAt\": \"2026-04-10T02:10:00.000Z\",\n        \"updatedAt\": \"2026-04-10T02:10:00.000Z\"\n      }\n    ],\n    \"meta\": {\n      \"page\": 1,\n      \"limit\": 10,\n      \"total\": 1,\n      \"totalPages\": 1\n    }\n  },\n  \"message\": \"Blogs fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-10T02:15:00.000Z\",\n  \"path\": \"/api/v1/blogs?page=1&limit=10&keyword=spring&isActive=true&isPublished=true&isPinned=true\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/blogs?page=1&limit=10&keyword=spring&isActive=true&isPublished=true&isPinned=true",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "blogs"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "keyword",
+                      "value": "spring"
+                    },
+                    {
+                      "key": "isActive",
+                      "value": "true"
+                    },
+                    {
+                      "key": "isPublished",
+                      "value": "true"
+                    },
+                    {
+                      "key": "isPinned",
+                      "value": "true"
+                    }
+                  ]
+                },
+                "description": "Admin-only blog list with pagination and optional keyword/isActive/isPublished/isPinned filters."
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Forbidden resource\",\n  \"error\": \"Forbidden\",\n  \"statusCode\": 403,\n  \"timestamp\": \"2026-04-10T02:15:00.000Z\",\n  \"path\": \"/api/v1/blogs?page=1&limit=10&keyword=spring&isActive=true&isPublished=true&isPinned=true\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Blog",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}",
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "blogs",
+                "{{BLOG_ID}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "blogs",
+                    "{{BLOG_ID}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"blog-spring-story\",\n    \"name\": \"Spring Story\",\n    \"coverImage\": {\n      \"id\": \"file-blog-cover-1\",\n      \"url\": \"http://localhost:9000/koding88-bucket/assets/blog-cover/2026/04/spring-story-cover.jpg\",\n      \"mimeType\": \"image/jpeg\",\n      \"size\": 5242880,\n      \"originalName\": \"blog-cover.jpg\"\n    },\n    \"content\": {\n      \"time\": 1775798400000,\n      \"version\": \"2.30.6\",\n      \"blocks\": [\n        {\n          \"id\": \"intro-1\",\n          \"type\": \"paragraph\",\n          \"data\": {\n            \"text\": \"A short spring story captured in Hanoi.\"\n          }\n        }\n      ]\n    },\n    \"isPinned\": true,\n    \"isPublished\": true,\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdBy\": {\n      \"id\": \"user-admin\",\n      \"name\": \"Admin User\"\n    },\n    \"createdAt\": \"2026-04-10T02:10:00.000Z\",\n    \"updatedAt\": \"2026-04-10T02:10:00.000Z\"\n  },\n  \"message\": \"Blog fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-10T02:20:00.000Z\",\n  \"path\": \"/api/v1/blogs/blog-spring-story\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Blog Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "blogs",
+                    "{{BLOG_ID}}"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Blog not found\",\n  \"error\": \"BLOG_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-10T02:20:00.000Z\",\n  \"path\": \"/api/v1/blogs/blog-missing\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Blog Cover Image Missing",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "blogs",
+                    "{{BLOG_ID}}"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Blog cover image was not found\",\n  \"error\": \"BLOG_COVER_IMAGE_NOT_FOUND\",\n  \"statusCode\": 500,\n  \"timestamp\": \"2026-04-10T02:20:00.000Z\",\n  \"path\": \"/api/v1/blogs/blog-spring-story\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Blog",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}",
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "blogs",
+                "{{BLOG_ID}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Spring Story Updated\",\n  \"coverImageUploadToken\": \"blog-cover-upload-token-new\",\n  \"content\": {\n    \"time\": 1775798400000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"Updated spring story copy.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-existing\",\n              \"kind\": \"image\",\n              \"fileId\": \"file-blog-content-1\",\n              \"url\": \"http://localhost:9000/koding88-bucket/assets/blog-content/2026/04/existing-story.jpg\"\n            },\n            {\n              \"id\": \"item-image-new\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"blog-content-upload-token-2\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPinned\": false,\n  \"isPublished\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Admin-only. Update blog fields selectively. content accepts whole JSON; existing image refs must use canonical fileId + url."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "blogs",
+                    "{{BLOG_ID}}"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Spring Story Updated\",\n  \"coverImageUploadToken\": \"blog-cover-upload-token-new\",\n  \"content\": {\n    \"time\": 1775798400000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"Updated spring story copy.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-existing\",\n              \"kind\": \"image\",\n              \"fileId\": \"file-blog-content-1\",\n              \"url\": \"http://localhost:9000/koding88-bucket/assets/blog-content/2026/04/existing-story.jpg\"\n            },\n            {\n              \"id\": \"item-image-new\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"blog-content-upload-token-2\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPinned\": false,\n  \"isPublished\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Admin-only. Update blog fields selectively. content accepts whole JSON; existing image refs must use canonical fileId + url."
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"blog-spring-story\",\n    \"name\": \"Spring Story Updated\",\n    \"coverImage\": {\n      \"id\": \"file-blog-cover-2\",\n      \"url\": \"http://localhost:9000/koding88-bucket/assets/blog-cover/2026/04/spring-story-cover-new.jpg\",\n      \"mimeType\": \"image/jpeg\",\n      \"size\": 4194304,\n      \"originalName\": \"blog-cover-new.jpg\"\n    },\n    \"content\": {\n      \"time\": 1775798400000,\n      \"version\": \"2.30.6\",\n      \"blocks\": [\n        {\n          \"id\": \"intro-1\",\n          \"type\": \"paragraph\",\n          \"data\": {\n            \"text\": \"Updated spring story copy.\"\n          }\n        },\n        {\n          \"id\": \"media-1\",\n          \"type\": \"mediaLayout\",\n          \"data\": {\n            \"items\": [\n              {\n                \"id\": \"item-image-existing\",\n                \"kind\": \"image\",\n                \"fileId\": \"file-blog-content-1\",\n                \"url\": \"http://localhost:9000/koding88-bucket/assets/blog-content/2026/04/existing-story.jpg\"\n              },\n              {\n                \"id\": \"item-image-new\",\n                \"kind\": \"image\",\n                \"fileId\": \"file-blog-content-2\",\n                \"url\": \"http://localhost:9000/koding88-bucket/assets/blog-content/2026/04/new-story.jpg\"\n              },\n              {\n                \"id\": \"item-youtube-1\",\n                \"kind\": \"youtube\",\n                \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n              }\n            ]\n          }\n        }\n      ]\n    },\n    \"isPinned\": false,\n    \"isPublished\": true,\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdBy\": {\n      \"id\": \"user-admin\",\n      \"name\": \"Admin User\"\n    },\n    \"createdAt\": \"2026-04-10T02:10:00.000Z\",\n    \"updatedAt\": \"2026-04-10T02:30:00.000Z\"\n  },\n  \"message\": \"Blog updated successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-10T02:30:00.000Z\",\n  \"path\": \"/api/v1/blogs/blog-spring-story\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Name",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "blogs",
+                    "{{BLOG_ID}}"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Spring Story Updated\",\n  \"coverImageUploadToken\": \"blog-cover-upload-token-new\",\n  \"content\": {\n    \"time\": 1775798400000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"Updated spring story copy.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-existing\",\n              \"kind\": \"image\",\n              \"fileId\": \"file-blog-content-1\",\n              \"url\": \"http://localhost:9000/koding88-bucket/assets/blog-content/2026/04/existing-story.jpg\"\n            },\n            {\n              \"id\": \"item-image-new\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"blog-content-upload-token-2\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPinned\": false,\n  \"isPublished\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Admin-only. Update blog fields selectively. content accepts whole JSON; existing image refs must use canonical fileId + url."
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Blog name must be between 2 and 150 characters\",\n  \"error\": \"INVALID_BLOG_NAME\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-10T02:30:00.000Z\",\n  \"path\": \"/api/v1/blogs/blog-spring-story\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Blog Not Found",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "blogs",
+                    "{{BLOG_ID}}"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Spring Story Updated\",\n  \"coverImageUploadToken\": \"blog-cover-upload-token-new\",\n  \"content\": {\n    \"time\": 1775798400000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"Updated spring story copy.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-existing\",\n              \"kind\": \"image\",\n              \"fileId\": \"file-blog-content-1\",\n              \"url\": \"http://localhost:9000/koding88-bucket/assets/blog-content/2026/04/existing-story.jpg\"\n            },\n            {\n              \"id\": \"item-image-new\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"blog-content-upload-token-2\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPinned\": false,\n  \"isPublished\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Admin-only. Update blog fields selectively. content accepts whole JSON; existing image refs must use canonical fileId + url."
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Blog not found\",\n  \"error\": \"BLOG_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-10T02:30:00.000Z\",\n  \"path\": \"/api/v1/blogs/blog-missing\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Blog",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}",
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "blogs",
+                "{{BLOG_ID}}"
+              ]
+            },
+            "description": "Admin-only soft delete. Sets isActive=false and deletedAt."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "blogs",
+                    "{{BLOG_ID}}"
+                  ]
+                },
+                "description": "Admin-only soft delete. Sets isActive=false and deletedAt."
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"message\": \"Blog deleted successfully\"\n  },\n  \"message\": \"Blog deleted successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-10T02:35:00.000Z\",\n  \"path\": \"/api/v1/blogs/blog-spring-story\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Already Deleted",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "blogs",
+                    "{{BLOG_ID}}"
+                  ]
+                },
+                "description": "Admin-only soft delete. Sets isActive=false and deletedAt."
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Blog already deleted\",\n  \"error\": \"BLOG_ALREADY_DELETED\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-10T02:35:00.000Z\",\n  \"path\": \"/api/v1/blogs/blog-spring-story\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Restore Blog",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}/restore",
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "blogs",
+                "{{BLOG_ID}}",
+                "restore"
+              ]
+            },
+            "description": "Admin-only restore for a soft-deleted blog."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}/restore",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "blogs",
+                    "{{BLOG_ID}}",
+                    "restore"
+                  ]
+                },
+                "description": "Admin-only restore for a soft-deleted blog."
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"blog-spring-story\",\n    \"name\": \"Spring Story Updated\",\n    \"coverImage\": {\n      \"id\": \"file-blog-cover-2\",\n      \"url\": \"http://localhost:9000/koding88-bucket/assets/blog-cover/2026/04/spring-story-cover-new.jpg\",\n      \"mimeType\": \"image/jpeg\",\n      \"size\": 4194304,\n      \"originalName\": \"blog-cover-new.jpg\"\n    },\n    \"content\": {\n      \"time\": 1775798400000,\n      \"version\": \"2.30.6\",\n      \"blocks\": []\n    },\n    \"isPinned\": false,\n    \"isPublished\": true,\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdBy\": {\n      \"id\": \"user-admin\",\n      \"name\": \"Admin User\"\n    },\n    \"createdAt\": \"2026-04-10T02:10:00.000Z\",\n    \"updatedAt\": \"2026-04-10T02:40:00.000Z\"\n  },\n  \"message\": \"Blog restored successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-10T02:40:00.000Z\",\n  \"path\": \"/api/v1/blogs/blog-spring-story/restore\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Not Deleted",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}/restore",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "blogs",
+                    "{{BLOG_ID}}",
+                    "restore"
+                  ]
+                },
+                "description": "Admin-only restore for a soft-deleted blog."
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Blog is not deleted\",\n  \"error\": \"BLOG_NOT_DELETED\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-10T02:40:00.000Z\",\n  \"path\": \"/api/v1/blogs/blog-spring-story/restore\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Blog Not Found",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}/restore",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "blogs",
+                    "{{BLOG_ID}}",
+                    "restore"
+                  ]
+                },
+                "description": "Admin-only restore for a soft-deleted blog."
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Blog not found\",\n  \"error\": \"BLOG_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-10T02:40:00.000Z\",\n  \"path\": \"/api/v1/blogs/blog-missing/restore\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Public - List Blogs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/blogs/public?page=1&limit=10",
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "blogs",
+                "public"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Public endpoint. Returns paginated blogs only. Runtime sorts by isPinned desc, then createdAt desc."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/blogs/public?page=1&limit=10",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "blogs",
+                    "public"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                },
+                "description": "Public endpoint. Returns paginated blogs only. Runtime sorts by isPinned desc, then createdAt desc."
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"blog-pinned-story\",\n        \"name\": \"Pinned Story\",\n        \"coverImage\": {\n          \"id\": \"file-blog-cover-9\",\n          \"url\": \"http://localhost:9000/koding88-bucket/assets/blog-cover/2026/04/pinned-story.jpg\",\n          \"mimeType\": \"image/jpeg\",\n          \"size\": 3145728,\n          \"originalName\": \"pinned-story.jpg\"\n        }\n      },\n      {\n        \"id\": \"blog-spring-story\",\n        \"name\": \"Spring Story\",\n        \"coverImage\": {\n          \"id\": \"file-blog-cover-1\",\n          \"url\": \"http://localhost:9000/koding88-bucket/assets/blog-cover/2026/04/spring-story-cover.jpg\",\n          \"mimeType\": \"image/jpeg\",\n          \"size\": 5242880,\n          \"originalName\": \"blog-cover.jpg\"\n        }\n      }\n    ],\n    \"meta\": {\n      \"page\": 1,\n      \"limit\": 10,\n      \"total\": 2,\n      \"totalPages\": 1\n    }\n  },\n  \"message\": \"Blogs fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-10T02:45:00.000Z\",\n  \"path\": \"/api/v1/blogs/public?page=1&limit=10\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Public - Get Blog",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/blogs/public/{{BLOG_ID}}",
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "blogs",
+                "public",
+                "{{BLOG_ID}}"
+              ]
+            },
+            "description": "Public endpoint. Returns public-facing blog detail without internal flags or createdBy."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/blogs/public/{{BLOG_ID}}",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "blogs",
+                    "public",
+                    "{{BLOG_ID}}"
+                  ]
+                },
+                "description": "Public endpoint. Returns public-facing blog detail without internal flags or createdBy."
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"blog-spring-story\",\n    \"name\": \"Spring Story\",\n    \"coverImage\": {\n      \"id\": \"file-blog-cover-1\",\n      \"url\": \"http://localhost:9000/koding88-bucket/assets/blog-cover/2026/04/spring-story-cover.jpg\",\n      \"mimeType\": \"image/jpeg\",\n      \"size\": 5242880,\n      \"originalName\": \"blog-cover.jpg\"\n    },\n    \"content\": {\n      \"time\": 1775798400000,\n      \"version\": \"2.30.6\",\n      \"blocks\": [\n        {\n          \"id\": \"intro-1\",\n          \"type\": \"paragraph\",\n          \"data\": {\n            \"text\": \"A short spring story captured in Hanoi.\"\n          }\n        },\n        {\n          \"id\": \"media-1\",\n          \"type\": \"mediaLayout\",\n          \"data\": {\n            \"items\": [\n              {\n                \"id\": \"item-image-1\",\n                \"kind\": \"image\",\n                \"fileId\": \"file-blog-content-1\",\n                \"url\": \"http://localhost:9000/koding88-bucket/assets/blog-content/2026/04/spring-story-image.jpg\"\n              },\n              {\n                \"id\": \"item-youtube-1\",\n                \"kind\": \"youtube\",\n                \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n              }\n            ]\n          }\n        }\n      ]\n    },\n    \"createdAt\": \"2026-04-10T02:10:00.000Z\",\n    \"updatedAt\": \"2026-04-10T02:10:00.000Z\"\n  },\n  \"message\": \"Blog fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-10T02:50:00.000Z\",\n  \"path\": \"/api/v1/blogs/public/blog-spring-story\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Blog Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/blogs/public/{{BLOG_ID}}",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "blogs",
+                    "public",
+                    "{{BLOG_ID}}"
+                  ]
+                },
+                "description": "Public endpoint. Returns public-facing blog detail without internal flags or createdBy."
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Blog not found\",\n  \"error\": \"BLOG_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-10T02:50:00.000Z\",\n  \"path\": \"/api/v1/blogs/public/blog-missing\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Health",
       "item": [
         {
@@ -4709,8 +6800,14 @@
             "header": [],
             "url": {
               "raw": "{{LOCAL_URL}}/api/health/live",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "health", "live"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "health",
+                "live"
+              ]
             }
           },
           "response": [
@@ -4721,8 +6818,14 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/health/live",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "health", "live"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "health",
+                    "live"
+                  ]
                 }
               },
               "status": "OK",
@@ -4745,8 +6848,14 @@
             "header": [],
             "url": {
               "raw": "{{LOCAL_URL}}/api/health/ready",
-              "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "health", "ready"]
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "health",
+                "ready"
+              ]
             }
           },
           "response": [
@@ -4757,8 +6866,14 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/health/ready",
-                  "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "health", "ready"]
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "health",
+                    "ready"
+                  ]
                 }
               },
               "status": "OK",
@@ -4782,14 +6897,18 @@
       "listen": "prerequest",
       "script": {
         "type": "text/javascript",
-        "exec": [""]
+        "exec": [
+          ""
+        ]
       }
     },
     {
       "listen": "test",
       "script": {
         "type": "text/javascript",
-        "exec": [""]
+        "exec": [
+          ""
+        ]
       }
     }
   ],
@@ -4812,6 +6931,10 @@
     },
     {
       "key": "PROJECT_ID",
+      "value": ""
+    },
+    {
+      "key": "BLOG_ID",
       "value": ""
     },
     {
