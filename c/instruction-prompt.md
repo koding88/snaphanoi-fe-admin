@@ -63,7 +63,7 @@ Không được tự sang stage tiếp theo nếu tôi chưa xác nhận.
 ## Backend contract notes phải giữ đúng
 
 ### Core backend snapshot
-- Backend hiện có `auth`, `users`, `roles`, `galleries`, `projects`, `blogs`, `files`, `health`.
+- Backend hiện có `auth`, `users`, `roles`, `galleries`, `projects`, `blogs`, `packages`, `files`, `health`.
 - Response envelope chuẩn:
   - `success`
   - `data`
@@ -258,14 +258,79 @@ Không được tự sang stage tiếp theo nếu tôi chưa xác nhận.
   - `isPinned desc`
   - `createdAt desc`
 
-### Files upload-token semantics (liên quan projects + blogs)
+### Packages semantics bắt buộc
+- Packages đã có admin routes và public list route.
+- Admin routes:
+  - `GET /api/v1/packages`
+  - `GET /api/v1/packages/:id`
+  - `POST /api/v1/packages`
+  - `PATCH /api/v1/packages/:id`
+  - `DELETE /api/v1/packages/:id`
+  - `PATCH /api/v1/packages/:id/restore`
+- Public route:
+  - `GET /api/v1/packages/public?page=...&limit=...`
+- Packages dùng multilingual object cho:
+  - `name`
+  - `bestFor`
+- Mỗi field multilingual gồm:
+  - `en`
+  - `vi`
+  - `cn`
+- `duration` là `number` raw seconds.
+- Backend không format `duration` sang phút/text.
+- `photoCount` là `number`.
+- `pricing` có shape:
+```json
+{
+  "amount": 1000000,
+  "currency": "VND"
+}
+```
+- Admin list query support:
+  - `page`
+  - `limit`
+  - `keyword`
+  - `isActive`
+- Admin response trả full:
+  - `id`
+  - `name`
+  - `bestFor`
+  - `duration`
+  - `photoCount`
+  - `pricing`
+  - `coverImage`
+  - `isActive`
+  - `deletedAt`
+  - `createdBy`
+  - `createdAt`
+  - `updatedAt`
+- Public list response item có:
+  - localized `name`
+  - localized `bestFor`
+  - raw `duration`
+  - raw `photoCount`
+  - raw `pricing`
+  - expanded `coverImage`
+  - `createdAt`
+  - `updatedAt`
+- Public packages response không có:
+  - `isActive`
+  - `deletedAt`
+  - `createdBy`
+- Public packages dùng `Accept-Language` để localize `name` và `bestFor`.
+- Public packages chỉ lấy record active + non-deleted.
+- Sort của public packages phải bám Postman/backend hiện tại, không invent sort phía FE.
+
+### Files upload-token semantics (liên quan projects + blogs + packages)
 - Endpoint `POST /api/v1/files/request-upload` là public.
 - FE phải request upload token trước khi gửi:
   - `coverImageUploadToken` cho project cover
   - `uploadToken` cho image item trong `projects.content.blocks[].mediaLayout.data.items[]`
   - `coverImageUploadToken` cho blog cover
   - `uploadToken` cho image item trong `blogs.content.blocks[].mediaLayout.data.items[]`
+  - `coverImageUploadToken` cho package cover
 - Không dùng base64 payload cho projects/blogs content image flow.
+- Packages không có content/editor flow ở backend hiện tại.
 
 ### Galleries errors hữu ích cho FE
 - `GALLERY_NOT_FOUND`
@@ -295,6 +360,21 @@ Không được tự sang stage tiếp theo nếu tôi chưa xác nhận.
 - `INVALID_BLOG_NAME`
 - `INVALID_BLOG_CONTENT`
 - `BLOG_COVER_IMAGE_NOT_FOUND`
+- `INVALID_FILE_UPLOAD_TOKEN`
+- `INVALID_FILE_UPLOAD_STATE`
+
+### Packages errors hữu ích cho FE
+- `PACKAGE_NOT_FOUND`
+- `PACKAGE_ALREADY_DELETED`
+- `PACKAGE_NOT_DELETED`
+- `INVALID_PACKAGE_NAME`
+- `INVALID_PACKAGE_BEST_FOR`
+- `INVALID_PACKAGE_PRICING`
+- `INVALID_PACKAGE_DURATION`
+- `PACKAGE_COVER_IMAGE_NOT_FOUND`
+- `PACKAGE_NAME_EN_ALREADY_EXISTS`
+- `PACKAGE_NAME_VI_ALREADY_EXISTS`
+- `PACKAGE_NAME_CN_ALREADY_EXISTS`
 - `INVALID_FILE_UPLOAD_TOKEN`
 - `INVALID_FILE_UPLOAD_STATE`
 
@@ -416,7 +496,22 @@ Chỉ làm:
 
 Không làm public blogs UI trong repo admin này nếu chưa có yêu cầu riêng.
 
-### Stage 9 — Polish
+### Stage 9 — Packages management
+Chỉ làm:
+- admin packages list
+- package detail
+- create package
+- update package
+- delete package
+- restore package
+- query/filter với `page`, `limit`, `keyword`, `isActive`
+- map đúng multilingual `name` và `bestFor`
+- duration hiển thị từ raw seconds theo FE formatter, không đổi contract data layer
+- flow upload token cho package cover theo backend contract
+
+Không làm public packages UI trong repo admin này nếu chưa có yêu cầu riêng.
+
+### Stage 10 — Polish
 Chỉ làm:
 - responsive refinement
 - animation/motion polish
@@ -452,8 +547,10 @@ Nếu không khả dụng thì tiếp tục best effort bình thường.
 ## Scope guard cực kỳ quan trọng
 - Implement admin galleries trong repo admin này khi tới đúng stage.
 - Implement admin blogs trong repo admin này khi tới đúng stage.
+- Implement admin packages trong repo admin này khi tới đúng stage.
 - Không implement public galleries UI trong repo admin này nếu tôi chưa yêu cầu riêng.
 - Không implement public blogs UI trong repo admin này nếu tôi chưa yêu cầu riêng.
+- Không implement public packages UI trong repo admin này nếu tôi chưa yêu cầu riêng.
 - Không bịa route/API ngoài backend brief và Postman hiện tại.
 - Không invent public gallery detail API.
 - Không assume locale fallback là `vi`; current fallback là `en`.

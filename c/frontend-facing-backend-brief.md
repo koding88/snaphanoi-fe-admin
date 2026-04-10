@@ -1,5 +1,5 @@
 1. **Kết luận ngắn**
-- Backend snapshot hiện tại có 8 nhóm endpoint chính: `auth`, `users`, `roles`, `galleries`, `projects`, `blogs`, `files`, `health`.
+- Backend snapshot hiện tại có 9 nhóm endpoint chính: `auth`, `users`, `roles`, `galleries`, `projects`, `blogs`, `packages`, `files`, `health`.
 - `galleries` đã hoàn tất round 1 ở backend:
   - admin CRUD
   - soft delete / restore
@@ -8,9 +8,10 @@
   - Accept-Language mapping
   - fallback locale hiện tại là `en`
   - public list có cache theo locale và invalidate khi write
-- `users`, `roles`, `galleries`, `projects`, `blogs` admin routes đều là admin-only.
+- `users`, `roles`, `galleries`, `projects`, `blogs`, `packages` admin routes đều là admin-only.
 - `GET /api/v1/galleries/public` là public, không cần auth.
 - `GET /api/v1/projects/public` và `GET /api/v1/projects/public/:id` là public.
+- `GET /api/v1/packages/public` là public.
 - `POST /api/v1/files/request-upload` là public.
 - Response API dùng envelope thống nhất: `success`, `data`, `message`, `error`, `statusCode`, `timestamp`, `path`, `requestId`.
 - Health routes hiện không versioned: `/api/health/live`, `/api/health/ready`.
@@ -84,6 +85,17 @@
   - `GET /api/v1/blogs/public`
   - `GET /api/v1/blogs/public/:id`
 
+**packages endpoints + flow**
+- Admin packages:
+  - `GET /api/v1/packages`
+  - `GET /api/v1/packages/:id`
+  - `POST /api/v1/packages`
+  - `PATCH /api/v1/packages/:id`
+  - `DELETE /api/v1/packages/:id`
+  - `PATCH /api/v1/packages/:id/restore`
+- Public packages:
+  - `GET /api/v1/packages/public`
+
 **files endpoints + flow**
 - Public files:
   - `POST /api/v1/files/request-upload`
@@ -104,6 +116,7 @@
   - `GET /api/v1/projects/public/:id`
   - `GET /api/v1/blogs/public`
   - `GET /api/v1/blogs/public/:id`
+  - `GET /api/v1/packages/public`
   - `POST /api/v1/files/request-upload`
   - health endpoints
 - Protected:
@@ -118,6 +131,7 @@
   - toàn bộ `galleries` admin routes
   - toàn bộ `projects` admin routes
   - toàn bộ `blogs` admin routes
+  - toàn bộ `packages` admin routes
 - Self-or-admin:
   - `GET /api/v1/users/:id`
 
@@ -566,16 +580,163 @@
 - `INVALID_FILE_UPLOAD_TOKEN`
 - `INVALID_FILE_UPLOAD_STATE`
 
-7. **Files request-upload contract (phục vụ create/update projects + blogs)**
+7. **Packages contract cho frontend**
+
+**packages shape tổng quát**
+- `name` là multilingual object:
+  - `en`
+  - `vi`
+  - `cn`
+- `bestFor` là multilingual object:
+  - `en`
+  - `vi`
+  - `cn`
+- `duration` là `number` và mang nghĩa raw seconds.
+- Backend không format `duration` sang phút/text.
+- `photoCount` là `number`.
+- `pricing` giữ raw object:
+```json
+{
+  "amount": 3500000,
+  "currency": "VND"
+}
+```
+- `coverImage` và `createdBy` expand theo cùng style của `projects` / `blogs`.
+
+**admin packages list**
+- Endpoint: `GET /api/v1/packages`
+- Boundary: admin-only
+- Query:
+  - `page`
+  - `limit`
+  - `keyword`
+  - `isActive`
+- Response item:
+```json
+{
+  "id": "package-couple-premium",
+  "name": {
+    "en": "Couple Premium",
+    "vi": "Goi cao cap cap doi",
+    "cn": "情侣高级套餐"
+  },
+  "bestFor": {
+    "en": "Couples wanting a cinematic Hanoi session",
+    "vi": "Cap doi muon co bo anh Hanoi theo phong cach dien anh",
+    "cn": "适合想要河内电影感拍摄的情侣"
+  },
+  "duration": 5400,
+  "photoCount": 60,
+  "pricing": {
+    "amount": 3500000,
+    "currency": "VND"
+  },
+  "coverImage": {
+    "id": "file-package-cover-1",
+    "url": "http://localhost:9000/koding88-bucket/assets/package-cover/2026/04/couple-premium-cover.jpg",
+    "mimeType": "image/jpeg",
+    "size": 4194304,
+    "originalName": "couple-premium-cover.jpg"
+  },
+  "isActive": true,
+  "deletedAt": null,
+  "createdBy": {
+    "id": "user-admin",
+    "name": "Admin User"
+  },
+  "createdAt": "2026-04-10T04:10:00.000Z",
+  "updatedAt": "2026-04-10T04:10:00.000Z"
+}
+```
+- Admin detail `GET /api/v1/packages/:id` cùng shape full như admin list item.
+
+**create/update packages**
+- `POST /api/v1/packages`
+- `PATCH /api/v1/packages/:id`
+- Body practical:
+```json
+{
+  "name": {
+    "en": "Couple Premium",
+    "vi": "Goi cao cap cap doi",
+    "cn": "情侣高级套餐"
+  },
+  "bestFor": {
+    "en": "Couples wanting a cinematic Hanoi session",
+    "vi": "Cap doi muon co bo anh Hanoi theo phong cach dien anh",
+    "cn": "适合想要河内电影感拍摄的情侣"
+  },
+  "duration": 5400,
+  "photoCount": 60,
+  "pricing": {
+    "amount": 3500000,
+    "currency": "VND"
+  },
+  "coverImageUploadToken": "package-cover-upload-token"
+}
+```
+- `duration` gửi raw seconds.
+- Không gửi formatted minutes/text.
+- Không có content/editor flow cho packages.
+- `createdBy` không do FE gửi; backend lấy từ current authenticated user.
+
+**delete / restore packages**
+- `DELETE /api/v1/packages/:id` là soft delete.
+- `PATCH /api/v1/packages/:id/restore` trả lại full admin package response.
+
+**public packages list**
+- Endpoint: `GET /api/v1/packages/public`
+- Query:
+  - `page`
+  - `limit`
+- Public list:
+  - localized `name` theo `Accept-Language`
+  - localized `bestFor` theo `Accept-Language`
+  - raw `duration`
+  - raw `photoCount`
+  - raw `pricing`
+  - expanded `coverImage`
+  - `createdAt`
+  - `updatedAt`
+- Public list không trả:
+  - `isActive`
+  - `deletedAt`
+  - `createdBy`
+- Runtime hiện chỉ lấy package `active + non-deleted`.
+- Sort public list phải bám runtime/Postman hiện tại, không tự invent sort phía FE.
+
+**packages upload semantics**
+- Cover upload dùng `POST /api/v1/files/request-upload`.
+- Purpose cho packages là `package-cover`.
+- Packages không có content/editor flow.
+- Không dùng base64 payload cho cover image.
+
+**packages errors hữu ích cho FE**
+- `PACKAGE_NOT_FOUND`
+- `PACKAGE_ALREADY_DELETED`
+- `PACKAGE_NOT_DELETED`
+- `INVALID_PACKAGE_NAME`
+- `INVALID_PACKAGE_BEST_FOR`
+- `INVALID_PACKAGE_PRICING`
+- `INVALID_PACKAGE_DURATION`
+- `PACKAGE_COVER_IMAGE_NOT_FOUND`
+- `PACKAGE_NAME_EN_ALREADY_EXISTS`
+- `PACKAGE_NAME_VI_ALREADY_EXISTS`
+- `PACKAGE_NAME_CN_ALREADY_EXISTS`
+- `INVALID_FILE_UPLOAD_TOKEN`
+- `INVALID_FILE_UPLOAD_STATE`
+
+8. **Files request-upload contract (phục vụ create/update projects + blogs + packages)**
 - Endpoint: `POST /api/v1/files/request-upload` (public).
-- FE upload flow cho cover/content image của `projects` và `blogs` cần gọi endpoint này để nhận upload token trước khi gửi create/update payload.
+- FE upload flow cho cover/content image của `projects` và `blogs`, cùng cover image của `packages`, cần gọi endpoint này để nhận upload token trước khi gửi create/update payload.
 - Relevant purposes hiện tại gồm:
   - `project-cover`
   - `project-content`
   - `blog-cover`
   - `blog-content`
+  - `package-cover`
 
-8. **Galleries errors hữu ích cho FE**
+9. **Galleries errors hữu ích cho FE**
 
 - `GALLERY_NOT_FOUND`
 - `GALLERY_NAME_EN_ALREADY_EXISTS`
@@ -588,7 +749,7 @@ Practical FE handling:
 - create/update form nên map 3 lỗi duplicate name theo từng locale field
 - delete/restore action nên handle `not found`, `already deleted`, `not deleted` như action-state error bình thường
 
-9. **Frontend planning notes cho FE admin repo**
+10. **Frontend planning notes cho FE admin repo**
 
 - Repo admin này nên implement:
   - admin galleries list
@@ -599,15 +760,17 @@ Practical FE handling:
   - restore gallery
   - admin projects list/detail/create/update/delete/restore
   - admin blogs list/detail/create/update/delete/restore
+  - admin packages list/detail/create/update/delete/restore
 - Chưa implement public galleries UI trong repo này.
 - Chưa implement public blogs UI trong repo admin này nếu chưa có yêu cầu riêng.
+- Chưa implement public packages UI trong repo admin này nếu chưa có yêu cầu riêng.
 - Public galleries hiện dùng cho app/customer-facing context khác; chỉ cần hiểu contract để tránh invent sai API.
 - Galleries admin pages/components nên follow pattern đang có hoặc sẽ có của `users` / `roles`:
   - list page có query state `page`, `limit`, `keyword`, `isActive`
   - create/update form dùng multilingual object local cho 3 field `en/vi/cn`
   - detail/edit page đọc full multilingual object, không dùng localized string
 
-10. **FE must-not-misunderstand**
+11. **FE must-not-misunderstand**
 
 - Không assume `createdBy` là editable field ở gallery form.
 - Không assume public galleries response có full object `name`.
@@ -620,11 +783,14 @@ Practical FE handling:
 - Không assume project public list có `gallery`; list chỉ có `id`, localized `name`, `coverImage`.
 - Không assume blogs có multilingual `name` hoặc `language` field.
 - Không gửi base64 image payload cho blog content; backend đang dùng upload-token flow.
+- Không assume packages có content/editor flow.
+- Không format `duration` sang phút ở FE data layer; backend trả raw seconds.
+- Không assume public packages response có multilingual object cho `name` hoặc `bestFor`; public list đã localized.
 
-11. **Short handoff block**
+12. **Short handoff block**
 ```md
 Backend snapshot:
-- Modules: auth, users, roles, galleries, projects, blogs, files, health.
+- Modules: auth, users, roles, galleries, projects, blogs, packages, files, health.
 - API uses envelope: `{ success, data, message, error, statusCode, timestamp, path, requestId }`.
 - Health routes are `/api/health/live` and `/api/health/ready`.
 
@@ -648,6 +814,7 @@ Galleries + Projects snapshot:
   - `GET /api/v1/projects/public/:id`
   - `GET /api/v1/blogs/public`
   - `GET /api/v1/blogs/public/:id`
+  - `GET /api/v1/packages/public`
 - Admin-only for all admin gallery routes.
 - Public list uses `Accept-Language`, supports `vi/en/cn`, fallback `en`.
 - Public list response is minimal: `{ id, name }`.
@@ -663,8 +830,9 @@ Galleries + Projects snapshot:
 
 FE admin scope:
 - Implement admin galleries in this repo.
-- Implement admin projects/blogs in this repo when tới đúng stage.
+- Implement admin projects/blogs/packages in this repo when tới đúng stage.
 - Do not implement public galleries UI in this repo.
 - Do not implement public blogs UI in this repo unless explicitly requested.
+- Do not implement public packages UI in this repo unless explicitly requested.
 - Follow users/roles admin CRUD patterns.
 ```
