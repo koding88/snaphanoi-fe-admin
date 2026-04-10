@@ -1,7 +1,7 @@
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 import { ROUTES } from "@/lib/constants/routes";
-import { faFilm, faHouse, faRectangleList, faShieldHalved, faUserGroup } from "@/lib/icons/fa";
+import { faFilm, faHouse, faPenNib, faRectangleList, faShieldHalved, faUserGroup } from "@/lib/icons/fa";
 
 export type AdminNavItem = {
   href: string;
@@ -48,5 +48,11 @@ export const ADMIN_NAV_ITEMS: AdminNavItem[] = [
     label: "Projects",
     description: "Stories and covers",
     icon: faRectangleList,
+  },
+  {
+    href: ROUTES.admin.blogs.root,
+    label: "Blogs",
+    description: "Journal and stories",
+    icon: faPenNib,
   },
 ];

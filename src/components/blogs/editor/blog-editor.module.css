@@ -1,0 +1,700 @@
+.editorCanvas {
+  /*
+    Editor.js places .ce-toolbar__actions with position:absolute; right:100% — the cluster
+    (+ and settings) sits to the left of the block. Without enough redactor padding-left,
+    those controls render outside the card.
+  */
+  --editor-chrome-inset: 0.75rem;
+  position: relative;
+  padding-inline: 1rem;
+}
+
+/* Editor.js mounts .codex-editor under the holder; keep it measurable and above page backdrop */
+.editorCanvas :global(.codex-editor) {
+  position: relative;
+  z-index: 0;
+  min-height: 300px;
+  overflow: visible;
+}
+
+.editorCanvas :global(.codex-editor__redactor) {
+  padding-top: 1.125rem !important;
+  padding-bottom: 1.125rem !important;
+  padding-left: var(--editor-chrome-inset) !important;
+  margin-right: 0 !important;
+}
+
+@media (min-width: 651px) {
+  .editorCanvas {
+    --editor-chrome-inset: 2.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .editorCanvas {
+    --editor-chrome-inset: 3rem;
+    padding-inline: 1.25rem 1.5rem;
+  }
+
+  .editorCanvas :global(.codex-editor__redactor) {
+    padding-top: 1.35rem !important;
+    padding-bottom: 1.35rem !important;
+  }
+}
+
+.editorCanvas :global(.ce-toolbar__content),
+.editorCanvas :global(.ce-block__content) {
+  max-width: none;
+  width: 100%;
+  margin-left: 0;
+}
+
+.editorCanvas :global(.ce-toolbar__content) {
+  padding-inline-end: 0.5rem;
+  overflow: visible;
+}
+
+.editorCanvas :global(.ce-toolbar) {
+  left: 0;
+  right: 0;
+  overflow: visible;
+}
+
+.editorCanvas :global(.ce-toolbar__plus),
+.editorCanvas :global(.ce-toolbar__settings-btn) {
+  color: #64748b;
+}
+
+.editorCanvas :global(.ce-toolbar__settings-btn) {
+  flex-shrink: 0;
+}
+
+/* Tighten horizontal gap between + and settings (Editor default leaves them loose). */
+.editorCanvas :global(.ce-toolbar__actions) {
+  padding-right: 2px;
+}
+
+@media (min-width: 651px) {
+  /*
+    __actions uses right:100%; a negative translate pulled the grip left (farther from +).
+    Nudge right ~50% of that mistake + light tuck on + so the pair sits tighter.
+  */
+  .editorCanvas :global(.ce-toolbar__actions) {
+    transform: translateX(35px);
+  }
+
+  .editorCanvas :global(.ce-toolbar__plus) {
+    margin-left: 35px;
+  }
+}
+
+.editorCanvas :global(.ce-inline-toolbar) {
+  z-index: 42;
+}
+
+/* Editor.js popover: tighter, lighter, less “debug panel” — uses bundle CSS variables */
+.editorCanvas :global(.ce-popover) {
+  --width: 176px;
+  --max-height: 232px;
+  --padding: 4px;
+  --offset-from-target: 5px;
+  --border-radius: 10px;
+  --icon-size: 17px;
+  --item-padding: 2px;
+  --color-border: rgba(226, 232, 240, 0.92);
+  --color-shadow: rgba(15, 23, 42, 0.07);
+  --color-background: rgba(255, 255, 255, 0.98);
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #64748b;
+  --color-background-item-hover: rgba(248, 250, 252, 0.95);
+  --color-background-icon-active: rgba(56, 138, 229, 0.08);
+  z-index: 38;
+}
+
+.editorCanvas :global(.ce-popover__container) {
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 10px 28px -12px rgba(15, 23, 42, 0.12) !important;
+  backdrop-filter: blur(10px);
+}
+
+.editorCanvas :global(.ce-popover__search) {
+  margin-bottom: 4px;
+}
+
+.editorCanvas :global(.ce-popover__search .cdx-search-field__input),
+.editorCanvas :global(.ce-popover__search input) {
+  min-height: 30px;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 8px;
+}
+
+.editorCanvas :global(.ce-popover-header) {
+  margin-bottom: 6px;
+  margin-top: 2px;
+}
+
+.editorCanvas :global(.ce-popover-header__text) {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.editorCanvas :global(.ce-popover__nothing-found-message) {
+  font-size: 12px;
+  line-height: 1.3;
+  padding: 2px 4px;
+}
+
+.editorCanvas :global(.ce-popover-item__title) {
+  font-size: 12.5px;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.editorCanvas :global(.ce-popover-item__icon) {
+  width: 22px;
+  height: 22px;
+}
+
+.editorCanvas :global(.ce-popover-item__icon svg) {
+  width: 15px;
+  height: 15px;
+}
+
+.editorCanvas :global(.ce-popover-item) {
+  padding: 3px;
+}
+
+.editorCanvas :global(.ce-popover-item:not(:last-of-type)) {
+  margin-bottom: 0;
+}
+
+.editorCanvas :global(.ce-inline-color-panel) {
+  width: 260px;
+  padding: 0.2rem;
+}
+
+.editorCanvas :global(.ce-inline-color-panel__title) {
+  margin-bottom: 0.55rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.editorCanvas :global(.ce-inline-color-panel__presets) {
+  display: grid;
+  gap: 0.38rem;
+}
+
+.editorCanvas :global(.ce-inline-color-panel__swatch) {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  border: 0;
+  border-radius: 0.7rem;
+  background: transparent;
+  padding: 0.36rem 0.45rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.editorCanvas :global(.ce-inline-color-panel__swatch:hover) {
+  background: #f8fafc;
+}
+
+.editorCanvas :global(.ce-inline-color-panel__swatch-dot) {
+  width: 0.95rem;
+  height: 0.95rem;
+  flex: 0 0 auto;
+  border: 2px solid white;
+  border-radius: 999px;
+  background: var(--swatch-color);
+  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.12);
+}
+
+.editorCanvas :global(.ce-inline-color-panel__swatch-label) {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #334155;
+}
+
+.editorCanvas :global(.ce-inline-color-panel__custom) {
+  display: grid;
+  gap: 0.7rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.editorCanvas :global(.ce-inline-color-panel__field) {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.editorCanvas :global(.ce-inline-color-panel__picker) {
+  width: 100%;
+  height: 2.25rem;
+  border: 1px solid #dbe2ea;
+  border-radius: 0.8rem;
+  background: white;
+  cursor: pointer;
+}
+
+.editorCanvas :global(.ce-header) {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #020617;
+}
+
+.editorCanvas :global(.ce-paragraph),
+.editorCanvas :global(.cdx-input) {
+  color: #334155;
+}
+
+.editorCanvas :global(h1.ce-header) {
+  font-size: 2.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-top: 1.2rem;
+  margin-bottom: 0.55rem;
+  color: #020617;
+}
+
+.editorCanvas :global(h2.ce-header) {
+  font-size: 2rem;
+  line-height: 1.14;
+  letter-spacing: -0.03em;
+  margin-top: 1.05rem;
+  margin-bottom: 0.5rem;
+  color: #020617;
+}
+
+.editorCanvas :global(h3.ce-header) {
+  font-size: 1.7rem;
+  line-height: 1.2;
+  margin-top: 0.95rem;
+  margin-bottom: 0.45rem;
+}
+
+.editorCanvas :global(h4.ce-header),
+.editorCanvas :global(h5.ce-header),
+.editorCanvas :global(h6.ce-header) {
+  font-size: 1.25rem;
+  line-height: 1.3;
+  margin-top: 0.85rem;
+  margin-bottom: 0.35rem;
+  color: #020617;
+}
+
+.editorCanvas :global(.ce-paragraph) {
+  font-size: 1rem;
+  line-height: 1.85;
+  margin-top: 0.28rem;
+  margin-bottom: 0.28rem;
+  color: #64748b;
+}
+
+.editorCanvas
+  :global(.codex-editor__redactor > .ce-block:first-child .ce-header) {
+  margin-top: 0;
+  margin-bottom: 0.3em;
+  padding-top: 0.12rem;
+}
+
+.editorCanvas
+  :global(
+    .codex-editor__redactor > .ce-block:first-child + .ce-block .ce-paragraph
+  ) {
+  margin-top: 0.12em;
+}
+
+.editorCanvas :global(.ce-block--selected .ce-block__content) {
+  border-radius: 0.45rem;
+  background: rgba(248, 250, 252, 0.95) !important;
+  box-shadow: inset 0 0 0 1px rgba(226, 232, 240, 0.95);
+}
+
+.editorCanvas :global(.ce-media-layout) {
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: 16px;
+  background: #fff;
+  padding: 18px;
+  box-shadow: none;
+}
+
+.editorCanvas :global(.ce-media-layout__content) {
+  display: grid;
+  gap: 14px;
+}
+
+.editorCanvas :global(.ce-dropzone) {
+  width: 100%;
+  border: 1.5px dashed rgba(203, 213, 225, 0.95);
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease;
+}
+
+.editorCanvas :global(.ce-dropzone:hover) {
+  border-color: rgba(148, 163, 184, 0.95);
+  background: #f1f5f9;
+  box-shadow: none;
+}
+
+.editorCanvas :global(.ce-dropzone--active) {
+  border-color: rgba(100, 116, 139, 0.85);
+  background: #eef2f6;
+}
+
+.editorCanvas :global(.ce-dropzone__title) {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.editorCanvas :global(.ce-dropzone__sub) {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: #475569;
+}
+
+.editorCanvas :global(.ce-media-layout__message) {
+  min-height: 18px;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.editorCanvas :global(.react-grid-layout) {
+  position: relative;
+}
+
+.editorCanvas :global(.react-grid-item) {
+  transition:
+    left 120ms ease,
+    top 120ms ease;
+}
+
+.editorCanvas :global(.react-grid-item.cssTransforms) {
+  transition-property: transform;
+}
+
+.editorCanvas :global(.react-grid-item.resizing) {
+  z-index: 3;
+  transition: none;
+  will-change: width, height;
+}
+
+.editorCanvas :global(.react-grid-item.react-draggable-dragging) {
+  z-index: 4;
+  transition: none;
+  will-change: transform;
+}
+
+.editorCanvas :global(.ce-grid-item) {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 18px;
+  background: transparent;
+  cursor: grab;
+  contain: layout paint style;
+}
+
+.editorCanvas :global(.ce-grid-overlay) {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.editorCanvas :global(.ce-grid-overlay::after) {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.28) 0%,
+    rgba(15, 23, 42, 0.04) 42%,
+    rgba(15, 23, 42, 0.18) 100%
+  );
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.editorCanvas :global(.ce-grid-item:hover .ce-grid-overlay::after),
+.editorCanvas :global(.react-draggable-dragging .ce-grid-overlay::after),
+.editorCanvas :global(.resizing .ce-grid-overlay::after) {
+  opacity: 1;
+}
+
+.editorCanvas :global(.ce-grid-media-frame) {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 18px;
+  background: linear-gradient(
+    180deg,
+    rgba(226, 232, 240, 0.92),
+    rgba(241, 245, 249, 0.88)
+  );
+}
+
+.editorCanvas :global(.ce-grid-media) {
+  display: block;
+  height: 100%;
+  width: 100%;
+  min-height: 0;
+  object-fit: cover;
+  transform: translateZ(0);
+  transition:
+    transform 220ms ease,
+    opacity 180ms ease;
+}
+
+.editorCanvas :global(.ce-grid-item:hover .ce-grid-media) {
+  transform: scale(1.02);
+}
+
+.editorCanvas :global(.react-draggable-dragging .ce-grid-media),
+.editorCanvas :global(.resizing .ce-grid-media) {
+  transform: none;
+}
+
+.editorCanvas :global(.ce-grid-remove) {
+  pointer-events: auto;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.78);
+  color: white;
+  font-size: 18px;
+  line-height: 1;
+  opacity: 0.76;
+  cursor: pointer;
+  transition:
+    opacity 160ms ease,
+    background 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.editorCanvas :global(.ce-grid-remove:hover) {
+  opacity: 1;
+  transform: scale(1.04);
+  background: rgba(15, 23, 42, 0.92);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.22);
+}
+
+.editorCanvas :global(.ce-grid-status) {
+  pointer-events: auto;
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  max-width: calc(100% - 24px);
+  border-radius: 999px;
+  padding: 0.55rem 0.8rem;
+  font-size: 12px;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+.editorCanvas :global(.ce-grid-status--loading) {
+  background: rgba(15, 23, 42, 0.72);
+  color: white;
+}
+
+.editorCanvas :global(.ce-grid-status--error) {
+  background: rgba(254, 226, 226, 0.96);
+  color: #991b1b;
+}
+
+.editorCanvas :global(.ce-grid-spinner) {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 999px;
+  animation: blog-editor-spin 850ms linear infinite;
+}
+
+.editorCanvas :global(.ce-grid-retry) {
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.74);
+  padding: 0.38rem 0.75rem;
+  color: #7f1d1d;
+  cursor: pointer;
+}
+
+.editorCanvas :global(.react-resizable) {
+  position: relative;
+}
+
+.editorCanvas :global(.react-resizable-handle) {
+  position: absolute;
+  z-index: 3;
+  width: 22px;
+  height: 22px;
+}
+
+.editorCanvas :global(.react-resizable-handle::after) {
+  content: "";
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border-color: rgba(255, 255, 255, 0.7);
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.editorCanvas :global(.react-resizable-handle-se) {
+  right: 8px;
+  bottom: 8px;
+  cursor: nwse-resize;
+}
+
+.editorCanvas :global(.react-resizable-handle-se::after) {
+  right: 5px;
+  bottom: 5px;
+  border-right: 2px solid rgba(255, 255, 255, 0.7);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+  border-bottom-right-radius: 4px;
+}
+
+.editorCanvas :global(.react-resizable-handle-sw) {
+  left: 8px;
+  bottom: 8px;
+  cursor: nesw-resize;
+}
+
+.editorCanvas :global(.react-resizable-handle-sw::after) {
+  left: 5px;
+  bottom: 5px;
+  border-left: 2px solid rgba(255, 255, 255, 0.7);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+  border-bottom-left-radius: 4px;
+}
+
+.editorCanvas :global(.react-resizable-handle-ne) {
+  right: 8px;
+  top: 8px;
+  cursor: nesw-resize;
+}
+
+.editorCanvas :global(.react-resizable-handle-ne::after) {
+  right: 5px;
+  top: 5px;
+  border-right: 2px solid rgba(255, 255, 255, 0.7);
+  border-top: 2px solid rgba(255, 255, 255, 0.7);
+  border-top-right-radius: 4px;
+}
+
+.editorCanvas :global(.react-resizable-handle-nw) {
+  left: 8px;
+  top: 8px;
+  cursor: nwse-resize;
+}
+
+.editorCanvas :global(.react-resizable-handle-nw::after) {
+  left: 5px;
+  top: 5px;
+  border-left: 2px solid rgba(255, 255, 255, 0.7);
+  border-top: 2px solid rgba(255, 255, 255, 0.7);
+  border-top-left-radius: 4px;
+}
+
+.editorCanvas :global(.embed-tool__caption) {
+  display: none !important;
+}
+
+.editorCanvas :global(.embed-tool) {
+  width: 100%;
+  margin: 1.5rem 0;
+}
+
+.editorCanvas :global(.embed-tool__content) {
+  position: relative;
+  display: block;
+  width: 100% !important;
+  height: 33em;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  background: #0f172a;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.14);
+}
+
+.editorCanvas :global(.embed-tool__content > iframe) {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  border: 0;
+}
+
+@keyframes blog-editor-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1023px) {
+  .editorCanvas :global(.ce-toolbar) {
+    left: 0;
+    right: 0;
+  }
+
+  .editorCanvas :global(.ce-toolbar__content),
+  .editorCanvas :global(.ce-block__content) {
+    width: 100%;
+    margin-left: 0;
+    padding-inline: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .editorCanvas :global(h1.ce-header) {
+    font-size: 2rem;
+  }
+
+  .editorCanvas :global(h2.ce-header) {
+    font-size: 1.7rem;
+  }
+
+  .editorCanvas :global(h3.ce-header) {
+    font-size: 1.45rem;
+  }
+}

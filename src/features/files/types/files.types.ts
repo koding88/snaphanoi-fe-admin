@@ -4,6 +4,7 @@ export type FileUploadPurpose =
   | "project-cover"
   | "project-content"
   | "blog-cover"
+  | "blog-content"
   | "package-cover"
   | "gallery-cover";
 

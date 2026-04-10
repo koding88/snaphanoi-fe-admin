@@ -32,6 +32,11 @@ export const API_ENDPOINTS = {
     byId: (id: string) => `/api/v1/projects/${id}`,
     restore: (id: string) => `/api/v1/projects/${id}/restore`,
   },
+  blogs: {
+    list: "/api/v1/blogs",
+    byId: (id: string) => `/api/v1/blogs/${id}`,
+    restore: (id: string) => `/api/v1/blogs/${id}/restore`,
+  },
   files: {
     requestUpload: "/api/v1/files/request-upload",
   },
