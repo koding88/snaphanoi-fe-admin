@@ -39,5 +39,11 @@ export const ROUTES = {
       detail: (id: string) => `/admin/blogs/${id}`,
       edit: (id: string) => `/admin/blogs/${id}/edit`,
     },
+    packages: {
+      root: "/admin/packages",
+      create: "/admin/packages/create",
+      detail: (id: string) => `/admin/packages/${id}`,
+      edit: (id: string) => `/admin/packages/${id}/edit`,
+    },
   },
 } as const;
