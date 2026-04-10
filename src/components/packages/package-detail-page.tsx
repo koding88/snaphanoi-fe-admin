@@ -88,7 +88,7 @@ export function PackageDetailPage({ id }: { id: string }) {
       <PageHeader
         eyebrow="Package detail"
         title="Review this package offer."
-        description="Inspect localized naming, offer fit, raw session numbers, pricing, and cover artwork before making changes."
+        description="Review package naming, audience fit, pricing, and cover before updating this offer."
         meta={<BackButton href={ROUTES.admin.packages.root} />}
         actions={
           pkg ? (
@@ -132,7 +132,7 @@ export function PackageDetailPage({ id }: { id: string }) {
       {isLoading ? (
         <LoadingState
           title="Loading package"
-          description="Fetching the selected package and cover asset."
+          description="Loading package details and cover."
         />
       ) : error || !pkg ? (
         <ErrorState

@@ -13,9 +13,7 @@ import {
   formatPackageDuration,
   formatPackagePrice,
   getPackageBestForSummary,
-  getPackageLocalizedSecondaryLines,
 } from "@/features/packages/utils/package-format";
-import { formatDateTime } from "@/features/users/utils/users-format";
 import { ROUTES } from "@/lib/constants/routes";
 import { faRotateLeft, faTrashCan, faUserPen } from "@/lib/icons/fa";
 import { cn } from "@/lib/utils";
@@ -35,12 +33,31 @@ export function PackagesTable({
 }: PackagesTableProps) {
   const router = useRouter();
   const columnLayout =
-    "grid-cols-[minmax(0,1.5fr)_120px_minmax(0,1.2fr)_120px_110px_150px_120px_150px_120px]";
+    "grid-cols-[minmax(210px,1.2fr)_92px_minmax(165px,1fr)_minmax(170px,0.9fr)_114px_116px_116px]";
   const [pendingAction, setPendingAction] = useState<{
     type: "delete" | "restore";
     pkg: PackageRecord;
   } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const formatUpdatedAt = (value: string) => {
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+      return "N/A";
+    }
+
+    const now = new Date();
+    const isSameYear = now.getFullYear() === date.getFullYear();
+
+    return new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      day: "numeric",
+      ...(isSameYear ? {} : { year: "numeric" }),
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(date);
+  };
 
   function navigateToPackage(packageId: string) {
     router.push(ROUTES.admin.packages.detail(packageId));
@@ -80,25 +97,25 @@ export function PackagesTable({
             Package records
           </p>
           <p className="mt-1 text-sm text-muted-foreground">
-            Review localized naming, best-fit positioning, raw offer numbers, and lifecycle state from one table.
+            Review package positioning, pricing, and lifecycle from one place.
           </p>
         </div>
         <div className="overflow-x-auto border-t border-border/10">
           <div
             className={cn(
-              "grid min-w-[1280px] items-center gap-x-6 border-b border-border/80 bg-white/55 px-5 py-4 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
+              "grid min-w-[1030px] items-center gap-x-3 border-b border-border/80 bg-white/55 px-5 py-4 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
               columnLayout,
             )}
           >
             <div>Package</div>
             <div className="text-center">Cover</div>
-            <div className="text-center">Best for</div>
-            <div className="text-center">Duration</div>
-            <div className="text-center">Photos</div>
-            <div className="text-center">Pricing</div>
+            <div>Best for</div>
+            <div>Offer</div>
             <div className="text-center">Status</div>
             <div className="text-center">Updated</div>
-            <div className="text-center">Actions</div>
+            <div className="sticky right-0 z-20 -mr-5 bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.7)_40%,rgba(255,255,255,0.9)_100%)] py-4 pr-5 text-center">
+              Actions
+            </div>
           </div>
           <div>
             {packages.map((pkg) => (
@@ -114,20 +131,17 @@ export function PackagesTable({
                   }
                 }}
                 className={cn(
-                  "grid min-w-[1280px] cursor-pointer items-center gap-x-6 border-b border-border/60 px-5 py-5 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0",
+                  "grid min-w-[1030px] cursor-pointer items-center gap-x-3 border-b border-border/60 px-5 py-4.5 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0",
                   columnLayout,
                 )}
               >
-                <div>
+                <div className="min-w-0">
                   <p className="truncate font-medium text-foreground">
                     {pkg.name.en}
                   </p>
-                  <div className="mt-1 space-y-1 text-sm text-muted-foreground">
-                    {getPackageLocalizedSecondaryLines(pkg.name).map((line) => (
-                      <p key={line} className="truncate">
-                        {line}
-                      </p>
-                    ))}
+                  <div className="mt-1 space-y-0.5 text-xs text-muted-foreground">
+                    <p className="truncate">VI: {pkg.name.vi}</p>
+                    <p className="truncate">CN: {pkg.name.cn}</p>
                   </div>
                 </div>
                 <div className="flex justify-center">
@@ -137,21 +151,22 @@ export function PackagesTable({
                     <img
                       src={pkg.coverImage.url}
                       alt={pkg.name.en}
-                      className="block h-20 w-28 object-cover"
+                      className="block h-[70px] w-[92px] object-cover"
                     />
                   </div>
                 </div>
-                <div className="text-center text-sm text-muted-foreground">
-                  <p className="line-clamp-2">{getPackageBestForSummary(pkg.bestFor)}</p>
+                <div className="min-w-0 text-sm text-muted-foreground">
+                  <p className="truncate" title={getPackageBestForSummary(pkg.bestFor)}>
+                    {getPackageBestForSummary(pkg.bestFor)}
+                  </p>
                 </div>
-                <div className="text-center text-sm text-muted-foreground">
-                  {formatPackageDuration(pkg.duration)}
-                </div>
-                <div className="text-center text-sm text-muted-foreground">
-                  {pkg.photoCount}
-                </div>
-                <div className="text-center text-sm text-muted-foreground">
-                  {formatPackagePrice(pkg.pricing)}
+                <div className="min-w-0">
+                  <p className="text-[13px] font-medium text-muted-foreground">
+                    {formatPackageDuration(pkg.duration)} · {pkg.photoCount} photos
+                  </p>
+                  <p className="mt-1.5 truncate text-lg font-semibold tracking-tight text-foreground">
+                    {formatPackagePrice(pkg.pricing)}
+                  </p>
                 </div>
                 <div className="flex justify-center">
                   <PackageStatusBadge
@@ -159,18 +174,21 @@ export function PackagesTable({
                     deletedAt={pkg.deletedAt}
                   />
                 </div>
-                <div className="text-center text-sm text-muted-foreground">
-                  <p className="leading-relaxed">{formatDateTime(pkg.updatedAt)}</p>
+                <div className="text-center text-[13px] text-muted-foreground">
+                  <p className="leading-relaxed">{formatUpdatedAt(pkg.updatedAt)}</p>
                 </div>
-                <div className="text-center">
+                <div className="sticky right-0 z-10 -mr-5 self-stretch bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.7)_40%,rgba(255,255,255,0.9)_100%)] py-2 pr-5 text-center">
                   <div
-                    className="grid justify-items-center gap-2"
+                    className="grid h-full content-center justify-items-center gap-1.5"
                     onClick={stopRowAction}
                     onKeyDown={stopRowAction}
                   >
                     <Link
                       href={ROUTES.admin.packages.edit(pkg.id)}
-                      className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
+                      className={cn(
+                        buttonVariants({ variant: "outline", size: "sm" }),
+                        "h-8 px-2.5 text-xs",
+                      )}
                       onClick={stopRowAction}
                     >
                       <FontAwesomeIcon icon={faUserPen} />
@@ -181,6 +199,7 @@ export function PackagesTable({
                         type="button"
                         variant="outline"
                         size="sm"
+                        className="h-8 px-2.5 text-xs"
                         disabled={isBusy}
                         onClick={(event) => {
                           stopRowAction(event);
@@ -195,6 +214,7 @@ export function PackagesTable({
                         type="button"
                         variant="destructive"
                         size="sm"
+                        className="h-8 px-2.5 text-xs"
                         disabled={isBusy}
                         onClick={(event) => {
                           stopRowAction(event);

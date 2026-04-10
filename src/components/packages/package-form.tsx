@@ -305,8 +305,8 @@ function LocaleEditor({
         title={group === "name" ? "Package names" : "Best for"}
         description={
           group === "name"
-            ? "Switch locales as you work. Each locale keeps the same field and validation rules."
-            : "Write one locale at a time so longer copy stays readable and easy to review."
+            ? "Pick a locale and fill it. All 3 locales are required."
+            : "Edit one locale at a time to keep longer copy readable."
         }
         meta={
           <div className="flex items-center gap-3">
@@ -323,7 +323,7 @@ function LocaleEditor({
         }
       />
 
-      <div className="rounded-[1.45rem] border border-border/75 bg-[linear-gradient(180deg,rgba(255,255,255,0.97),rgba(249,245,238,0.95))] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.76)] md:p-5">
+      <div className="rounded-[1.2rem] border border-border/70 bg-white/86 p-4 md:p-5">
         <div className="mb-3 flex flex-wrap items-center gap-3">
           <span className="rounded-full border border-[--color-brand]/20 bg-[--color-brand-soft] px-3 py-1 text-[11px] font-semibold tracking-[0.18em] text-[--color-brand] uppercase">
             {localeMeta?.shortLabel}
@@ -414,19 +414,28 @@ export function PackageForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUploadingCover, setIsUploadingCover] = useState(false);
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
-  const durationPreview =
+  const previewLocale = activeNameLocale;
+  const previewName = values.name[previewLocale].trim();
+  const previewBestFor = values.bestFor[previewLocale].trim();
+  const previewDurationSeconds =
     values.durationMinutes && values.durationMinutes > 0
-      ? formatPackageDuration(
-          packageDurationMinutesToSeconds(values.durationMinutes),
-        )
-      : "Add the session length";
-  const pricingPreview =
+      ? packageDurationMinutesToSeconds(values.durationMinutes)
+      : 0;
+  const previewDurationLabel =
+    previewDurationSeconds > 0
+      ? formatPackageDuration(previewDurationSeconds)
+      : "Session length pending";
+  const previewPhotosLabel =
+    values.photoCount != null && values.photoCount >= 0
+      ? `${values.photoCount} photos`
+      : "Photo count pending";
+  const previewPriceLabel =
     values.pricing.amount != null && values.pricing.currency.trim()
       ? formatPackagePrice({
           amount: values.pricing.amount,
           currency: values.pricing.currency.trim().toUpperCase(),
         })
-      : "Add amount and currency";
+      : "Pricing pending";
   const hasCover = Boolean(cover.previewUrl);
 
   useEffect(() => {
@@ -611,6 +620,11 @@ export function PackageForm({
     return LOCALE_FIELDS.filter((locale) => values[group][locale.key].trim()).length;
   }
 
+  function handleLocaleFocus(locale: LocaleKey) {
+    setActiveNameLocale(locale);
+    setActiveBestForLocale(locale);
+  }
+
   return (
     <form className="space-y-8" noValidate onSubmit={handleSubmit}>
       {description ? (
@@ -641,17 +655,13 @@ export function PackageForm({
             <PackageFormSection
               eyebrow="Names"
               title="Localized package naming"
-              description="Keep the three locales together so the package identity stays aligned across admin and customer-facing surfaces."
+              description="Fill all locales for the package name."
             >
-              <LocaleGroupHeader
-                title="Localized package naming"
-                description="All three locales are required. English leads the list and detail views."
-              />
               <LocaleEditor
                 locales={LOCALE_FIELDS}
                 group="name"
                 activeLocale={activeNameLocale}
-                onChangeLocale={setActiveNameLocale}
+                onChangeLocale={handleLocaleFocus}
                 getStatus={getLocaleStatusForGroup("name")}
                 completedCount={countCompletedLocales("name")}
                 value={values.name[activeNameLocale]}
@@ -685,17 +695,13 @@ export function PackageForm({
             <PackageFormSection
               eyebrow="Audience"
               title="Best-fit positioning"
-              description="These short descriptions tell sales and editorial surfaces who the package is designed for in each language."
+              description="Define who this package is for in each locale."
             >
-              <LocaleGroupHeader
-                title="Best-fit positioning"
-                description="Keep the tone practical and concise so the package can be understood quickly in cards and package detail screens."
-              />
               <LocaleEditor
                 locales={LOCALE_FIELDS}
                 group="bestFor"
                 activeLocale={activeBestForLocale}
-                onChangeLocale={setActiveBestForLocale}
+                onChangeLocale={handleLocaleFocus}
                 getStatus={getLocaleStatusForGroup("bestFor")}
                 completedCount={countCompletedLocales("bestFor")}
                 value={values.bestFor[activeBestForLocale]}
@@ -727,16 +733,16 @@ export function PackageForm({
               />
             </PackageFormSection>
 
-            <div className="grid gap-5 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
-              <PackageFormSection
-                eyebrow="Offer details"
-                title="Session numbers"
-                description="Set the core delivery numbers once, then move on."
-              >
-                <p className="mb-3 text-xs text-muted-foreground">
-                  Duration is entered in minutes and converted to seconds on save.
-                </p>
-                <div className="grid gap-4 lg:grid-cols-2">
+            <PackageFormSection
+              eyebrow="Offer setup"
+              title="Offer details and pricing"
+              description="Set delivery numbers and price in one pass."
+            >
+              <div className="grid gap-5 xl:grid-cols-2">
+                <div className="space-y-4 rounded-[1.2rem] border border-border/70 bg-white/86 p-4">
+                  <p className="text-xs font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
+                    Offer details
+                  </p>
                   <label className="min-w-0 space-y-2">
                     <span className="text-sm font-medium text-foreground">
                       Duration (minutes)
@@ -762,11 +768,11 @@ export function PackageForm({
                       aria-invalid={Boolean(fieldErrors.duration)}
                       className="h-14 text-lg tracking-[0.02em]"
                     />
-                    <p className="mt-2 text-xs text-muted-foreground">
-                      Use the planned session length.
+                    <p className="text-xs text-muted-foreground">
+                      Saved to backend as seconds.
                     </p>
                     {fieldErrors.duration ? (
-                      <p className="mt-2 text-sm text-red-600">{fieldErrors.duration}</p>
+                      <p className="text-sm text-red-600">{fieldErrors.duration}</p>
                     ) : null}
                   </label>
 
@@ -795,97 +801,92 @@ export function PackageForm({
                       aria-invalid={Boolean(fieldErrors.photoCount)}
                       className="h-14 text-lg tracking-[0.02em]"
                     />
-                    <p className="mt-2 text-xs text-muted-foreground">
-                      Use the final delivered count.
+                    <p className="text-xs text-muted-foreground">
+                      Final delivered image count.
                     </p>
                     {fieldErrors.photoCount ? (
-                      <p className="mt-2 text-sm text-red-600">{fieldErrors.photoCount}</p>
+                      <p className="text-sm text-red-600">{fieldErrors.photoCount}</p>
                     ) : null}
                   </label>
                 </div>
-              </PackageFormSection>
 
-              <PackageFormSection
-                eyebrow="Pricing"
-                title="Price object"
-                description="Keep amount and currency together as one pricing value."
-              >
-                <div className="grid gap-5">
-                  <div className="grid gap-5">
-                    <label className="min-w-0 space-y-2">
-                      <span className="text-sm font-medium text-foreground">
-                        Amount
-                      </span>
-                      <Input
-                        type="text"
-                        inputMode="numeric"
-                        value={amountInput}
-                        onChange={(event) => {
-                          const nextAmount = parsePackageAmountInput(
-                            event.target.value,
-                          );
+                <div className="space-y-4 rounded-[1.2rem] border border-border/70 bg-white/86 p-4">
+                  <p className="text-xs font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
+                    Pricing
+                  </p>
+                  <label className="min-w-0 space-y-2">
+                    <span className="text-sm font-medium text-foreground">
+                      Amount
+                    </span>
+                    <Input
+                      type="text"
+                      inputMode="numeric"
+                      value={amountInput}
+                      onChange={(event) => {
+                        const nextAmount = parsePackageAmountInput(
+                          event.target.value,
+                        );
 
-                          setAmountInput(formatPackageAmountInput(nextAmount));
-                          setValues((current) => ({
-                            ...current,
-                            pricing: {
-                              ...current.pricing,
-                              amount: nextAmount,
-                            },
-                          }));
-                          setFieldErrors((current) => ({
-                            ...current,
-                            pricingAmount: undefined,
-                          }));
-                        }}
-                        placeholder="1,000,000"
-                        aria-invalid={Boolean(fieldErrors.pricingAmount)}
-                        className="h-14 min-w-0 text-lg tracking-[0.02em]"
-                      />
-                      <p className="text-xs text-muted-foreground">
-                        Formatted as you type for quick scanning.
+                        setAmountInput(formatPackageAmountInput(nextAmount));
+                        setValues((current) => ({
+                          ...current,
+                          pricing: {
+                            ...current.pricing,
+                            amount: nextAmount,
+                          },
+                        }));
+                        setFieldErrors((current) => ({
+                          ...current,
+                          pricingAmount: undefined,
+                        }));
+                      }}
+                      placeholder="1,000,000"
+                      aria-invalid={Boolean(fieldErrors.pricingAmount)}
+                      className="h-14 min-w-0 text-lg tracking-[0.02em]"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Auto-formatted while typing.
+                    </p>
+                    {fieldErrors.pricingAmount ? (
+                      <p className="text-sm text-red-600">
+                        {fieldErrors.pricingAmount}
                       </p>
-                      {fieldErrors.pricingAmount ? (
-                        <p className="text-sm text-red-600">
-                          {fieldErrors.pricingAmount}
-                        </p>
-                      ) : null}
-                    </label>
+                    ) : null}
+                  </label>
 
-                    <label className="min-w-0 space-y-2">
-                      <span className="text-sm font-medium text-foreground">
-                        Currency
-                      </span>
-                      <PackageCurrencySelect
-                        className="min-w-0"
-                        value={values.pricing.currency}
-                        onChange={(nextValue) => {
-                          setValues((current) => ({
-                            ...current,
-                            pricing: {
-                              ...current.pricing,
-                              currency: nextValue,
-                            },
-                          }));
-                          setFieldErrors((current) => ({
-                            ...current,
-                            pricingCurrency: undefined,
-                          }));
-                        }}
-                      />
-                      <p className="text-xs text-muted-foreground">
-                        Search by country, currency code, or symbol.
+                  <label className="min-w-0 space-y-2">
+                    <span className="text-sm font-medium text-foreground">
+                      Currency
+                    </span>
+                    <PackageCurrencySelect
+                      className="min-w-0"
+                      value={values.pricing.currency}
+                      onChange={(nextValue) => {
+                        setValues((current) => ({
+                          ...current,
+                          pricing: {
+                            ...current.pricing,
+                            currency: nextValue,
+                          },
+                        }));
+                        setFieldErrors((current) => ({
+                          ...current,
+                          pricingCurrency: undefined,
+                        }));
+                      }}
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Search by country, code, or symbol.
+                    </p>
+                    {fieldErrors.pricingCurrency ? (
+                      <p className="text-sm text-red-600">
+                        {fieldErrors.pricingCurrency}
                       </p>
-                      {fieldErrors.pricingCurrency ? (
-                        <p className="text-sm text-red-600">
-                          {fieldErrors.pricingCurrency}
-                        </p>
-                      ) : null}
-                    </label>
-                  </div>
+                    ) : null}
+                  </label>
                 </div>
-              </PackageFormSection>
-            </div>
+              </div>
+            </PackageFormSection>
           </div>
 
           <div className="space-y-5">
@@ -924,88 +925,76 @@ export function PackageForm({
                   setCover(DEFAULT_COVER_STATE);
                 }}
               />
-              <div className="rounded-[1.35rem] border border-border/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(247,243,236,0.94))] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.74)]">
-                <p className="text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-                  Final package preview
+              <div className="mt-6 border-t border-border/60 pt-6">
+                <p className="mb-4 text-[11px] font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
+                  Customer-facing preview
                 </p>
-                <div className="mt-4 space-y-4">
-                  <div className="rounded-[1.2rem] border border-border/70 bg-white/78 p-4">
-                    <div className="flex flex-wrap items-center gap-2">
-                      {LOCALE_FIELDS.map((locale) => {
-                        const status = getLocaleStatus("name", locale.key);
-                        return (
-                          <span
-                            key={`preview-name-${locale.key}`}
-                            className={cn(
-                              "inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-semibold tracking-[0.16em] uppercase",
-                              status === "complete" &&
-                                "border-emerald-500/20 bg-emerald-500/10 text-emerald-700",
-                              status === "incomplete" &&
-                                "border-red-500/20 bg-red-500/10 text-red-700",
-                              status === "neutral" &&
-                                "border-border bg-white/70 text-muted-foreground",
-                            )}
-                          >
-                            <span>{locale.shortLabel}</span>
-                            <span>
-                              {values.name[locale.key].trim()
-                                ? "Ready"
-                                : "Missing"}
-                            </span>
-                          </span>
-                        );
-                      })}
-                    </div>
-                    <div className="mt-4 space-y-3">
-                      <div>
-                        <p className="text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-                          Headline
-                        </p>
-                        <p className="mt-1 text-xl font-medium text-foreground">
-                          {values.name[activeNameLocale].trim() ||
-                            "Your active locale package name will appear here"}
-                        </p>
+                <article className="overflow-hidden rounded-[1.5rem] border border-border/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.99),rgba(247,243,236,0.95))] shadow-[0_30px_70px_-44px_rgba(15,23,42,0.35)]">
+                  <div className="relative aspect-[4/5] overflow-hidden bg-[linear-gradient(180deg,rgba(249,245,238,0.88),rgba(241,236,228,0.9))]">
+                    {hasCover ? (
+                      <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.45),rgba(232,224,212,0.5))] p-3">
+                        <img
+                          src={cover.previewUrl ?? ""}
+                          alt={previewName || "Package cover preview"}
+                          className="h-full w-full rounded-[1rem] object-contain object-center"
+                        />
                       </div>
-                      <div>
-                        <p className="text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
+                    ) : (
+                      <div className="flex h-full items-center justify-center px-6 text-center text-sm text-muted-foreground">
+                        Upload a cover image to render the customer card hero.
+                      </div>
+                    )}
+                    <span className="absolute top-3 right-3 rounded-full border border-white/45 bg-black/40 px-2.5 py-1 text-[10px] font-semibold tracking-[0.14em] text-white/90 uppercase">
+                      {previewLocale.toUpperCase()}
+                    </span>
+                  </div>
+
+                  <div className="space-y-4 px-6 pt-6 pb-6 text-center">
+                    <h4 className="line-clamp-2 text-3xl leading-tight font-semibold tracking-tight text-foreground">
+                      {previewName || "Package name in active locale"}
+                    </h4>
+
+                    <div className="space-y-3">
+                      <div className="space-y-1">
+                        <p className="text-[10px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
                           Best for
                         </p>
-                        <p className="mt-1 text-sm leading-6 text-muted-foreground">
-                          {values.bestFor[activeBestForLocale].trim() ||
-                            "Your active locale best-for description will appear here"}
+                        <p className="line-clamp-3 text-sm leading-6 text-muted-foreground">
+                          {previewBestFor || "Best-for description in active locale"}
+                        </p>
+                      </div>
+
+                      <div className="space-y-1">
+                        <p className="text-[10px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
+                          Duration
+                        </p>
+                        <p className="text-sm font-medium text-foreground">
+                          {previewDurationLabel}
+                        </p>
+                      </div>
+
+                      <div className="space-y-1">
+                        <p className="text-[10px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
+                          Number of photos
+                        </p>
+                        <p className="text-sm font-medium text-foreground">
+                          {previewPhotosLabel}
                         </p>
                       </div>
                     </div>
+
+                    <p className="text-2xl font-semibold tracking-tight text-foreground">
+                      {previewPriceLabel}
+                    </p>
+
+                    <Button
+                      type="button"
+                      className="h-12 w-full rounded-full text-sm font-semibold tracking-[0.08em] uppercase"
+                    >
+                      Request Now
+                    </Button>
                   </div>
-                  <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
-                    <div className="rounded-[1.2rem] border border-border/70 bg-white/78 p-4">
-                      <p className="text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-                        Offer details
-                      </p>
-                      <p className="mt-2 text-base font-medium text-foreground">
-                        {durationPreview}
-                      </p>
-                      <p className="mt-1 text-sm text-muted-foreground">
-                        {values.photoCount ?? 0} photos
-                      </p>
-                    </div>
-                    <div className="rounded-[1.2rem] border border-border/70 bg-white/78 p-4">
-                      <p className="text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-                        Price
-                      </p>
-                      <p className="mt-2 text-base font-medium text-foreground">
-                        {pricingPreview}
-                      </p>
-                      <p className="mt-1 text-sm text-muted-foreground">
-                        {hasCover
-                          ? "Cover attached and ready"
-                          : mode === "create"
-                            ? "Cover still required before save"
-                            : "Current cover is still in use"}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                </article>
               </div>
             </PackageFormSection>
           </div>
