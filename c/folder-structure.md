@@ -1,6 +1,6 @@
 # File Tree: snaphanoi-fe-admin
 
-**Generated:** 4/10/2026, 11:09:59 AM
+**Generated:** 4/10/2026, 8:32:48 PM
 **Root Path:** `/Users/koding88/dev/project/snaphanoi-fe-admin`
 
 ```
@@ -23,6 +23,14 @@
 │   ├── 📁 app
 │   │   ├── 📁 (admin)
 │   │   │   ├── 📁 admin
+│   │   │   │   ├── 📁 blogs
+│   │   │   │   │   ├── 📁 [id]
+│   │   │   │   │   │   ├── 📁 edit
+│   │   │   │   │   │   │   └── 📄 page.tsx
+│   │   │   │   │   │   └── 📄 page.tsx
+│   │   │   │   │   ├── 📁 create
+│   │   │   │   │   │   └── 📄 page.tsx
+│   │   │   │   │   └── 📄 page.tsx
 │   │   │   │   ├── 📁 galleries
 │   │   │   │   │   ├── 📁 [id]
 │   │   │   │   │   │   ├── 📁 edit
@@ -106,6 +114,18 @@
 │   │   │   ├── 📄 register-confirm-form.tsx
 │   │   │   ├── 📄 register-form.tsx
 │   │   │   └── 📄 reset-password-form.tsx
+│   │   ├── 📁 blogs
+│   │   │   ├── 📄 blog-cover-field.tsx
+│   │   │   ├── 📄 blog-create-page.tsx
+│   │   │   ├── 📄 blog-detail-card.tsx
+│   │   │   ├── 📄 blog-detail-page.tsx
+│   │   │   ├── 📄 blog-edit-page.tsx
+│   │   │   ├── 📄 blog-form.tsx
+│   │   │   ├── 📄 blog-pin-badge.tsx
+│   │   │   ├── 📄 blog-publish-badge.tsx
+│   │   │   ├── 📄 blog-status-badge.tsx
+│   │   │   ├── 📄 blogs-list-page.tsx
+│   │   │   └── 📄 blogs-table.tsx
 │   │   ├── 📁 galleries
 │   │   │   ├── 📄 galleries-list-page.tsx
 │   │   │   ├── 📄 galleries-table.tsx
@@ -192,6 +212,20 @@
 │   │   │       ├── 📄 auth-errors.ts
 │   │   │       ├── 📄 auth-storage.ts
 │   │   │       └── 📄 password-policy.ts
+│   │   ├── 📁 blogs
+│   │   │   ├── 📁 api
+│   │   │   │   ├── 📄 create-blog.ts
+│   │   │   │   ├── 📄 delete-blog.ts
+│   │   │   │   ├── 📄 get-blog.ts
+│   │   │   │   ├── 📄 list-blogs.ts
+│   │   │   │   ├── 📄 restore-blog.ts
+│   │   │   │   └── 📄 update-blog.ts
+│   │   │   ├── 📁 types
+│   │   │   │   ├── 📄 blogs-api.types.ts
+│   │   │   │   └── 📄 blogs.types.ts
+│   │   │   └── 📁 utils
+│   │   │       ├── 📄 blog-content.ts
+│   │   │       └── 📄 blogs-errors.ts
 │   │   ├── 📁 files
 │   │   │   ├── 📁 api
 │   │   │   │   ├── 📄 request-upload.ts

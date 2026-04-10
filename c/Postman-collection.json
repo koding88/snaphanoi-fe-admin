@@ -6791,6 +6791,1062 @@
       ]
     },
     {
+      "name": "Packages",
+      "item": [
+        {
+          "name": "Create Package",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/packages",
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "packages"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": {\n    \"en\": \"Couple Premium\",\n    \"vi\": \"Goi cao cap cap doi\",\n    \"cn\": \"情侣高级套餐\"\n  },\n  \"bestFor\": {\n    \"en\": \"Couples wanting a cinematic Hanoi session\",\n    \"vi\": \"Cap doi muon co bo anh Hanoi theo phong cach dien anh\",\n    \"cn\": \"适合想要河内电影感拍摄的情侣\"\n  },\n  \"duration\": 5400,\n  \"photoCount\": 60,\n  \"pricing\": {\n    \"amount\": 3500000,\n    \"currency\": \"VND\"\n  },\n  \"coverImageUploadToken\": \"package-cover-upload-token\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Admin-only. Create a package with multilingual name/bestFor, raw duration in seconds, raw pricing object, and coverImageUploadToken."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/packages",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "packages"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": {\n    \"en\": \"Couple Premium\",\n    \"vi\": \"Goi cao cap cap doi\",\n    \"cn\": \"情侣高级套餐\"\n  },\n  \"bestFor\": {\n    \"en\": \"Couples wanting a cinematic Hanoi session\",\n    \"vi\": \"Cap doi muon co bo anh Hanoi theo phong cach dien anh\",\n    \"cn\": \"适合想要河内电影感拍摄的情侣\"\n  },\n  \"duration\": 5400,\n  \"photoCount\": 60,\n  \"pricing\": {\n    \"amount\": 3500000,\n    \"currency\": \"VND\"\n  },\n  \"coverImageUploadToken\": \"package-cover-upload-token\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Admin-only. Create a package with multilingual name/bestFor, raw duration in seconds, raw pricing object, and coverImageUploadToken."
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"package-couple-premium\",\n    \"name\": {\n      \"en\": \"Couple Premium\",\n      \"vi\": \"Goi cao cap cap doi\",\n      \"cn\": \"情侣高级套餐\"\n    },\n    \"bestFor\": {\n      \"en\": \"Couples wanting a cinematic Hanoi session\",\n      \"vi\": \"Cap doi muon co bo anh Hanoi theo phong cach dien anh\",\n      \"cn\": \"适合想要河内电影感拍摄的情侣\"\n    },\n    \"duration\": 5400,\n    \"photoCount\": 60,\n    \"pricing\": {\n      \"amount\": 3500000,\n      \"currency\": \"VND\"\n    },\n    \"coverImage\": {\n      \"id\": \"file-package-cover-1\",\n      \"url\": \"http://localhost:9000/koding88-bucket/assets/package-cover/2026/04/couple-premium-cover.jpg\",\n      \"mimeType\": \"image/jpeg\",\n      \"size\": 4194304,\n      \"originalName\": \"couple-premium-cover.jpg\"\n    },\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdBy\": {\n      \"id\": \"user-admin\",\n      \"name\": \"Admin User\"\n    },\n    \"createdAt\": \"2026-04-10T04:10:00.000Z\",\n    \"updatedAt\": \"2026-04-10T04:10:00.000Z\"\n  },\n  \"message\": \"Package created successfully\",\n  \"error\": null,\n  \"statusCode\": 201,\n  \"timestamp\": \"2026-04-10T04:10:00.000Z\",\n  \"path\": \"/api/v1/packages\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Duration",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/packages",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "packages"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": {\n    \"en\": \"Couple Premium\",\n    \"vi\": \"Goi cao cap cap doi\",\n    \"cn\": \"情侣高级套餐\"\n  },\n  \"bestFor\": {\n    \"en\": \"Couples wanting a cinematic Hanoi session\",\n    \"vi\": \"Cap doi muon co bo anh Hanoi theo phong cach dien anh\",\n    \"cn\": \"适合想要河内电影感拍摄的情侣\"\n  },\n  \"duration\": 0,\n  \"photoCount\": 60,\n  \"pricing\": {\n    \"amount\": 3500000,\n    \"currency\": \"VND\"\n  },\n  \"coverImageUploadToken\": \"package-cover-upload-token\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Admin-only. Create a package with multilingual name/bestFor, raw duration in seconds, raw pricing object, and coverImageUploadToken."
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Package duration must be greater than 0 seconds\",\n  \"error\": \"INVALID_PACKAGE_DURATION\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-10T04:10:00.000Z\",\n  \"path\": \"/api/v1/packages\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "English Name Already Exists",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/packages",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "packages"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": {\n    \"en\": \"Couple Premium\",\n    \"vi\": \"Goi cao cap cap doi\",\n    \"cn\": \"情侣高级套餐\"\n  },\n  \"bestFor\": {\n    \"en\": \"Couples wanting a cinematic Hanoi session\",\n    \"vi\": \"Cap doi muon co bo anh Hanoi theo phong cach dien anh\",\n    \"cn\": \"适合想要河内电影感拍摄的情侣\"\n  },\n  \"duration\": 5400,\n  \"photoCount\": 60,\n  \"pricing\": {\n    \"amount\": 3500000,\n    \"currency\": \"VND\"\n  },\n  \"coverImageUploadToken\": \"package-cover-upload-token\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Admin-only. Create a package with multilingual name/bestFor, raw duration in seconds, raw pricing object, and coverImageUploadToken."
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Package name.en \\\"Couple Premium\\\" already exists\",\n  \"error\": \"PACKAGE_NAME_EN_ALREADY_EXISTS\",\n  \"statusCode\": 409,\n  \"timestamp\": \"2026-04-10T04:10:00.000Z\",\n  \"path\": \"/api/v1/packages\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Upload Token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/packages",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "packages"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": {\n    \"en\": \"Couple Premium\",\n    \"vi\": \"Goi cao cap cap doi\",\n    \"cn\": \"情侣高级套餐\"\n  },\n  \"bestFor\": {\n    \"en\": \"Couples wanting a cinematic Hanoi session\",\n    \"vi\": \"Cap doi muon co bo anh Hanoi theo phong cach dien anh\",\n    \"cn\": \"适合想要河内电影感拍摄的情侣\"\n  },\n  \"duration\": 5400,\n  \"photoCount\": 60,\n  \"pricing\": {\n    \"amount\": 3500000,\n    \"currency\": \"VND\"\n  },\n  \"coverImageUploadToken\": \"package-cover-upload-token\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Admin-only. Create a package with multilingual name/bestFor, raw duration in seconds, raw pricing object, and coverImageUploadToken."
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"The upload token is invalid or expired\",\n  \"error\": \"INVALID_FILE_UPLOAD_TOKEN\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-10T04:10:00.000Z\",\n  \"path\": \"/api/v1/packages\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get All Packages",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/packages?page=1&limit=10&keyword=couple&isActive=true",
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "packages"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "keyword",
+                  "value": "couple"
+                },
+                {
+                  "key": "isActive",
+                  "value": "true"
+                }
+              ]
+            },
+            "description": "Admin-only package list with pagination and optional keyword/isActive filters."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/packages?page=1&limit=10&keyword=couple&isActive=true",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "packages"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "keyword",
+                      "value": "couple"
+                    },
+                    {
+                      "key": "isActive",
+                      "value": "true"
+                    }
+                  ]
+                },
+                "description": "Admin-only package list with pagination and optional keyword/isActive filters."
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"package-couple-premium\",\n        \"name\": {\n          \"en\": \"Couple Premium\",\n          \"vi\": \"Goi cao cap cap doi\",\n          \"cn\": \"情侣高级套餐\"\n        },\n        \"bestFor\": {\n          \"en\": \"Couples wanting a cinematic Hanoi session\",\n          \"vi\": \"Cap doi muon co bo anh Hanoi theo phong cach dien anh\",\n          \"cn\": \"适合想要河内电影感拍摄的情侣\"\n        },\n        \"duration\": 5400,\n        \"photoCount\": 60,\n        \"pricing\": {\n          \"amount\": 3500000,\n          \"currency\": \"VND\"\n        },\n        \"coverImage\": {\n          \"id\": \"file-package-cover-1\",\n          \"url\": \"http://localhost:9000/koding88-bucket/assets/package-cover/2026/04/couple-premium-cover.jpg\",\n          \"mimeType\": \"image/jpeg\",\n          \"size\": 4194304,\n          \"originalName\": \"couple-premium-cover.jpg\"\n        },\n        \"isActive\": true,\n        \"deletedAt\": null,\n        \"createdBy\": {\n          \"id\": \"user-admin\",\n          \"name\": \"Admin User\"\n        },\n        \"createdAt\": \"2026-04-10T04:10:00.000Z\",\n        \"updatedAt\": \"2026-04-10T04:10:00.000Z\"\n      }\n    ],\n    \"meta\": {\n      \"page\": 1,\n      \"limit\": 10,\n      \"total\": 1,\n      \"totalPages\": 1\n    }\n  },\n  \"message\": \"Packages fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-10T04:15:00.000Z\",\n  \"path\": \"/api/v1/packages?page=1&limit=10&keyword=couple&isActive=true\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/packages?page=1&limit=10&keyword=couple&isActive=true",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "packages"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "keyword",
+                      "value": "couple"
+                    },
+                    {
+                      "key": "isActive",
+                      "value": "true"
+                    }
+                  ]
+                },
+                "description": "Admin-only package list with pagination and optional keyword/isActive filters."
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Forbidden resource\",\n  \"error\": \"Forbidden\",\n  \"statusCode\": 403,\n  \"timestamp\": \"2026-04-10T04:15:00.000Z\",\n  \"path\": \"/api/v1/packages?page=1&limit=10&keyword=couple&isActive=true\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Package",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "packages",
+                "{{PACKAGE_ID}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "packages",
+                    "{{PACKAGE_ID}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"package-couple-premium\",\n    \"name\": {\n      \"en\": \"Couple Premium\",\n      \"vi\": \"Goi cao cap cap doi\",\n      \"cn\": \"情侣高级套餐\"\n    },\n    \"bestFor\": {\n      \"en\": \"Couples wanting a cinematic Hanoi session\",\n      \"vi\": \"Cap doi muon co bo anh Hanoi theo phong cach dien anh\",\n      \"cn\": \"适合想要河内电影感拍摄的情侣\"\n    },\n    \"duration\": 5400,\n    \"photoCount\": 60,\n    \"pricing\": {\n      \"amount\": 3500000,\n      \"currency\": \"VND\"\n    },\n    \"coverImage\": {\n      \"id\": \"file-package-cover-1\",\n      \"url\": \"http://localhost:9000/koding88-bucket/assets/package-cover/2026/04/couple-premium-cover.jpg\",\n      \"mimeType\": \"image/jpeg\",\n      \"size\": 4194304,\n      \"originalName\": \"couple-premium-cover.jpg\"\n    },\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdBy\": {\n      \"id\": \"user-admin\",\n      \"name\": \"Admin User\"\n    },\n    \"createdAt\": \"2026-04-10T04:10:00.000Z\",\n    \"updatedAt\": \"2026-04-10T04:10:00.000Z\"\n  },\n  \"message\": \"Package fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-10T04:20:00.000Z\",\n  \"path\": \"/api/v1/packages/package-couple-premium\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Package Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "packages",
+                    "{{PACKAGE_ID}}"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Package with id \\\"package-missing\\\" was not found\",\n  \"error\": \"PACKAGE_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-10T04:20:00.000Z\",\n  \"path\": \"/api/v1/packages/package-missing\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Package",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "packages",
+                "{{PACKAGE_ID}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": {\n    \"en\": \"Couple Premium Plus\",\n    \"vi\": \"Goi cao cap cap doi plus\",\n    \"cn\": \"情侣高级套餐升级版\"\n  },\n  \"bestFor\": {\n    \"en\": \"Couples wanting a longer Hanoi session\",\n    \"vi\": \"Cap doi muon co buoi chup Hanoi dai hon\",\n    \"cn\": \"适合想要更长河内拍摄时长的情侣\"\n  },\n  \"duration\": 7200,\n  \"photoCount\": 80,\n  \"pricing\": {\n    \"amount\": 4200000,\n    \"currency\": \"VND\"\n  },\n  \"coverImageUploadToken\": \"package-cover-upload-token-new\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Admin-only. Update package fields selectively. duration remains raw seconds; cover image still uses upload-token flow."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "packages",
+                    "{{PACKAGE_ID}}"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": {\n    \"en\": \"Couple Premium Plus\",\n    \"vi\": \"Goi cao cap cap doi plus\",\n    \"cn\": \"情侣高级套餐升级版\"\n  },\n  \"bestFor\": {\n    \"en\": \"Couples wanting a longer Hanoi session\",\n    \"vi\": \"Cap doi muon co buoi chup Hanoi dai hon\",\n    \"cn\": \"适合想要更长河内拍摄时长的情侣\"\n  },\n  \"duration\": 7200,\n  \"photoCount\": 80,\n  \"pricing\": {\n    \"amount\": 4200000,\n    \"currency\": \"VND\"\n  },\n  \"coverImageUploadToken\": \"package-cover-upload-token-new\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Admin-only. Update package fields selectively. duration remains raw seconds; cover image still uses upload-token flow."
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"package-couple-premium\",\n    \"name\": {\n      \"en\": \"Couple Premium Plus\",\n      \"vi\": \"Goi cao cap cap doi plus\",\n      \"cn\": \"情侣高级套餐升级版\"\n    },\n    \"bestFor\": {\n      \"en\": \"Couples wanting a longer Hanoi session\",\n      \"vi\": \"Cap doi muon co buoi chup Hanoi dai hon\",\n      \"cn\": \"适合想要更长河内拍摄时长的情侣\"\n    },\n    \"duration\": 7200,\n    \"photoCount\": 80,\n    \"pricing\": {\n      \"amount\": 4200000,\n      \"currency\": \"VND\"\n    },\n    \"coverImage\": {\n      \"id\": \"file-package-cover-2\",\n      \"url\": \"http://localhost:9000/koding88-bucket/assets/package-cover/2026/04/couple-premium-plus-cover.jpg\",\n      \"mimeType\": \"image/webp\",\n      \"size\": 5242880,\n      \"originalName\": \"couple-premium-plus-cover.webp\"\n    },\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdBy\": {\n      \"id\": \"user-admin\",\n      \"name\": \"Admin User\"\n    },\n    \"createdAt\": \"2026-04-10T04:10:00.000Z\",\n    \"updatedAt\": \"2026-04-10T04:25:00.000Z\"\n  },\n  \"message\": \"Package updated successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-10T04:25:00.000Z\",\n  \"path\": \"/api/v1/packages/package-couple-premium\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Package Not Found",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "packages",
+                    "{{PACKAGE_ID}}"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"duration\": 7200\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Admin-only. Update package fields selectively. duration remains raw seconds; cover image still uses upload-token flow."
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Package with id \\\"package-missing\\\" was not found\",\n  \"error\": \"PACKAGE_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-10T04:25:00.000Z\",\n  \"path\": \"/api/v1/packages/package-missing\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Pricing",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "packages",
+                    "{{PACKAGE_ID}}"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pricing\": {\n    \"amount\": 4200000,\n    \"currency\": \"dong\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Admin-only. Update package fields selectively. duration remains raw seconds; cover image still uses upload-token flow."
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Package pricing currency must be a 3-letter uppercase code\",\n  \"error\": \"INVALID_PACKAGE_PRICING\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-10T04:25:00.000Z\",\n  \"path\": \"/api/v1/packages/package-couple-premium\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Upload State",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "packages",
+                    "{{PACKAGE_ID}}"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"coverImageUploadToken\": \"package-cover-upload-token-new\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Admin-only. Update package fields selectively. duration remains raw seconds; cover image still uses upload-token flow."
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"The uploaded file is not ready to be consumed\",\n  \"error\": \"INVALID_FILE_UPLOAD_STATE\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-10T04:25:00.000Z\",\n  \"path\": \"/api/v1/packages/package-couple-premium\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Package",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "packages",
+                "{{PACKAGE_ID}}"
+              ]
+            },
+            "description": "Admin-only soft delete. The package becomes inactive and receives deletedAt."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "packages",
+                    "{{PACKAGE_ID}}"
+                  ]
+                },
+                "description": "Admin-only soft delete. The package becomes inactive and receives deletedAt."
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"message\": \"Package deleted successfully\"\n  },\n  \"message\": \"Package deleted successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-10T04:30:00.000Z\",\n  \"path\": \"/api/v1/packages/package-couple-premium\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Already Deleted",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "packages",
+                    "{{PACKAGE_ID}}"
+                  ]
+                },
+                "description": "Admin-only soft delete. The package becomes inactive and receives deletedAt."
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Package is already deleted\",\n  \"error\": \"PACKAGE_ALREADY_DELETED\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-10T04:30:00.000Z\",\n  \"path\": \"/api/v1/packages/package-couple-premium\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Package Not Found",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "packages",
+                    "{{PACKAGE_ID}}"
+                  ]
+                },
+                "description": "Admin-only soft delete. The package becomes inactive and receives deletedAt."
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Package with id \\\"package-missing\\\" was not found\",\n  \"error\": \"PACKAGE_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-10T04:30:00.000Z\",\n  \"path\": \"/api/v1/packages/package-missing\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Restore Package",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}/restore",
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "packages",
+                "{{PACKAGE_ID}}",
+                "restore"
+              ]
+            },
+            "description": "Admin-only restore for a soft-deleted package."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}/restore",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "packages",
+                    "{{PACKAGE_ID}}",
+                    "restore"
+                  ]
+                },
+                "description": "Admin-only restore for a soft-deleted package."
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"package-couple-premium\",\n    \"name\": {\n      \"en\": \"Couple Premium Plus\",\n      \"vi\": \"Goi cao cap cap doi plus\",\n      \"cn\": \"情侣高级套餐升级版\"\n    },\n    \"bestFor\": {\n      \"en\": \"Couples wanting a longer Hanoi session\",\n      \"vi\": \"Cap doi muon co buoi chup Hanoi dai hon\",\n      \"cn\": \"适合想要更长河内拍摄时长的情侣\"\n    },\n    \"duration\": 7200,\n    \"photoCount\": 80,\n    \"pricing\": {\n      \"amount\": 4200000,\n      \"currency\": \"VND\"\n    },\n    \"coverImage\": {\n      \"id\": \"file-package-cover-2\",\n      \"url\": \"http://localhost:9000/koding88-bucket/assets/package-cover/2026/04/couple-premium-plus-cover.jpg\",\n      \"mimeType\": \"image/webp\",\n      \"size\": 5242880,\n      \"originalName\": \"couple-premium-plus-cover.webp\"\n    },\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdBy\": {\n      \"id\": \"user-admin\",\n      \"name\": \"Admin User\"\n    },\n    \"createdAt\": \"2026-04-10T04:10:00.000Z\",\n    \"updatedAt\": \"2026-04-10T04:35:00.000Z\"\n  },\n  \"message\": \"Package restored successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-10T04:35:00.000Z\",\n  \"path\": \"/api/v1/packages/package-couple-premium/restore\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Not Deleted",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}/restore",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "packages",
+                    "{{PACKAGE_ID}}",
+                    "restore"
+                  ]
+                },
+                "description": "Admin-only restore for a soft-deleted package."
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Package is not deleted\",\n  \"error\": \"PACKAGE_NOT_DELETED\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-10T04:35:00.000Z\",\n  \"path\": \"/api/v1/packages/package-couple-premium/restore\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Chinese Name Already Exists",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}/restore",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "packages",
+                    "{{PACKAGE_ID}}",
+                    "restore"
+                  ]
+                },
+                "description": "Admin-only restore for a soft-deleted package."
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Package name.cn \\\"情侣高级套餐升级版\\\" already exists\",\n  \"error\": \"PACKAGE_NAME_CN_ALREADY_EXISTS\",\n  \"statusCode\": 409,\n  \"timestamp\": \"2026-04-10T04:35:00.000Z\",\n  \"path\": \"/api/v1/packages/package-couple-premium/restore\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Public - List Packages",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept-Language",
+                "value": "vi"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/packages/public?page=1&limit=10",
+              "host": [
+                "{{LOCAL_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "packages",
+                "public"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Public endpoint. Uses Accept-Language to localize name and bestFor. Returns active + non-deleted packages only. duration remains raw seconds and runtime currently sorts by createdAt desc."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept-Language",
+                    "value": "vi"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/packages/public?page=1&limit=10",
+                  "host": [
+                    "{{LOCAL_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "packages",
+                    "public"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                },
+                "description": "Public endpoint. Uses Accept-Language to localize name and bestFor. Returns active + non-deleted packages only. duration remains raw seconds and runtime currently sorts by createdAt desc."
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"package-couple-premium\",\n        \"name\": \"Goi cao cap cap doi\",\n        \"bestFor\": \"Cap doi muon co bo anh Hanoi theo phong cach dien anh\",\n        \"duration\": 5400,\n        \"photoCount\": 60,\n        \"pricing\": {\n          \"amount\": 3500000,\n          \"currency\": \"VND\"\n        },\n        \"coverImage\": {\n          \"id\": \"file-package-cover-1\",\n          \"url\": \"http://localhost:9000/koding88-bucket/assets/package-cover/2026/04/couple-premium-cover.jpg\",\n          \"mimeType\": \"image/jpeg\",\n          \"size\": 4194304,\n          \"originalName\": \"couple-premium-cover.jpg\"\n        },\n        \"createdAt\": \"2026-04-10T04:10:00.000Z\",\n        \"updatedAt\": \"2026-04-10T04:10:00.000Z\"\n      }\n    ],\n    \"meta\": {\n      \"page\": 1,\n      \"limit\": 10,\n      \"total\": 1,\n      \"totalPages\": 1\n    }\n  },\n  \"message\": \"Packages fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-10T04:40:00.000Z\",\n  \"path\": \"/api/v1/packages/public?page=1&limit=10\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Health",
       "item": [
         {
@@ -6935,6 +7991,10 @@
     },
     {
       "key": "BLOG_ID",
+      "value": ""
+    },
+    {
+      "key": "PACKAGE_ID",
       "value": ""
     },
     {
