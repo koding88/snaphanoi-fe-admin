@@ -70,7 +70,7 @@ export function LoginForm() {
 
     try {
       const payload = await login({ email, password });
-      persistClientSession(payload.accessToken);
+      persistClientSession(payload);
       setAuthenticated(payload);
 
       const nextPath = searchParams.get("next");

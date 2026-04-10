@@ -19,8 +19,7 @@ function clearLocalAuthState() {
 async function requestRefresh() {
   const payload = await apiRequestEnvelope<AuthSuccessPayload>(API_ENDPOINTS.auth.refresh, {
     method: "POST",
-    credentials: "include",
-    cache: "no-store",
+    enableAuthRefresh: false,
   });
 
   return payload.data;
@@ -34,7 +33,7 @@ export async function refreshAuthSession() {
   if (!refreshPromise) {
     refreshPromise = requestRefresh()
       .then((payload) => {
-        persistClientSession(payload.accessToken);
+        persistClientSession(payload);
         useAuthStore.getState().setAuthenticated(payload);
         return payload;
       })

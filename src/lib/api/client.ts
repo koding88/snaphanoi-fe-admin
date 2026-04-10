@@ -1,10 +1,8 @@
 import { apiRequest, apiRequestEnvelope } from "@/lib/api/request";
+import type { ApiRequestInit } from "@/lib/api/request";
 import type { ApiSuccessEnvelope } from "@/types/api-response";
 
-type ApiClientRequestInit = RequestInit & {
-  accessToken?: string | null;
-  enableAuthRefresh?: boolean;
-};
+type ApiClientRequestInit = ApiRequestInit;
 
 export const apiClient = {
   getEnvelope: <T>(path: string, init?: ApiClientRequestInit): Promise<ApiSuccessEnvelope<T>> =>
