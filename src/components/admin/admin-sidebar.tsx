@@ -43,7 +43,7 @@ export function AdminSidebar({ mobile = false, onNavigate, collapsed = false, on
         "sticky top-4 max-h-[calc(100vh-2rem)]",
         // Smoother transition: 500ms with ease-out for natural feel
         "transition-[width,padding] duration-500 ease-out",
-        collapsed ? "w-[88px] p-3" : "w-[280px] p-4",
+        collapsed ? "w-[88px] p-3" : "w-[220px] p-4 xl:w-[280px]",
       )}
     >
       {/* Header Section */}

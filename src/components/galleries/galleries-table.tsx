@@ -10,7 +10,7 @@ import { GalleryStatusBadge } from "@/components/galleries/gallery-status-badge"
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { Button, buttonVariants } from "@/components/ui/button";
 import type { GalleryRecord } from "@/features/galleries/types/galleries.types";
-import { formatDateTime } from "@/features/users/utils/users-format";
+import { formatDateOnly } from "@/features/users/utils/users-format";
 import { ROUTES } from "@/lib/constants/routes";
 import { faRotateLeft, faTrashCan, faUserPen } from "@/lib/icons/fa";
 import { cn } from "@/lib/utils";
@@ -69,15 +69,14 @@ export function GalleriesTable({ galleries, isBusy = false, onDelete, onRestore 
           </p>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-[860px] w-full text-left">
+          <table className="min-w-[860px] w-full table-fixed text-left">
             <thead className="border-b border-border/80 bg-white/55">
               <tr className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
-                <th className="w-[24%] px-5 py-4">Gallery</th>
-                <th className="w-[22%] px-5 py-4">Localized names</th>
-                <th className="w-[16%] px-5 py-4">Created by</th>
-                <th className="w-[16%] px-5 py-4">Updated</th>
-                <th className="w-[10%] px-5 py-4">Status</th>
-                <th className="w-[12%] px-5 py-4 text-right">Actions</th>
+                <th className="w-[42%] px-5 py-4">Gallery</th>
+                <th className="w-[18%] px-5 py-4">Created by</th>
+                <th className="w-[14%] px-5 py-4">Updated</th>
+                <th className="w-[12%] px-5 py-4">Status</th>
+                <th className="w-[14%] px-5 py-4 text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -97,13 +96,13 @@ export function GalleriesTable({ galleries, isBusy = false, onDelete, onRestore 
                 >
                   <td className="align-middle px-5 py-5">
                     <p className="font-medium text-foreground">{gallery.name.en}</p>
-                  </td>
-                  <td className="align-middle px-5 py-5 text-sm text-muted-foreground">
-                    <p>vi: {gallery.name.vi}</p>
-                    <p>cn: {gallery.name.cn}</p>
+                    <div className="space-y-0.5 text-xs text-muted-foreground">
+                      <p className="truncate">VI: {gallery.name.vi}</p>
+                      <p className="truncate">CN: {gallery.name.cn}</p>
+                    </div>
                   </td>
                   <td className="align-middle px-5 py-5 text-sm text-muted-foreground">{gallery.createdBy.name}</td>
-                  <td className="align-middle px-5 py-5 text-sm text-muted-foreground">{formatDateTime(gallery.updatedAt)}</td>
+                  <td className="align-middle px-5 py-5 text-sm text-muted-foreground">{formatDateOnly(gallery.updatedAt)}</td>
                   <td className="align-middle px-5 py-5">
                     <GalleryStatusBadge isActive={gallery.isActive} deletedAt={gallery.deletedAt} />
                   </td>

@@ -14,6 +14,7 @@ import {
   formatPackagePrice,
   getPackageBestForSummary,
 } from "@/features/packages/utils/package-format";
+import { formatDateOnly } from "@/features/users/utils/users-format";
 import { ROUTES } from "@/lib/constants/routes";
 import { faRotateLeft, faTrashCan, faUserPen } from "@/lib/icons/fa";
 import { cn } from "@/lib/utils";
@@ -33,31 +34,12 @@ export function PackagesTable({
 }: PackagesTableProps) {
   const router = useRouter();
   const columnLayout =
-    "grid-cols-[minmax(210px,1.2fr)_92px_minmax(165px,1fr)_minmax(170px,0.9fr)_114px_116px_116px]";
+    "grid-cols-[minmax(190px,1.15fr)_108px_minmax(160px,0.95fr)_150px_104px_112px_112px]";
   const [pendingAction, setPendingAction] = useState<{
     type: "delete" | "restore";
     pkg: PackageRecord;
   } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const formatUpdatedAt = (value: string) => {
-    const date = new Date(value);
-
-    if (Number.isNaN(date.getTime())) {
-      return "N/A";
-    }
-
-    const now = new Date();
-    const isSameYear = now.getFullYear() === date.getFullYear();
-
-    return new Intl.DateTimeFormat("en-US", {
-      month: "short",
-      day: "numeric",
-      ...(isSameYear ? {} : { year: "numeric" }),
-      hour: "2-digit",
-      minute: "2-digit",
-    }).format(date);
-  };
 
   function navigateToPackage(packageId: string) {
     router.push(ROUTES.admin.packages.detail(packageId));
@@ -103,17 +85,17 @@ export function PackagesTable({
         <div className="overflow-x-auto border-t border-border/10">
           <div
             className={cn(
-              "grid min-w-[1030px] items-center gap-x-3 border-b border-border/80 bg-white/55 px-5 py-4 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
+              "grid min-w-[940px] items-center gap-x-2.5 border-b border-border/80 bg-white/55 px-5 py-4 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
               columnLayout,
             )}
           >
             <div>Package</div>
             <div className="text-center">Cover</div>
-            <div>Best for</div>
+            <div className="pl-4">Best for</div>
             <div>Offer</div>
             <div className="text-center">Status</div>
             <div className="text-center">Updated</div>
-            <div className="sticky right-0 z-20 -mr-5 bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.7)_40%,rgba(255,255,255,0.9)_100%)] py-4 pr-5 text-center">
+            <div className="sticky right-0 z-20 bg-inherit py-4 text-center">
               Actions
             </div>
           </div>
@@ -131,7 +113,7 @@ export function PackagesTable({
                   }
                 }}
                 className={cn(
-                  "grid min-w-[1030px] cursor-pointer items-center gap-x-3 border-b border-border/60 px-5 py-4.5 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0",
+                  "group grid min-w-[940px] cursor-pointer items-center gap-x-2.5 border-b border-border/60 px-5 py-4.5 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0",
                   columnLayout,
                 )}
               >
@@ -155,7 +137,7 @@ export function PackagesTable({
                     />
                   </div>
                 </div>
-                <div className="min-w-0 text-sm text-muted-foreground">
+                <div className="min-w-0 pl-4 text-sm text-muted-foreground">
                   <p className="truncate" title={getPackageBestForSummary(pkg.bestFor)}>
                     {getPackageBestForSummary(pkg.bestFor)}
                   </p>
@@ -175,9 +157,9 @@ export function PackagesTable({
                   />
                 </div>
                 <div className="text-center text-[13px] text-muted-foreground">
-                  <p className="leading-relaxed">{formatUpdatedAt(pkg.updatedAt)}</p>
+                  <p className="leading-relaxed">{formatDateOnly(pkg.updatedAt)}</p>
                 </div>
-                <div className="sticky right-0 z-10 -mr-5 self-stretch bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.7)_40%,rgba(255,255,255,0.9)_100%)] py-2 pr-5 text-center">
+                <div className="sticky right-0 z-10 self-stretch bg-inherit py-2 text-center">
                   <div
                     className="grid h-full content-center justify-items-center gap-1.5"
                     onClick={stopRowAction}
@@ -187,7 +169,7 @@ export function PackagesTable({
                       href={ROUTES.admin.packages.edit(pkg.id)}
                       className={cn(
                         buttonVariants({ variant: "outline", size: "sm" }),
-                        "h-8 px-2.5 text-xs",
+                        "h-8 w-[100px] px-2.5 text-xs",
                       )}
                       onClick={stopRowAction}
                     >
@@ -199,7 +181,7 @@ export function PackagesTable({
                         type="button"
                         variant="outline"
                         size="sm"
-                        className="h-8 px-2.5 text-xs"
+                        className="h-8 w-[100px] px-2.5 text-xs"
                         disabled={isBusy}
                         onClick={(event) => {
                           stopRowAction(event);
@@ -214,7 +196,7 @@ export function PackagesTable({
                         type="button"
                         variant="destructive"
                         size="sm"
-                        className="h-8 px-2.5 text-xs"
+                        className="h-8 w-[100px] px-2.5 text-xs"
                         disabled={isBusy}
                         onClick={(event) => {
                           stopRowAction(event);

@@ -37,7 +37,7 @@ export function AdminShell({ children }: AdminShellProps) {
           <AdminSidebar mobile onNavigate={closeMobileSidebar} />
         </div>
       </div>
-      <div className={`mx-auto grid min-h-screen max-w-[1600px] grid-cols-1 lg:gap-5 lg:px-5 lg:py-4 xl:gap-6 xl:px-6 transition-[grid-template-columns] duration-500 ease-out ${isSidebarCollapsed ? "lg:grid-cols-[88px_minmax(0,1fr)]" : "lg:grid-cols-[280px_minmax(0,1fr)]"}`}>
+      <div className={`mx-auto grid min-h-screen max-w-[1600px] grid-cols-1 lg:gap-5 lg:px-5 lg:py-4 xl:gap-6 xl:px-6 transition-[grid-template-columns] duration-500 ease-out ${isSidebarCollapsed ? "lg:grid-cols-[88px_minmax(0,1fr)]" : "lg:grid-cols-[220px_minmax(0,1fr)] xl:grid-cols-[280px_minmax(0,1fr)]"}`}>
         <div className="hidden lg:block">
           <AdminSidebar collapsed={isSidebarCollapsed} onToggle={toggleSidebar} />
         </div>

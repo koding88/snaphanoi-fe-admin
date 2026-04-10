@@ -60,13 +60,13 @@ export function RolesTable({ roles, onDelete, isBusy = false }: RolesTableProps)
           </p>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-[720px] w-full text-left">
+          <table className="min-w-[720px] w-full table-fixed text-left">
             <thead className="border-b border-border/80 bg-white/55">
               <tr className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
-                <th className="w-[32%] px-5 py-4">Role</th>
+                <th className="w-[40%] px-5 py-4">Role</th>
                 <th className="w-[16%] px-5 py-4">Type</th>
-                <th className="w-[30%] px-5 py-4">Users</th>
-                <th className="w-[22%] px-5 py-4 text-right">Actions</th>
+                <th className="w-[27%] px-5 py-4">Users</th>
+                <th className="w-[17%] px-5 py-4 text-right">Actions</th>
               </tr>
             </thead>
             <tbody>

@@ -71,14 +71,14 @@ export function UsersTable({ users, isBusy = false, onDelete, onRestore }: Users
           </p>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-[760px] w-full text-left">
+          <table className="min-w-[760px] w-full table-fixed text-left">
             <thead className="border-b border-border/80 bg-white/55">
               <tr className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
-                <th className="w-[34%] px-5 py-4">User</th>
+                <th className="w-[38%] px-5 py-4">User</th>
                 <th className="w-[18%] px-5 py-4">Role</th>
                 <th className="w-[16%] px-5 py-4">Country</th>
-                <th className="w-[14%] px-5 py-4">Status</th>
-                <th className="w-[18%] px-5 py-4 text-right">Actions</th>
+                <th className="w-[12%] px-5 py-4">Status</th>
+                <th className="w-[16%] px-5 py-4 text-right">Actions</th>
               </tr>
             </thead>
             <tbody>

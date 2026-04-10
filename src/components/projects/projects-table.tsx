@@ -10,7 +10,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { ProjectPublishBadge } from "@/components/projects/project-publish-badge";
 import { ProjectStatusBadge } from "@/components/projects/project-status-badge";
 import type { ProjectRecord } from "@/features/projects/types/projects.types";
-import { formatDateTime } from "@/features/users/utils/users-format";
+import { formatDateOnly } from "@/features/users/utils/users-format";
 import { ROUTES } from "@/lib/constants/routes";
 import { faRotateLeft, faTrashCan, faUserPen } from "@/lib/icons/fa";
 import { cn } from "@/lib/utils";
@@ -25,7 +25,7 @@ type ProjectsTableProps = {
 export function ProjectsTable({ projects, isBusy = false, onDelete, onRestore }: ProjectsTableProps) {
   const router = useRouter();
   const columnLayout =
-    "grid-cols-[minmax(0,1.65fr)_minmax(0,0.9fr)_minmax(0,1.55fr)_minmax(0,0.85fr)_minmax(0,0.9fr)_minmax(0,0.88fr)_minmax(0,0.95fr)_minmax(0,0.9fr)]";
+    "grid-cols-[minmax(230px,1.25fr)_112px_minmax(170px,1fr)_104px_104px_112px_112px]";
   const [pendingAction, setPendingAction] = useState<{
     type: "delete" | "restore";
     project: ProjectRecord;
@@ -75,13 +75,12 @@ export function ProjectsTable({ projects, isBusy = false, onDelete, onRestore }:
         <div className="border-t border-border/10">
           <div
             className={cn(
-              "grid items-center gap-x-6 border-b border-border/80 bg-white/55 px-5 py-4 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
+              "grid min-w-[1040px] items-center gap-x-3 border-b border-border/80 bg-white/55 px-5 py-4 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
               columnLayout,
             )}
           >
             <div>Project</div>
             <div className="text-center">Cover</div>
-            <div className="text-center">Localized names</div>
             <div className="text-center">Gallery</div>
             <div className="text-center">Publish</div>
             <div className="text-center">Status</div>
@@ -102,12 +101,16 @@ export function ProjectsTable({ projects, isBusy = false, onDelete, onRestore }:
                   }
                 }}
                 className={cn(
-                  "grid cursor-pointer items-center gap-x-6 border-b border-border/60 px-5 py-5 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0",
+                  "grid min-w-[1040px] cursor-pointer items-center gap-x-3 border-b border-border/60 px-5 py-5 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0",
                   columnLayout,
                 )}
               >
                 <div>
                   <p className="truncate font-medium text-foreground">{project.name.en}</p>
+                  <div className="mt-1 space-y-0.5 text-xs text-muted-foreground">
+                    <p className="truncate">VI: {project.name.vi}</p>
+                    <p className="truncate">CN: {project.name.cn}</p>
+                  </div>
                 </div>
                 <div className="flex justify-center">
                   <div className="overflow-hidden rounded-2xl border border-border/80 bg-muted/40 shadow-[0_12px_30px_-24px_rgba(32,24,18,0.45)]">
@@ -120,12 +123,6 @@ export function ProjectsTable({ projects, isBusy = false, onDelete, onRestore }:
                     />
                   </div>
                 </div>
-                <div className="text-sm text-muted-foreground">
-                  <div className="mx-auto w-fit max-w-full text-left">
-                    <p className="truncate">vi: {project.name.vi}</p>
-                    <p className="truncate">cn: {project.name.cn}</p>
-                  </div>
-                </div>
                 <div className="text-center text-sm text-muted-foreground">
                   <p className="truncate">{project.gallery.name}</p>
                 </div>
@@ -136,7 +133,7 @@ export function ProjectsTable({ projects, isBusy = false, onDelete, onRestore }:
                   <ProjectStatusBadge isActive={project.isActive} deletedAt={project.deletedAt} />
                 </div>
                 <div className="text-center text-sm text-muted-foreground">
-                  <p className="leading-relaxed">{formatDateTime(project.updatedAt)}</p>
+                  <p className="leading-relaxed">{formatDateOnly(project.updatedAt)}</p>
                 </div>
                 <div className="text-center">
                   <div
@@ -146,7 +143,10 @@ export function ProjectsTable({ projects, isBusy = false, onDelete, onRestore }:
                   >
                     <Link
                       href={ROUTES.admin.projects.edit(project.id)}
-                      className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
+                      className={cn(
+                        buttonVariants({ variant: "outline", size: "sm" }),
+                        "h-8 w-[100px] px-2.5 text-xs",
+                      )}
                       onClick={handleRowActionClick}
                     >
                       <FontAwesomeIcon icon={faUserPen} />
@@ -157,6 +157,7 @@ export function ProjectsTable({ projects, isBusy = false, onDelete, onRestore }:
                         type="button"
                         variant="outline"
                         size="sm"
+                        className="h-8 w-[100px] px-2.5 text-xs"
                         disabled={isBusy}
                         onClick={(event) => {
                           handleRowActionClick(event);
@@ -171,6 +172,7 @@ export function ProjectsTable({ projects, isBusy = false, onDelete, onRestore }:
                         type="button"
                         variant="destructive"
                         size="sm"
+                        className="h-8 w-[100px] px-2.5 text-xs"
                         disabled={isBusy}
                         onClick={(event) => {
                           handleRowActionClick(event);

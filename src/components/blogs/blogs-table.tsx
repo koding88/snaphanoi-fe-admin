@@ -11,7 +11,7 @@ import { BlogStatusBadge } from "@/components/blogs/blog-status-badge";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { Button, buttonVariants } from "@/components/ui/button";
 import type { BlogRecord } from "@/features/blogs/types/blogs.types";
-import { formatDateTime } from "@/features/users/utils/users-format";
+import { formatDateOnly } from "@/features/users/utils/users-format";
 import { ROUTES } from "@/lib/constants/routes";
 import { faRotateLeft, faTrashCan, faUserPen } from "@/lib/icons/fa";
 import { cn } from "@/lib/utils";
@@ -26,7 +26,7 @@ type BlogsTableProps = {
 export function BlogsTable({ blogs, isBusy = false, onDelete, onRestore }: BlogsTableProps) {
   const router = useRouter();
   const columnLayout =
-    "grid-cols-[minmax(0,1.65fr)_minmax(0,0.9fr)_minmax(0,0.88fr)_minmax(0,0.9fr)_minmax(0,0.82fr)_minmax(0,0.95fr)_minmax(0,0.95fr)]";
+    "grid-cols-[minmax(220px,1.2fr)_112px_96px_104px_104px_112px_112px]";
   const [pendingAction, setPendingAction] = useState<{
     type: "delete" | "restore";
     blog: BlogRecord;
@@ -77,7 +77,7 @@ export function BlogsTable({ blogs, isBusy = false, onDelete, onRestore }: Blogs
         <div className="border-t border-border/10">
           <div
             className={cn(
-              "grid items-center gap-x-6 border-b border-border/80 bg-white/55 px-5 py-4 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
+              "grid min-w-[980px] items-center gap-x-3 border-b border-border/80 bg-white/55 px-5 py-4 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
               columnLayout,
             )}
           >
@@ -103,7 +103,7 @@ export function BlogsTable({ blogs, isBusy = false, onDelete, onRestore }: Blogs
                   }
                 }}
                 className={cn(
-                  "grid cursor-pointer items-center gap-x-6 border-b border-border/60 px-5 py-5 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0",
+                  "grid min-w-[980px] cursor-pointer items-center gap-x-3 border-b border-border/60 px-5 py-5 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0",
                   columnLayout,
                 )}
               >
@@ -128,13 +128,16 @@ export function BlogsTable({ blogs, isBusy = false, onDelete, onRestore }: Blogs
                   <BlogStatusBadge isActive={blog.isActive} deletedAt={blog.deletedAt} />
                 </div>
                 <div className="text-center text-sm text-muted-foreground">
-                  <p className="leading-relaxed">{formatDateTime(blog.updatedAt)}</p>
+                  <p className="leading-relaxed">{formatDateOnly(blog.updatedAt)}</p>
                 </div>
                 <div className="text-center">
                   <div className="grid justify-items-center gap-2" onClick={handleRowActionClick} onKeyDown={handleRowActionClick}>
                     <Link
                       href={ROUTES.admin.blogs.edit(blog.id)}
-                      className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
+                      className={cn(
+                        buttonVariants({ variant: "outline", size: "sm" }),
+                        "h-8 w-[100px] px-2.5 text-xs",
+                      )}
                       onClick={handleRowActionClick}
                     >
                       <FontAwesomeIcon icon={faUserPen} />
@@ -145,6 +148,7 @@ export function BlogsTable({ blogs, isBusy = false, onDelete, onRestore }: Blogs
                         type="button"
                         variant="outline"
                         size="sm"
+                        className="h-8 w-[100px] px-2.5 text-xs"
                         disabled={isBusy}
                         onClick={(event) => {
                           handleRowActionClick(event);
@@ -159,6 +163,7 @@ export function BlogsTable({ blogs, isBusy = false, onDelete, onRestore }: Blogs
                         type="button"
                         variant="destructive"
                         size="sm"
+                        className="h-8 w-[100px] px-2.5 text-xs"
                         disabled={isBusy}
                         onClick={(event) => {
                           handleRowActionClick(event);
