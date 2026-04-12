@@ -110,7 +110,7 @@ export function OrderUpdatePanel({ order, onUpdated }: OrderUpdatePanelProps) {
           Update lifecycle
         </p>
         <p className="text-sm text-muted-foreground">
-          Options are restricted to forward transitions based on current backend runtime rules.
+          Current state: {formatOrderStatus(order.status)} · {formatOrderPaymentStatus(order.paymentStatus)}. Choose the next valid step below.
         </p>
       </div>
       <form className="mt-4 grid gap-4 md:grid-cols-2" onSubmit={handleSubmit}>

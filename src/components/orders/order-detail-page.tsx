@@ -51,8 +51,12 @@ export function OrderDetailPage({ id }: { id: string }) {
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
         eyebrow="Order detail"
-        title="Review this order request."
-        description="See customer context, item snapshot, and update status or payment progression in one place."
+        title={order ? order.orderNumber : "Review this order request."}
+        description={
+          order
+            ? `Customer: ${order.customerInfo.name} · Keep lifecycle and payment progression aligned.`
+            : "See customer context, item snapshot, and update status or payment progression in one place."
+        }
         meta={<BackButton href={ROUTES.admin.orders.root} />}
         actions={
           order ? (
