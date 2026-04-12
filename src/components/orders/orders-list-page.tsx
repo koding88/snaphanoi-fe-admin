@@ -50,26 +50,34 @@ const PAYMENT_STATUS_OPTIONS: Array<{
   value: OrderPaymentStatus | "";
   label: string;
 }> = [
-  { value: "", label: "All payment states" },
+  { value: "", label: "All payment statuses" },
   { value: "unpaid", label: "Unpaid" },
   { value: "partiallyPaid", label: "Partially paid" },
   { value: "paid", label: "Paid" },
   { value: "refunded", label: "Refunded" },
 ];
 
+const DISCOVERY_SOURCE_OPTIONS: Array<{ value: string; label: string }> = [
+  { value: "", label: "All discovery sources" },
+  { value: "instagram", label: "Instagram" },
+  { value: "facebook", label: "Facebook" },
+  { value: "tiktok", label: "TikTok" },
+  { value: "google", label: "Google" },
+  { value: "friend", label: "Friend" },
+  { value: "other", label: "Other" },
+];
+
+const ALL_SELECT_VALUE = "__all__";
+
 export function OrdersListPage() {
   const [query, setQuery] = useState<OrderListQuery>(INITIAL_QUERY);
   const [keywordInput, setKeywordInput] = useState(INITIAL_QUERY.keyword);
-  const [discoveryInput, setDiscoveryInput] = useState(
-    INITIAL_QUERY.discoverySource,
-  );
   const [result, setResult] = useState<OrdersListResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const hasLoadedOnceRef = useRef(false);
   const debouncedKeyword = useDebouncedValue(keywordInput, 300);
-  const debouncedDiscovery = useDebouncedValue(discoveryInput, 300);
 
   const loadData = useCallback(async (nextQuery: OrderListQuery) => {
     const isInitialLoad = !hasLoadedOnceRef.current;
@@ -118,20 +126,6 @@ export function OrdersListPage() {
     });
   }, [debouncedKeyword]);
 
-  useEffect(() => {
-    setQuery((current) => {
-      if (current.discoverySource === debouncedDiscovery) {
-        return current;
-      }
-
-      return {
-        ...current,
-        page: 1,
-        discoverySource: debouncedDiscovery,
-      };
-    });
-  }, [debouncedDiscovery]);
-
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
@@ -171,15 +165,19 @@ export function OrdersListPage() {
           <label className="space-y-2">
             <span className="text-sm font-medium text-foreground">Status</span>
             <AppSelect
-              value={query.status}
+              value={query.status || ALL_SELECT_VALUE}
               onChange={(value) =>
                 setQuery((current) => ({
                   ...current,
                   page: 1,
-                  status: value as OrderStatus | "",
+                  status:
+                    value === ALL_SELECT_VALUE ? "" : (value as OrderStatus),
                 }))
               }
-              options={STATUS_OPTIONS}
+              options={STATUS_OPTIONS.map((option) => ({
+                value: option.value || ALL_SELECT_VALUE,
+                label: option.label,
+              }))}
             />
           </label>
           <label className="space-y-2">
@@ -187,25 +185,40 @@ export function OrdersListPage() {
               Payment status
             </span>
             <AppSelect
-              value={query.paymentStatus}
+              value={query.paymentStatus || ALL_SELECT_VALUE}
               onChange={(value) =>
                 setQuery((current) => ({
                   ...current,
                   page: 1,
-                  paymentStatus: value as OrderPaymentStatus | "",
+                  paymentStatus:
+                    value === ALL_SELECT_VALUE
+                      ? ""
+                      : (value as OrderPaymentStatus),
                 }))
               }
-              options={PAYMENT_STATUS_OPTIONS}
+              options={PAYMENT_STATUS_OPTIONS.map((option) => ({
+                value: option.value || ALL_SELECT_VALUE,
+                label: option.label,
+              }))}
             />
           </label>
           <label className="space-y-2">
             <span className="text-sm font-medium text-foreground">
               Discovery source
             </span>
-            <Input
-              value={discoveryInput}
-              onChange={(event) => setDiscoveryInput(event.target.value)}
-              placeholder="facebook, instagram..."
+            <AppSelect
+              value={query.discoverySource || ALL_SELECT_VALUE}
+              onChange={(value) =>
+                setQuery((current) => ({
+                  ...current,
+                  page: 1,
+                  discoverySource: value === ALL_SELECT_VALUE ? "" : value,
+                }))
+              }
+              options={DISCOVERY_SOURCE_OPTIONS.map((option) => ({
+                value: option.value || ALL_SELECT_VALUE,
+                label: option.label,
+              }))}
             />
           </label>
         </div>
@@ -310,7 +323,6 @@ export function OrdersListPage() {
               type="button"
               onClick={() => {
                 setKeywordInput("");
-                setDiscoveryInput("");
                 setQuery(INITIAL_QUERY);
               }}
               className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-5")}

@@ -26,7 +26,14 @@ export function getFriendlyOrdersError(error: unknown) {
     return "Something went wrong. Please try again.";
   }
 
+  const isDiscoverySourceValidationError =
+    error.code === "INVALID_ORDER_DISCOVERY_SOURCE" ||
+    (error.code === "Bad Request Exception" &&
+      /discovery\s*source/i.test(error.message));
+
   const baseMessage =
+    (isDiscoverySourceValidationError &&
+      "Please choose a valid discovery source.") ||
     (error.code && ORDER_ERROR_MESSAGES[error.code]) ||
     (error.statusCode === 403 &&
       "You do not have permission to perform this action.") ||
@@ -35,7 +42,11 @@ export function getFriendlyOrdersError(error: unknown) {
     error.message ||
     "Something went wrong. Please try again.";
 
-  const details = [
+  const shouldHideDetails = isDiscoverySourceValidationError;
+
+  const details = shouldHideDetails
+    ? ""
+    : [
     error.requestId ? `Request ID: ${error.requestId}` : null,
     error.path ? `Path: ${error.path}` : null,
   ]
