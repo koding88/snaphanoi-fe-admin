@@ -30,15 +30,8 @@
             "description": "Initiate registration. This does not create the account immediately; it sends a confirmation email with a registration token.",
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/auth/register",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "auth",
-                "register"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "auth", "register"]
             }
           },
           "response": [
@@ -64,15 +57,8 @@
                 "description": "Initiate registration. This does not create the account immediately; it sends a confirmation email with a registration token.",
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/register",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "auth",
-                    "register"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "register"]
                 }
               },
               "status": "Created",
@@ -108,15 +94,8 @@
                 "description": "Initiate registration. This does not create the account immediately; it sends a confirmation email with a registration token.",
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/register",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "auth",
-                    "register"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "register"]
                 }
               },
               "status": "Conflict",
@@ -152,15 +131,8 @@
                 "description": "Initiate registration. This does not create the account immediately; it sends a confirmation email with a registration token.",
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/register",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "auth",
-                    "register"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "register"]
                 }
               },
               "status": "Bad Request",
@@ -198,16 +170,8 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/auth/register/confirm",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "auth",
-                "register",
-                "confirm"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "auth", "register", "confirm"]
             }
           },
           "response": [
@@ -233,16 +197,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/register/confirm",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "auth",
-                    "register",
-                    "confirm"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "register", "confirm"]
                 }
               },
               "status": "Created",
@@ -278,16 +234,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/register/confirm",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "auth",
-                    "register",
-                    "confirm"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "register", "confirm"]
                 }
               },
               "status": "Unauthorized",
@@ -324,15 +272,8 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/auth/login",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "auth",
-                "login"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "auth", "login"]
             }
           },
           "event": [
@@ -372,15 +313,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/login",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "auth",
-                    "login"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "login"]
                 }
               },
               "status": "Created",
@@ -415,15 +349,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/login",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "auth",
-                    "login"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "login"]
                 }
               },
               "status": "Unauthorized",
@@ -458,15 +385,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/login",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "auth",
-                    "login"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "login"]
                 }
               },
               "status": "Bad Request",
@@ -504,15 +424,8 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/auth/forgot-password",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "auth",
-                "forgot-password"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "auth", "forgot-password"]
             }
           },
           "response": [
@@ -538,15 +451,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/forgot-password",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "auth",
-                    "forgot-password"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "forgot-password"]
                 }
               },
               "status": "Created",
@@ -582,15 +488,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/forgot-password",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "auth",
-                    "forgot-password"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "forgot-password"]
                 }
               },
               "status": "Bad Request",
@@ -628,15 +527,8 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/auth/reset-password",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "auth",
-                "reset-password"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "auth", "reset-password"]
             }
           },
           "response": [
@@ -662,15 +554,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/reset-password",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "auth",
-                    "reset-password"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "reset-password"]
                 }
               },
               "status": "Created",
@@ -706,15 +591,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/reset-password",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "auth",
-                    "reset-password"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "reset-password"]
                 }
               },
               "status": "Unauthorized",
@@ -750,15 +628,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/reset-password",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "auth",
-                    "reset-password"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "reset-password"]
                 }
               },
               "status": "Bad Request",
@@ -781,15 +652,8 @@
             "header": [],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/auth/refresh",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "auth",
-                "refresh"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "auth", "refresh"]
             }
           },
           "response": [
@@ -800,15 +664,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/refresh",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "auth",
-                    "refresh"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "refresh"]
                 }
               },
               "status": "Created",
@@ -829,15 +686,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/refresh",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "auth",
-                    "refresh"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "refresh"]
                 }
               },
               "status": "Unauthorized",
@@ -858,15 +708,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/refresh",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "auth",
-                    "refresh"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "refresh"]
                 }
               },
               "status": "Unauthorized",
@@ -889,15 +732,8 @@
             "header": [],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/auth/logout",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "auth",
-                "logout"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "auth", "logout"]
             }
           },
           "response": [
@@ -908,15 +744,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/logout",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "auth",
-                    "logout"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "logout"]
                 }
               },
               "status": "Created",
@@ -944,15 +773,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/auth/logout-all",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "auth",
-                "logout-all"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "auth", "logout-all"]
             }
           },
           "response": [
@@ -968,15 +790,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/logout-all",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "auth",
-                    "logout-all"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "logout-all"]
                 }
               },
               "status": "Created",
@@ -1002,15 +817,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/logout-all",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "auth",
-                    "logout-all"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "logout-all"]
                 }
               },
               "status": "Unauthorized",
@@ -1038,15 +846,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/auth/me",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "auth",
-                "me"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "auth", "me"]
             }
           },
           "response": [
@@ -1062,15 +863,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/me",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "auth",
-                    "me"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "me"]
                 }
               },
               "status": "OK",
@@ -1096,15 +890,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/auth/me",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "auth",
-                    "me"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "auth", "me"]
                 }
               },
               "status": "Unauthorized",
@@ -1137,14 +924,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/users?page=1&limit=10&keyword=&isActive=true&roleId=&includeDeleted=false",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users"
-              ],
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "users"],
               "query": [
                 {
                   "key": "page",
@@ -1186,14 +967,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users?page=1&limit=10&keyword=&isActive=true&roleId=&includeDeleted=false",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "users"
-                  ],
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users"],
                   "query": [
                     {
                       "key": "page",
@@ -1245,14 +1020,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users?page=1&limit=10&keyword=&isActive=true&roleId=&includeDeleted=false",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "users"
-                  ],
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users"],
                   "query": [
                     {
                       "key": "page",
@@ -1306,15 +1075,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users",
-                "{{USER_ID}}"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "users", "{{USER_ID}}"]
             }
           },
           "response": [
@@ -1330,15 +1092,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "users",
-                    "{{USER_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "{{USER_ID}}"]
                 }
               },
               "status": "OK",
@@ -1364,15 +1119,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "users",
-                    "{{USER_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "{{USER_ID}}"]
                 }
               },
               "status": "Not Found",
@@ -1398,15 +1146,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "users",
-                    "{{USER_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "{{USER_ID}}"]
                 }
               },
               "status": "Forbidden",
@@ -1447,14 +1188,8 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/users",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "users"]
             }
           },
           "response": [
@@ -1483,14 +1218,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "users"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users"]
                 }
               },
               "status": "Created",
@@ -1529,14 +1258,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "users"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users"]
                 }
               },
               "status": "Conflict",
@@ -1575,14 +1298,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "users"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users"]
                 }
               },
               "status": "Bad Request",
@@ -1623,15 +1340,8 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users",
-                "{{USER_ID}}"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "users", "{{USER_ID}}"]
             }
           },
           "response": [
@@ -1660,15 +1370,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "users",
-                    "{{USER_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "{{USER_ID}}"]
                 }
               },
               "status": "OK",
@@ -1707,15 +1410,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "users",
-                    "{{USER_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "{{USER_ID}}"]
                 }
               },
               "status": "Not Found",
@@ -1754,15 +1450,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "users",
-                    "{{USER_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "{{USER_ID}}"]
                 }
               },
               "status": "Bad Request",
@@ -1803,15 +1492,8 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/users/me",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users",
-                "me"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "users", "me"]
             }
           },
           "response": [
@@ -1840,15 +1522,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/me",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "users",
-                    "me"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me"]
                 }
               },
               "status": "OK",
@@ -1887,15 +1562,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/me",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "users",
-                    "me"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me"]
                 }
               },
               "status": "Conflict",
@@ -1934,15 +1602,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/me",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "users",
-                    "me"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me"]
                 }
               },
               "status": "Bad Request",
@@ -1970,15 +1631,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users",
-                "{{USER_ID}}"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "users", "{{USER_ID}}"]
             }
           },
           "response": [
@@ -1994,15 +1648,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "users",
-                    "{{USER_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "{{USER_ID}}"]
                 }
               },
               "status": "OK",
@@ -2028,15 +1675,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "users",
-                    "{{USER_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "{{USER_ID}}"]
                 }
               },
               "status": "Not Found",
@@ -2064,16 +1704,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}/restore",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users",
-                "{{USER_ID}}",
-                "restore"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "users", "{{USER_ID}}", "restore"]
             }
           },
           "response": [
@@ -2089,16 +1721,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}/restore",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "users",
-                    "{{USER_ID}}",
-                    "restore"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "{{USER_ID}}", "restore"]
                 }
               },
               "status": "OK",
@@ -2124,16 +1748,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}/restore",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "users",
-                    "{{USER_ID}}",
-                    "restore"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "{{USER_ID}}", "restore"]
                 }
               },
               "status": "Not Found",
@@ -2159,16 +1775,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/{{USER_ID}}/restore",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "users",
-                    "{{USER_ID}}",
-                    "restore"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "{{USER_ID}}", "restore"]
                 }
               },
               "status": "Bad Request",
@@ -2209,16 +1817,8 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/users/me/password",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users",
-                "me",
-                "password"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "users", "me", "password"]
             }
           },
           "response": [
@@ -2247,16 +1847,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/me/password",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "users",
-                    "me",
-                    "password"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me", "password"]
                 }
               },
               "status": "OK",
@@ -2295,16 +1887,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/me/password",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "users",
-                    "me",
-                    "password"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me", "password"]
                 }
               },
               "status": "Bad Request",
@@ -2343,16 +1927,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/users/me/password",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "users",
-                    "me",
-                    "password"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me", "password"]
                 }
               },
               "status": "Bad Request",
@@ -2385,14 +1961,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/roles?page=1&limit=10&keyword=&isSystem=false",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "roles"
-              ],
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "roles"],
               "query": [
                 {
                   "key": "page",
@@ -2426,14 +1996,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles?page=1&limit=10&keyword=&isSystem=false",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "roles"
-                  ],
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles"],
                   "query": [
                     {
                       "key": "page",
@@ -2477,14 +2041,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles?page=1&limit=10&keyword=&isSystem=false",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "roles"
-                  ],
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles"],
                   "query": [
                     {
                       "key": "page",
@@ -2530,15 +2088,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "roles",
-                "{{ROLE_ID}}"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
             }
           },
           "response": [
@@ -2554,15 +2105,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "roles",
-                    "{{ROLE_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
                 }
               },
               "status": "OK",
@@ -2588,15 +2132,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "roles",
-                    "{{ROLE_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
                 }
               },
               "status": "Not Found",
@@ -2637,14 +2174,8 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/roles",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "roles"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "roles"]
             }
           },
           "response": [
@@ -2673,14 +2204,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "roles"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles"]
                 }
               },
               "status": "Created",
@@ -2719,14 +2244,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "roles"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles"]
                 }
               },
               "status": "Conflict",
@@ -2765,14 +2284,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "roles"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles"]
                 }
               },
               "status": "Conflict",
@@ -2813,15 +2326,8 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "roles",
-                "{{ROLE_ID}}"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
             }
           },
           "response": [
@@ -2850,15 +2356,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "roles",
-                    "{{ROLE_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
                 }
               },
               "status": "OK",
@@ -2897,15 +2396,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "roles",
-                    "{{ROLE_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
                 }
               },
               "status": "Not Found",
@@ -2944,15 +2436,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "roles",
-                    "{{ROLE_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
                 }
               },
               "status": "Conflict",
@@ -2980,15 +2465,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "roles",
-                "{{ROLE_ID}}"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
             }
           },
           "response": [
@@ -3004,15 +2482,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "roles",
-                    "{{ROLE_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
                 }
               },
               "status": "OK",
@@ -3038,15 +2509,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "roles",
-                    "{{ROLE_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
                 }
               },
               "status": "Conflict",
@@ -3072,15 +2536,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "roles",
-                    "{{ROLE_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles", "{{ROLE_ID}}"]
                 }
               },
               "status": "Forbidden",
@@ -3108,16 +2565,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}/users?status=all&page=1&limit=10",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "roles",
-                "{{ROLE_ID}}",
-                "users"
-              ],
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "roles", "{{ROLE_ID}}", "users"],
               "query": [
                 {
                   "key": "status",
@@ -3147,16 +2596,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}/users?status=all&page=1&limit=10",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "roles",
-                    "{{ROLE_ID}}",
-                    "users"
-                  ],
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles", "{{ROLE_ID}}", "users"],
                   "query": [
                     {
                       "key": "status",
@@ -3196,16 +2637,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}/users?status=all&page=1&limit=10",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "roles",
-                    "{{ROLE_ID}}",
-                    "users"
-                  ],
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles", "{{ROLE_ID}}", "users"],
                   "query": [
                     {
                       "key": "status",
@@ -3245,16 +2678,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/roles/{{ROLE_ID}}/users?status=all&page=1&limit=10",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "roles",
-                    "{{ROLE_ID}}",
-                    "users"
-                  ],
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "roles", "{{ROLE_ID}}", "users"],
                   "query": [
                     {
                       "key": "status",
@@ -3301,14 +2726,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/galleries?page=1&limit=10&keyword=&isActive=true",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "galleries"
-              ],
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "galleries"],
               "query": [
                 {
                   "key": "page",
@@ -3343,14 +2762,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries?page=1&limit=10&keyword=&isActive=true",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "galleries"
-                  ],
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "galleries"],
                   "query": [
                     {
                       "key": "page",
@@ -3394,14 +2807,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries?page=1&limit=10&keyword=&isActive=true",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "galleries"
-                  ],
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "galleries"],
                   "query": [
                     {
                       "key": "page",
@@ -3447,15 +2854,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "galleries",
-                "{{GALLERY_ID}}"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
             }
           },
           "response": [
@@ -3471,15 +2871,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "galleries",
-                    "{{GALLERY_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
                 }
               },
               "status": "OK",
@@ -3505,15 +2898,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "galleries",
-                    "{{GALLERY_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
                 }
               },
               "status": "Not Found",
@@ -3554,14 +2940,8 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/galleries",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "galleries"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "galleries"]
             }
           },
           "response": [
@@ -3590,14 +2970,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "galleries"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "galleries"]
                 }
               },
               "status": "Created",
@@ -3636,14 +3010,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "galleries"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "galleries"]
                 }
               },
               "status": "Conflict",
@@ -3684,15 +3052,8 @@
             },
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "galleries",
-                "{{GALLERY_ID}}"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
             }
           },
           "response": [
@@ -3721,15 +3082,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "galleries",
-                    "{{GALLERY_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
                 }
               },
               "status": "OK",
@@ -3768,15 +3122,8 @@
                 },
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "galleries",
-                    "{{GALLERY_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
                 }
               },
               "status": "Not Found",
@@ -3804,15 +3151,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "galleries",
-                "{{GALLERY_ID}}"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
             },
             "description": "Soft delete only. The gallery becomes inactive and receives deletedAt."
           },
@@ -3829,15 +3169,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "galleries",
-                    "{{GALLERY_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
                 }
               },
               "status": "OK",
@@ -3863,15 +3196,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "galleries",
-                    "{{GALLERY_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "galleries", "{{GALLERY_ID}}"]
                 }
               },
               "status": "Conflict",
@@ -3899,16 +3225,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}/restore",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "galleries",
-                "{{GALLERY_ID}}",
-                "restore"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "galleries", "{{GALLERY_ID}}", "restore"]
             }
           },
           "response": [
@@ -3924,9 +3242,7 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}/restore",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
+                  "host": ["{{LOCAL_URL}}"],
                   "path": [
                     "api",
                     "v1",
@@ -3959,9 +3275,7 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}/restore",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
+                  "host": ["{{LOCAL_URL}}"],
                   "path": [
                     "api",
                     "v1",
@@ -3996,15 +3310,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/galleries/public",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "galleries",
-                "public"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "galleries", "public"]
             },
             "description": "Public gallery list for FE header/nav. Uses Accept-Language to resolve vi/en/cn. Fallback locale is en when the header is missing or unsupported."
           },
@@ -4021,15 +3328,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries/public",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "galleries",
-                    "public"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "galleries", "public"]
                 }
               },
               "status": "OK",
@@ -4062,15 +3362,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/files/request-upload",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "files",
-                "request-upload"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "files", "request-upload"]
             },
             "body": {
               "mode": "raw",
@@ -4096,15 +3389,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/files/request-upload",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "files",
-                    "request-upload"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "files", "request-upload"]
                 },
                 "body": {
                   "mode": "raw",
@@ -4140,15 +3426,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/files/request-upload",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "files",
-                    "request-upload"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "files", "request-upload"]
                 },
                 "body": {
                   "mode": "raw",
@@ -4184,15 +3463,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/files/request-upload",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "files",
-                    "request-upload"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "files", "request-upload"]
                 },
                 "body": {
                   "mode": "raw",
@@ -4228,15 +3500,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/files/request-upload",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "files",
-                    "request-upload"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "files", "request-upload"]
                 },
                 "body": {
                   "mode": "raw",
@@ -4272,15 +3537,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/files/request-upload",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "files",
-                    "request-upload"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "files", "request-upload"]
                 },
                 "body": {
                   "mode": "raw",
@@ -4327,14 +3585,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/projects",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "projects"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "projects"]
             },
             "body": {
               "mode": "raw",
@@ -4363,14 +3615,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects"]
                 },
                 "body": {
                   "mode": "raw",
@@ -4409,14 +3655,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects"]
                 },
                 "body": {
                   "mode": "raw",
@@ -4455,14 +3695,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects"]
                 },
                 "body": {
                   "mode": "raw",
@@ -4501,14 +3735,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects"]
                 },
                 "body": {
                   "mode": "raw",
@@ -4547,14 +3775,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects"]
                 },
                 "body": {
                   "mode": "raw",
@@ -4593,14 +3815,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects"]
                 },
                 "body": {
                   "mode": "raw",
@@ -4637,14 +3853,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/projects?page=1&limit=10&keyword=spring&isActive=true&isPublished=true",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "projects"
-              ],
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "projects"],
               "query": [
                 {
                   "key": "page",
@@ -4683,14 +3893,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects?page=1&limit=10&keyword=spring&isActive=true&isPublished=true",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects"
-                  ],
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects"],
                   "query": [
                     {
                       "key": "page",
@@ -4739,14 +3943,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects?page=1&limit=10&keyword=spring&isActive=true",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects"
-                  ],
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects"],
                   "query": [
                     {
                       "key": "page",
@@ -4793,15 +3991,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "projects",
-                "{{PROJECT_ID}}"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
             }
           },
           "response": [
@@ -4817,15 +4008,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects",
-                    "{{PROJECT_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
                 }
               },
               "status": "OK",
@@ -4851,15 +4035,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects",
-                    "{{PROJECT_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
                 }
               },
               "status": "Not Found",
@@ -4885,15 +4062,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects",
-                    "{{PROJECT_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
                 }
               },
               "status": "Internal Server Error",
@@ -4916,15 +4086,8 @@
             "header": [],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/projects/public?galleryId={{GALLERY_ID}}&page=1&limit=10",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "projects",
-                "public"
-              ],
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "projects", "public"],
               "query": [
                 {
                   "key": "galleryId",
@@ -4950,15 +4113,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/public?galleryId={{GALLERY_ID}}&page=1&limit=10",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects",
-                    "public"
-                  ],
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "public"],
                   "query": [
                     {
                       "key": "galleryId",
@@ -4993,15 +4149,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/public?galleryId={{GALLERY_ID}}&page=1&limit=10",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects",
-                    "public"
-                  ],
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "public"],
                   "query": [
                     {
                       "key": "galleryId",
@@ -5038,16 +4187,8 @@
             "header": [],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/projects/public/{{PROJECT_ID}}",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "projects",
-                "public",
-                "{{PROJECT_ID}}"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "projects", "public", "{{PROJECT_ID}}"]
             },
             "description": "Public endpoint. Returns a published + active + not-deleted project detail and re-checks gallery visibility consistency before serving cached data. Does not include isPublished/isActive/deletedAt/createdBy."
           },
@@ -5059,16 +4200,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/public/{{PROJECT_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects",
-                    "public",
-                    "{{PROJECT_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "public", "{{PROJECT_ID}}"]
                 }
               },
               "status": "OK",
@@ -5089,16 +4222,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/public/{{PROJECT_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects",
-                    "public",
-                    "{{PROJECT_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "public", "{{PROJECT_ID}}"]
                 }
               },
               "status": "Not Found",
@@ -5119,16 +4244,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/public/{{PROJECT_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects",
-                    "public",
-                    "{{PROJECT_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "public", "{{PROJECT_ID}}"]
                 }
               },
               "status": "Bad Request",
@@ -5160,15 +4277,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "projects",
-                "{{PROJECT_ID}}"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
             },
             "body": {
               "mode": "raw",
@@ -5197,15 +4307,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects",
-                    "{{PROJECT_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
                 },
                 "body": {
                   "mode": "raw",
@@ -5244,15 +4347,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects",
-                    "{{PROJECT_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
                 },
                 "body": {
                   "mode": "raw",
@@ -5291,15 +4387,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects",
-                    "{{PROJECT_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
                 },
                 "body": {
                   "mode": "raw",
@@ -5338,15 +4427,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects",
-                    "{{PROJECT_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
                 },
                 "body": {
                   "mode": "raw",
@@ -5385,15 +4467,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects",
-                    "{{PROJECT_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
                 },
                 "body": {
                   "mode": "raw",
@@ -5430,15 +4505,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "projects",
-                "{{PROJECT_ID}}"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
             },
             "description": "Soft delete only. The project becomes inactive and receives deletedAt."
           },
@@ -5455,15 +4523,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects",
-                    "{{PROJECT_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
                 },
                 "description": "Soft delete only. The project becomes inactive and receives deletedAt."
               },
@@ -5490,15 +4551,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects",
-                    "{{PROJECT_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
                 },
                 "description": "Soft delete only. The project becomes inactive and receives deletedAt."
               },
@@ -5525,15 +4579,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects",
-                    "{{PROJECT_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}"]
                 },
                 "description": "Soft delete only. The project becomes inactive and receives deletedAt."
               },
@@ -5562,16 +4609,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}/restore",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "projects",
-                "{{PROJECT_ID}}",
-                "restore"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "projects", "{{PROJECT_ID}}", "restore"]
             }
           },
           "response": [
@@ -5587,16 +4626,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}/restore",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects",
-                    "{{PROJECT_ID}}",
-                    "restore"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}", "restore"]
                 }
               },
               "status": "OK",
@@ -5622,16 +4653,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}/restore",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects",
-                    "{{PROJECT_ID}}",
-                    "restore"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}", "restore"]
                 }
               },
               "status": "Bad Request",
@@ -5657,16 +4680,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/projects/{{PROJECT_ID}}/restore",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "projects",
-                    "{{PROJECT_ID}}",
-                    "restore"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "projects", "{{PROJECT_ID}}", "restore"]
                 }
               },
               "status": "Conflict",
@@ -5703,14 +4718,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/blogs",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "blogs"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "blogs"]
             },
             "body": {
               "mode": "raw",
@@ -5740,14 +4749,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/blogs",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "blogs"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "blogs"]
                 },
                 "body": {
                   "mode": "raw",
@@ -5787,14 +4790,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/blogs",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "blogs"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "blogs"]
                 },
                 "body": {
                   "mode": "raw",
@@ -5834,14 +4831,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/blogs",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "blogs"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "blogs"]
                 },
                 "body": {
                   "mode": "raw",
@@ -5881,14 +4872,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/blogs",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "blogs"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "blogs"]
                 },
                 "body": {
                   "mode": "raw",
@@ -5926,14 +4911,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/blogs?page=1&limit=10&keyword=spring&isActive=true&isPublished=true&isPinned=true",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "blogs"
-              ],
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "blogs"],
               "query": [
                 {
                   "key": "page",
@@ -5976,14 +4955,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/blogs?page=1&limit=10&keyword=spring&isActive=true&isPublished=true&isPinned=true",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "blogs"
-                  ],
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "blogs"],
                   "query": [
                     {
                       "key": "page",
@@ -6036,14 +5009,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/blogs?page=1&limit=10&keyword=spring&isActive=true&isPublished=true&isPinned=true",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "blogs"
-                  ],
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "blogs"],
                   "query": [
                     {
                       "key": "page",
@@ -6098,15 +5065,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "blogs",
-                "{{BLOG_ID}}"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "blogs", "{{BLOG_ID}}"]
             }
           },
           "response": [
@@ -6122,15 +5082,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "blogs",
-                    "{{BLOG_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "blogs", "{{BLOG_ID}}"]
                 }
               },
               "status": "OK",
@@ -6156,15 +5109,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "blogs",
-                    "{{BLOG_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "blogs", "{{BLOG_ID}}"]
                 }
               },
               "status": "Not Found",
@@ -6190,15 +5136,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "blogs",
-                    "{{BLOG_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "blogs", "{{BLOG_ID}}"]
                 }
               },
               "status": "Internal Server Error",
@@ -6230,15 +5169,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "blogs",
-                "{{BLOG_ID}}"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "blogs", "{{BLOG_ID}}"]
             },
             "body": {
               "mode": "raw",
@@ -6268,15 +5200,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "blogs",
-                    "{{BLOG_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "blogs", "{{BLOG_ID}}"]
                 },
                 "body": {
                   "mode": "raw",
@@ -6316,15 +5241,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "blogs",
-                    "{{BLOG_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "blogs", "{{BLOG_ID}}"]
                 },
                 "body": {
                   "mode": "raw",
@@ -6364,15 +5282,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "blogs",
-                    "{{BLOG_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "blogs", "{{BLOG_ID}}"]
                 },
                 "body": {
                   "mode": "raw",
@@ -6410,15 +5321,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "blogs",
-                "{{BLOG_ID}}"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "blogs", "{{BLOG_ID}}"]
             },
             "description": "Admin-only soft delete. Sets isActive=false and deletedAt."
           },
@@ -6435,15 +5339,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "blogs",
-                    "{{BLOG_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "blogs", "{{BLOG_ID}}"]
                 },
                 "description": "Admin-only soft delete. Sets isActive=false and deletedAt."
               },
@@ -6470,15 +5367,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "blogs",
-                    "{{BLOG_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "blogs", "{{BLOG_ID}}"]
                 },
                 "description": "Admin-only soft delete. Sets isActive=false and deletedAt."
               },
@@ -6507,16 +5397,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}/restore",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "blogs",
-                "{{BLOG_ID}}",
-                "restore"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "blogs", "{{BLOG_ID}}", "restore"]
             },
             "description": "Admin-only restore for a soft-deleted blog."
           },
@@ -6533,16 +5415,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}/restore",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "blogs",
-                    "{{BLOG_ID}}",
-                    "restore"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "blogs", "{{BLOG_ID}}", "restore"]
                 },
                 "description": "Admin-only restore for a soft-deleted blog."
               },
@@ -6569,16 +5443,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}/restore",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "blogs",
-                    "{{BLOG_ID}}",
-                    "restore"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "blogs", "{{BLOG_ID}}", "restore"]
                 },
                 "description": "Admin-only restore for a soft-deleted blog."
               },
@@ -6605,16 +5471,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/blogs/{{BLOG_ID}}/restore",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "blogs",
-                    "{{BLOG_ID}}",
-                    "restore"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "blogs", "{{BLOG_ID}}", "restore"]
                 },
                 "description": "Admin-only restore for a soft-deleted blog."
               },
@@ -6638,15 +5496,8 @@
             "header": [],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/blogs/public?page=1&limit=10",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "blogs",
-                "public"
-              ],
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "blogs", "public"],
               "query": [
                 {
                   "key": "page",
@@ -6668,15 +5519,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/blogs/public?page=1&limit=10",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "blogs",
-                    "public"
-                  ],
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "blogs", "public"],
                   "query": [
                     {
                       "key": "page",
@@ -6710,16 +5554,8 @@
             "header": [],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/blogs/public/{{BLOG_ID}}",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "blogs",
-                "public",
-                "{{BLOG_ID}}"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "blogs", "public", "{{BLOG_ID}}"]
             },
             "description": "Public endpoint. Returns public-facing blog detail without internal flags or createdBy."
           },
@@ -6731,16 +5567,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/blogs/public/{{BLOG_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "blogs",
-                    "public",
-                    "{{BLOG_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "blogs", "public", "{{BLOG_ID}}"]
                 },
                 "description": "Public endpoint. Returns public-facing blog detail without internal flags or createdBy."
               },
@@ -6762,16 +5590,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/blogs/public/{{BLOG_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "blogs",
-                    "public",
-                    "{{BLOG_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "blogs", "public", "{{BLOG_ID}}"]
                 },
                 "description": "Public endpoint. Returns public-facing blog detail without internal flags or createdBy."
               },
@@ -6809,14 +5629,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/packages",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "packages"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "packages"]
             },
             "body": {
               "mode": "raw",
@@ -6846,14 +5660,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/packages",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "packages"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "packages"]
                 },
                 "body": {
                   "mode": "raw",
@@ -6893,14 +5701,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/packages",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "packages"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "packages"]
                 },
                 "body": {
                   "mode": "raw",
@@ -6940,14 +5742,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/packages",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "packages"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "packages"]
                 },
                 "body": {
                   "mode": "raw",
@@ -6987,14 +5783,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/packages",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "packages"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "packages"]
                 },
                 "body": {
                   "mode": "raw",
@@ -7032,14 +5822,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/packages?page=1&limit=10&keyword=couple&isActive=true",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "packages"
-              ],
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "packages"],
               "query": [
                 {
                   "key": "page",
@@ -7074,14 +5858,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/packages?page=1&limit=10&keyword=couple&isActive=true",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "packages"
-                  ],
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "packages"],
                   "query": [
                     {
                       "key": "page",
@@ -7126,14 +5904,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/packages?page=1&limit=10&keyword=couple&isActive=true",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "packages"
-                  ],
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "packages"],
                   "query": [
                     {
                       "key": "page",
@@ -7180,15 +5952,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "packages",
-                "{{PACKAGE_ID}}"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "packages", "{{PACKAGE_ID}}"]
             }
           },
           "response": [
@@ -7204,15 +5969,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "packages",
-                    "{{PACKAGE_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "packages", "{{PACKAGE_ID}}"]
                 }
               },
               "status": "OK",
@@ -7238,15 +5996,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "packages",
-                    "{{PACKAGE_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "packages", "{{PACKAGE_ID}}"]
                 }
               },
               "status": "Not Found",
@@ -7278,15 +6029,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "packages",
-                "{{PACKAGE_ID}}"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "packages", "{{PACKAGE_ID}}"]
             },
             "body": {
               "mode": "raw",
@@ -7316,15 +6060,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "packages",
-                    "{{PACKAGE_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "packages", "{{PACKAGE_ID}}"]
                 },
                 "body": {
                   "mode": "raw",
@@ -7364,15 +6101,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "packages",
-                    "{{PACKAGE_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "packages", "{{PACKAGE_ID}}"]
                 },
                 "body": {
                   "mode": "raw",
@@ -7412,15 +6142,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "packages",
-                    "{{PACKAGE_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "packages", "{{PACKAGE_ID}}"]
                 },
                 "body": {
                   "mode": "raw",
@@ -7460,15 +6183,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "packages",
-                    "{{PACKAGE_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "packages", "{{PACKAGE_ID}}"]
                 },
                 "body": {
                   "mode": "raw",
@@ -7506,15 +6222,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "packages",
-                "{{PACKAGE_ID}}"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "packages", "{{PACKAGE_ID}}"]
             },
             "description": "Admin-only soft delete. The package becomes inactive and receives deletedAt."
           },
@@ -7531,15 +6240,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "packages",
-                    "{{PACKAGE_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "packages", "{{PACKAGE_ID}}"]
                 },
                 "description": "Admin-only soft delete. The package becomes inactive and receives deletedAt."
               },
@@ -7566,15 +6268,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "packages",
-                    "{{PACKAGE_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "packages", "{{PACKAGE_ID}}"]
                 },
                 "description": "Admin-only soft delete. The package becomes inactive and receives deletedAt."
               },
@@ -7601,15 +6296,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "packages",
-                    "{{PACKAGE_ID}}"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "packages", "{{PACKAGE_ID}}"]
                 },
                 "description": "Admin-only soft delete. The package becomes inactive and receives deletedAt."
               },
@@ -7638,16 +6326,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}/restore",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "packages",
-                "{{PACKAGE_ID}}",
-                "restore"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "packages", "{{PACKAGE_ID}}", "restore"]
             },
             "description": "Admin-only restore for a soft-deleted package."
           },
@@ -7664,16 +6344,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}/restore",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "packages",
-                    "{{PACKAGE_ID}}",
-                    "restore"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "packages", "{{PACKAGE_ID}}", "restore"]
                 },
                 "description": "Admin-only restore for a soft-deleted package."
               },
@@ -7700,16 +6372,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}/restore",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "packages",
-                    "{{PACKAGE_ID}}",
-                    "restore"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "packages", "{{PACKAGE_ID}}", "restore"]
                 },
                 "description": "Admin-only restore for a soft-deleted package."
               },
@@ -7736,16 +6400,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/packages/{{PACKAGE_ID}}/restore",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "packages",
-                    "{{PACKAGE_ID}}",
-                    "restore"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "packages", "{{PACKAGE_ID}}", "restore"]
                 },
                 "description": "Admin-only restore for a soft-deleted package."
               },
@@ -7774,15 +6430,8 @@
             ],
             "url": {
               "raw": "{{LOCAL_URL}}/api/v1/packages/public?page=1&limit=10",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "packages",
-                "public"
-              ],
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "packages", "public"],
               "query": [
                 {
                   "key": "page",
@@ -7809,15 +6458,8 @@
                 ],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/packages/public?page=1&limit=10",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "v1",
-                    "packages",
-                    "public"
-                  ],
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "packages", "public"],
                   "query": [
                     {
                       "key": "page",
@@ -7847,6 +6489,735 @@
       ]
     },
     {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Public - Request Order Confirmation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Nguyen Van A\",\n  \"email\": \"customer@example.com\",\n  \"countryCode\": \"VN\",\n  \"galleryId\": \"{{GALLERY_ID}}\",\n  \"packageId\": \"{{PACKAGE_ID}}\",\n  \"discoverySource\": \"facebook\",\n  \"personalStory\": \"We want to capture our Hanoi anniversary story.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/orders/public/request",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "orders", "public", "request"]
+            },
+            "description": "Public endpoint. Creates only a Redis draft and sends the order-request confirmation email. No Order is created yet. requestDraftId is generated internally by the backend. For package flow, send packageId and omit budget. For custom flow, omit packageId and send budget { amount, currency }."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Nguyen Van A\",\n  \"email\": \"customer@example.com\",\n  \"countryCode\": \"VN\",\n  \"galleryId\": \"{{GALLERY_ID}}\",\n  \"packageId\": \"{{PACKAGE_ID}}\",\n  \"discoverySource\": \"facebook\",\n  \"personalStory\": \"We want to capture our Hanoi anniversary story.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/orders/public/request",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "orders", "public", "request"]
+                },
+                "description": "Public endpoint. Creates only a Redis draft and sends the order-request confirmation email. No Order is created yet. requestDraftId is generated internally by the backend. For package flow, send packageId and omit budget. For custom flow, omit packageId and send budget { amount, currency }."
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"requested\": true\n  },\n  \"message\": \"Order request submitted successfully\",\n  \"error\": null,\n  \"statusCode\": 201,\n  \"timestamp\": \"2026-04-11T04:10:00.000Z\",\n  \"path\": \"/api/v1/orders/public/request\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Order Request (Gallery/Package/Budget)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Nguyen Van A\",\n  \"email\": \"customer@example.com\",\n  \"countryCode\": \"VN\",\n  \"galleryId\": \"gallery-missing\",\n  \"packageId\": \"{{PACKAGE_ID}}\",\n  \"discoverySource\": \"facebook\",\n  \"personalStory\": \"We want to capture our Hanoi anniversary story.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/orders/public/request",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "orders", "public", "request"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Gallery \\\"gallery-missing\\\" is invalid\",\n  \"error\": \"INVALID_ORDER_REQUEST\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-11T04:10:00.000Z\",\n  \"path\": \"/api/v1/orders/public/request\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Discovery Source",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Nguyen Van A\",\n  \"email\": \"customer@example.com\",\n  \"countryCode\": \"VN\",\n  \"galleryId\": \"{{GALLERY_ID}}\",\n  \"packageId\": \"{{PACKAGE_ID}}\",\n  \"discoverySource\": \"telegram\",\n  \"personalStory\": \"We want to capture our Hanoi anniversary story.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/orders/public/request",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "orders", "public", "request"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Invalid discovery source\",\n  \"error\": \"INVALID_ORDER_DISCOVERY_SOURCE\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-11T04:10:00.000Z\",\n  \"path\": \"/api/v1/orders/public/request\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Public - Confirm Order Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"{{ORDER_CONFIRM_TOKEN}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/orders/public/confirm",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "orders", "public", "confirm"]
+            },
+            "description": "Public endpoint. Confirms the draft token, creates/reuses the customer user, and creates the Order exactly once per backend-generated requestDraftId. Repeating confirm with the same token during the consumed-state TTL does not create a new order; it returns the existing order instead. The first successful create also triggers the order-created email asynchronously."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"{{ORDER_CONFIRM_TOKEN}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/orders/public/confirm",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "orders", "public", "confirm"]
+                },
+                "description": "Public endpoint. Confirms the draft token, creates/reuses the customer user, and creates the Order exactly once per backend-generated requestDraftId. Repeating confirm with the same token during the consumed-state TTL does not create a new order; it returns the existing order instead. The first successful create also triggers the order-created email asynchronously."
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"order-20260411-0001\",\n    \"requestDraftId\": \"draft-3f0c7b8a\",\n    \"orderNumber\": \"ORD-20260411-AB12CD\",\n    \"userId\": \"user-customer-1\",\n    \"customerInfo\": {\n      \"name\": \"Nguyen Van A\",\n      \"email\": \"customer@example.com\",\n      \"countryCode\": \"VN\"\n    },\n    \"status\": \"pending\",\n    \"paymentStatus\": \"unpaid\",\n    \"discoverySource\": \"facebook\",\n    \"personalStory\": \"We want to capture our Hanoi anniversary story.\",\n    \"items\": [\n      {\n        \"type\": \"package\",\n        \"galleryId\": \"gallery-1\",\n        \"gallerySnapshot\": {\n          \"id\": \"gallery-1\",\n          \"name\": {\n            \"en\": \"Hanoi Old Quarter\",\n            \"vi\": \"Pho Co Ha Noi\",\n            \"cn\": \"河内老城区\"\n          }\n        },\n        \"packageId\": \"package-couple-premium\",\n        \"packageSnapshot\": {\n          \"id\": \"package-couple-premium\",\n          \"name\": {\n            \"en\": \"Couple Premium\",\n            \"vi\": \"Goi cao cap cap doi\",\n            \"cn\": \"情侣高级套餐\"\n          },\n          \"bestFor\": {\n            \"en\": \"Couples wanting a cinematic Hanoi session\",\n            \"vi\": \"Cap doi muon co bo anh Hanoi theo phong cach dien anh\",\n            \"cn\": \"适合想要河内电影感拍摄的情侣\"\n          },\n          \"duration\": 5400,\n          \"photoCount\": 60,\n          \"pricing\": {\n            \"amount\": 3500000,\n            \"currency\": \"VND\"\n          }\n        },\n        \"pricing\": {\n          \"amount\": 3500000,\n          \"currency\": \"VND\"\n        },\n        \"budget\": null,\n        \"createdAt\": \"2026-04-11T04:20:00.000Z\",\n        \"updatedAt\": \"2026-04-11T04:20:00.000Z\"\n      }\n    ],\n    \"createdAt\": \"2026-04-11T04:20:00.000Z\",\n    \"updatedAt\": \"2026-04-11T04:20:00.000Z\"\n  },\n  \"message\": \"Order request confirmed successfully\",\n  \"error\": null,\n  \"statusCode\": 201,\n  \"timestamp\": \"2026-04-11T04:20:00.000Z\",\n  \"path\": \"/api/v1/orders/public/confirm\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Success - Custom Order",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"{{ORDER_CONFIRM_TOKEN}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/orders/public/confirm",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "orders", "public", "confirm"]
+                },
+                "description": "Public endpoint. Confirms the draft token, creates/reuses the customer user, and creates the Order exactly once per backend-generated requestDraftId. Repeating confirm with the same token during the consumed-state TTL does not create a new order; it returns the existing order instead. The first successful create also triggers the order-created email asynchronously."
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"order-20260411-0002\",\n    \"requestDraftId\": \"draft-6b2d1fd1\",\n    \"orderNumber\": \"ORD-20260411-CD34EF\",\n    \"userId\": \"user-customer-2\",\n    \"customerInfo\": {\n      \"name\": \"Tran Thi B\",\n      \"email\": \"custom@example.com\",\n      \"countryCode\": \"VN\"\n    },\n    \"status\": \"pending\",\n    \"paymentStatus\": \"unpaid\",\n    \"discoverySource\": \"instagram\",\n    \"personalStory\": \"We want a tailor-made anniversary session in Hanoi.\",\n    \"items\": [\n      {\n        \"type\": \"custom\",\n        \"galleryId\": \"gallery-1\",\n        \"gallerySnapshot\": {\n          \"id\": \"gallery-1\",\n          \"name\": {\n            \"en\": \"Hanoi Old Quarter\",\n            \"vi\": \"Pho Co Ha Noi\",\n            \"cn\": \"河内老城区\"\n          }\n        },\n        \"packageId\": null,\n        \"packageSnapshot\": null,\n        \"pricing\": null,\n        \"budget\": {\n          \"amount\": 2500000,\n          \"currency\": \"VND\"\n        },\n        \"createdAt\": \"2026-04-11T04:25:00.000Z\",\n        \"updatedAt\": \"2026-04-11T04:25:00.000Z\"\n      }\n    ],\n    \"createdAt\": \"2026-04-11T04:25:00.000Z\",\n    \"updatedAt\": \"2026-04-11T04:25:00.000Z\"\n  },\n  \"message\": \"Order request confirmed successfully\",\n  \"error\": null,\n  \"statusCode\": 201,\n  \"timestamp\": \"2026-04-11T04:25:00.000Z\",\n  \"path\": \"/api/v1/orders/public/confirm\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119bb0\"\n}"
+            },
+            {
+              "name": "Invalid Token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"expired-or-invalid-token\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/orders/public/confirm",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "orders", "public", "confirm"]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Order request token is invalid or expired\",\n  \"error\": \"INVALID_ORDER_REQUEST_TOKEN\",\n  \"statusCode\": 401,\n  \"timestamp\": \"2026-04-11T04:20:00.000Z\",\n  \"path\": \"/api/v1/orders/public/confirm\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get All Orders",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/orders?page=1&limit=10&keyword=&status=&paymentStatus=&discoverySource=",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "orders"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "keyword",
+                  "value": ""
+                },
+                {
+                  "key": "status",
+                  "value": ""
+                },
+                {
+                  "key": "paymentStatus",
+                  "value": ""
+                },
+                {
+                  "key": "discoverySource",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Admin-only list. Supports page, limit, keyword, status, paymentStatus, and discoverySource. Empty-string filter values such as status= or paymentStatus= are treated as all / undefined instead of validation errors. For package items, UI should use item.pricing while packageSnapshot.pricing remains snapshot data. For custom items, UI should use item.budget."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/orders?page=1&limit=10&keyword=&status=&paymentStatus=&discoverySource=",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "orders"],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "keyword",
+                      "value": ""
+                    },
+                    {
+                      "key": "status",
+                      "value": ""
+                    },
+                    {
+                      "key": "paymentStatus",
+                      "value": ""
+                    },
+                    {
+                      "key": "discoverySource",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"order-20260411-0001\",\n        \"requestDraftId\": \"draft-3f0c7b8a\",\n        \"orderNumber\": \"ORD-20260411-AB12CD\",\n        \"userId\": \"user-customer-1\",\n        \"customerInfo\": {\n          \"name\": \"Nguyen Van A\",\n          \"email\": \"customer@example.com\",\n          \"countryCode\": \"VN\"\n        },\n        \"status\": \"pending\",\n        \"paymentStatus\": \"unpaid\",\n        \"discoverySource\": \"facebook\",\n        \"personalStory\": \"We want to capture our Hanoi anniversary story.\",\n        \"items\": [\n          {\n            \"type\": \"package\",\n            \"galleryId\": \"gallery-1\",\n            \"gallerySnapshot\": {\n              \"id\": \"gallery-1\",\n              \"name\": {\n                \"en\": \"Hanoi Old Quarter\",\n                \"vi\": \"Pho Co Ha Noi\",\n                \"cn\": \"河内老城区\"\n              }\n            },\n            \"packageId\": \"package-couple-premium\",\n            \"packageSnapshot\": {\n              \"id\": \"package-couple-premium\",\n              \"name\": {\n                \"en\": \"Couple Premium\",\n                \"vi\": \"Goi cao cap cap doi\",\n                \"cn\": \"情侣高级套餐\"\n              },\n              \"bestFor\": {\n                \"en\": \"Couples wanting a cinematic Hanoi session\",\n                \"vi\": \"Cap doi muon co bo anh Hanoi theo phong cach dien anh\",\n                \"cn\": \"适合想要河内电影感拍摄的情侣\"\n              },\n              \"duration\": 5400,\n              \"photoCount\": 60,\n              \"pricing\": {\n                \"amount\": 3500000,\n                \"currency\": \"VND\"\n              }\n            },\n            \"pricing\": {\n              \"amount\": 3500000,\n              \"currency\": \"VND\"\n            },\n            \"budget\": null,\n            \"createdAt\": \"2026-04-11T04:20:00.000Z\",\n            \"updatedAt\": \"2026-04-11T04:20:00.000Z\"\n          }\n        ],\n        \"createdAt\": \"2026-04-11T04:20:00.000Z\",\n        \"updatedAt\": \"2026-04-11T04:20:00.000Z\"\n      },\n      {\n        \"id\": \"order-20260411-0002\",\n        \"requestDraftId\": \"draft-6b2d1fd1\",\n        \"orderNumber\": \"ORD-20260411-CD34EF\",\n        \"userId\": \"user-customer-2\",\n        \"customerInfo\": {\n          \"name\": \"Tran Thi B\",\n          \"email\": \"custom@example.com\",\n          \"countryCode\": \"VN\"\n        },\n        \"status\": \"contacted\",\n        \"paymentStatus\": \"partiallyPaid\",\n        \"discoverySource\": \"instagram\",\n        \"personalStory\": \"We want a tailor-made anniversary session in Hanoi.\",\n        \"items\": [\n          {\n            \"type\": \"custom\",\n            \"galleryId\": \"gallery-2\",\n            \"gallerySnapshot\": {\n              \"id\": \"gallery-2\",\n              \"name\": {\n                \"en\": \"Hoan Kiem Lake\",\n                \"vi\": \"Ho Hoan Kiem\",\n                \"cn\": \"还剑湖\"\n              }\n            },\n            \"packageId\": null,\n            \"packageSnapshot\": null,\n            \"pricing\": null,\n            \"budget\": {\n              \"amount\": 2500000,\n              \"currency\": \"VND\"\n            },\n            \"createdAt\": \"2026-04-11T05:10:00.000Z\",\n            \"updatedAt\": \"2026-04-11T05:10:00.000Z\"\n          }\n        ],\n        \"createdAt\": \"2026-04-11T05:10:00.000Z\",\n        \"updatedAt\": \"2026-04-11T05:25:00.000Z\"\n      }\n    ],\n    \"meta\": {\n      \"page\": 1,\n      \"limit\": 10,\n      \"total\": 2,\n      \"totalPages\": 1\n    }\n  },\n  \"message\": \"Orders fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-11T04:30:00.000Z\",\n  \"path\": \"/api/v1/orders?page=1&limit=10&keyword=&status=&paymentStatus=&discoverySource=\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Query",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/orders?page=1&limit=10&keyword=&status=abc&paymentStatus=&discoverySource=",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "orders"],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "keyword",
+                      "value": ""
+                    },
+                    {
+                      "key": "status",
+                      "value": "abc"
+                    },
+                    {
+                      "key": "paymentStatus",
+                      "value": ""
+                    },
+                    {
+                      "key": "discoverySource",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"status must be one of the following values: pending, contacted, confirmed, completed, cancelled\",\n  \"error\": \"Bad Request Exception\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-11T04:31:00.000Z\",\n  \"path\": \"/api/v1/orders?page=1&limit=10&keyword=&status=abc&paymentStatus=&discoverySource=\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119bb1\"\n}"
+            },
+            {
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/orders?page=1&limit=10",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "orders"]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Forbidden resource\",\n  \"error\": \"Forbidden\",\n  \"statusCode\": 403,\n  \"timestamp\": \"2026-04-11T04:30:00.000Z\",\n  \"path\": \"/api/v1/orders?page=1&limit=10\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Order",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/orders/{{ORDER_ID}}",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "orders", "{{ORDER_ID}}"]
+            },
+            "description": "Admin-only detail. requestDraftId is a backend-generated internal identifier copied from the Redis draft. For package items, UI should use item.pricing; packageSnapshot.pricing remains the historical snapshot. For custom items, UI should use item.budget."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/orders/{{ORDER_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "orders", "{{ORDER_ID}}"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"order-20260411-0001\",\n    \"requestDraftId\": \"draft-3f0c7b8a\",\n    \"orderNumber\": \"ORD-20260411-AB12CD\",\n    \"userId\": \"user-customer-1\",\n    \"customerInfo\": {\n      \"name\": \"Nguyen Van A\",\n      \"email\": \"customer@example.com\",\n      \"countryCode\": \"VN\"\n    },\n    \"status\": \"pending\",\n    \"paymentStatus\": \"unpaid\",\n    \"discoverySource\": \"facebook\",\n    \"personalStory\": \"We want to capture our Hanoi anniversary story.\",\n    \"items\": [\n      {\n        \"type\": \"package\",\n        \"galleryId\": \"gallery-1\",\n        \"gallerySnapshot\": {\n          \"id\": \"gallery-1\",\n          \"name\": {\n            \"en\": \"Hanoi Old Quarter\",\n            \"vi\": \"Pho Co Ha Noi\",\n            \"cn\": \"河内老城区\"\n          }\n        },\n        \"packageId\": \"package-couple-premium\",\n        \"packageSnapshot\": {\n          \"id\": \"package-couple-premium\",\n          \"name\": {\n            \"en\": \"Couple Premium\",\n            \"vi\": \"Goi cao cap cap doi\",\n            \"cn\": \"情侣高级套餐\"\n          },\n          \"bestFor\": {\n            \"en\": \"Couples wanting a cinematic Hanoi session\",\n            \"vi\": \"Cap doi muon co bo anh Hanoi theo phong cach dien anh\",\n            \"cn\": \"适合想要河内电影感拍摄的情侣\"\n          },\n          \"duration\": 5400,\n          \"photoCount\": 60,\n          \"pricing\": {\n            \"amount\": 3500000,\n            \"currency\": \"VND\"\n          }\n        },\n        \"pricing\": {\n          \"amount\": 3500000,\n          \"currency\": \"VND\"\n        },\n        \"budget\": null,\n        \"createdAt\": \"2026-04-11T04:20:00.000Z\",\n        \"updatedAt\": \"2026-04-11T04:20:00.000Z\"\n      }\n    ],\n    \"createdAt\": \"2026-04-11T04:20:00.000Z\",\n    \"updatedAt\": \"2026-04-11T04:20:00.000Z\"\n  },\n  \"message\": \"Order fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-11T04:35:00.000Z\",\n  \"path\": \"/api/v1/orders/order-20260411-0001\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Order Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/orders/{{ORDER_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "orders", "{{ORDER_ID}}"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Order not found\",\n  \"error\": \"ORDER_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-11T04:35:00.000Z\",\n  \"path\": \"/api/v1/orders/order-missing\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Order",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"contacted\",\n  \"paymentStatus\": \"partiallyPaid\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/orders/{{ORDER_ID}}",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "orders", "{{ORDER_ID}}"]
+            },
+            "description": "Admin-only. Can update only status and paymentStatus. Transition rules are one-way: status pending -> contacted -> confirmed -> completed (or cancelled before completed); paymentStatus unpaid -> partiallyPaid -> paid -> refunded."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"contacted\",\n  \"paymentStatus\": \"partiallyPaid\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/orders/{{ORDER_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "orders", "{{ORDER_ID}}"]
+                },
+                "description": "Admin-only. Can update only status and paymentStatus. Transition rules are one-way: status pending -> contacted -> confirmed -> completed (or cancelled before completed); paymentStatus unpaid -> partiallyPaid -> paid -> refunded."
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"order-20260411-0001\",\n    \"requestDraftId\": \"draft-3f0c7b8a\",\n    \"orderNumber\": \"ORD-20260411-AB12CD\",\n    \"userId\": \"user-customer-1\",\n    \"customerInfo\": {\n      \"name\": \"Nguyen Van A\",\n      \"email\": \"customer@example.com\",\n      \"countryCode\": \"VN\"\n    },\n    \"status\": \"contacted\",\n    \"paymentStatus\": \"partiallyPaid\",\n    \"discoverySource\": \"facebook\",\n    \"personalStory\": \"We want to capture our Hanoi anniversary story.\",\n    \"items\": [],\n    \"createdAt\": \"2026-04-11T04:20:00.000Z\",\n    \"updatedAt\": \"2026-04-11T04:45:00.000Z\"\n  },\n  \"message\": \"Order updated successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-11T04:45:00.000Z\",\n  \"path\": \"/api/v1/orders/order-20260411-0001\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Status Transition",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"pending\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/orders/{{ORDER_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "orders", "{{ORDER_ID}}"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Cannot change order status from \\\"contacted\\\" to \\\"pending\\\"\",\n  \"error\": \"INVALID_ORDER_STATUS_TRANSITION\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-11T04:45:00.000Z\",\n  \"path\": \"/api/v1/orders/order-20260411-0001\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Payment Status Transition",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentStatus\": \"unpaid\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/orders/{{ORDER_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "orders", "{{ORDER_ID}}"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Cannot change payment status from \\\"paid\\\" to \\\"unpaid\\\"\",\n  \"error\": \"INVALID_ORDER_PAYMENT_STATUS_TRANSITION\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-11T04:45:00.000Z\",\n  \"path\": \"/api/v1/orders/order-20260411-0001\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Invalid Update Payload",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/orders/{{ORDER_ID}}",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "orders", "{{ORDER_ID}}"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"At least one update field is required\",\n  \"error\": \"INVALID_ORDER_UPDATE_PAYLOAD\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-11T04:45:00.000Z\",\n  \"path\": \"/api/v1/orders/order-20260411-0001\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Health",
       "item": [
         {
@@ -7856,14 +7227,8 @@
             "header": [],
             "url": {
               "raw": "{{LOCAL_URL}}/api/health/live",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "health",
-                "live"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "health", "live"]
             }
           },
           "response": [
@@ -7874,14 +7239,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/health/live",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "health",
-                    "live"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "health", "live"]
                 }
               },
               "status": "OK",
@@ -7904,14 +7263,8 @@
             "header": [],
             "url": {
               "raw": "{{LOCAL_URL}}/api/health/ready",
-              "host": [
-                "{{LOCAL_URL}}"
-              ],
-              "path": [
-                "api",
-                "health",
-                "ready"
-              ]
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "health", "ready"]
             }
           },
           "response": [
@@ -7922,14 +7275,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/health/ready",
-                  "host": [
-                    "{{LOCAL_URL}}"
-                  ],
-                  "path": [
-                    "api",
-                    "health",
-                    "ready"
-                  ]
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "health", "ready"]
                 }
               },
               "status": "OK",
@@ -7953,18 +7300,14 @@
       "listen": "prerequest",
       "script": {
         "type": "text/javascript",
-        "exec": [
-          ""
-        ]
+        "exec": [""]
       }
     },
     {
       "listen": "test",
       "script": {
         "type": "text/javascript",
-        "exec": [
-          ""
-        ]
+        "exec": [""]
       }
     }
   ],
@@ -7995,6 +7338,14 @@
     },
     {
       "key": "PACKAGE_ID",
+      "value": ""
+    },
+    {
+      "key": "ORDER_ID",
+      "value": ""
+    },
+    {
+      "key": "ORDER_CONFIRM_TOKEN",
       "value": ""
     },
     {

@@ -63,7 +63,7 @@ Không được tự sang stage tiếp theo nếu tôi chưa xác nhận.
 ## Backend contract notes phải giữ đúng
 
 ### Core backend snapshot
-- Backend hiện có `auth`, `users`, `roles`, `galleries`, `projects`, `blogs`, `packages`, `files`, `health`.
+- Backend hiện có `auth`, `users`, `roles`, `galleries`, `projects`, `blogs`, `packages`, `orders`, `files`, `health`.
 - Response envelope chuẩn:
   - `success`
   - `data`
@@ -321,6 +321,77 @@ Không được tự sang stage tiếp theo nếu tôi chưa xác nhận.
 - Public packages chỉ lấy record active + non-deleted.
 - Sort của public packages phải bám Postman/backend hiện tại, không invent sort phía FE.
 
+
+### Orders semantics bắt buộc
+- Orders hiện đã có public flow + admin flow ở backend.
+- Public routes:
+  - `POST /api/v1/orders/public/request`
+  - `POST /api/v1/orders/public/confirm`
+- Admin routes:
+  - `GET /api/v1/orders`
+  - `GET /api/v1/orders/:id`
+  - `PATCH /api/v1/orders/:id`
+- `requestDraftId` là backend-generated internal identifier.
+- FE không được truyền `requestDraftId`.
+- Public request flow:
+  - submit => tạo Redis draft + gửi email confirm
+  - confirm => tạo order thật đúng 1 lần
+- Repeated confirm với cùng token trong consumed-state TTL:
+  - không tạo order mới
+  - return order cũ / success state cũ theo current runtime
+- Sau first successful confirm/create:
+  - backend gửi success email async
+  - repeated confirm / idempotent return không gửi lại email
+
+**orders request payload rules**
+- Package order request gửi:
+  - `name`
+  - `email`
+  - `countryCode`
+  - `galleryId`
+  - `packageId`
+  - `discoverySource`
+  - `personalStory`
+- Package order request không gửi:
+  - `budget`
+  - `pricing`
+- Custom order request gửi:
+  - `name`
+  - `email`
+  - `countryCode`
+  - `galleryId`
+  - `budget: { amount, currency }`
+  - `discoverySource`
+  - `personalStory`
+- Custom order request không gửi:
+  - `packageId`
+  - `pricing`
+
+**orders response semantics cho FE**
+- Package item response có cả:
+  - `item.pricing`
+  - `item.packageSnapshot.pricing`
+- FE/UI canonical field cho package item là:
+  - `item.pricing`
+- `item.packageSnapshot.pricing` là snapshot data, không phải field UI chính.
+- Custom item FE/UI canonical field là:
+  - `item.budget`
+- FE không được dùng `packageSnapshot.pricing` làm field render chính nếu `item.pricing` đã có.
+
+**orders list/update behavior**
+- Admin list query support:
+  - `page`
+  - `limit`
+  - `keyword`
+  - `status`
+  - `paymentStatus`
+  - `discoverySource`
+- FE có thể truyền đủ field filter với empty string:
+  - `?page=1&limit=10&keyword=&status=&paymentStatus=&discoverySource=`
+- Backend hiểu empty string filter là all / undefined.
+- Validation message hiện thường chỉ trả 1 message đầu tiên, không join dài và không có array details mặc định.
+- Status transitions và paymentStatus transitions là one-way; FE không được assume patch ngược tự do.
+
 ### Files upload-token semantics (liên quan projects + blogs + packages)
 - Endpoint `POST /api/v1/files/request-upload` là public.
 - FE phải request upload token trước khi gửi:
@@ -362,6 +433,15 @@ Không được tự sang stage tiếp theo nếu tôi chưa xác nhận.
 - `BLOG_COVER_IMAGE_NOT_FOUND`
 - `INVALID_FILE_UPLOAD_TOKEN`
 - `INVALID_FILE_UPLOAD_STATE`
+
+### Orders errors hữu ích cho FE
+- `INVALID_ORDER_REQUEST`
+- `INVALID_ORDER_DISCOVERY_SOURCE`
+- `INVALID_ORDER_REQUEST_TOKEN`
+- `ORDER_NOT_FOUND`
+- `INVALID_ORDER_STATUS_TRANSITION`
+- `INVALID_ORDER_PAYMENT_STATUS_TRANSITION`
+- `INVALID_ORDER_UPDATE_PAYLOAD`
 
 ### Packages errors hữu ích cho FE
 - `PACKAGE_NOT_FOUND`
@@ -511,7 +591,21 @@ Chỉ làm:
 
 Không làm public packages UI trong repo admin này nếu chưa có yêu cầu riêng.
 
-### Stage 10 — Polish
+### Stage 10 — Orders management
+Chỉ làm:
+- admin orders list
+- order detail
+- update order status/paymentStatus
+- map đúng package/custom item semantics
+- package item render `item.pricing` là field UI chính
+- custom item render `item.budget` là field UI chính
+- list query dùng practical filter state với empty string là hợp lệ theo backend
+- public request/confirm flow chỉ research/integration nếu có yêu cầu riêng cho repo này
+
+Không invent duplicate-create semantics cho repeated confirm.
+Không truyền `requestDraftId` từ FE.
+
+### Stage 11 — Polish
 Chỉ làm:
 - responsive refinement
 - animation/motion polish
@@ -548,9 +642,16 @@ Nếu không khả dụng thì tiếp tục best effort bình thường.
 - Implement admin galleries trong repo admin này khi tới đúng stage.
 - Implement admin blogs trong repo admin này khi tới đúng stage.
 - Implement admin packages trong repo admin này khi tới đúng stage.
+- Implement admin orders trong repo admin này khi tới đúng stage.
 - Không implement public galleries UI trong repo admin này nếu tôi chưa yêu cầu riêng.
 - Không implement public blogs UI trong repo admin này nếu tôi chưa yêu cầu riêng.
 - Không implement public packages UI trong repo admin này nếu tôi chưa yêu cầu riêng.
 - Không bịa route/API ngoài backend brief và Postman hiện tại.
 - Không invent public gallery detail API.
 - Không assume locale fallback là `vi`; current fallback là `en`.
+- Không truyền `requestDraftId` từ FE cho orders.
+- Không gửi `pricing` trong orders request payload.
+- Với package order item, render `item.pricing` là field UI chính.
+- Với custom order item, render `item.budget` là field UI chính.
+- Không assume repeated confirm của orders là duplicate create; current runtime trả lại order cũ trong consumed-state TTL.
+- Không assume validation response của orders sẽ join nhiều lỗi; current behavior thường là message đầu tiên.

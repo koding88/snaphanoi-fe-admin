@@ -1,5 +1,5 @@
 1. **Kết luận ngắn**
-- Backend snapshot hiện tại có 9 nhóm endpoint chính: `auth`, `users`, `roles`, `galleries`, `projects`, `blogs`, `packages`, `files`, `health`.
+- Backend snapshot hiện tại có 10 nhóm endpoint chính: `auth`, `users`, `roles`, `galleries`, `projects`, `blogs`, `packages`, `orders`, `files`, `health`.
 - `galleries` đã hoàn tất round 1 ở backend:
   - admin CRUD
   - soft delete / restore
@@ -8,10 +8,11 @@
   - Accept-Language mapping
   - fallback locale hiện tại là `en`
   - public list có cache theo locale và invalidate khi write
-- `users`, `roles`, `galleries`, `projects`, `blogs`, `packages` admin routes đều là admin-only.
+- `users`, `roles`, `galleries`, `projects`, `blogs`, `packages`, `orders` admin routes đều là admin-only.
 - `GET /api/v1/galleries/public` là public, không cần auth.
 - `GET /api/v1/projects/public` và `GET /api/v1/projects/public/:id` là public.
 - `GET /api/v1/packages/public` là public.
+- `POST /api/v1/orders/public/request` và `POST /api/v1/orders/public/confirm` là public.
 - `POST /api/v1/files/request-upload` là public.
 - Response API dùng envelope thống nhất: `success`, `data`, `message`, `error`, `statusCode`, `timestamp`, `path`, `requestId`.
 - Health routes hiện không versioned: `/api/health/live`, `/api/health/ready`.
@@ -96,6 +97,15 @@
 - Public packages:
   - `GET /api/v1/packages/public`
 
+**orders endpoints + flow**
+- Public orders:
+  - `POST /api/v1/orders/public/request`
+  - `POST /api/v1/orders/public/confirm`
+- Admin orders:
+  - `GET /api/v1/orders`
+  - `GET /api/v1/orders/:id`
+  - `PATCH /api/v1/orders/:id`
+
 **files endpoints + flow**
 - Public files:
   - `POST /api/v1/files/request-upload`
@@ -117,6 +127,8 @@
   - `GET /api/v1/blogs/public`
   - `GET /api/v1/blogs/public/:id`
   - `GET /api/v1/packages/public`
+  - `POST /api/v1/orders/public/request`
+  - `POST /api/v1/orders/public/confirm`
   - `POST /api/v1/files/request-upload`
   - health endpoints
 - Protected:
@@ -132,6 +144,7 @@
   - toàn bộ `projects` admin routes
   - toàn bộ `blogs` admin routes
   - toàn bộ `packages` admin routes
+  - toàn bộ `orders` admin routes
 - Self-or-admin:
   - `GET /api/v1/users/:id`
 
@@ -726,7 +739,132 @@
 - `INVALID_FILE_UPLOAD_TOKEN`
 - `INVALID_FILE_UPLOAD_STATE`
 
-8. **Files request-upload contract (phục vụ create/update projects + blogs + packages)**
+
+8. **Orders contract cho frontend**
+
+**orders shape tổng quát**
+- Public flow hiện tại có 2 bước:
+  - `POST /api/v1/orders/public/request`
+  - `POST /api/v1/orders/public/confirm`
+- Admin flow hiện tại có:
+  - `GET /api/v1/orders`
+  - `GET /api/v1/orders/:id`
+  - `PATCH /api/v1/orders/:id`
+- `requestDraftId` là backend-generated internal identifier.
+- FE không gửi `requestDraftId` ở bất kỳ request nào.
+- Confirm lần đầu tạo order thật đúng 1 lần.
+- Repeated confirm với cùng token trong consumed-state TTL:
+  - không tạo order mới
+  - trả lại order cũ / success state cũ theo current runtime
+- Sau first successful confirm/create, backend gửi success email async.
+- Repeated confirm / idempotent return không gửi lại success email.
+
+**package order request**
+- Endpoint: `POST /api/v1/orders/public/request`
+- FE gửi:
+```json
+{
+  "name": "Nguyen Van A",
+  "email": "customer@example.com",
+  "countryCode": "VN",
+  "galleryId": "gallery-id",
+  "packageId": "package-id",
+  "discoverySource": "facebook",
+  "personalStory": "We want to capture our Hanoi anniversary story."
+}
+```
+- Không gửi:
+  - `budget`
+  - `pricing`
+
+**custom order request**
+- Endpoint: `POST /api/v1/orders/public/request`
+- FE gửi:
+```json
+{
+  "name": "Tran Thi B",
+  "email": "custom@example.com",
+  "countryCode": "VN",
+  "galleryId": "gallery-id",
+  "budget": {
+    "amount": 2500000,
+    "currency": "VND"
+  },
+  "discoverySource": "instagram",
+  "personalStory": "We want a tailor-made anniversary session in Hanoi."
+}
+```
+- Không gửi:
+  - `packageId`
+  - `pricing`
+
+**confirm order request**
+- Endpoint: `POST /api/v1/orders/public/confirm`
+- Body chỉ có token:
+```json
+{
+  "token": "confirm-token-from-email"
+}
+```
+- FE note:
+  - token cũ không đồng nghĩa duplicate create
+  - repeated confirm trong consumed-state TTL là hợp lệ theo current runtime
+  - FE có thể treat repeated confirm như success/recovered success state nếu backend trả lại order cũ
+
+**admin orders list**
+- Endpoint: `GET /api/v1/orders`
+- Boundary: admin-only
+- Query support:
+  - `page`
+  - `limit`
+  - `keyword`
+  - `status`
+  - `paymentStatus`
+  - `discoverySource`
+- Empty string filter behavior:
+  - `keyword=''` hợp lệ
+  - `status=''` => all
+  - `paymentStatus=''` => all
+  - `discoverySource=''` => all
+- FE có thể gọi practical kiểu:
+  - `?page=1&limit=10&keyword=&status=&paymentStatus=&discoverySource=`
+
+**admin orders detail / update**
+- `GET /api/v1/orders/:id` trả full admin order response.
+- `PATCH /api/v1/orders/:id` chỉ update:
+  - `status`
+  - `paymentStatus`
+- FE không nên assume đổi status/paymentStatus ngược tự do.
+- Current enums:
+  - `status`: `pending`, `contacted`, `confirmed`, `completed`, `cancelled`
+  - `paymentStatus`: `unpaid`, `partiallyPaid`, `paid`, `refunded`
+
+**orders response semantics cho FE**
+- Package item response có cả:
+  - `item.pricing`
+  - `item.packageSnapshot.pricing`
+- FE/UI canonical field cho package item:
+  - `item.pricing`
+- `item.packageSnapshot.pricing` chỉ là snapshot data đầy đủ.
+- Custom item FE/UI canonical field:
+  - `item.budget`
+- FE không nên dùng `packageSnapshot.pricing` làm field UI chính nếu `item.pricing` đã có.
+
+**orders validation/error behavior hữu ích cho FE**
+- Backend validation response hiện thường chỉ có:
+  - 1 message đầu tiên
+  - không join toàn bộ lỗi thành 1 string dài
+  - không có array details mặc định
+- Errors practical cần nhớ:
+  - `INVALID_ORDER_REQUEST`
+  - `INVALID_ORDER_DISCOVERY_SOURCE`
+  - `INVALID_ORDER_REQUEST_TOKEN`
+  - `ORDER_NOT_FOUND`
+  - `INVALID_ORDER_STATUS_TRANSITION`
+  - `INVALID_ORDER_PAYMENT_STATUS_TRANSITION`
+  - `INVALID_ORDER_UPDATE_PAYLOAD`
+
+9. **Files request-upload contract (phục vụ create/update projects + blogs + packages)**
 - Endpoint: `POST /api/v1/files/request-upload` (public).
 - FE upload flow cho cover/content image của `projects` và `blogs`, cùng cover image của `packages`, cần gọi endpoint này để nhận upload token trước khi gửi create/update payload.
 - Relevant purposes hiện tại gồm:
@@ -736,7 +874,7 @@
   - `blog-content`
   - `package-cover`
 
-9. **Galleries errors hữu ích cho FE**
+10. **Galleries errors hữu ích cho FE**
 
 - `GALLERY_NOT_FOUND`
 - `GALLERY_NAME_EN_ALREADY_EXISTS`
@@ -749,7 +887,7 @@ Practical FE handling:
 - create/update form nên map 3 lỗi duplicate name theo từng locale field
 - delete/restore action nên handle `not found`, `already deleted`, `not deleted` như action-state error bình thường
 
-10. **Frontend planning notes cho FE admin repo**
+11. **Frontend planning notes cho FE admin repo**
 
 - Repo admin này nên implement:
   - admin galleries list
@@ -770,7 +908,7 @@ Practical FE handling:
   - create/update form dùng multilingual object local cho 3 field `en/vi/cn`
   - detail/edit page đọc full multilingual object, không dùng localized string
 
-11. **FE must-not-misunderstand**
+12. **FE must-not-misunderstand**
 
 - Không assume `createdBy` là editable field ở gallery form.
 - Không assume public galleries response có full object `name`.
@@ -786,11 +924,16 @@ Practical FE handling:
 - Không assume packages có content/editor flow.
 - Không format `duration` sang phút ở FE data layer; backend trả raw seconds.
 - Không assume public packages response có multilingual object cho `name` hoặc `bestFor`; public list đã localized.
+- Không truyền `requestDraftId` từ FE cho orders; backend tự sinh.
+- Không gửi `pricing` trong orders request payload.
+- Với package order item, render `item.pricing` là field UI chính.
+- Với custom order item, render `item.budget` là field UI chính.
+- Không assume repeated confirm của orders là duplicate create; current runtime trả lại order cũ trong consumed-state TTL.
 
-12. **Short handoff block**
+13. **Short handoff block**
 ```md
 Backend snapshot:
-- Modules: auth, users, roles, galleries, projects, blogs, packages, files, health.
+- Modules: auth, users, roles, galleries, projects, blogs, packages, orders, files, health.
 - API uses envelope: `{ success, data, message, error, statusCode, timestamp, path, requestId }`.
 - Health routes are `/api/health/live` and `/api/health/ready`.
 
@@ -815,7 +958,9 @@ Galleries + Projects snapshot:
   - `GET /api/v1/blogs/public`
   - `GET /api/v1/blogs/public/:id`
   - `GET /api/v1/packages/public`
-- Admin-only for all admin gallery routes.
+  - `POST /api/v1/orders/public/request`
+  - `POST /api/v1/orders/public/confirm`
+- Admin-only for all admin gallery routes and all admin orders routes.
 - Public list uses `Accept-Language`, supports `vi/en/cn`, fallback `en`.
 - Public list response is minimal: `{ id, name }`.
 - Admin list/detail returns full multilingual `name` plus `createdBy`, `isActive`, `deletedAt`, `createdAt`, `updatedAt`.
@@ -830,7 +975,7 @@ Galleries + Projects snapshot:
 
 FE admin scope:
 - Implement admin galleries in this repo.
-- Implement admin projects/blogs/packages in this repo when tới đúng stage.
+- Implement admin projects/blogs/packages/orders in this repo when tới đúng stage.
 - Do not implement public galleries UI in this repo.
 - Do not implement public blogs UI in this repo unless explicitly requested.
 - Do not implement public packages UI in this repo unless explicitly requested.
