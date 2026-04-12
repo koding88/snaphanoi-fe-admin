@@ -5,6 +5,10 @@ export const ROUTES = {
   registerConfirm: "/register-confirm",
   forgotPassword: "/forgot-password",
   resetPassword: "/reset-password",
+  publicOrders: {
+    request: "/orders/request",
+    confirm: "/orders/confirm",
+  },
   admin: {
     dashboard: "/admin",
     users: {
@@ -44,6 +48,10 @@ export const ROUTES = {
       create: "/admin/packages/create",
       detail: (id: string) => `/admin/packages/${id}`,
       edit: (id: string) => `/admin/packages/${id}/edit`,
+    },
+    orders: {
+      root: "/admin/orders",
+      detail: (id: string) => `/admin/orders/${id}`,
     },
   },
 } as const;

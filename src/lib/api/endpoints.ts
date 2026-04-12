@@ -26,6 +26,7 @@ export const API_ENDPOINTS = {
     list: "/api/v1/galleries",
     byId: (id: string) => `/api/v1/galleries/${id}`,
     restore: (id: string) => `/api/v1/galleries/${id}/restore`,
+    publicList: "/api/v1/galleries/public",
   },
   projects: {
     list: "/api/v1/projects",
@@ -41,6 +42,13 @@ export const API_ENDPOINTS = {
     list: "/api/v1/packages",
     byId: (id: string) => `/api/v1/packages/${id}`,
     restore: (id: string) => `/api/v1/packages/${id}/restore`,
+    publicList: "/api/v1/packages/public",
+  },
+  orders: {
+    list: "/api/v1/orders",
+    byId: (id: string) => `/api/v1/orders/${id}`,
+    publicRequest: "/api/v1/orders/public/request",
+    publicConfirm: "/api/v1/orders/public/confirm",
   },
   files: {
     requestUpload: "/api/v1/files/request-upload",
