@@ -90,6 +90,42 @@ export function OrdersTable({ orders }: OrdersTableProps) {
     return null;
   }
 
+  function getStatusToneClass(status: OrderRecord["status"]) {
+    if (status === "completed") {
+      return "border-emerald-500/25 bg-emerald-500/10 text-emerald-700";
+    }
+
+    if (status === "cancelled") {
+      return "border-red-500/20 bg-red-500/8 text-red-700";
+    }
+
+    if (status === "confirmed") {
+      return "border-[--color-brand]/25 bg-[--color-brand-soft] text-[--color-brand]";
+    }
+
+    if (status === "contacted") {
+      return "border-sky-500/20 bg-sky-500/8 text-sky-700";
+    }
+
+    return "border-amber-500/25 bg-amber-500/10 text-amber-700";
+  }
+
+  function getPaymentToneClass(paymentStatus: OrderRecord["paymentStatus"]) {
+    if (paymentStatus === "paid") {
+      return "border-emerald-500/25 bg-emerald-500/10 text-emerald-700";
+    }
+
+    if (paymentStatus === "refunded") {
+      return "border-rose-500/20 bg-rose-500/8 text-rose-700";
+    }
+
+    if (paymentStatus === "partiallyPaid") {
+      return "border-sky-500/20 bg-sky-500/8 text-sky-700";
+    }
+
+    return "border-amber-500/25 bg-amber-500/10 text-amber-700";
+  }
+
   return (
     <div className="surface-enter overflow-hidden rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(248,244,237,0.88))] shadow-soft">
       <div className="border-b border-border/70 bg-white/56 px-5 py-4">
@@ -196,11 +232,25 @@ export function OrdersTable({ orders }: OrdersTableProps) {
                 })()}
               </div>
               <div className="min-w-0 text-center">
-                <p className="truncate text-xs font-semibold tracking-[0.14em] text-foreground uppercase">
-                  {formatOrderStatus(order.status)}{" "}
-                  <span className="text-muted-foreground/70">|</span>{" "}
-                  {formatOrderPaymentStatus(order.paymentStatus)}
-                </p>
+                <div className="inline-flex max-w-full items-center gap-1.5 truncate">
+                  <span
+                    className={cn(
+                      "inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-semibold tracking-[0.13em] uppercase",
+                      getStatusToneClass(order.status),
+                    )}
+                  >
+                    {formatOrderStatus(order.status)}
+                  </span>
+                  <span className="text-[11px] text-muted-foreground/60">|</span>
+                  <span
+                    className={cn(
+                      "inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-semibold tracking-[0.13em] uppercase",
+                      getPaymentToneClass(order.paymentStatus),
+                    )}
+                  >
+                    {formatOrderPaymentStatus(order.paymentStatus)}
+                  </span>
+                </div>
               </div>
             </div>
           ))}
