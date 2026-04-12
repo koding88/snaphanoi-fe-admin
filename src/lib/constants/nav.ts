@@ -1,7 +1,7 @@
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 import { ROUTES } from "@/lib/constants/routes";
-import { faCircleNodes, faFilm, faHouse, faLayerGroup, faPenNib, faRectangleList, faShieldHalved, faUserGroup } from "@/lib/icons/fa";
+import { faClockRotateLeft, faFilm, faHouse, faLayerGroup, faPenNib, faRectangleList, faShieldHalved, faUserGroup } from "@/lib/icons/fa";
 
 export type AdminNavItem = {
   href: string;
@@ -65,6 +65,6 @@ export const ADMIN_NAV_ITEMS: AdminNavItem[] = [
     href: ROUTES.admin.orders.root,
     label: "Orders",
     description: "Requests and fulfillment",
-    icon: faCircleNodes,
+    icon: faClockRotateLeft,
   },
 ];

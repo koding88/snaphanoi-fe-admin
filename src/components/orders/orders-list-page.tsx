@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
@@ -22,7 +21,6 @@ import type {
   OrdersListResult,
 } from "@/features/orders/types/orders.types";
 import { getFriendlyOrdersError } from "@/features/orders/utils/orders-errors";
-import { ROUTES } from "@/lib/constants/routes";
 import { useDebouncedValue } from "@/lib/hooks/use-debounced-value";
 import { faRotateLeft } from "@/lib/icons/fa";
 import { notifyError } from "@/lib/toast";
@@ -132,14 +130,6 @@ export function OrdersListPage() {
         eyebrow="Orders"
         title="Manage order requests and fulfillment."
         description="Review incoming requests, payment progression, and lifecycle updates from one admin module."
-        actions={
-          <Link
-            href={ROUTES.publicOrders.request}
-            className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-5")}
-          >
-            Open public request form
-          </Link>
-        }
       />
 
       <AdminSurface className="p-6 md:p-8">

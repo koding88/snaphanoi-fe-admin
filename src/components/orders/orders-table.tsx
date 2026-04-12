@@ -1,17 +1,25 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { OrderPaymentBadge } from "@/components/orders/order-payment-badge";
-import { OrderStatusBadge } from "@/components/orders/order-status-badge";
 import type { OrderItemRecord, OrderRecord } from "@/features/orders/types/orders.types";
 import {
-  formatOrderCountry,
   formatOrderDiscoverySource,
   formatOrderMoney,
+  formatOrderPaymentStatus,
+  formatOrderStatus,
 } from "@/features/orders/utils/orders-format";
 import { formatDateOnly } from "@/features/users/utils/users-format";
+import { getCountryByCode } from "@/lib/constants/countries";
 import { ROUTES } from "@/lib/constants/routes";
+import {
+  faFacebook,
+  faGoogle,
+  faInstagram,
+  faTiktok,
+  faUserGroup,
+} from "@/lib/icons/fa";
 import { cn } from "@/lib/utils";
 
 type OrdersTableProps = {
@@ -50,10 +58,36 @@ function getOrderItemSummary(item: OrderItemRecord | undefined) {
 export function OrdersTable({ orders }: OrdersTableProps) {
   const router = useRouter();
   const columnLayout =
-    "grid-cols-[minmax(190px,1fr)_minmax(230px,1.3fr)_140px_minmax(190px,1fr)_170px]";
+    "grid-cols-[minmax(176px,0.95fr)_minmax(210px,1.2fr)_minmax(112px,0.72fr)_minmax(148px,0.85fr)_minmax(168px,0.9fr)]";
 
   function navigateToOrder(orderId: string) {
     router.push(ROUTES.admin.orders.detail(orderId));
+  }
+
+  function getSourceIcon(source: string) {
+    const normalized = source.trim().toLowerCase();
+
+    if (normalized === "facebook") {
+      return faFacebook;
+    }
+
+    if (normalized === "instagram") {
+      return faInstagram;
+    }
+
+    if (normalized === "tiktok") {
+      return faTiktok;
+    }
+
+    if (normalized === "google") {
+      return faGoogle;
+    }
+
+    if (normalized === "friend") {
+      return faUserGroup;
+    }
+
+    return null;
   }
 
   return (
@@ -69,7 +103,7 @@ export function OrdersTable({ orders }: OrdersTableProps) {
       <div className="overflow-x-auto border-t border-border/10">
         <div
           className={cn(
-            "grid min-w-[980px] items-center gap-x-4 border-b border-border/80 bg-white/55 px-5 py-4 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
+            "grid min-w-[860px] items-center gap-x-3 border-b border-border/80 bg-white/55 px-4 py-3.5 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
             columnLayout,
           )}
         >
@@ -93,7 +127,7 @@ export function OrdersTable({ orders }: OrdersTableProps) {
                 }
               }}
               className={cn(
-                "group grid min-w-[980px] cursor-pointer items-center gap-x-4 border-b border-border/60 px-5 py-4 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0",
+                "group grid min-w-[860px] cursor-pointer items-center gap-x-3 border-b border-border/60 px-4 py-3.5 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0",
                 columnLayout,
               )}
             >
@@ -109,15 +143,43 @@ export function OrdersTable({ orders }: OrdersTableProps) {
                 <p className="truncate font-medium text-foreground">
                   {order.customerInfo.name}
                 </p>
-                <p className="mt-1 truncate text-xs text-muted-foreground">
+                <p
+                  className="mt-1 max-w-[182px] truncate text-[11px] text-muted-foreground"
+                  title={order.customerInfo.email}
+                >
                   {order.customerInfo.email}
                 </p>
-                <p className="mt-1 truncate text-xs text-muted-foreground">
-                  {formatOrderCountry(order.customerInfo.countryCode)}
+                <p
+                  className="mt-1 text-[10px] font-semibold tracking-[0.14em] text-muted-foreground/85 uppercase"
+                  title={order.customerInfo.countryCode || "N/A"}
+                >
+                  {(() => {
+                    const code = order.customerInfo.countryCode || "N/A";
+                    const country = getCountryByCode(order.customerInfo.countryCode);
+
+                    return country ? `${country.flag} ${code}` : code;
+                  })()}
                 </p>
               </div>
               <div className="min-w-0 text-sm text-muted-foreground">
-                {formatOrderDiscoverySource(order.discoverySource)}
+                <div className="inline-flex items-center gap-1.5">
+                  {(() => {
+                    const icon = getSourceIcon(order.discoverySource);
+
+                    if (!icon) {
+                      return null;
+                    }
+
+                    return (
+                      <span className="inline-flex h-4 w-4 items-center justify-center text-[11px] text-[--color-brand-muted]">
+                        <FontAwesomeIcon icon={icon} />
+                      </span>
+                    );
+                  })()}
+                  <span className="truncate text-[12px]">
+                    {formatOrderDiscoverySource(order.discoverySource)}
+                  </span>
+                </div>
               </div>
               <div className="min-w-0 text-sm">
                 {(() => {
@@ -127,15 +189,18 @@ export function OrdersTable({ orders }: OrdersTableProps) {
                       <p className="font-medium text-foreground">{summary.type}</p>
                       <p className="truncate text-muted-foreground">{summary.name}</p>
                       {summary.amount ? (
-                        <p className="text-muted-foreground">{summary.amount}</p>
+                        <p className="truncate text-muted-foreground">{summary.amount}</p>
                       ) : null}
                     </div>
                   );
                 })()}
               </div>
-              <div className="flex flex-col items-center gap-1.5">
-                <OrderStatusBadge status={order.status} />
-                <OrderPaymentBadge status={order.paymentStatus} />
+              <div className="min-w-0 text-center">
+                <p className="truncate text-xs font-semibold tracking-[0.14em] text-foreground uppercase">
+                  {formatOrderStatus(order.status)}{" "}
+                  <span className="text-muted-foreground/70">|</span>{" "}
+                  {formatOrderPaymentStatus(order.paymentStatus)}
+                </p>
               </div>
             </div>
           ))}

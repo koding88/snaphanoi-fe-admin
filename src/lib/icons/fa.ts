@@ -1,5 +1,11 @@
 import { config } from "@fortawesome/fontawesome-svg-core";
 import {
+  faFacebook,
+  faGoogle,
+  faInstagram,
+  faTiktok,
+} from "@fortawesome/free-brands-svg-icons";
+import {
   faArrowRightFromBracket,
   faArrowRight,
   faArrowRotateRight,
@@ -43,6 +49,10 @@ import {
 config.autoAddCss = false;
 
 export {
+  faFacebook,
+  faGoogle,
+  faInstagram,
+  faTiktok,
   faArrowRightFromBracket,
   faArrowRight,
   faArrowRotateRight,
