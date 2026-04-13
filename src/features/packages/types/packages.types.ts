@@ -19,7 +19,7 @@ export type PackageFileRecord = {
 
 export type PackageCreator = {
   id: string;
-  name: string;
+  name: string | null;
 };
 
 export type PackageRecord = {

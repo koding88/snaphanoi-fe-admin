@@ -34,3 +34,21 @@ export function formatCountryCode(value: string | null) {
 
   return `${country.flag} ${country.name}`;
 }
+
+export function formatCreatorDisplayName(value: string | null | undefined) {
+  if (!value) {
+    return "Deleted user";
+  }
+
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : "Deleted user";
+}
+
+export function formatGalleryDisplayName(value: string | null | undefined) {
+  if (!value) {
+    return "Deleted gallery";
+  }
+
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : "Deleted gallery";
+}

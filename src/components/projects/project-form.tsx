@@ -202,7 +202,7 @@ export function ProjectForm({
 
     const nextFieldErrors: typeof fieldErrors = {};
 
-    if (!values.galleryId) {
+    if (mode === "create" && !values.galleryId) {
       nextFieldErrors.galleryId = "Select a gallery for this project.";
     }
 
@@ -237,7 +237,7 @@ export function ProjectForm({
 
     try {
       await onSubmit({
-        galleryId: values.galleryId,
+        ...(values.galleryId ? { galleryId: values.galleryId } : {}),
         name: {
           en: values.name.en.trim(),
           vi: values.name.vi.trim(),
@@ -490,13 +490,13 @@ export function ProjectForm({
 }
 
 export function getProjectFormInitialValues(project: {
-  gallery: { id: string };
+  gallery?: { id: string } | null;
   name: { en: string; vi: string; cn: string };
   isPublished: boolean;
   content: OutputData;
 }) {
   return {
-    galleryId: project.gallery.id,
+    galleryId: project.gallery?.id ?? "",
     name: {
       en: project.name.en,
       vi: project.name.vi,

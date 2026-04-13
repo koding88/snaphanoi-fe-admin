@@ -10,7 +10,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { ProjectPublishBadge } from "@/components/projects/project-publish-badge";
 import { ProjectStatusBadge } from "@/components/projects/project-status-badge";
 import type { ProjectRecord } from "@/features/projects/types/projects.types";
-import { formatDateOnly } from "@/features/users/utils/users-format";
+import { formatDateOnly, formatGalleryDisplayName } from "@/features/users/utils/users-format";
 import { ROUTES } from "@/lib/constants/routes";
 import { faRotateLeft, faTrashCan, faUserPen } from "@/lib/icons/fa";
 import { cn } from "@/lib/utils";
@@ -124,7 +124,7 @@ export function ProjectsTable({ projects, isBusy = false, onDelete, onRestore }:
                   </div>
                 </div>
                 <div className="text-center text-sm text-muted-foreground">
-                  <p className="truncate">{project.gallery.name}</p>
+                  <p className="truncate">{formatGalleryDisplayName(project.gallery?.name)}</p>
                 </div>
                 <div className="flex justify-center">
                   <ProjectPublishBadge isPublished={project.isPublished} />
@@ -214,7 +214,9 @@ export function ProjectsTable({ projects, isBusy = false, onDelete, onRestore }:
                 Selected project
               </p>
               <p className="text-sm font-medium text-foreground">{pendingAction.project.name.en}</p>
-              <p className="text-sm text-muted-foreground">{pendingAction.project.gallery.name}</p>
+              <p className="text-sm text-muted-foreground">
+                {formatGalleryDisplayName(pendingAction.project.gallery?.name)}
+              </p>
             </div>
           ) : null
         }

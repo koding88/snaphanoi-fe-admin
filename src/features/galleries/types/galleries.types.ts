@@ -6,7 +6,7 @@ export type GalleryLocalizedName = {
 
 export type GalleryCreator = {
   id: string;
-  name: string;
+  name: string | null;
 };
 
 export type GalleryRecord = {

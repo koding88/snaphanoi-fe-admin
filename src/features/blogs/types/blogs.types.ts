@@ -10,7 +10,7 @@ export type BlogFileRecord = {
 
 export type BlogCreator = {
   id: string;
-  name: string;
+  name: string | null;
 };
 
 export type BlogRecord = {

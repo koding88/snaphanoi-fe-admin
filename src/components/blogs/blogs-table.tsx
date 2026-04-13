@@ -11,7 +11,7 @@ import { BlogStatusBadge } from "@/components/blogs/blog-status-badge";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { Button, buttonVariants } from "@/components/ui/button";
 import type { BlogRecord } from "@/features/blogs/types/blogs.types";
-import { formatDateOnly } from "@/features/users/utils/users-format";
+import { formatCreatorDisplayName, formatDateOnly } from "@/features/users/utils/users-format";
 import { ROUTES } from "@/lib/constants/routes";
 import { faRotateLeft, faTrashCan, faUserPen } from "@/lib/icons/fa";
 import { cn } from "@/lib/utils";
@@ -109,7 +109,7 @@ export function BlogsTable({ blogs, isBusy = false, onDelete, onRestore }: Blogs
               >
                 <div className="space-y-1">
                   <p className="truncate font-medium text-foreground">{blog.name}</p>
-                  <p className="text-sm text-muted-foreground">By {blog.createdBy.name}</p>
+                  <p className="text-sm text-muted-foreground">By {formatCreatorDisplayName(blog.createdBy.name)}</p>
                 </div>
                 <div className="flex justify-center">
                   <div className="overflow-hidden rounded-2xl border border-border/80 bg-muted/40 shadow-[0_12px_30px_-24px_rgba(32,24,18,0.45)]">
@@ -205,7 +205,7 @@ export function BlogsTable({ blogs, isBusy = false, onDelete, onRestore }: Blogs
                 Selected blog
               </p>
               <p className="text-sm font-medium text-foreground">{pendingAction.blog.name}</p>
-              <p className="text-sm text-muted-foreground">{pendingAction.blog.createdBy.name}</p>
+              <p className="text-sm text-muted-foreground">{formatCreatorDisplayName(pendingAction.blog.createdBy.name)}</p>
             </div>
           ) : null
         }

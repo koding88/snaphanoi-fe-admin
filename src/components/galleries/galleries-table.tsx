@@ -10,7 +10,7 @@ import { GalleryStatusBadge } from "@/components/galleries/gallery-status-badge"
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { Button, buttonVariants } from "@/components/ui/button";
 import type { GalleryRecord } from "@/features/galleries/types/galleries.types";
-import { formatDateOnly } from "@/features/users/utils/users-format";
+import { formatCreatorDisplayName, formatDateOnly } from "@/features/users/utils/users-format";
 import { ROUTES } from "@/lib/constants/routes";
 import { faRotateLeft, faTrashCan, faUserPen } from "@/lib/icons/fa";
 import { cn } from "@/lib/utils";
@@ -101,7 +101,9 @@ export function GalleriesTable({ galleries, isBusy = false, onDelete, onRestore 
                       <p className="truncate">CN: {gallery.name.cn}</p>
                     </div>
                   </td>
-                  <td className="align-middle px-5 py-5 text-sm text-muted-foreground">{gallery.createdBy.name}</td>
+                  <td className="align-middle px-5 py-5 text-sm text-muted-foreground">
+                    {formatCreatorDisplayName(gallery.createdBy.name)}
+                  </td>
                   <td className="align-middle px-5 py-5 text-sm text-muted-foreground">{formatDateOnly(gallery.updatedAt)}</td>
                   <td className="align-middle px-5 py-5">
                     <GalleryStatusBadge isActive={gallery.isActive} deletedAt={gallery.deletedAt} />
@@ -181,7 +183,7 @@ export function GalleriesTable({ galleries, isBusy = false, onDelete, onRestore 
                 Selected gallery
               </p>
               <p className="text-sm font-medium text-foreground">{pendingAction.gallery.name.en}</p>
-              <p className="text-sm text-muted-foreground">{pendingAction.gallery.createdBy.name}</p>
+              <p className="text-sm text-muted-foreground">{formatCreatorDisplayName(pendingAction.gallery.createdBy.name)}</p>
             </div>
           ) : null
         }

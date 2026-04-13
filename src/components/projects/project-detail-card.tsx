@@ -3,10 +3,17 @@ import { ProjectCoverPreview } from "@/components/projects/project-cover-preview
 import { ProjectPublishBadge } from "@/components/projects/project-publish-badge";
 import { ProjectStatusBadge } from "@/components/projects/project-status-badge";
 import type { ProjectDetailRecord } from "@/features/projects/types/projects.types";
-import { formatDateTime } from "@/features/users/utils/users-format";
+import {
+  formatCreatorDisplayName,
+  formatDateTime,
+  formatGalleryDisplayName,
+} from "@/features/users/utils/users-format";
 
 export function ProjectDetailCard({ project }: { project: ProjectDetailRecord }) {
   const coverSizeKb = Math.max(1, Math.round(project.coverImage.size / 1024));
+  const creatorName = formatCreatorDisplayName(project.createdBy.name);
+  const galleryName = formatGalleryDisplayName(project.gallery?.name);
+  const hasGalleryReference = Boolean(project.gallery?.name && project.gallery.name.trim().length > 0);
 
   return (
     <AdminSurface className="overflow-hidden">
@@ -61,9 +68,9 @@ export function ProjectDetailCard({ project }: { project: ProjectDetailRecord })
             </div>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
               <span className="rounded-full border border-border/70 bg-white/76 px-3 py-1.5">
-                Gallery: {project.gallery.name}
+                Gallery: {galleryName}
               </span>
-              <span>Created by {project.createdBy.name}</span>
+              <span>Created by {creatorName}</span>
               <span>Updated {formatDateTime(project.updatedAt)}</span>
             </div>
           </div>
@@ -90,16 +97,18 @@ export function ProjectDetailCard({ project }: { project: ProjectDetailRecord })
               <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
                 Gallery
               </p>
-              <p className="mt-3 text-xl font-medium text-foreground">{project.gallery.name}</p>
+              <p className="mt-3 text-xl font-medium text-foreground">{galleryName}</p>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                The story is currently grouped under this portfolio collection.
+                {hasGalleryReference
+                  ? "The story is currently grouped under this portfolio collection."
+                  : "The original gallery reference is no longer available after retention cleanup."}
               </p>
             </div>
             <div className="rounded-[1.5rem] border border-border/80 bg-white/76 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.74)]">
               <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
                 Created by
               </p>
-              <p className="mt-3 text-xl font-medium text-foreground">{project.createdBy.name}</p>
+              <p className="mt-3 text-xl font-medium text-foreground">{creatorName}</p>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
                 Ownership stays visible here without exposing raw internal identifiers.
               </p>

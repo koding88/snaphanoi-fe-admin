@@ -1,14 +1,14 @@
 import { AdminSurface } from "@/components/admin/admin-surface";
 import { GalleryStatusBadge } from "@/components/galleries/gallery-status-badge";
 import type { GalleryRecord } from "@/features/galleries/types/galleries.types";
-import { formatDateTime } from "@/features/users/utils/users-format";
+import { formatCreatorDisplayName, formatDateTime } from "@/features/users/utils/users-format";
 
 export function GalleryDetailCard({ gallery }: { gallery: GalleryRecord }) {
   const detailRows = [
     { label: "English name", value: gallery.name.en },
     { label: "Vietnamese name", value: gallery.name.vi },
     { label: "Chinese name", value: gallery.name.cn },
-    { label: "Created by", value: gallery.createdBy.name },
+    { label: "Created by", value: formatCreatorDisplayName(gallery.createdBy.name) },
     { label: "Created at", value: formatDateTime(gallery.createdAt) },
     { label: "Updated at", value: formatDateTime(gallery.updatedAt) },
     { label: "Deleted at", value: formatDateTime(gallery.deletedAt) },

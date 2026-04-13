@@ -3,10 +3,11 @@ import { BlogPinBadge } from "@/components/blogs/blog-pin-badge";
 import { BlogPublishBadge } from "@/components/blogs/blog-publish-badge";
 import { BlogStatusBadge } from "@/components/blogs/blog-status-badge";
 import type { BlogDetailRecord } from "@/features/blogs/types/blogs.types";
-import { formatDateTime } from "@/features/users/utils/users-format";
+import { formatCreatorDisplayName, formatDateTime } from "@/features/users/utils/users-format";
 
 export function BlogDetailCard({ blog }: { blog: BlogDetailRecord }) {
   const coverSizeKb = Math.max(1, Math.round(blog.coverImage.size / 1024));
+  const creatorName = formatCreatorDisplayName(blog.createdBy.name);
 
   return (
     <AdminSurface className="overflow-hidden">
@@ -65,7 +66,7 @@ export function BlogDetailCard({ blog }: { blog: BlogDetailRecord }) {
               </h2>
             </div>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
-              <span>Created by {blog.createdBy.name}</span>
+              <span>Created by {creatorName}</span>
               <span>Updated {formatDateTime(blog.updatedAt)}</span>
             </div>
           </div>
@@ -74,7 +75,7 @@ export function BlogDetailCard({ blog }: { blog: BlogDetailRecord }) {
               <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
                 Created by
               </p>
-              <p className="mt-3 text-xl font-medium text-foreground">{blog.createdBy.name}</p>
+              <p className="mt-3 text-xl font-medium text-foreground">{creatorName}</p>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
                 Ownership stays visible here without exposing internal identifiers.
               </p>

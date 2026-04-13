@@ -2,7 +2,7 @@ import type { OutputData } from "@editorjs/editorjs";
 import type { ProjectDetailRecord, ProjectLocalizedName } from "@/features/projects/types/projects.types";
 
 export type ProjectMutationPayload = {
-  galleryId: string;
+  galleryId?: string;
   name: ProjectLocalizedName;
   content: OutputData;
   isPublished: boolean;

@@ -8,7 +8,7 @@ export type ProjectLocalizedName = {
 
 export type ProjectGalleryRef = {
   id: string;
-  name: string;
+  name: string | null;
 };
 
 export type ProjectFileRecord = {
@@ -21,12 +21,12 @@ export type ProjectFileRecord = {
 
 export type ProjectCreator = {
   id: string;
-  name: string;
+  name: string | null;
 };
 
 export type ProjectRecord = {
   id: string;
-  gallery: ProjectGalleryRef;
+  gallery?: ProjectGalleryRef | null;
   name: ProjectLocalizedName;
   coverImage: ProjectFileRecord;
   isPublished: boolean;

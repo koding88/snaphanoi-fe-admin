@@ -6,10 +6,11 @@ import {
   formatPackageDuration,
   formatPackagePrice,
 } from "@/features/packages/utils/package-format";
-import { formatDateTime } from "@/features/users/utils/users-format";
+import { formatCreatorDisplayName, formatDateTime } from "@/features/users/utils/users-format";
 
 export function PackageDetailCard({ pkg }: { pkg: PackageDetailRecord }) {
   const coverSizeKb = Math.max(1, Math.round(pkg.coverImage.size / 1024));
+  const creatorName = formatCreatorDisplayName(pkg.createdBy.name);
 
   return (
     <AdminSurface className="overflow-hidden">
@@ -146,7 +147,7 @@ export function PackageDetailCard({ pkg }: { pkg: PackageDetailRecord }) {
                   Created by
                 </p>
                 <p className="mt-3 text-xl font-medium text-foreground">
-                  {pkg.createdBy.name}
+                  {creatorName}
                 </p>
               </div>
               <div className="rounded-[1.5rem] border border-border/70 bg-white/60 p-5">
