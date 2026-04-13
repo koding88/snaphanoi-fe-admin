@@ -4,13 +4,23 @@ type PublicEnv = {
 };
 
 function getEnvValue(key: keyof PublicEnv, fallback: string) {
-  const value = process.env[key];
+  const value = process.env[key]?.trim();
 
-  if (!value) {
+  if (value) {
+    return value;
+  }
+
+  if (process.env.NODE_ENV === "production") {
+    throw new Error(
+      `Missing required environment variable: ${key}. Set it in your deploy environment before building.`,
+    );
+  }
+
+  if (!fallback) {
     return fallback;
   }
 
-  return value;
+  return fallback;
 }
 
 export const env: PublicEnv = {

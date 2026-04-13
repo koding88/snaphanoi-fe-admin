@@ -49,5 +49,9 @@ export function getFriendlyAuthError(error: unknown, context: AuthErrorContext) 
     return "You do not have permission to perform this action.";
   }
 
+  if (error.statusCode >= 500) {
+    return "The server is temporarily unavailable. Please try again in a moment.";
+  }
+
   return error.message || "Something went wrong. Please try again.";
 }
