@@ -20,6 +20,10 @@ type RolesTableProps = {
   isBusy?: boolean;
 };
 
+// Temporarily hidden until permission-based access is implemented.
+// Backend still uses hard-coded role-based access, so delete role UI affordances are disabled for now.
+const SHOW_ROLE_DELETE_ACTIONS = false;
+
 export function RolesTable({ roles, onDelete, isBusy = false }: RolesTableProps) {
   const router = useRouter();
   const [pendingRole, setPendingRole] = useState<RoleRecord | null>(null);
@@ -110,21 +114,23 @@ export function RolesTable({ roles, onDelete, isBusy = false }: RolesTableProps)
                         <FontAwesomeIcon icon={faUserPen} />
                         Edit
                       </Link>
-                      <button
-                        type="button"
-                        disabled={isBusy}
-                        onClick={(event) => {
-                          handleRowActionClick(event);
-                          setPendingRole(role);
-                        }}
-                        className={cn(
-                          buttonVariants({ variant: "destructive", size: "sm" }),
-                          "disabled:pointer-events-none disabled:opacity-50",
-                        )}
-                      >
-                        <FontAwesomeIcon icon={faTrashCan} />
-                        Delete
-                      </button>
+                      {SHOW_ROLE_DELETE_ACTIONS ? (
+                        <button
+                          type="button"
+                          disabled={isBusy}
+                          onClick={(event) => {
+                            handleRowActionClick(event);
+                            setPendingRole(role);
+                          }}
+                          className={cn(
+                            buttonVariants({ variant: "destructive", size: "sm" }),
+                            "disabled:pointer-events-none disabled:opacity-50",
+                          )}
+                        >
+                          <FontAwesomeIcon icon={faTrashCan} />
+                          Delete
+                        </button>
+                      ) : null}
                     </div>
                   </td>
                 </tr>
@@ -134,7 +140,7 @@ export function RolesTable({ roles, onDelete, isBusy = false }: RolesTableProps)
         </div>
       </div>
       <ConfirmDialog
-        open={Boolean(pendingRole)}
+        open={SHOW_ROLE_DELETE_ACTIONS && Boolean(pendingRole)}
         title={`Delete ${pendingRole?.name}?`}
         description="Delete is only available when the role is no longer being used. Otherwise you will see a conflict message."
         confirmLabel="Delete role"

@@ -38,6 +38,10 @@ const INITIAL_USERS_QUERY: RoleUsersQuery = {
   limit: 10,
 };
 
+// Temporarily hidden until permission-based access is implemented.
+// Backend still uses hard-coded role-based access, so delete role UI affordances are disabled for now.
+const SHOW_ROLE_DELETE_ACTIONS = false;
+
 export function RoleDetailPage({ id }: { id: string }) {
   const router = useRouter();
   const [role, setRole] = useState<RoleRecord | null>(null);
@@ -109,14 +113,16 @@ export function RoleDetailPage({ id }: { id: string }) {
                 <FontAwesomeIcon icon={faUserPen} />
                 Edit
               </Link>
-              <button
-                type="button"
-                onClick={() => setDialogOpen(true)}
-                className={cn(buttonVariants({ variant: "destructive" }), "rounded-full px-5")}
-              >
-                <FontAwesomeIcon icon={faTrashCan} />
-                Delete
-              </button>
+              {SHOW_ROLE_DELETE_ACTIONS ? (
+                <button
+                  type="button"
+                  onClick={() => setDialogOpen(true)}
+                  className={cn(buttonVariants({ variant: "destructive" }), "rounded-full px-5")}
+                >
+                  <FontAwesomeIcon icon={faTrashCan} />
+                  Delete
+                </button>
+              ) : null}
             </div>
           ) : null
         }
@@ -215,7 +221,7 @@ export function RoleDetailPage({ id }: { id: string }) {
         </>
       )}
       <ConfirmDialog
-        open={dialogOpen}
+        open={SHOW_ROLE_DELETE_ACTIONS && dialogOpen}
         title={`Delete ${role?.name}?`}
         description="If this role is still assigned, removal will be blocked until reassignment is complete."
         confirmLabel="Delete role"

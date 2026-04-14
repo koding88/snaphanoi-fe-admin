@@ -32,6 +32,10 @@ const INITIAL_QUERY: RoleListQuery = {
   isSystem: "all",
 };
 
+// Temporarily hidden until permission-based access is implemented.
+// Backend still uses hard-coded role-based access, so create role UI affordances are disabled for now.
+const SHOW_ROLE_CREATE_ACTIONS = false;
+
 export function RolesListPage() {
   const [query, setQuery] = useState<RoleListQuery>(INITIAL_QUERY);
   const [keywordInput, setKeywordInput] = useState(INITIAL_QUERY.keyword ?? "");
@@ -115,13 +119,15 @@ export function RolesListPage() {
           </span>
         }
         actions={
-          <Link
-            href={ROUTES.admin.roles.create}
-            className={cn(buttonVariants(), "rounded-full px-5")}
-          >
-            <FontAwesomeIcon icon={faPlus} />
-            Create role
-          </Link>
+          SHOW_ROLE_CREATE_ACTIONS ? (
+            <Link
+              href={ROUTES.admin.roles.create}
+              className={cn(buttonVariants(), "rounded-full px-5")}
+            >
+              <FontAwesomeIcon icon={faPlus} />
+              Create role
+            </Link>
+          ) : undefined
         }
       />
       <AdminSurface className="p-6 md:p-8">
@@ -225,13 +231,15 @@ export function RolesListPage() {
           title="No roles matched the current filters."
           description="Try a broader keyword or switch role type."
           action={
-            <Link
-              href={ROUTES.admin.roles.create}
-              className={cn(buttonVariants(), "rounded-full px-5")}
-            >
-              <FontAwesomeIcon icon={faPlus} />
-              Create first role
-            </Link>
+            SHOW_ROLE_CREATE_ACTIONS ? (
+              <Link
+                href={ROUTES.admin.roles.create}
+                className={cn(buttonVariants(), "rounded-full px-5")}
+              >
+                <FontAwesomeIcon icon={faPlus} />
+                Create first role
+              </Link>
+            ) : undefined
           }
         />
       )}
