@@ -23,13 +23,5 @@ export function getFriendlyGalleriesError(error: unknown) {
     error.message ||
     "Something went wrong. Please try again.";
 
-  const details = [error.requestId ? `Request ID: ${error.requestId}` : null, error.path ? `Path: ${error.path}` : null]
-    .filter(Boolean)
-    .join(" · ");
-
-  if (!details) {
-    return baseMessage;
-  }
-
-  return `${baseMessage} (${details})`;
+  return baseMessage;
 }

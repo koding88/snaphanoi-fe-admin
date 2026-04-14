@@ -42,16 +42,5 @@ export function getFriendlyOrdersError(error: unknown) {
     error.message ||
     "Something went wrong. Please try again.";
 
-  const shouldHideDetails = isDiscoverySourceValidationError;
-
-  const details = shouldHideDetails
-    ? ""
-    : [
-    error.requestId ? `Request ID: ${error.requestId}` : null,
-    error.path ? `Path: ${error.path}` : null,
-  ]
-    .filter(Boolean)
-    .join(" · ");
-
-  return details ? `${baseMessage} (${details})` : baseMessage;
+  return baseMessage;
 }

@@ -8,7 +8,7 @@ import { useAuthStore } from "@/features/auth/store/auth.store";
 import { refreshAuthSession } from "@/lib/api/auth-session";
 import { ApiError } from "@/lib/api/errors";
 import { env } from "@/lib/env";
-import type { ApiEnvelope, ApiErrorEnvelope, ApiSuccessEnvelope } from "@/types/api-response";
+import type { ApiEnvelope, ApiSuccessEnvelope } from "@/types/api-response";
 
 type JsonBody = Record<string, unknown> | unknown[] | unknown;
 
@@ -73,31 +73,115 @@ function toAxiosHeaders(headers: AxiosRequestConfig["headers"]) {
   return AxiosHeaders.from(normalized);
 }
 
-function isApiErrorEnvelope(value: unknown): value is ApiErrorEnvelope {
-  if (!value || typeof value !== "object") {
-    return false;
+type ParsedApiErrorPayload = {
+  message: string | null;
+  error: string | null;
+  statusCode: number | null;
+  requestId: string | null;
+  path: string | null;
+  timestamp: string | null;
+  raw: unknown;
+};
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return value != null && typeof value === "object";
+}
+
+function readString(value: unknown) {
+  if (typeof value !== "string") {
+    return null;
   }
 
-  const maybeEnvelope = value as Partial<ApiErrorEnvelope>;
-  return maybeEnvelope.success === false;
+  const normalized = value.trim();
+  return normalized.length > 0 ? normalized : null;
 }
 
-function getFallbackErrorMessage(path: string, statusCode: number) {
-  return `Unexpected API response while requesting ${path} (${statusCode}).`;
+function readMessage(value: unknown) {
+  if (Array.isArray(value)) {
+    const normalized = value
+      .map((item) => readString(item))
+      .filter((item): item is string => item != null)
+      .join(", ")
+      .trim();
+
+    return normalized.length > 0 ? normalized : null;
+  }
+
+  return readString(value);
 }
 
-function toApiError(path: string, statusCode: number, payload: ApiErrorEnvelope | null) {
+function parseApiErrorPayload(value: unknown): ParsedApiErrorPayload | null {
+  if (!isRecord(value)) {
+    return null;
+  }
+
+  const message = readMessage(value.message);
+  const error = readString(value.error);
+  const statusCode = typeof value.statusCode === "number" ? value.statusCode : null;
+  const requestId = readString(value.requestId);
+  const path = readString(value.path);
+  const timestamp = readString(value.timestamp);
+
+  const hasKnownShape =
+    value.success === false ||
+    message != null ||
+    error != null ||
+    statusCode != null ||
+    requestId != null ||
+    path != null ||
+    timestamp != null;
+
+  if (!hasKnownShape) {
+    return null;
+  }
+
+  return {
+    message,
+    error,
+    statusCode,
+    requestId,
+    path,
+    timestamp,
+    raw: value,
+  };
+}
+
+function getFallbackErrorMessage(statusCode: number) {
+  if (statusCode === 401) {
+    return "Your session is no longer valid. Please sign in again.";
+  }
+
+  if (statusCode === 403) {
+    return "You do not have permission to perform this action.";
+  }
+
+  if (statusCode >= 500) {
+    return "The server is temporarily unavailable. Please try again in a moment.";
+  }
+
+  return "We couldn't complete your request. Please try again.";
+}
+
+function toSecondaryErrorMessage(errorValue: string | null) {
+  if (!errorValue) {
+    return null;
+  }
+
+  return /^[A-Z0-9_]+$/.test(errorValue) ? null : errorValue;
+}
+
+function toApiError(path: string, statusCode: number, payload: ParsedApiErrorPayload | null) {
   return new ApiError({
     code: payload?.error ?? null,
     message:
       payload?.message ??
-      payload?.error ??
-      getFallbackErrorMessage(path, statusCode),
+      toSecondaryErrorMessage(payload?.error ?? null) ??
+      getFallbackErrorMessage(statusCode),
     statusCode: payload?.statusCode ?? statusCode,
-    requestId: payload?.requestId,
-    path: payload?.path,
-    timestamp: payload?.timestamp,
-    details: payload,
+    requestId: payload?.requestId ?? undefined,
+    path: payload?.path ?? path,
+    timestamp: payload?.timestamp ?? undefined,
+    details: payload?.raw ?? null,
   });
 }
 
@@ -164,7 +248,7 @@ export async function apiRequestEnvelope<T>(path: string, init: ApiRequestInit =
     const payload = response.data;
 
     if (!payload || payload.success !== true) {
-      throw toApiError(path, response.status, payload as ApiErrorEnvelope | null);
+      throw toApiError(path, response.status, parseApiErrorPayload(payload));
     }
 
     return payload as ApiSuccessEnvelope<T>;
@@ -175,9 +259,7 @@ export async function apiRequestEnvelope<T>(path: string, init: ApiRequestInit =
 
     if (axios.isAxiosError(error)) {
       const statusCode = error.response?.status ?? 500;
-      const payload = isApiErrorEnvelope(error.response?.data)
-        ? error.response.data
-        : null;
+      const payload = parseApiErrorPayload(error.response?.data);
       const resolvedPath =
         normalizePath((error.config as ApiRequestInit | undefined)?.url) || path;
 

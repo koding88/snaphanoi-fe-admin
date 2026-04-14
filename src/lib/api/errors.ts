@@ -1,12 +1,10 @@
-import type { ApiErrorEnvelope } from "@/types/api-response";
-
 export class ApiError extends Error {
   code: string | null;
   statusCode: number;
   requestId?: string;
   path?: string;
   timestamp?: string;
-  details?: ApiErrorEnvelope | null;
+  details?: unknown;
 
   constructor({
     code,
@@ -23,7 +21,7 @@ export class ApiError extends Error {
     requestId?: string;
     path?: string;
     timestamp?: string;
-    details?: ApiErrorEnvelope | null;
+    details?: unknown;
   }) {
     super(message);
     this.name = "ApiError";

@@ -40,12 +40,5 @@ export function getFriendlyPackagesError(error: unknown) {
     error.message ||
     "Something went wrong. Please try again.";
 
-  const details = [
-    error.requestId ? `Request ID: ${error.requestId}` : null,
-    error.path ? `Path: ${error.path}` : null,
-  ]
-    .filter(Boolean)
-    .join(" · ");
-
-  return details ? `${baseMessage} (${details})` : baseMessage;
+  return baseMessage;
 }
