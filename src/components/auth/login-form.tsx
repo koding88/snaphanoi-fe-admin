@@ -88,13 +88,15 @@ export function LoginForm() {
       title="Sign into the studio console."
       description="Sign in to manage clients, team access, and the studio workflow from one calm control room."
       footer={
-        <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-white/65">
+        <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-white/65">
           <Link href="/forgot-password" className="transition-opacity hover:opacity-100">
             Forgot password?
           </Link>
+          {/*
           <Link href="/register" className="transition-opacity hover:opacity-100">
             Need a new registration request?
           </Link>
+          */}
         </div>
       }
     >

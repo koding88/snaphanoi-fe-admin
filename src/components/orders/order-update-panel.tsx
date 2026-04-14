@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 
+import { OrderPaymentBadge } from "@/components/orders/order-payment-badge";
+import { OrderStatusBadge } from "@/components/orders/order-status-badge";
 import { Button } from "@/components/ui/button";
 import { AppSelect } from "@/components/ui/select";
 import { updateOrder } from "@/features/orders/api/update-order";
@@ -78,6 +80,7 @@ export function OrderUpdatePanel({ order, onUpdated }: OrderUpdatePanelProps) {
 
   const isUnchanged =
     status === order.status && paymentStatus === order.paymentStatus;
+  const hasValidPaymentSelection = paymentOptions.length > 0;
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -104,16 +107,38 @@ export function OrderUpdatePanel({ order, onUpdated }: OrderUpdatePanelProps) {
   }
 
   return (
-    <section className="rounded-[1.6rem] border border-border/75 bg-white/78 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.76)]">
-      <div className="space-y-1">
-        <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-          Update lifecycle
+    <section className="rounded-[1.6rem] border border-[--color-brand]/25 bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(247,243,236,0.9))] p-5 shadow-[0_24px_70px_-52px_rgba(15,23,42,0.45)]">
+      <div className="space-y-2">
+        <p className="text-[10px] font-semibold tracking-[0.2em] text-[--color-brand-muted] uppercase">
+          Lifecycle actions
         </p>
-        <p className="text-sm text-muted-foreground">
-          Current state: {formatOrderStatus(order.status)} · {formatOrderPaymentStatus(order.paymentStatus)}. Choose the next valid step below.
+        <p className="text-sm leading-6 text-muted-foreground">
+          Review current state, choose the next valid transition, and save this order update.
         </p>
       </div>
-      <form className="mt-4 grid gap-4 md:grid-cols-2" onSubmit={handleSubmit}>
+
+      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+        <div className="rounded-[1rem] border border-border/70 bg-white/82 p-3">
+          <p className="text-[10px] font-semibold tracking-[0.16em] text-muted-foreground uppercase">
+            Current
+          </p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            <OrderStatusBadge status={order.status} />
+            <OrderPaymentBadge status={order.paymentStatus} />
+          </div>
+        </div>
+        <div className="rounded-[1rem] border border-border/70 bg-white/82 p-3">
+          <p className="text-[10px] font-semibold tracking-[0.16em] text-muted-foreground uppercase">
+            Selected
+          </p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            <OrderStatusBadge status={status} />
+            <OrderPaymentBadge status={paymentStatus} />
+          </div>
+        </div>
+      </div>
+
+      <form className="mt-4 grid gap-4" onSubmit={handleSubmit}>
         <label className="space-y-2">
           <span className="text-sm font-medium text-foreground">Order status</span>
           <AppSelect
@@ -143,12 +168,21 @@ export function OrderUpdatePanel({ order, onUpdated }: OrderUpdatePanelProps) {
             </p>
           ) : null}
         </label>
-        <div className="md:col-span-2">
+        {!isUnchanged ? (
+          <p className="text-xs text-muted-foreground">
+            Saving will apply: {formatOrderStatus(status)} and {formatOrderPaymentStatus(paymentStatus)}.
+          </p>
+        ) : (
+          <p className="text-xs text-muted-foreground">
+            No pending change yet. Select a new status to enable saving.
+          </p>
+        )}
+        <div>
           <Button
             type="submit"
             size="lg"
-            className="h-11 rounded-full px-6"
-            disabled={isSubmitting}
+            className="h-11 w-full rounded-full px-6"
+            disabled={isSubmitting || isUnchanged || !hasValidPaymentSelection}
           >
             {isSubmitting ? "Saving..." : "Save order update"}
           </Button>
