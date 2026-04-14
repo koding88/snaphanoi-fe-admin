@@ -8,11 +8,17 @@ import { formatCreatorDisplayName, formatDateTime } from "@/features/users/utils
 export function BlogDetailCard({ blog }: { blog: BlogDetailRecord }) {
   const coverSizeKb = Math.max(1, Math.round(blog.coverImage.size / 1024));
   const creatorName = formatCreatorDisplayName(blog.createdBy.name);
+  const lifecycleState = blog.deletedAt
+    ? `Archived on ${formatDateTime(blog.deletedAt)}`
+    : blog.isActive
+      ? "Active record"
+      : "Inactive record";
+  const deletedAtLabel = blog.deletedAt ? formatDateTime(blog.deletedAt) : "Not deleted";
 
   return (
     <AdminSurface className="overflow-hidden">
-      <div className="grid gap-0 xl:grid-cols-[minmax(0,420px)_minmax(0,1fr)]">
-        <div className="border-b border-border/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.28),rgba(245,239,230,0.82))] p-5 md:p-6 xl:border-r xl:border-b-0 xl:p-7">
+      <div className="grid gap-0 xl:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
+        <div className="border-b border-border/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.32),rgba(245,239,230,0.82))] p-5 md:p-6 xl:border-r xl:border-b-0 xl:p-7">
           <div className="overflow-hidden rounded-[1.45rem] border border-border/70 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.94),rgba(233,227,217,0.9))] shadow-[0_24px_54px_-36px_rgba(19,17,14,0.42)]">
             <div className="flex aspect-[4/3] items-center justify-center p-4 md:p-5">
               {/* Blog cover URLs are backend-managed file assets, so plain img keeps the preview flexible. */}
@@ -20,95 +26,125 @@ export function BlogDetailCard({ blog }: { blog: BlogDetailRecord }) {
               <img src={blog.coverImage.url} alt={blog.name} className="h-full w-full rounded-[1.2rem] object-contain" />
             </div>
           </div>
-          <div className="mt-4 flex items-center justify-between gap-3 rounded-[1.3rem] border border-border/70 bg-white/72 px-4 py-3">
-            <div>
-              <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-                Cover asset
-              </p>
-              <p className="mt-1 text-base font-medium text-foreground">{blog.coverImage.originalName}</p>
+          <div className="mt-5 rounded-[1.5rem] border border-border/80 bg-white/78 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]">
+            <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
+              Cover asset context
+            </p>
+            <p className="mt-3 text-base font-medium text-foreground">{blog.coverImage.originalName}</p>
+            <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
+              <div>
+                <p className="text-[11px] font-medium tracking-[0.16em] text-muted-foreground uppercase">
+                  File format
+                </p>
+                <p className="mt-1 text-sm text-foreground">{blog.coverImage.mimeType}</p>
+              </div>
+              <div>
+                <p className="text-[11px] font-medium tracking-[0.16em] text-muted-foreground uppercase">
+                  File size
+                </p>
+                <p className="mt-1 text-sm text-foreground">{coverSizeKb} KB</p>
+              </div>
             </div>
-            <div className="rounded-full border border-border/70 bg-white/78 px-3 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-              {coverSizeKb} KB
-            </div>
-          </div>
-          <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
-            <div className="rounded-[1.5rem] border border-border/80 bg-white/78 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]">
-              <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-                File format
-              </p>
-              <p className="mt-3 text-base font-medium text-foreground">{blog.coverImage.mimeType}</p>
-              <p className="mt-1 text-sm text-muted-foreground">Backend-managed blog cover asset, ready for published delivery.</p>
-            </div>
-            <div className="rounded-[1.5rem] border border-border/80 bg-white/78 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]">
-              <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-                Editorial usage
-              </p>
-              <p className="mt-3 text-base font-medium text-foreground">
-                {blog.isPinned ? "Pinned feature" : "Standard placement"}
-              </p>
-              <p className="mt-1 text-sm text-muted-foreground">Pinned entries rise above the standard published chronology on public feeds.</p>
-            </div>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">
+              Cover asset is backend-managed and reused for editorial list/detail rendering.
+            </p>
           </div>
         </div>
-        <div className="space-y-8 p-6 md:p-8 xl:p-10">
-          <div className="flex flex-wrap items-center gap-2">
-            <BlogPinBadge isPinned={blog.isPinned} />
-            <BlogPublishBadge isPublished={blog.isPublished} />
-            <BlogStatusBadge isActive={blog.isActive} deletedAt={blog.deletedAt} />
-          </div>
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <p className="text-[11px] font-semibold tracking-[0.24em] text-[--color-brand-muted] uppercase">
-                Blog title
+
+        <div className="space-y-6 p-6 md:p-8 xl:p-10">
+          <section className="rounded-[1.7rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(248,244,237,0.92))] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.78)] md:p-6">
+            <div className="flex flex-wrap items-center gap-2">
+              <BlogPinBadge isPinned={blog.isPinned} />
+              <BlogPublishBadge isPublished={blog.isPublished} />
+              <BlogStatusBadge isActive={blog.isActive} deletedAt={blog.deletedAt} />
+              <span className="rounded-full border border-border/75 bg-white/80 px-3 py-1 text-[11px] font-semibold tracking-[0.16em] text-muted-foreground uppercase">
+                {lifecycleState}
+              </span>
+            </div>
+            <div className="mt-4 space-y-2">
+              <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
+                Editorial identity
               </p>
-              <h2 className="font-heading text-4xl leading-[0.95] tracking-[0.03em] text-foreground md:text-5xl xl:text-[4.1rem]">
+              <h2 className="font-heading text-4xl leading-tight tracking-[0.03em] text-foreground md:text-5xl xl:text-[3.4rem]">
                 {blog.name}
               </h2>
+              <p className="text-sm text-muted-foreground">ID: {blog.id}</p>
             </div>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
-              <span>Created by {creatorName}</span>
-              <span>Updated {formatDateTime(blog.updatedAt)}</span>
+            <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+              <span className="rounded-full border border-border/70 bg-white/76 px-3 py-1.5">
+                Owner: {creatorName}
+              </span>
+              <span className="rounded-full border border-border/70 bg-white/76 px-3 py-1.5">
+                Updated {formatDateTime(blog.updatedAt)}
+              </span>
             </div>
-          </div>
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            <div className="rounded-[1.5rem] border border-border/80 bg-white/76 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.74)]">
-              <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-                Created by
-              </p>
-              <p className="mt-3 text-xl font-medium text-foreground">{creatorName}</p>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                Ownership stays visible here without exposing internal identifiers.
-              </p>
+          </section>
+
+          <section className="rounded-[1.6rem] border border-border/80 bg-white/76 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.76)] md:p-6">
+            <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
+              Editorial state
+            </p>
+            <div className="mt-4 grid gap-4 md:grid-cols-2">
+              <div className="rounded-[1.2rem] border border-border/70 bg-white/82 p-4">
+                <p className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">Placement</p>
+                <p className="mt-2 text-base font-medium text-foreground">
+                  {blog.isPinned ? "Pinned feature" : "Standard placement"}
+                </p>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  {blog.isPinned
+                    ? "Pinned entries stay highlighted above regular chronology."
+                    : "Follows default chronology ordering in editorial feeds."}
+                </p>
+              </div>
+              <div className="rounded-[1.2rem] border border-border/70 bg-white/82 p-4">
+                <p className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">Publication</p>
+                <p className="mt-2 text-base font-medium text-foreground">
+                  {blog.isPublished ? "Published" : "Draft"}
+                </p>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  {blog.isPublished
+                    ? "Visible to public blog surfaces."
+                    : "Visible only in admin until publication."}
+                </p>
+              </div>
             </div>
-            <div className="rounded-[1.5rem] border border-border/80 bg-white/76 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.74)]">
-              <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-                Publication
-              </p>
-              <p className="mt-3 text-xl font-medium text-foreground">
-                {blog.isPublished ? "Published" : "Draft"}
-              </p>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                {blog.isPublished
-                  ? "Ready for public blog surfaces and curated placements."
-                  : "Kept inside admin until the article is ready to publish."}
-              </p>
-            </div>
-            <div className="rounded-[1.5rem] border border-border/80 bg-white/76 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.74)] md:col-span-2 xl:col-span-1">
-              <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-                Timeline
-              </p>
-              <div className="mt-3 space-y-3">
-                <div>
-                  <p className="text-xs font-medium tracking-[0.16em] text-muted-foreground uppercase">Created</p>
-                  <p className="mt-1 text-base text-foreground">{formatDateTime(blog.createdAt)}</p>
-                </div>
-                <div>
-                  <p className="text-xs font-medium tracking-[0.16em] text-muted-foreground uppercase">Updated</p>
-                  <p className="mt-1 text-base text-foreground">{formatDateTime(blog.updatedAt)}</p>
+          </section>
+
+          <section className="rounded-[1.6rem] border border-border/80 bg-white/70 p-5 md:p-6">
+            <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
+              Admin metadata
+            </p>
+            <div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              <div className="rounded-[1.2rem] border border-border/70 bg-white/78 p-4">
+                <p className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">Created by</p>
+                <p className="mt-2 text-base font-medium text-foreground">{creatorName}</p>
+              </div>
+              <div className="rounded-[1.2rem] border border-border/70 bg-white/78 p-4">
+                <p className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">Lifecycle</p>
+                <p className="mt-2 text-base font-medium text-foreground">{deletedAtLabel}</p>
+              </div>
+              <div className="rounded-[1.2rem] border border-border/70 bg-white/78 p-4 md:col-span-2 xl:col-span-1">
+                <p className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">Record state</p>
+                <p className="mt-2 text-base font-medium text-foreground">{blog.isActive ? "Active" : "Inactive"}</p>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  Lifecycle controls in this view archive and restore the record.
+                </p>
+              </div>
+              <div className="rounded-[1.2rem] border border-border/70 bg-white/78 p-4 md:col-span-2 xl:col-span-3">
+                <p className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">Timeline</p>
+                <div className="mt-3 grid gap-3 md:grid-cols-2">
+                  <div>
+                    <p className="text-xs text-muted-foreground">Created at</p>
+                    <p className="mt-1 text-sm text-foreground">{formatDateTime(blog.createdAt)}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground">Updated at</p>
+                    <p className="mt-1 text-sm text-foreground">{formatDateTime(blog.updatedAt)}</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </section>
         </div>
       </div>
     </AdminSurface>

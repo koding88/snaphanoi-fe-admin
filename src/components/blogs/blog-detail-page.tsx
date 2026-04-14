@@ -20,6 +20,7 @@ import { getBlog } from "@/features/blogs/api/get-blog";
 import { restoreBlog } from "@/features/blogs/api/restore-blog";
 import type { BlogDetailRecord } from "@/features/blogs/types/blogs.types";
 import { getFriendlyBlogsError } from "@/features/blogs/utils/blogs-errors";
+import { formatDateTime } from "@/features/users/utils/users-format";
 import { ROUTES } from "@/lib/constants/routes";
 import { faRotateLeft, faTrashCan, faUserPen } from "@/lib/icons/fa";
 import { consumeNavigationToast, notifyError, notifySuccess } from "@/lib/toast";
@@ -130,14 +131,25 @@ export function BlogDetailPage({ id }: { id: string }) {
                   Saved blog content
                 </h2>
                 <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
-                  This preview uses the same document model as the blog editor and renders the currently saved entry exactly as admin holds it.
+                  Read-only rendering of the saved blog document. This matches the current editor model and backend payload.
                 </p>
               </div>
-              <div className="rounded-full border border-border/80 bg-white/70 px-4 py-2 text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-                Readonly preview
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="rounded-full border border-border/80 bg-white/70 px-4 py-2 text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
+                  Readonly preview
+                </span>
+                <span className="rounded-full border border-border/80 bg-white/70 px-4 py-2 text-[11px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+                  {blog.content.blocks?.length ?? 0} blocks
+                </span>
+                <span className="rounded-full border border-border/80 bg-white/70 px-4 py-2 text-[11px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+                  Updated {formatDateTime(blog.updatedAt)}
+                </span>
               </div>
             </div>
-            <div className="mt-8 rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.88),rgba(249,245,238,0.92))] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.78)] md:p-8">
+            <div className="mt-5 rounded-[1.4rem] border border-border/70 bg-white/70 px-4 py-3 text-sm text-muted-foreground">
+              Document state: {blog.deletedAt ? "archived record" : "active record"}. Content is shown exactly as currently saved.
+            </div>
+            <div className="mt-6 rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.88),rgba(249,245,238,0.92))] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.78)] md:p-8">
               <BlogEditorPreview content={blog.content} />
             </div>
           </AdminSurface>
