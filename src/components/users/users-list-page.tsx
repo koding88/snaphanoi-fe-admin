@@ -142,14 +142,14 @@ export function UsersListPage() {
   }
 
   return (
-    <AdminPageContainer tone="hero" className="space-y-8 pb-10">
+    <AdminPageContainer tone="hero" className="space-y-6 pb-8">
       <PageHeader
         eyebrow="Users"
         title="Manage user accounts."
-        description="Create, update, archive, and restore team access while keeping self-service account settings in a separate place."
+        description="Create, update, archive, and restore team access quickly from one table."
         meta={
           <>
-            <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1.5 text-xs font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
+            <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1 text-[11px] font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
               Admin only
             </span>
           </>
@@ -157,24 +157,21 @@ export function UsersListPage() {
         actions={
           <Link
             href={ROUTES.admin.users.create}
-            className={cn(buttonVariants(), "rounded-full px-5")}
+            className={cn(buttonVariants(), "rounded-full px-4")}
           >
             <FontAwesomeIcon icon={faPlus} />
             Add user
           </Link>
         }
       />
-      <AdminSurface className="p-6 md:p-8">
-        <div className="mb-5 flex flex-wrap gap-2">
-          <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-            Search and account states
-          </span>
-          <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
+      <AdminSurface className="p-5 md:p-6">
+        <div className="mb-3 flex flex-wrap gap-2">
+          <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1 text-[10px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
             Quick filters
           </span>
         </div>
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
-          <label className="space-y-2 xl:col-span-2">
+        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+          <label className="space-y-1.5 xl:col-span-2">
             <span className="text-sm font-medium text-foreground">Search keyword</span>
             <Input
               value={keywordInput}
@@ -182,7 +179,7 @@ export function UsersListPage() {
               placeholder="Search by name or email"
             />
           </label>
-          <label className="space-y-2">
+          <label className="space-y-1.5">
             <span className="text-sm font-medium text-foreground">Status</span>
             <AppSelect
               value={String(query.isActive)}
@@ -201,7 +198,7 @@ export function UsersListPage() {
               ]}
             />
           </label>
-          <label className="space-y-2">
+          <label className="space-y-1.5">
             <span className="text-sm font-medium text-foreground">Role</span>
             <AppSelect
               value={query.roleId ? query.roleId : ALL_ROLES_VALUE}
@@ -223,7 +220,7 @@ export function UsersListPage() {
               ]}
             />
           </label>
-          <label className="space-y-2">
+          <label className="space-y-1.5">
             <span className="text-sm font-medium text-foreground">Deleted records</span>
             <AppSelect
               value={String(Boolean(query.includeDeleted))}
@@ -265,9 +262,9 @@ export function UsersListPage() {
       ) : result && result.items.length > 0 ? (
         <>
           <UsersTable users={result.items} isBusy={isMutating || isRefreshing} onDelete={handleDelete} onRestore={handleRestore} />
-          <AdminSurface className="p-5">
+          <AdminSurface className="p-4">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-              <p className="text-sm text-muted-foreground">
+              <p className="text-xs text-muted-foreground">
                 Page {result.meta.page} of {result.meta.totalPages}. Total users: {result.meta.total}.
                 {isRefreshing ? " Updating…" : ""}
               </p>

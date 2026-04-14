@@ -60,12 +60,12 @@ export function GalleriesTable({ galleries, isBusy = false, onDelete, onRestore 
   return (
     <>
       <div className="surface-enter overflow-hidden rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(248,244,237,0.88))] shadow-soft">
-        <div className="border-b border-border/70 bg-white/56 px-5 py-4">
+        <div className="border-b border-border/70 bg-white/56 px-5 py-3">
           <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
             Gallery records
           </p>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Keep multilingual naming and lifecycle actions visible in one admin table.
+          <p className="mt-1 text-xs text-muted-foreground">
+            Multilingual names and lifecycle in one view.
           </p>
         </div>
         <div className="overflow-x-auto">
@@ -94,21 +94,21 @@ export function GalleriesTable({ galleries, isBusy = false, onDelete, onRestore 
                   }}
                   className="cursor-pointer border-b border-border/60 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0"
                 >
-                  <td className="align-middle px-5 py-5">
+                  <td className="align-middle px-5 py-4">
                     <p className="font-medium text-foreground">{gallery.name.en}</p>
-                    <div className="space-y-0.5 text-xs text-muted-foreground">
-                      <p className="truncate">VI: {gallery.name.vi}</p>
-                      <p className="truncate">CN: {gallery.name.cn}</p>
+                    <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
+                      <p className="truncate"><span className="font-semibold tracking-[0.14em] uppercase">VI</span> {gallery.name.vi}</p>
+                      <p className="truncate"><span className="font-semibold tracking-[0.14em] uppercase">CN</span> {gallery.name.cn}</p>
                     </div>
                   </td>
-                  <td className="align-middle px-5 py-5 text-sm text-muted-foreground">
+                  <td className="align-middle px-5 py-4 text-sm text-muted-foreground">
                     {formatCreatorDisplayName(gallery.createdBy.name)}
                   </td>
-                  <td className="align-middle px-5 py-5 text-sm text-muted-foreground">{formatDateOnly(gallery.updatedAt)}</td>
-                  <td className="align-middle px-5 py-5">
+                  <td className="align-middle px-5 py-4 text-sm text-muted-foreground">{formatDateOnly(gallery.updatedAt)}</td>
+                  <td className="align-middle px-5 py-4">
                     <GalleryStatusBadge isActive={gallery.isActive} deletedAt={gallery.deletedAt} />
                   </td>
-                  <td className="align-middle px-5 py-5">
+                  <td className="align-middle px-5 py-4">
                     <div
                       className="flex flex-wrap justify-end gap-2"
                       onClick={handleRowActionClick}
@@ -139,9 +139,10 @@ export function GalleriesTable({ galleries, isBusy = false, onDelete, onRestore 
                       ) : (
                         <Button
                           type="button"
-                          variant="destructive"
-                          size="sm"
-                          disabled={isBusy}
+                            variant="outline"
+                            size="sm"
+                            className="border-red-200 text-red-700 hover:bg-red-50 hover:text-red-800"
+                            disabled={isBusy}
                           onClick={(event) => {
                             handleRowActionClick(event);
                             setPendingAction({ type: "delete", gallery });

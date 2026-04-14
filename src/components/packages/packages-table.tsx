@@ -74,18 +74,18 @@ export function PackagesTable({
   return (
     <>
       <div className="surface-enter overflow-hidden rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(248,244,237,0.88))] shadow-soft">
-        <div className="border-b border-border/70 bg-white/56 px-5 py-4">
+        <div className="border-b border-border/70 bg-white/56 px-5 py-3">
           <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
             Package records
           </p>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Review package positioning, pricing, and lifecycle from one place.
+          <p className="mt-1 text-xs text-muted-foreground">
+            Offer positioning, pricing, and lifecycle in one view.
           </p>
         </div>
         <div className="overflow-x-auto border-t border-border/10">
           <div
             className={cn(
-              "grid min-w-[940px] items-center gap-x-2.5 border-b border-border/80 bg-white/55 px-5 py-4 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
+              "grid min-w-[940px] items-center gap-x-2.5 border-b border-border/80 bg-white/55 px-5 py-3.5 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
               columnLayout,
             )}
           >
@@ -113,7 +113,7 @@ export function PackagesTable({
                   }
                 }}
                 className={cn(
-                  "group grid min-w-[940px] cursor-pointer items-center gap-x-2.5 border-b border-border/60 px-5 py-4.5 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0",
+                  "group grid min-w-[940px] cursor-pointer items-center gap-x-2.5 border-b border-border/60 px-5 py-4 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0",
                   columnLayout,
                 )}
               >
@@ -121,9 +121,9 @@ export function PackagesTable({
                   <p className="truncate font-medium text-foreground">
                     {pkg.name.en}
                   </p>
-                  <div className="mt-1 space-y-0.5 text-xs text-muted-foreground">
-                    <p className="truncate">VI: {pkg.name.vi}</p>
-                    <p className="truncate">CN: {pkg.name.cn}</p>
+                  <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
+                    <p className="truncate"><span className="font-semibold tracking-[0.14em] uppercase">VI</span> {pkg.name.vi}</p>
+                    <p className="truncate"><span className="font-semibold tracking-[0.14em] uppercase">CN</span> {pkg.name.cn}</p>
                   </div>
                 </div>
                 <div className="flex justify-center">
@@ -133,7 +133,7 @@ export function PackagesTable({
                     <img
                       src={pkg.coverImage.url}
                       alt={pkg.name.en}
-                      className="block h-[70px] w-[92px] object-cover"
+                      className="block h-[64px] w-[84px] object-cover"
                     />
                   </div>
                 </div>
@@ -169,7 +169,7 @@ export function PackagesTable({
                       href={ROUTES.admin.packages.edit(pkg.id)}
                       className={cn(
                         buttonVariants({ variant: "outline", size: "sm" }),
-                        "h-8 w-[100px] px-2.5 text-xs",
+                         "h-8 w-[96px] px-2 text-xs",
                       )}
                       onClick={stopRowAction}
                     >
@@ -181,7 +181,7 @@ export function PackagesTable({
                         type="button"
                         variant="outline"
                         size="sm"
-                        className="h-8 w-[100px] px-2.5 text-xs"
+                         className="h-8 w-[96px] px-2 text-xs"
                         disabled={isBusy}
                         onClick={(event) => {
                           stopRowAction(event);
@@ -194,10 +194,10 @@ export function PackagesTable({
                     ) : (
                       <Button
                         type="button"
-                        variant="destructive"
-                        size="sm"
-                        className="h-8 w-[100px] px-2.5 text-xs"
-                        disabled={isBusy}
+                         variant="outline"
+                         size="sm"
+                         className="h-8 w-[96px] border-red-200 px-2 text-xs text-red-700 hover:bg-red-50 hover:text-red-800"
+                         disabled={isBusy}
                         onClick={(event) => {
                           stopRowAction(event);
                           setPendingAction({ type: "delete", pkg });

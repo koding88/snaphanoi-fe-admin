@@ -108,13 +108,13 @@ export function RolesListPage() {
   }
 
   return (
-    <AdminPageContainer tone="hero" className="space-y-8 pb-10">
+    <AdminPageContainer tone="hero" className="space-y-6 pb-8">
       <PageHeader
         eyebrow="Roles"
         title="Manage access roles."
-        description="Keep role naming clear, review adoption, and maintain a clean access structure for the studio team."
+        description="Review role identity and usage quickly from one compact table."
         meta={
-          <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1.5 text-xs font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
+          <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1 text-[11px] font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
             Admin only
           </span>
         }
@@ -122,7 +122,7 @@ export function RolesListPage() {
           SHOW_ROLE_CREATE_ACTIONS ? (
             <Link
               href={ROUTES.admin.roles.create}
-              className={cn(buttonVariants(), "rounded-full px-5")}
+              className={cn(buttonVariants(), "rounded-full px-4")}
             >
               <FontAwesomeIcon icon={faPlus} />
               Create role
@@ -130,17 +130,14 @@ export function RolesListPage() {
           ) : undefined
         }
       />
-      <AdminSurface className="p-6 md:p-8">
-        <div className="mb-5 flex flex-wrap gap-2">
-          <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-            Role identity
-          </span>
-          <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-            Type and usage overview
+      <AdminSurface className="p-5 md:p-6">
+        <div className="mb-3 flex flex-wrap gap-2">
+          <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1 text-[10px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
+            Quick filters
           </span>
         </div>
-        <div className="grid gap-4 md:grid-cols-3">
-          <label className="space-y-2 md:col-span-2">
+        <div className="grid gap-3 md:grid-cols-3">
+          <label className="space-y-1.5 md:col-span-2">
             <span className="text-sm font-medium text-foreground">Search keyword</span>
             <Input
               value={keywordInput}
@@ -148,7 +145,7 @@ export function RolesListPage() {
               placeholder="Search role name"
             />
           </label>
-          <label className="space-y-2">
+          <label className="space-y-1.5">
             <span className="text-sm font-medium text-foreground">Role type</span>
             <AppSelect
               value={String(query.isSystem)}
@@ -192,9 +189,9 @@ export function RolesListPage() {
       ) : result && result.items.length > 0 ? (
         <>
           <RolesTable roles={result.items} onDelete={handleDelete} isBusy={isMutating || isRefreshing} />
-          <AdminSurface className="p-5">
+          <AdminSurface className="p-4">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-              <p className="text-sm text-muted-foreground">
+              <p className="text-xs text-muted-foreground">
                 Page {result.meta.page} of {result.meta.totalPages}. Total roles: {result.meta.total}.
                 {isRefreshing ? " Updating…" : ""}
               </p>

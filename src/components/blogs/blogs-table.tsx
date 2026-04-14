@@ -66,18 +66,18 @@ export function BlogsTable({ blogs, isBusy = false, onDelete, onRestore }: Blogs
   return (
     <>
       <div className="surface-enter overflow-hidden rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(248,244,237,0.88))] shadow-soft">
-        <div className="border-b border-border/70 bg-white/56 px-5 py-4">
+        <div className="border-b border-border/70 bg-white/56 px-5 py-3">
           <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
             Blog records
           </p>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Review article titles, publishing priority, cover assets, and lifecycle state from one table.
+          <p className="mt-1 text-xs text-muted-foreground">
+            Editorial identity, publishing priority, and lifecycle in one view.
           </p>
         </div>
         <div className="border-t border-border/10">
           <div
             className={cn(
-              "grid min-w-[980px] items-center gap-x-3 border-b border-border/80 bg-white/55 px-5 py-4 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
+              "grid min-w-[980px] items-center gap-x-3 border-b border-border/80 bg-white/55 px-5 py-3.5 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
               columnLayout,
             )}
           >
@@ -103,7 +103,7 @@ export function BlogsTable({ blogs, isBusy = false, onDelete, onRestore }: Blogs
                   }
                 }}
                 className={cn(
-                  "grid min-w-[980px] cursor-pointer items-center gap-x-3 border-b border-border/60 px-5 py-5 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0",
+                  "grid min-w-[980px] cursor-pointer items-center gap-x-3 border-b border-border/60 px-5 py-4 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0",
                   columnLayout,
                 )}
               >
@@ -115,7 +115,7 @@ export function BlogsTable({ blogs, isBusy = false, onDelete, onRestore }: Blogs
                   <div className="overflow-hidden rounded-2xl border border-border/80 bg-muted/40 shadow-[0_12px_30px_-24px_rgba(32,24,18,0.45)]">
                     {/* Table thumbnails use backend storage URLs directly and stay intentionally unoptimized here. */}
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={blog.coverImage.url} alt={blog.name} className="block h-20 w-28 object-cover" />
+                    <img src={blog.coverImage.url} alt={blog.name} className="block h-16 w-24 object-cover" />
                   </div>
                 </div>
                 <div className="flex justify-center">
@@ -136,7 +136,7 @@ export function BlogsTable({ blogs, isBusy = false, onDelete, onRestore }: Blogs
                       href={ROUTES.admin.blogs.edit(blog.id)}
                       className={cn(
                         buttonVariants({ variant: "outline", size: "sm" }),
-                        "h-8 w-[100px] px-2.5 text-xs",
+                        "h-8 w-[96px] px-2 text-xs",
                       )}
                       onClick={handleRowActionClick}
                     >
@@ -148,7 +148,7 @@ export function BlogsTable({ blogs, isBusy = false, onDelete, onRestore }: Blogs
                         type="button"
                         variant="outline"
                         size="sm"
-                        className="h-8 w-[100px] px-2.5 text-xs"
+                         className="h-8 w-[96px] px-2 text-xs"
                         disabled={isBusy}
                         onClick={(event) => {
                           handleRowActionClick(event);
@@ -161,10 +161,10 @@ export function BlogsTable({ blogs, isBusy = false, onDelete, onRestore }: Blogs
                     ) : (
                       <Button
                         type="button"
-                        variant="destructive"
-                        size="sm"
-                        className="h-8 w-[100px] px-2.5 text-xs"
-                        disabled={isBusy}
+                         variant="outline"
+                         size="sm"
+                         className="h-8 w-[96px] border-red-200 px-2 text-xs text-red-700 hover:bg-red-50 hover:text-red-800"
+                         disabled={isBusy}
                         onClick={(event) => {
                           handleRowActionClick(event);
                           setPendingAction({ type: "delete", blog });

@@ -121,37 +121,34 @@ export function GalleriesListPage() {
   }
 
   return (
-    <AdminPageContainer tone="hero" className="space-y-8 pb-10">
+    <AdminPageContainer tone="hero" className="space-y-6 pb-8">
       <PageHeader
         eyebrow="Galleries"
         title="Manage gallery collections."
-        description="Create, refine, archive, and restore multilingual gallery groups used by the studio."
+        description="Maintain multilingual gallery groups with faster filtering and lifecycle control."
         meta={
-          <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1.5 text-xs font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
+          <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1 text-[11px] font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
             Admin only
           </span>
         }
         actions={
           <Link
             href={ROUTES.admin.galleries.create}
-            className={cn(buttonVariants(), "rounded-full px-5")}
+            className={cn(buttonVariants(), "rounded-full px-4")}
           >
             <FontAwesomeIcon icon={faPlus} />
             Create gallery
           </Link>
         }
       />
-      <AdminSurface className="p-6 md:p-8">
-        <div className="mb-5 flex flex-wrap gap-2">
-          <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-            Search and lifecycle
-          </span>
-          <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-            Backend list filters
+      <AdminSurface className="p-5 md:p-6">
+        <div className="mb-3 flex flex-wrap gap-2">
+          <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1 text-[10px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
+            Quick filters
           </span>
         </div>
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          <label className="space-y-2 xl:col-span-2">
+        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <label className="space-y-1.5 xl:col-span-2">
             <span className="text-sm font-medium text-foreground">Search keyword</span>
             <Input
               value={keywordInput}
@@ -159,7 +156,7 @@ export function GalleriesListPage() {
               placeholder="Search by gallery name"
             />
           </label>
-          <label className="space-y-2">
+          <label className="space-y-1.5">
             <span className="text-sm font-medium text-foreground">Status</span>
             <AppSelect
               value={String(query.isActive)}
@@ -177,7 +174,7 @@ export function GalleriesListPage() {
               ]}
             />
           </label>
-          <label className="space-y-2">
+          <label className="space-y-1.5">
             <span className="text-sm font-medium text-foreground">Page size</span>
             <AppSelect
               value={String(query.limit)}
@@ -225,9 +222,9 @@ export function GalleriesListPage() {
             onDelete={handleDelete}
             onRestore={handleRestore}
           />
-          <AdminSurface className="p-5">
+          <AdminSurface className="p-4">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-              <p className="text-sm text-muted-foreground">
+              <p className="text-xs text-muted-foreground">
                 Page {result.meta.page} of {result.meta.totalPages}. Total galleries: {result.meta.total}.
                 {isRefreshing ? " Updating…" : ""}
               </p>

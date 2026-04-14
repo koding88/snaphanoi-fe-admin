@@ -55,12 +55,12 @@ export function RolesTable({ roles, onDelete, isBusy = false }: RolesTableProps)
   return (
     <>
       <div className="surface-enter overflow-hidden rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(248,244,237,0.88))] shadow-soft">
-        <div className="border-b border-border/70 bg-white/56 px-5 py-4">
+        <div className="border-b border-border/70 bg-white/56 px-5 py-3">
           <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
             Role records
           </p>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Role identity and usage stay central, without adding extra permission complexity to this screen.
+          <p className="mt-1 text-xs text-muted-foreground">
+            Role identity and usage at a glance.
           </p>
         </div>
         <div className="overflow-x-auto">
@@ -88,19 +88,19 @@ export function RolesTable({ roles, onDelete, isBusy = false }: RolesTableProps)
                   }}
                   className="cursor-pointer border-b border-border/60 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0"
                 >
-                  <td className="align-middle px-5 py-5">
+                  <td className="align-middle px-5 py-4">
                     <div className="space-y-1">
                       <p className="font-medium text-foreground">{role.name}</p>
                       <p className="text-sm text-muted-foreground">{role.key}</p>
                     </div>
                   </td>
-                  <td className="align-middle px-5 py-5">
+                  <td className="align-middle px-5 py-4">
                     <RoleSystemBadge isSystem={role.isSystem} />
                   </td>
-                  <td className="align-middle px-5 py-5 text-sm text-muted-foreground">
+                  <td className="align-middle px-5 py-4 text-sm text-muted-foreground">
                     Active {role.activeUsersCount} / Deleted {role.deletedUsersCount}
                   </td>
-                  <td className="align-middle px-5 py-5">
+                  <td className="align-middle px-5 py-4">
                     <div
                       className="flex flex-wrap justify-end gap-2"
                       onClick={handleRowActionClick}

@@ -64,18 +64,18 @@ export function ProjectsTable({ projects, isBusy = false, onDelete, onRestore }:
   return (
     <>
       <div className="surface-enter overflow-hidden rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(248,244,237,0.88))] shadow-soft">
-        <div className="border-b border-border/70 bg-white/56 px-5 py-4">
+        <div className="border-b border-border/70 bg-white/56 px-5 py-3">
           <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
             Project records
           </p>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Review story titles, gallery placement, cover assets, and lifecycle state from one table.
+          <p className="mt-1 text-xs text-muted-foreground">
+            Story identity, gallery context, and publish lifecycle at a glance.
           </p>
         </div>
         <div className="border-t border-border/10">
           <div
             className={cn(
-              "grid min-w-[1040px] items-center gap-x-3 border-b border-border/80 bg-white/55 px-5 py-4 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
+              "grid min-w-[1040px] items-center gap-x-3 border-b border-border/80 bg-white/55 px-5 py-3.5 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
               columnLayout,
             )}
           >
@@ -101,17 +101,17 @@ export function ProjectsTable({ projects, isBusy = false, onDelete, onRestore }:
                   }
                 }}
                 className={cn(
-                  "grid min-w-[1040px] cursor-pointer items-center gap-x-3 border-b border-border/60 px-5 py-5 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0",
+                  "grid min-w-[1040px] cursor-pointer items-center gap-x-3 border-b border-border/60 px-5 py-4 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0",
                   columnLayout,
                 )}
               >
                 <div>
                   <p className="truncate font-medium text-foreground">{project.name.en}</p>
-                  <div className="mt-1 space-y-0.5 text-xs text-muted-foreground">
-                    <p className="truncate">VI: {project.name.vi}</p>
-                    <p className="truncate">CN: {project.name.cn}</p>
+                    <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
+                      <p className="truncate"><span className="font-semibold tracking-[0.14em] uppercase">VI</span> {project.name.vi}</p>
+                      <p className="truncate"><span className="font-semibold tracking-[0.14em] uppercase">CN</span> {project.name.cn}</p>
+                    </div>
                   </div>
-                </div>
                 <div className="flex justify-center">
                   <div className="overflow-hidden rounded-2xl border border-border/80 bg-muted/40 shadow-[0_12px_30px_-24px_rgba(32,24,18,0.45)]">
                     {/* Table thumbnails use backend storage URLs directly and stay intentionally unoptimized here. */}
@@ -119,7 +119,7 @@ export function ProjectsTable({ projects, isBusy = false, onDelete, onRestore }:
                     <img
                       src={project.coverImage.url}
                       alt={project.name.en}
-                      className="block h-20 w-28 object-cover"
+                      className="block h-16 w-24 object-cover"
                     />
                   </div>
                 </div>
@@ -143,10 +143,7 @@ export function ProjectsTable({ projects, isBusy = false, onDelete, onRestore }:
                   >
                     <Link
                       href={ROUTES.admin.projects.edit(project.id)}
-                      className={cn(
-                        buttonVariants({ variant: "outline", size: "sm" }),
-                        "h-8 w-[100px] px-2.5 text-xs",
-                      )}
+                       className={cn(buttonVariants({ variant: "outline", size: "sm" }), "h-8 w-[96px] px-2 text-xs")}
                       onClick={handleRowActionClick}
                     >
                       <FontAwesomeIcon icon={faUserPen} />
@@ -157,7 +154,7 @@ export function ProjectsTable({ projects, isBusy = false, onDelete, onRestore }:
                         type="button"
                         variant="outline"
                         size="sm"
-                        className="h-8 w-[100px] px-2.5 text-xs"
+                         className="h-8 w-[96px] px-2 text-xs"
                         disabled={isBusy}
                         onClick={(event) => {
                           handleRowActionClick(event);
@@ -170,10 +167,10 @@ export function ProjectsTable({ projects, isBusy = false, onDelete, onRestore }:
                     ) : (
                       <Button
                         type="button"
-                        variant="destructive"
-                        size="sm"
-                        className="h-8 w-[100px] px-2.5 text-xs"
-                        disabled={isBusy}
+                         variant="outline"
+                         size="sm"
+                         className="h-8 w-[96px] border-red-200 px-2 text-xs text-red-700 hover:bg-red-50 hover:text-red-800"
+                         disabled={isBusy}
                         onClick={(event) => {
                           handleRowActionClick(event);
                           setPendingAction({ type: "delete", project });

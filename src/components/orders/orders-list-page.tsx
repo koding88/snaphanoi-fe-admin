@@ -125,24 +125,21 @@ export function OrdersListPage() {
   }, [debouncedKeyword]);
 
   return (
-    <AdminPageContainer tone="hero" className="space-y-8 pb-10">
+    <AdminPageContainer tone="hero" className="space-y-6 pb-8">
       <PageHeader
         eyebrow="Orders"
         title="Manage order requests and fulfillment."
-        description="Review incoming requests, payment progression, and lifecycle updates from one admin module."
+        description="Track requests, payment progression, and lifecycle updates from one operational queue."
       />
 
-      <AdminSurface className="p-6 md:p-8">
-        <div className="mb-5 flex flex-wrap gap-2">
-          <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-            Search and lifecycle
-          </span>
-          <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-            Empty filters map to all
+      <AdminSurface className="p-5 md:p-6">
+        <div className="mb-3 flex flex-wrap gap-2">
+          <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1 text-[10px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
+            Quick filters
           </span>
         </div>
-        <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-5">
-          <label className="space-y-2 xl:col-span-2">
+        <div className="grid gap-3 lg:grid-cols-2 xl:grid-cols-5">
+          <label className="space-y-1.5 xl:col-span-2">
             <span className="text-sm font-medium text-foreground">
               Search keyword
             </span>
@@ -152,7 +149,7 @@ export function OrdersListPage() {
               placeholder="Order number, customer name, or email"
             />
           </label>
-          <label className="space-y-2">
+          <label className="space-y-1.5">
             <span className="text-sm font-medium text-foreground">Status</span>
             <AppSelect
               value={query.status || ALL_SELECT_VALUE}
@@ -170,7 +167,7 @@ export function OrdersListPage() {
               }))}
             />
           </label>
-          <label className="space-y-2">
+          <label className="space-y-1.5">
             <span className="text-sm font-medium text-foreground">
               Payment status
             </span>
@@ -192,7 +189,7 @@ export function OrdersListPage() {
               }))}
             />
           </label>
-          <label className="space-y-2">
+          <label className="space-y-1.5">
             <span className="text-sm font-medium text-foreground">
               Discovery source
             </span>
@@ -240,9 +237,9 @@ export function OrdersListPage() {
       ) : result && result.items.length > 0 ? (
         <>
           <OrdersTable orders={result.items} />
-          <AdminSurface className="p-5">
+          <AdminSurface className="p-4">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-              <p className="text-sm text-muted-foreground">
+              <p className="text-xs text-muted-foreground">
                 Page {result.meta.page} of {result.meta.totalPages}. Total orders:{" "}
                 {result.meta.total}
                 {isRefreshing ? " Updating…" : ""}

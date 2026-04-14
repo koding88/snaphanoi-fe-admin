@@ -128,18 +128,18 @@ export function OrdersTable({ orders }: OrdersTableProps) {
 
   return (
     <div className="surface-enter overflow-hidden rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(248,244,237,0.88))] shadow-soft">
-      <div className="border-b border-border/70 bg-white/56 px-5 py-4">
+      <div className="border-b border-border/70 bg-white/56 px-5 py-3">
         <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
           Order records
         </p>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Track incoming requests, status changes, and payment progress from one table.
+        <p className="mt-1 text-xs text-muted-foreground">
+          Track request lifecycle and payment progression in one operational view.
         </p>
       </div>
       <div className="overflow-x-auto border-t border-border/10">
         <div
           className={cn(
-            "grid min-w-[860px] items-center gap-x-3 border-b border-border/80 bg-white/55 px-4 py-3.5 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
+            "grid min-w-[860px] items-center gap-x-3 border-b border-border/80 bg-white/55 px-4 py-3 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
             columnLayout,
           )}
         >
@@ -163,7 +163,7 @@ export function OrdersTable({ orders }: OrdersTableProps) {
                 }
               }}
               className={cn(
-                "group grid min-w-[860px] cursor-pointer items-center gap-x-3 border-b border-border/60 px-4 py-3.5 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0",
+                "group grid min-w-[860px] cursor-pointer items-center gap-x-3 border-b border-border/60 px-4 py-3 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0",
                 columnLayout,
               )}
             >
@@ -241,10 +241,9 @@ export function OrdersTable({ orders }: OrdersTableProps) {
                   >
                     {formatOrderStatus(order.status)}
                   </span>
-                  <span className="text-[11px] text-muted-foreground/60">|</span>
                   <span
                     className={cn(
-                      "inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-semibold tracking-[0.13em] uppercase",
+                      "inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-medium tracking-[0.1em] uppercase opacity-85",
                       getPaymentToneClass(order.paymentStatus),
                     )}
                   >
