@@ -247,7 +247,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Registration token is invalid or expired\",\n  \"error\": \"REGISTRATION_TOKEN_INVALID\",\n  \"statusCode\": 401,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/register/confirm\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"This registration link is invalid or has expired. Please request a new one.\",\n  \"error\": \"REGISTRATION_TOKEN_INVALID\",\n  \"statusCode\": 401,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/register/confirm\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -604,7 +604,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Password reset token is invalid or expired\",\n  \"error\": \"PASSWORD_RESET_TOKEN_INVALID\",\n  \"statusCode\": 401,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/reset-password\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"This password reset link is invalid or has expired. Please request a new one.\",\n  \"error\": \"PASSWORD_RESET_TOKEN_INVALID\",\n  \"statusCode\": 401,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/auth/reset-password\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "Validation Error",
@@ -1483,7 +1483,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Nguyen Van Me\",\n  \"email\": \"newuser@gmail.com\",\n  \"countryCode\": \"VN\"\n}",
+              "raw": "{\n  \"name\": \"Nguyen Van Me\",\n  \"countryCode\": \"VN\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1513,7 +1513,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"Nguyen Van Me\",\n  \"email\": \"newuser@gmail.com\",\n  \"countryCode\": \"VN\"\n}",
+                  "raw": "{\n  \"name\": \"Nguyen Van Me\",\n  \"countryCode\": \"VN\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1538,7 +1538,7 @@
               "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"user-member-1\",\n    \"name\": \"Member One Updated\",\n    \"email\": \"member1@gmail.com\",\n    \"countryCode\": \"VN\",\n    \"roleId\": \"role-user\",\n    \"roleName\": \"User\",\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2025-01-04T00:00:00.000Z\",\n    \"updatedAt\": \"2025-01-04T00:00:00.000Z\"\n  },\n  \"message\": \"Profile updated successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users/me\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
-              "name": "Email Already Exists",
+              "name": "Validation Error",
               "originalRequest": {
                 "method": "PATCH",
                 "header": [
@@ -1566,8 +1566,8 @@
                   "path": ["api", "v1", "users", "me"]
                 }
               },
-              "status": "Conflict",
-              "code": 409,
+              "status": "Bad Request",
+              "code": 400,
               "_postman_previewlanguage": "json",
               "header": [
                 {
@@ -1575,7 +1575,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Email already exists\",\n  \"error\": \"USER_EMAIL_ALREADY_EXISTS\",\n  \"statusCode\": 409,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users/me\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"property email should not exist\",\n  \"error\": \"Bad Request\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users/me\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
               "name": "Validation Error",
@@ -1616,6 +1616,514 @@
                 }
               ],
               "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Country code must be a 2-letter code\",\n  \"error\": \"Bad Request\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-08T07:15:00.000Z\",\n  \"path\": \"/api/v1/users/me\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Request My Email Change OTP",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Request a 6-digit OTP for changing the authenticated user's email. Reuse this same endpoint for re-request after cooldown.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"new-email@gmail.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/users/me/email-change/request-otp",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "users", "me", "email-change", "request-otp"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "description": "Request a 6-digit OTP for changing the authenticated user's email. Reuse this same endpoint for re-request after cooldown.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"new-email@gmail.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/me/email-change/request-otp",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me", "email-change", "request-otp"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"requested\": true,\n    \"expiresInSeconds\": 600,\n    \"resendAvailableInSeconds\": 60\n  },\n  \"message\": \"Email verification code sent successfully\",\n  \"error\": null,\n  \"statusCode\": 201,\n  \"timestamp\": \"2026-04-14T10:00:00.000Z\",\n  \"path\": \"/api/v1/users/me/email-change/request-otp\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Current Email",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"current@gmail.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/me/email-change/request-otp",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me", "email-change", "request-otp"]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"New email must be different from your current email\",\n  \"error\": \"EMAIL_CHANGE_SAME_AS_CURRENT\",\n  \"statusCode\": 409,\n  \"timestamp\": \"2026-04-14T10:00:10.000Z\",\n  \"path\": \"/api/v1/users/me/email-change/request-otp\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Email Already Exists",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"existing@gmail.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/me/email-change/request-otp",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me", "email-change", "request-otp"]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Email already exists\",\n  \"error\": \"USER_EMAIL_ALREADY_EXISTS\",\n  \"statusCode\": 409,\n  \"timestamp\": \"2026-04-14T10:00:15.000Z\",\n  \"path\": \"/api/v1/users/me/email-change/request-otp\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Cooldown Active",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"new-email@gmail.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/me/email-change/request-otp",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me", "email-change", "request-otp"]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Please wait 45 seconds before requesting a new code\",\n  \"error\": \"EMAIL_CHANGE_COOLDOWN_ACTIVE\",\n  \"statusCode\": 429,\n  \"timestamp\": \"2026-04-14T10:00:20.000Z\",\n  \"path\": \"/api/v1/users/me/email-change/request-otp\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Overwrite Pending Email After Cooldown",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"email-b@gmail.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/me/email-change/request-otp",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me", "email-change", "request-otp"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"requested\": true,\n    \"expiresInSeconds\": 600,\n    \"resendAvailableInSeconds\": 60\n  },\n  \"message\": \"Email verification code sent successfully\",\n  \"error\": null,\n  \"statusCode\": 201,\n  \"timestamp\": \"2026-04-14T10:02:00.000Z\",\n  \"path\": \"/api/v1/users/me/email-change/request-otp\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Verify My Email Change OTP",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Verify the 6-digit OTP and commit the email change immediately.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"new-email@gmail.com\",\n  \"otp\": \"123456\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{LOCAL_URL}}/api/v1/users/me/email-change/verify-otp",
+              "host": ["{{LOCAL_URL}}"],
+              "path": ["api", "v1", "users", "me", "email-change", "verify-otp"]
+            }
+          },
+          "response": [
+            {
+              "name": "Invalid OTP",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"new-email@gmail.com\",\n  \"otp\": \"000000\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/me/email-change/verify-otp",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me", "email-change", "verify-otp"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"The verification code is invalid\",\n  \"error\": \"EMAIL_CHANGE_OTP_INVALID\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-14T10:03:00.000Z\",\n  \"path\": \"/api/v1/users/me/email-change/verify-otp\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Expired OTP",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"new-email@gmail.com\",\n  \"otp\": \"123456\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/me/email-change/verify-otp",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me", "email-change", "verify-otp"]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"The verification code has expired. Please request a new code.\",\n  \"error\": \"EMAIL_CHANGE_OTP_EXPIRED\",\n  \"statusCode\": 401,\n  \"timestamp\": \"2026-04-14T10:11:00.000Z\",\n  \"path\": \"/api/v1/users/me/email-change/verify-otp\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Too Many Attempts",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"new-email@gmail.com\",\n  \"otp\": \"000000\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/me/email-change/verify-otp",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me", "email-change", "verify-otp"]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Too many incorrect verification attempts. Please request a new code.\",\n  \"error\": \"EMAIL_CHANGE_OTP_ATTEMPTS_EXCEEDED\",\n  \"statusCode\": 429,\n  \"timestamp\": \"2026-04-14T10:03:30.000Z\",\n  \"path\": \"/api/v1/users/me/email-change/verify-otp\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Pending Email Mismatch",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"email-a@gmail.com\",\n  \"otp\": \"123456\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/me/email-change/verify-otp",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me", "email-change", "verify-otp"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"The email does not match the pending email change request\",\n  \"error\": \"EMAIL_CHANGE_PENDING_EMAIL_MISMATCH\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-14T10:04:00.000Z\",\n  \"path\": \"/api/v1/users/me/email-change/verify-otp\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "No Pending Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"new-email@gmail.com\",\n  \"otp\": \"123456\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/me/email-change/verify-otp",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me", "email-change", "verify-otp"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"No pending email change request was found. Please request a new code.\",\n  \"error\": \"EMAIL_CHANGE_REQUEST_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-14T10:04:30.000Z\",\n  \"path\": \"/api/v1/users/me/email-change/verify-otp\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+            },
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "description": "Verify the 6-digit OTP and commit the email change immediately.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"new-email@gmail.com\",\n  \"otp\": \"123456\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCAL_URL}}/api/v1/users/me/email-change/verify-otp",
+                  "host": ["{{LOCAL_URL}}"],
+                  "path": ["api", "v1", "users", "me", "email-change", "verify-otp"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"user-member-1\",\n    \"name\": \"System Admin\",\n    \"email\": \"new-email@gmail.com\",\n    \"countryCode\": \"VN\",\n    \"roleId\": \"role-admin\",\n    \"roleName\": \"Admin\",\n    \"isActive\": true,\n    \"deletedAt\": null,\n    \"createdAt\": \"2026-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2026-04-14T10:05:00.000Z\"\n  },\n  \"message\": \"Email changed successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-14T10:05:00.000Z\",\n  \"path\": \"/api/v1/users/me/email-change/verify-otp\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -3243,13 +3751,7 @@
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}/restore",
                   "host": ["{{LOCAL_URL}}"],
-                  "path": [
-                    "api",
-                    "v1",
-                    "galleries",
-                    "{{GALLERY_ID}}",
-                    "restore"
-                  ]
+                  "path": ["api", "v1", "galleries", "{{GALLERY_ID}}", "restore"]
                 }
               },
               "status": "OK",
@@ -3276,13 +3778,7 @@
                 "url": {
                   "raw": "{{LOCAL_URL}}/api/v1/galleries/{{GALLERY_ID}}/restore",
                   "host": ["{{LOCAL_URL}}"],
-                  "path": [
-                    "api",
-                    "v1",
-                    "galleries",
-                    "{{GALLERY_ID}}",
-                    "restore"
-                  ]
+                  "path": ["api", "v1", "galleries", "{{GALLERY_ID}}", "restore"]
                 }
               },
               "status": "Bad Request",
@@ -3309,11 +3805,21 @@
               }
             ],
             "url": {
-              "raw": "{{LOCAL_URL}}/api/v1/galleries/public",
+              "raw": "{{LOCAL_URL}}/api/v1/galleries/public?page=1&limit=10",
               "host": ["{{LOCAL_URL}}"],
-              "path": ["api", "v1", "galleries", "public"]
+              "path": ["api", "v1", "galleries", "public"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
             },
-            "description": "Public gallery list for FE header/nav. Uses Accept-Language to resolve vi/en/cn. Fallback locale is en when the header is missing or unsupported."
+            "description": "Public endpoint. Returns paginated active + non-deleted galleries only. Uses Accept-Language to resolve vi/en/cn, supports page and limit, and returns items plus meta."
           },
           "response": [
             {
@@ -3327,9 +3833,19 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{LOCAL_URL}}/api/v1/galleries/public",
+                  "raw": "{{LOCAL_URL}}/api/v1/galleries/public?page=1&limit=10",
                   "host": ["{{LOCAL_URL}}"],
-                  "path": ["api", "v1", "galleries", "public"]
+                  "path": ["api", "v1", "galleries", "public"],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
                 }
               },
               "status": "OK",
@@ -3341,7 +3857,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": \"gallery-couple\",\n      \"name\": \"Couple\"\n    },\n    {\n      \"id\": \"gallery-family\",\n      \"name\": \"Family\"\n    }\n  ],\n  \"message\": \"Galleries fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-08T07:25:00.000Z\",\n  \"path\": \"/api/v1/galleries/public\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"gallery-couple\",\n        \"name\": \"Couple\"\n      },\n      {\n        \"id\": \"gallery-family\",\n        \"name\": \"Family\"\n      }\n    ],\n    \"meta\": {\n      \"page\": 1,\n      \"limit\": 10,\n      \"total\": 2,\n      \"totalPages\": 1\n    }\n  },\n  \"message\": \"Galleries fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-12T00:00:00.000Z\",\n  \"path\": \"/api/v1/galleries/public?page=1&limit=10\",\n  \"requestId\": \"example-request-id\"\n}"
             }
           ]
         }
@@ -4103,7 +4619,7 @@
                 }
               ]
             },
-            "description": "Public endpoint. Lists published + active + not-deleted projects in a gallery. Returns only id, localized name, and coverImage."
+            "description": "Public endpoint. Lists published + active + not-deleted projects in a gallery. Returns only id, localized name, and coverImage. This endpoint is strict by gallery context: invalid/missing/inactive/deleted gallery returns INVALID_PROJECT_GALLERY (no fallback)."
           },
           "response": [
             {
@@ -4190,7 +4706,7 @@
               "host": ["{{LOCAL_URL}}"],
               "path": ["api", "v1", "projects", "public", "{{PROJECT_ID}}"]
             },
-            "description": "Public endpoint. Returns a published + active + not-deleted project detail and re-checks gallery visibility consistency before serving cached data. Does not include isPublished/isActive/deletedAt/createdBy."
+            "description": "Public endpoint. Returns a published + active + not-deleted project detail and re-checks gallery visibility consistency before serving cached data. Does not include isPublished/isActive/deletedAt/createdBy. If the related gallery no longer exists, detail still succeeds with gallery = null."
           },
           "response": [
             {
@@ -4238,7 +4754,7 @@
               "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Project not found\",\n  \"error\": \"PROJECT_NOT_FOUND\",\n  \"statusCode\": 404,\n  \"timestamp\": \"2026-04-09T10:00:00.000Z\",\n  \"path\": \"/api/v1/projects/public/project-missing\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             },
             {
-              "name": "Invalid Gallery (Inactive/Deleted)",
+              "name": "Success - Missing Gallery Fallback",
               "originalRequest": {
                 "method": "GET",
                 "header": [],
@@ -4248,8 +4764,8 @@
                   "path": ["api", "v1", "projects", "public", "{{PROJECT_ID}}"]
                 }
               },
-              "status": "Bad Request",
-              "code": 400,
+              "status": "OK",
+              "code": 200,
               "_postman_previewlanguage": "json",
               "header": [
                 {
@@ -4257,7 +4773,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Gallery \\\"gallery-deleted\\\" is invalid or inactive\",\n  \"error\": \"INVALID_PROJECT_GALLERY\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-09T10:00:00.000Z\",\n  \"path\": \"/api/v1/projects/public/project-spring-romance\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"project-spring-romance\",\n    \"gallery\": null,\n    \"name\": \"Tinh yeu mua xuan\",\n    \"coverImage\": {\n      \"id\": \"file-cover-1\",\n      \"url\": \"http://localhost:9000/snaphanoi/assets/project-cover/2026/04/7a5f3d4c-project-cover.jpg\",\n      \"mimeType\": \"image/jpeg\",\n      \"size\": 5242880,\n      \"originalName\": \"project-cover.jpg\"\n    },\n    \"content\": {\n      \"time\": 1775715600000,\n      \"version\": \"2.30.6\",\n      \"blocks\": [\n        {\n          \"id\": \"intro-1\",\n          \"type\": \"paragraph\",\n          \"data\": {\n            \"text\": \"A spring couple session in Hanoi old quarter.\"\n          }\n        }\n      ]\n    },\n    \"createdAt\": \"2026-04-09T09:10:00.000Z\",\n    \"updatedAt\": \"2026-04-09T09:10:00.000Z\"\n  },\n  \"message\": \"Project fetched successfully\",\n  \"error\": null,\n  \"statusCode\": 200,\n  \"timestamp\": \"2026-04-09T10:00:00.000Z\",\n  \"path\": \"/api/v1/projects/public/project-spring-romance\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -4282,7 +4798,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": {\n    \"en\": \"Spring Romance Updated\",\n    \"vi\": \"Tinh yeu mua xuan moi\",\n    \"cn\": \"春日恋曲新版\"\n  },\n  \"coverImageUploadToken\": \"new-cover-upload-token\",\n  \"content\": {\n    \"time\": 1775715600000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"Updated spring project story.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-existing\",\n              \"kind\": \"image\",\n              \"fileId\": \"file-content-1\",\n              \"url\": \"http://localhost:9000/snaphanoi/assets/project-content/2026/04/abc-existing.jpg\"\n            },\n            {\n              \"id\": \"item-image-new\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"content-upload-token-2\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPublished\": false\n}",
+              "raw": "{\n  \"galleryId\": \"gallery-family\",\n  \"name\": {\n    \"en\": \"Spring Romance Updated\",\n    \"vi\": \"Tinh yeu mua xuan moi\",\n    \"cn\": \"春日恋曲新版\"\n  },\n  \"coverImageUploadToken\": \"new-cover-upload-token\",\n  \"content\": {\n    \"time\": 1775715600000,\n    \"version\": \"2.30.6\",\n    \"blocks\": [\n      {\n        \"id\": \"intro-1\",\n        \"type\": \"paragraph\",\n        \"data\": {\n          \"text\": \"Updated spring project story.\"\n        }\n      },\n      {\n        \"id\": \"media-1\",\n        \"type\": \"mediaLayout\",\n        \"data\": {\n          \"items\": [\n            {\n              \"id\": \"item-image-existing\",\n              \"kind\": \"image\",\n              \"fileId\": \"file-content-1\",\n              \"url\": \"http://localhost:9000/snaphanoi/assets/project-content/2026/04/abc-existing.jpg\"\n            },\n            {\n              \"id\": \"item-image-new\",\n              \"kind\": \"image\",\n              \"uploadToken\": \"content-upload-token-2\"\n            },\n            {\n              \"id\": \"item-youtube-1\",\n              \"kind\": \"youtube\",\n              \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"isPublished\": false\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -6625,7 +7141,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Invalid discovery source\",\n  \"error\": \"INVALID_ORDER_DISCOVERY_SOURCE\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-11T04:10:00.000Z\",\n  \"path\": \"/api/v1/orders/public/request\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Please select how you heard about us.\",\n  \"error\": \"INVALID_ORDER_DISCOVERY_SOURCE\",\n  \"statusCode\": 400,\n  \"timestamp\": \"2026-04-11T04:10:00.000Z\",\n  \"path\": \"/api/v1/orders/public/request\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
@@ -6764,7 +7280,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"Order request token is invalid or expired\",\n  \"error\": \"INVALID_ORDER_REQUEST_TOKEN\",\n  \"statusCode\": 401,\n  \"timestamp\": \"2026-04-11T04:20:00.000Z\",\n  \"path\": \"/api/v1/orders/public/confirm\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
+              "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"This order confirmation link is invalid or has expired.\",\n  \"error\": \"INVALID_ORDER_REQUEST_TOKEN\",\n  \"statusCode\": 401,\n  \"timestamp\": \"2026-04-11T04:20:00.000Z\",\n  \"path\": \"/api/v1/orders/public/confirm\",\n  \"requestId\": \"eb36299a-ec3f-49ae-a404-5978ea119baf\"\n}"
             }
           ]
         },
