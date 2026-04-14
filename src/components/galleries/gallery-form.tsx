@@ -2,8 +2,8 @@
 
 import { useState, type FormEvent } from "react";
 
+import { LocalizedNameEditor } from "@/components/shared/localized-name-editor";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { getFriendlyGalleriesError } from "@/features/galleries/utils/galleries-errors";
 import { notifyError } from "@/lib/toast";
 
@@ -69,49 +69,29 @@ export function GalleryForm({
   }
 
   return (
-    <form className="space-y-6" noValidate onSubmit={handleSubmit}>
-      {description ? <p className="text-sm leading-7 text-muted-foreground">{description}</p> : null}
-      <div className="grid gap-5 md:grid-cols-2">
-        <label className="space-y-2 md:col-span-2">
-          <span className="text-sm font-medium text-foreground">English name</span>
-          <Input
-            value={values.en}
-            onChange={(event) => {
-              setValues((current) => ({ ...current, en: event.target.value }));
-              setFieldErrors((current) => ({ ...current, en: undefined }));
-            }}
-            placeholder="Couple"
-            aria-invalid={Boolean(fieldErrors.en)}
-          />
-          {fieldErrors.en ? <p className="text-sm text-red-600">{fieldErrors.en}</p> : null}
-        </label>
-        <label className="space-y-2">
-          <span className="text-sm font-medium text-foreground">Vietnamese name</span>
-          <Input
-            value={values.vi}
-            onChange={(event) => {
-              setValues((current) => ({ ...current, vi: event.target.value }));
-              setFieldErrors((current) => ({ ...current, vi: undefined }));
-            }}
-            placeholder="Cap doi"
-            aria-invalid={Boolean(fieldErrors.vi)}
-          />
-          {fieldErrors.vi ? <p className="text-sm text-red-600">{fieldErrors.vi}</p> : null}
-        </label>
-        <label className="space-y-2">
-          <span className="text-sm font-medium text-foreground">Chinese name</span>
-          <Input
-            value={values.cn}
-            onChange={(event) => {
-              setValues((current) => ({ ...current, cn: event.target.value }));
-              setFieldErrors((current) => ({ ...current, cn: undefined }));
-            }}
-            placeholder="情侣"
-            aria-invalid={Boolean(fieldErrors.cn)}
-          />
-          {fieldErrors.cn ? <p className="text-sm text-red-600">{fieldErrors.cn}</p> : null}
-        </label>
-      </div>
+    <form className="space-y-8" noValidate onSubmit={handleSubmit}>
+      {description ? (
+        <div className="rounded-[1.4rem] border border-border/70 bg-white/72 px-4 py-3 text-sm leading-6 text-muted-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
+          {description}
+        </div>
+      ) : null}
+      <LocalizedNameEditor
+        value={values}
+        errors={fieldErrors}
+        sectionEyebrow="Names"
+        sectionTitle="Localized gallery naming"
+        sectionDescription="Use one language tab at a time. All three localized names are required before saving."
+        fieldLabel="Gallery name"
+        placeholders={{
+          en: "Couple",
+          vi: "Cap doi",
+          cn: "情侣",
+        }}
+        onChange={(locale, nextValue) => {
+          setValues((current) => ({ ...current, [locale]: nextValue }));
+          setFieldErrors((current) => ({ ...current, [locale]: undefined }));
+        }}
+      />
       <div className="flex justify-end pt-2">
         <Button type="submit" size="lg" className="min-w-44 rounded-full" disabled={isSubmitting}>
           {isSubmitting ? "Saving..." : submitLabel}

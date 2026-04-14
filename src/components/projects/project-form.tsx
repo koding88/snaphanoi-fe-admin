@@ -14,8 +14,8 @@ import {
   ProjectGallerySelect,
   type ProjectGalleryOption,
 } from "@/components/projects/project-gallery-select";
+import { LocalizedNameEditor } from "@/components/shared/localized-name-editor";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { AppSelect } from "@/components/ui/select";
 import { requestUpload } from "@/features/files/api/request-upload";
 import { uploadFileToStorage } from "@/features/files/api/upload-file-to-storage";
@@ -128,6 +128,18 @@ export function ProjectForm({
   }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUploadingCover, setIsUploadingCover] = useState(false);
+
+  function errorKeyByLocale(locale: "en" | "vi" | "cn") {
+    if (locale === "en") {
+      return "nameEn";
+    }
+
+    if (locale === "vi") {
+      return "nameVi";
+    }
+
+    return "nameCn";
+  }
 
   useEffect(() => {
     if (!existingCoverImage) {
@@ -306,75 +318,35 @@ export function ProjectForm({
                 <p className="text-sm text-red-600">{fieldErrors.galleryId}</p>
               ) : null}
             </div>
-            <label className="space-y-2 md:col-span-2">
-              <span className="text-sm font-medium text-foreground">
-                English name
-              </span>
-              <Input
-                value={values.name.en}
-                onChange={(event) => {
+            <div className="md:col-span-2">
+              <LocalizedNameEditor
+                value={values.name}
+                errors={{
+                  en: fieldErrors.nameEn,
+                  vi: fieldErrors.nameVi,
+                  cn: fieldErrors.nameCn,
+                }}
+                sectionEyebrow="Names"
+                sectionTitle="Localized project naming"
+                sectionDescription="Align project naming across English, Vietnamese, and Chinese before publishing."
+                fieldLabel="Project name"
+                placeholders={{
+                  en: "Spring Romance",
+                  vi: "Tinh yeu mua xuan",
+                  cn: "春日恋曲",
+                }}
+                onChange={(locale, nextValue) => {
                   setValues((current) => ({
                     ...current,
-                    name: { ...current.name, en: event.target.value },
+                    name: { ...current.name, [locale]: nextValue },
                   }));
                   setFieldErrors((current) => ({
                     ...current,
-                    nameEn: undefined,
+                    [errorKeyByLocale(locale)]: undefined,
                   }));
                 }}
-                placeholder="Spring Romance"
-                aria-invalid={Boolean(fieldErrors.nameEn)}
               />
-              {fieldErrors.nameEn ? (
-                <p className="text-sm text-red-600">{fieldErrors.nameEn}</p>
-              ) : null}
-            </label>
-            <label className="space-y-2">
-              <span className="text-sm font-medium text-foreground">
-                Vietnamese name
-              </span>
-              <Input
-                value={values.name.vi}
-                onChange={(event) => {
-                  setValues((current) => ({
-                    ...current,
-                    name: { ...current.name, vi: event.target.value },
-                  }));
-                  setFieldErrors((current) => ({
-                    ...current,
-                    nameVi: undefined,
-                  }));
-                }}
-                placeholder="Tinh yeu mua xuan"
-                aria-invalid={Boolean(fieldErrors.nameVi)}
-              />
-              {fieldErrors.nameVi ? (
-                <p className="text-sm text-red-600">{fieldErrors.nameVi}</p>
-              ) : null}
-            </label>
-            <label className="space-y-2">
-              <span className="text-sm font-medium text-foreground">
-                Chinese name
-              </span>
-              <Input
-                value={values.name.cn}
-                onChange={(event) => {
-                  setValues((current) => ({
-                    ...current,
-                    name: { ...current.name, cn: event.target.value },
-                  }));
-                  setFieldErrors((current) => ({
-                    ...current,
-                    nameCn: undefined,
-                  }));
-                }}
-                placeholder="春日恋曲"
-                aria-invalid={Boolean(fieldErrors.nameCn)}
-              />
-              {fieldErrors.nameCn ? (
-                <p className="text-sm text-red-600">{fieldErrors.nameCn}</p>
-              ) : null}
-            </label>
+            </div>
             <label className="space-y-2 md:col-span-2">
               <span className="text-sm font-medium text-foreground">
                 Publishing state
