@@ -6,6 +6,13 @@ const USER_ERROR_MESSAGES: Record<string, string> = {
   INVALID_USER_ROLE: "The selected role is no longer valid. Refresh the role list and try again.",
   INVALID_CURRENT_PASSWORD: "Current password is incorrect.",
   USER_NOT_DELETED: "This account is not archived, so it cannot be restored.",
+  EMAIL_CHANGE_SAME_AS_CURRENT: "Use a different email from the one already on your account.",
+  EMAIL_CHANGE_COOLDOWN_ACTIVE: "A code was sent recently. Please wait a moment before requesting another one.",
+  EMAIL_CHANGE_REQUEST_NOT_FOUND: "No pending email change was found. Request a new verification code.",
+  EMAIL_CHANGE_PENDING_EMAIL_MISMATCH: "This code belongs to a different pending email. Request a new code for this address.",
+  EMAIL_CHANGE_OTP_INVALID: "The verification code is incorrect.",
+  EMAIL_CHANGE_OTP_EXPIRED: "The verification code has expired. Request a new one.",
+  EMAIL_CHANGE_OTP_ATTEMPTS_EXCEEDED: "Too many incorrect attempts. Request a new verification code.",
   Forbidden: "You do not have permission to perform this action.",
   Unauthorized: "Your session is no longer valid. Please sign in again.",
 };

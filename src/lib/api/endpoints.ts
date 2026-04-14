@@ -15,6 +15,8 @@ export const API_ENDPOINTS = {
     byId: (id: string) => `/api/v1/users/${id}`,
     restore: (id: string) => `/api/v1/users/${id}/restore`,
     me: "/api/v1/users/me",
+    requestMyEmailChangeOtp: "/api/v1/users/me/email-change/request-otp",
+    verifyMyEmailChangeOtp: "/api/v1/users/me/email-change/verify-otp",
     changePassword: "/api/v1/users/me/password",
   },
   roles: {

@@ -19,9 +19,25 @@ export type UpdateUserPayload = {
 
 export type UpdateMyProfilePayload = {
   name: string;
-  email: string;
   countryCode: string;
 };
+
+export type RequestMyEmailChangeOtpPayload = {
+  email: string;
+};
+
+export type RequestMyEmailChangeOtpResult = {
+  requested: true;
+  expiresInSeconds: number;
+  resendAvailableInSeconds: number;
+};
+
+export type VerifyMyEmailChangeOtpPayload = {
+  email: string;
+  otp: string;
+};
+
+export type VerifyMyEmailChangeOtpResult = UserRecord;
 
 export type ChangeMyPasswordPayload = {
   currentPassword: string;

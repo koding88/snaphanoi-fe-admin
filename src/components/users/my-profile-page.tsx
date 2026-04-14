@@ -2,10 +2,14 @@
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
+import { BackButton } from "@/components/shared/back-button";
 import { PageHeader } from "@/components/shared/page-header";
 import { ProfileForm } from "@/components/users/profile-form";
 import { useAuthStore } from "@/features/auth/store/auth.store";
+import { requestMyEmailChangeOtp } from "@/features/users/api/request-my-email-change-otp";
 import { updateMyProfile } from "@/features/users/api/update-my-profile";
+import { verifyMyEmailChangeOtp } from "@/features/users/api/verify-my-email-change-otp";
+import { ROUTES } from "@/lib/constants/routes";
 import { notifySuccess } from "@/lib/toast";
 
 export function MyProfilePage() {
@@ -24,7 +28,7 @@ export function MyProfilePage() {
 
   const currentUser = user;
 
-  async function handleSubmit(payload: { name: string; email: string; countryCode: string }) {
+  async function handleSubmit(payload: { name: string; countryCode: string }) {
     const response = await updateMyProfile(payload);
     const updated = response.data;
     setUser({
@@ -35,15 +39,38 @@ export function MyProfilePage() {
     notifySuccess(response.message, "Profile updated successfully.");
   }
 
+  async function handleRequestEmailOtp(payload: { email: string }) {
+    return requestMyEmailChangeOtp(payload);
+  }
+
+  async function handleVerifyEmailOtp(payload: { email: string; otp: string }) {
+    const response = await verifyMyEmailChangeOtp(payload);
+    const updated = response.data;
+
+    setUser({
+      ...currentUser,
+      ...updated,
+      roleKey: currentUser.roleKey ?? null,
+    });
+
+    return updated;
+  }
+
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
         eyebrow="My profile"
         title="Profile settings."
         description="Keep your own name, email, and country details up to date without opening the admin user editor."
+        meta={<BackButton href={ROUTES.admin.dashboard} />}
       />
       <AdminSurface className="p-6 md:p-8">
-        <ProfileForm user={currentUser} onSubmit={handleSubmit} />
+        <ProfileForm
+          user={currentUser}
+          onSubmit={handleSubmit}
+          onRequestEmailOtp={handleRequestEmailOtp}
+          onVerifyEmailOtp={handleVerifyEmailOtp}
+        />
       </AdminSurface>
     </AdminPageContainer>
   );
