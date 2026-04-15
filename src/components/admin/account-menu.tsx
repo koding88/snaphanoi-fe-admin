@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { logout } from "@/features/auth/api/logout";
 import { useAuthStore } from "@/features/auth/store/auth.store";
-import { clearClientSession } from "@/features/auth/utils/auth-storage";
+import { clearAuthClientState } from "@/features/auth/utils/auth-client-state";
 import { ROUTES } from "@/lib/constants/routes";
 import { faArrowRightFromBracket, faLock, faUserGear } from "@/lib/icons/fa";
 import { cn } from "@/lib/utils";
@@ -19,7 +19,6 @@ export function AccountMenu() {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const closeTimeoutRef = useRef<number | null>(null);
   const user = useAuthStore((state) => state.user);
-  const clear = useAuthStore((state) => state.clear);
   const [open, setOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
@@ -85,8 +84,7 @@ export function AccountMenu() {
     } catch {
       // Local session must still be cleared if the backend already invalidated the cookie.
     } finally {
-      clearClientSession();
-      clear();
+      clearAuthClientState({ reason: "logout" });
       setOpen(false);
       setIsLoggingOut(false);
       router.replace(ROUTES.login);
@@ -125,8 +123,12 @@ export function AccountMenu() {
             <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
               Signed in
             </p>
-            <p className="mt-2 text-sm font-medium text-foreground">{user?.name ?? "Studio account"}</p>
-            <p className="mt-1 text-sm text-muted-foreground">{user?.email ?? "Admin workspace"}</p>
+            <p className="mt-2 text-sm font-medium text-foreground">
+              {user?.name ?? "Studio account"}
+            </p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              {user?.email ?? "Admin workspace"}
+            </p>
           </div>
           <div className="mt-2 space-y-1">
             <AccountMenuLink

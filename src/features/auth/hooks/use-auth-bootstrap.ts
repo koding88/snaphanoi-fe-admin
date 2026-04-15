@@ -9,6 +9,7 @@ import {
   readStoredAccessToken,
   readStoredAuthSnapshot,
 } from "@/features/auth/utils/auth-storage";
+import { clearAuthClientState } from "@/features/auth/utils/auth-client-state";
 import { refreshAuthSession } from "@/lib/api/auth-session";
 
 let bootstrapPromise: Promise<void> | null = null;
@@ -44,8 +45,9 @@ async function runBootstrapFlow() {
       throw new Error("SESSION_REFRESH_FAILED");
     }
   } catch {
-    clearClientSession();
-    authStore.setGuest();
+    clearAuthClientState({
+      reason: "bootstrap_failed",
+    });
   }
 }
 

@@ -1,7 +1,10 @@
 import { create } from "zustand";
 
 import type { AuthSuccessPayload } from "@/features/auth/types/auth-api.types";
-import type { AuthenticatedUser, AuthStatus } from "@/features/auth/types/auth.types";
+import type {
+  AuthenticatedUser,
+  AuthStatus,
+} from "@/features/auth/types/auth.types";
 
 type AuthSession = {
   accessToken: string | null;
@@ -16,7 +19,7 @@ type AuthStore = {
   setAuthenticated: (payload: AuthSuccessPayload) => void;
   setUser: (user: AuthenticatedUser | null) => void;
   setGuest: () => void;
-  clear: () => void;
+  clear: (reason?: string) => void;
 };
 
 const INITIAL_SESSION: AuthSession = {
@@ -46,11 +49,14 @@ export const useAuthStore = create<AuthStore>((set) => ({
       status: "guest",
       hasBootstrapped: true,
     }),
-  clear: () =>
+  clear: (reason = "unspecified") => {
+    void reason;
+
     set({
       session: INITIAL_SESSION,
       user: null,
       status: "guest",
       hasBootstrapped: true,
-    }),
+    });
+  },
 }));
