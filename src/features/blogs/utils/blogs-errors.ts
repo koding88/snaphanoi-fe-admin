@@ -1,5 +1,12 @@
 import { isApiError } from "@/lib/api/errors";
 
+type ErrorMessageResolver = (params: {
+  scope: string;
+  code?: string | null;
+  statusCode?: number;
+  fallback: string;
+}) => string;
+
 const BLOG_ERROR_MESSAGES: Record<string, string> = {
   BLOG_NOT_FOUND: "The requested blog could not be found.",
   BLOG_ALREADY_DELETED: "This blog is already archived.",
@@ -13,13 +20,13 @@ const BLOG_ERROR_MESSAGES: Record<string, string> = {
   Unauthorized: "Your session is no longer valid. Please sign in again.",
 };
 
-export function getFriendlyBlogsError(error: unknown) {
+export function getFriendlyBlogsError(error: unknown, resolve?: ErrorMessageResolver) {
   if (!isApiError(error)) {
     if (error instanceof Error && error.message) {
-      return error.message;
+      return resolve?.({ scope: "blogs", fallback: error.message }) ?? error.message;
     }
 
-    return "Something went wrong. Please try again.";
+    return resolve?.({ scope: "blogs", fallback: "Something went wrong. Please try again." }) ?? "Something went wrong. Please try again.";
   }
 
   const baseMessage =
@@ -29,5 +36,5 @@ export function getFriendlyBlogsError(error: unknown) {
     error.message ||
     "Something went wrong. Please try again.";
 
-  return baseMessage;
+  return resolve?.({ scope: "blogs", code: error.code, statusCode: error.statusCode, fallback: baseMessage }) ?? baseMessage;
 }

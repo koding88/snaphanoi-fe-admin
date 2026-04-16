@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
 import { BackButton } from "@/components/shared/back-button";
@@ -13,6 +15,7 @@ import { ROUTES } from "@/lib/constants/routes";
 import { notifySuccess } from "@/lib/toast";
 
 export function MyProfilePage() {
+  const t = useTranslations("users.profilePage");
   const user = useAuthStore((state) => state.user);
   const setUser = useAuthStore((state) => state.setUser);
 
@@ -20,7 +23,7 @@ export function MyProfilePage() {
     return (
       <AdminPageContainer className="pb-10">
         <AdminSurface className="p-6 md:p-8">
-          <p className="text-sm text-muted-foreground">Current user profile is unavailable.</p>
+          <p className="text-sm text-muted-foreground">{t("unavailable")}</p>
         </AdminSurface>
       </AdminPageContainer>
     );
@@ -36,7 +39,7 @@ export function MyProfilePage() {
       ...updated,
       roleKey: currentUser.roleKey ?? null,
     });
-    notifySuccess(response.message, "Profile updated successfully.");
+    notifySuccess(response.message, t("toasts.updated"));
   }
 
   async function handleRequestEmailOtp(payload: { email: string }) {
@@ -59,9 +62,9 @@ export function MyProfilePage() {
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
-        eyebrow="My profile"
-        title="Profile settings."
-        description="Keep your own name, email, and country details up to date without opening the admin user editor."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        description={t("description")}
         meta={<BackButton href={ROUTES.admin.dashboard} />}
       />
       <AdminSurface className="p-6 md:p-8">

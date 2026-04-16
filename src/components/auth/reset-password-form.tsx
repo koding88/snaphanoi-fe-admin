@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState, type FormEvent } from "react";
+import { useTranslations } from "next-intl";
 
 import { AuthFeedback } from "@/components/auth/auth-feedback";
 import { AuthField } from "@/components/auth/auth-field";
@@ -20,6 +21,7 @@ import { ROUTES } from "@/lib/constants/routes";
 import { notifyError, notifySuccess } from "@/lib/toast";
 
 export function ResetPasswordForm() {
+  const t = useTranslations("auth.resetPassword");
   const router = useRouter();
   const searchParams = useSearchParams();
   const [form, setForm] = useState({
@@ -68,21 +70,19 @@ export function ResetPasswordForm() {
     } = {};
 
     if (!form.token.trim()) {
-      nextFieldErrors.token = "Reset token is required.";
+      nextFieldErrors.token = t("errors.tokenRequired");
     }
 
     if (!form.newPassword) {
-      nextFieldErrors.newPassword = "New password is required.";
+      nextFieldErrors.newPassword = t("errors.newPasswordRequired");
     } else if (!isStrongPassword(form.newPassword)) {
-      nextFieldErrors.newPassword =
-        "New password must be at least 8 characters and include uppercase, lowercase, and a number.";
+      nextFieldErrors.newPassword = t("errors.newPasswordWeak");
     }
 
     if (!form.confirmNewPassword) {
-      nextFieldErrors.confirmNewPassword = "Password confirmation is required.";
+      nextFieldErrors.confirmNewPassword = t("errors.confirmRequired");
     } else if (form.newPassword !== form.confirmNewPassword) {
-      nextFieldErrors.confirmNewPassword =
-        "Password confirmation does not match.";
+      nextFieldErrors.confirmNewPassword = t("errors.confirmMismatch");
     }
 
     setFieldErrors(nextFieldErrors);
@@ -98,8 +98,8 @@ export function ResetPasswordForm() {
       clearAuthClientState({ reason: "reset_password_success" });
       notifySuccess(
         response.message,
-        "Password updated successfully.",
-        "Please sign in again with your new password.",
+        t("successTitle"),
+        t("successDescription"),
       );
       setDidReset(true);
     } catch (submissionError) {
@@ -110,14 +110,14 @@ export function ResetPasswordForm() {
   }
 
   return (
-    <AuthFormShell
-      eyebrow="Reset password"
-      title="Choose a new password."
-      description="If you opened this page from the email link, the reset token is already attached. After success, you will sign in again with the new password."
+      <AuthFormShell
+      eyebrow={t("eyebrow")}
+      title={t("title")}
+      description={t("description")}
       footer={
         <div className="text-sm text-white/65">
           <Link href="/login" className="transition-opacity hover:opacity-100">
-            Back to login
+            {t("backToLogin")}
           </Link>
         </div>
       }
@@ -125,12 +125,11 @@ export function ResetPasswordForm() {
       <form className="space-y-5" noValidate onSubmit={handleSubmit}>
         {prefilledFromLink && !showManualToken ? (
           <AuthFeedback variant="info">
-            Reset link detected. Continue below, or switch to manual token entry
-            if needed.
+            {t("linkDetected")}
           </AuthFeedback>
         ) : (
           <AuthField
-            label="Reset token"
+            label={t("token")}
             htmlFor="reset-token"
             error={fieldErrors.token ?? null}
           >
@@ -145,7 +144,7 @@ export function ResetPasswordForm() {
                 }));
                 setFieldErrors((current) => ({ ...current, token: undefined }));
               }}
-              placeholder="Paste your reset token"
+              placeholder={t("tokenPlaceholder")}
               aria-invalid={Boolean(fieldErrors.token)}
             />
           </AuthField>
@@ -157,13 +156,13 @@ export function ResetPasswordForm() {
             className="text-sm text-white/76 transition hover:text-white"
           >
             {showManualToken
-              ? "Use the token from the email link"
-              : "Use a different token instead"}
+              ? t("useLinkToken")
+              : t("useDifferentToken")}
           </button>
         ) : null}
         {prefilledFromLink && showManualToken ? (
           <AuthField
-            label="Different reset token"
+            label={t("differentToken")}
             htmlFor="reset-token-manual"
             error={fieldErrors.token ?? null}
           >
@@ -178,13 +177,13 @@ export function ResetPasswordForm() {
                 }));
                 setFieldErrors((current) => ({ ...current, token: undefined }));
               }}
-              placeholder="Paste your reset token"
+              placeholder={t("tokenPlaceholder")}
               aria-invalid={Boolean(fieldErrors.token)}
             />
           </AuthField>
         ) : null}
         <AuthField
-          label="New password"
+          label={t("newPassword")}
           htmlFor="new-password"
           error={fieldErrors.newPassword ?? null}
         >
@@ -209,7 +208,7 @@ export function ResetPasswordForm() {
           <AuthPasswordHint />
         </AuthField>
         <AuthField
-          label="Confirm new password"
+          label={t("confirmPassword")}
           htmlFor="confirm-new-password"
           error={fieldErrors.confirmNewPassword ?? null}
         >
@@ -238,7 +237,7 @@ export function ResetPasswordForm() {
           className="h-12 w-full rounded-full"
           disabled={isSubmitting}
         >
-          {isSubmitting ? "Updating..." : "Save new password"}
+          {isSubmitting ? t("submitting") : t("submit")}
         </Button>
       </form>
     </AuthFormShell>

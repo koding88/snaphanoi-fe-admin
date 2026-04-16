@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useTranslations } from "next-intl";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -26,6 +27,7 @@ export function PackageCurrencySelect({
   className,
   id,
 }: PackageCurrencySelectProps) {
+  const t = useTranslations("packages.currencySelect");
   const rootRef = useRef<HTMLDivElement | null>(null);
   const popupRef = useRef<HTMLDivElement | null>(null);
   const searchRef = useRef<HTMLInputElement | null>(null);
@@ -187,7 +189,7 @@ export function PackageCurrencySelect({
                     ref={searchRef}
                     value={search}
                     onChange={(event) => setSearch(event.target.value)}
-                    placeholder="Search country, currency code, or symbol"
+                    placeholder={t("searchPlaceholder")}
                     className="h-11 w-full rounded-2xl border border-[#ddd5ca] bg-white pl-9 pr-10 text-sm text-foreground outline-none transition focus:border-[--color-brand]/40 focus:ring-3 focus:ring-[--color-brand]/12"
                   />
                   {search ? (
@@ -195,7 +197,7 @@ export function PackageCurrencySelect({
                       type="button"
                       onClick={() => setSearch("")}
                       className="absolute right-2 top-1/2 inline-flex size-7 -translate-y-1/2 items-center justify-center rounded-full text-muted-foreground transition hover:bg-[--color-brand-soft] hover:text-foreground"
-                      aria-label="Clear currency search"
+                      aria-label={t("clearSearch")}
                     >
                       <FontAwesomeIcon icon={faXmark} />
                     </button>
@@ -245,7 +247,7 @@ export function PackageCurrencySelect({
                   })
                 ) : (
                   <p className="px-3 py-8 text-center text-sm text-muted-foreground">
-                    No currency matched your search.
+                    {t("empty")}
                   </p>
                 )}
               </div>

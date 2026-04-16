@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -26,6 +27,7 @@ import { consumeNavigationToast, notifyError, notifySuccess } from "@/lib/toast"
 import { cn } from "@/lib/utils";
 
 export function UserDetailPage({ id }: { id: string }) {
+  const t = useTranslations("users.detail");
   const router = useRouter();
   const [user, setUser] = useState<UserRecord | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -62,14 +64,14 @@ export function UserDetailPage({ id }: { id: string }) {
     try {
       if (dialogMode === "delete") {
         const response = await deleteUser(user.id);
-        notifySuccess(response.message ?? response.data.message, "User archived.");
+        notifySuccess(response.message ?? response.data.message, t("toasts.archived"));
         router.replace(ROUTES.admin.users.root);
         return;
       }
 
       const response = await restoreUser(user.id);
       setUser(response.data);
-      notifySuccess(response.message, "User restored.");
+      notifySuccess(response.message, t("toasts.restored"));
       setDialogMode(null);
     } catch (actionError) {
       notifyError(getFriendlyUsersError(actionError));
@@ -81,9 +83,9 @@ export function UserDetailPage({ id }: { id: string }) {
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
-        eyebrow="User detail"
-        title="Review this account."
-        description="See the person, role, location, and account state in one place before making changes."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        description={t("description")}
         meta={<BackButton href={ROUTES.admin.users.root} />}
         actions={
           user ? (
@@ -91,46 +93,46 @@ export function UserDetailPage({ id }: { id: string }) {
               <Link
                 href={ROUTES.admin.users.edit(user.id)}
                 className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-5")}
-              >
-                <FontAwesomeIcon icon={faUserPen} />
-                Edit
-              </Link>
+                >
+                  <FontAwesomeIcon icon={faUserPen} />
+                  {t("actions.edit")}
+                </Link>
               {user.deletedAt ? (
                 <button
                   type="button"
                   onClick={() => setDialogMode("restore")}
                   className={cn(buttonVariants(), "rounded-full px-5")}
-                >
-                  <FontAwesomeIcon icon={faRotateLeft} />
-                  Restore
-                </button>
-              ) : (
+                  >
+                    <FontAwesomeIcon icon={faRotateLeft} />
+                    {t("actions.restore")}
+                  </button>
+                ) : (
                 <button
                   type="button"
                   onClick={() => setDialogMode("delete")}
                   className={cn(buttonVariants({ variant: "destructive" }), "rounded-full px-5")}
-                >
-                  <FontAwesomeIcon icon={faTrashCan} />
-                  Delete
-                </button>
-              )}
+                  >
+                    <FontAwesomeIcon icon={faTrashCan} />
+                    {t("actions.delete")}
+                  </button>
+                )}
             </div>
           ) : null
         }
       />
       {isLoading ? (
-        <LoadingState title="Loading user" description="Fetching the selected user record." />
+        <LoadingState title={t("loading.title")} description={t("loading.description")} />
       ) : error || !user ? (
-        <ErrorState title="Unable to load this user" description={error ?? "User not found."} />
+        <ErrorState title={t("errorTitle")} description={error ?? t("userNotFound")} />
       ) : (
         <>
           <UserDetailCard user={user} />
           <AdminSurface className="p-6 md:p-8">
             <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-              Admin actions
+              {t("adminActionsTitle")}
             </p>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">
-              Archive and restore controls stay here so account lifecycle actions remain deliberate.
+              {t("adminActionsDescription")}
             </p>
           </AdminSurface>
         </>
@@ -139,15 +141,15 @@ export function UserDetailPage({ id }: { id: string }) {
         open={Boolean(dialogMode && user)}
         title={
           dialogMode === "delete"
-            ? `Delete ${user?.name}?`
-            : `Restore ${user?.name}?`
+            ? t("dialogs.deleteTitle", { name: user?.name ?? "" })
+            : t("dialogs.restoreTitle", { name: user?.name ?? "" })
         }
         description={
           dialogMode === "delete"
-            ? "This archives the account for now. You can restore it later if needed."
-            : "This will bring the archived account back into the active roster."
+            ? t("dialogs.deleteDescription")
+            : t("dialogs.restoreDescription")
         }
-        confirmLabel={dialogMode === "delete" ? "Delete user" : "Restore user"}
+        confirmLabel={dialogMode === "delete" ? t("dialogs.deleteConfirm") : t("dialogs.restoreConfirm")}
         confirmVariant={dialogMode === "delete" ? "destructive" : "default"}
         isSubmitting={isSubmitting}
         onCancel={() => setDialogMode(null)}

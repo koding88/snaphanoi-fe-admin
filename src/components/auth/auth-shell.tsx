@@ -2,14 +2,17 @@
 
 import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { AppLogo } from "@/components/shared/app-logo";
+import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 
 type AuthShellProps = {
   children: ReactNode;
 };
 
 export function AuthShell({ children }: AuthShellProps) {
+  const t = useTranslations("auth.shell");
   const pathname = usePathname();
   const isCenteredPage = pathname === "/login";
 
@@ -26,29 +29,31 @@ export function AuthShell({ children }: AuthShellProps) {
               : "surface-enter flex min-h-[24rem] flex-col justify-between rounded-[2.25rem] border border-white/8 bg-white/5 p-6 shadow-[0_30px_120px_rgba(0,0,0,0.28)] backdrop-blur md:p-8 xl:mr-5 xl:h-full xl:min-h-0 xl:p-12"
           }
         >
-          <AppLogo className="text-white" />
+          <div className="flex items-center justify-between gap-4">
+            <AppLogo className="text-white" />
+            <LanguageSwitcher />
+          </div>
           <div className={isCenteredPage ? "max-w-2xl space-y-6 py-8" : "max-w-2xl space-y-6 py-16"}>
             <p className="text-xs font-semibold tracking-[0.34em] text-[--color-brand-muted] uppercase">
-              studio access
+              {t("eyebrow")}
             </p>
             <h1 className="font-heading text-5xl leading-[0.94] tracking-[0.05em] text-balance md:text-6xl xl:text-7xl">
-              Built for a premium photography operation, not a generic back office.
+              {t("title")}
             </h1>
             <p className="max-w-xl text-sm leading-7 text-white/72 md:text-base">
-              The public auth surface carries the same calm visual discipline as the admin area:
-              editorial tone, direct hierarchy, and clean access flows.
+              {t("description")}
             </p>
           </div>
           {!isCenteredPage ? (
             <div className="stagger-fade grid gap-4 text-sm text-white/72 md:grid-cols-3">
               <div className="surface-float rounded-2xl border border-white/8 bg-white/6 p-4">
-                Authentication with clear recovery paths
+                {t("card1")}
               </div>
               <div className="surface-float rounded-2xl border border-white/8 bg-white/6 p-4">
-                Quiet session recovery when the workspace is still valid
+                {t("card2")}
               </div>
               <div className="surface-float rounded-2xl border border-white/8 bg-white/6 p-4">
-                Refined mobile-to-desktop experience
+                {t("card3")}
               </div>
             </div>
           ) : null}

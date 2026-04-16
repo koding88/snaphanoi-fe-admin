@@ -6,6 +6,7 @@ import {
   type FormEvent,
   type TextareaHTMLAttributes,
 } from "react";
+import { useTranslations } from "next-intl";
 
 import { PackageCoverField } from "@/components/packages/package-cover-field";
 import { PackageCurrencySelect } from "@/components/packages/package-currency-select";
@@ -79,35 +80,39 @@ function getCoverMeta(file: { mimeType: string; size: number }) {
 
 type LocaleKey = keyof PackageLocalizedText;
 
-const LOCALE_FIELDS: Array<{
+type LocaleField = {
   key: LocaleKey;
   label: string;
   shortLabel: string;
   namePlaceholder: string;
   bestForPlaceholder: string;
-}> = [
-  {
-    key: "en",
-    label: "English",
-    shortLabel: "EN",
-    namePlaceholder: "Wedding Signature",
-    bestForPlaceholder: "Couples who want an elegant half-day story",
-  },
-  {
-    key: "vi",
-    label: "Vietnamese",
-    shortLabel: "VI",
-    namePlaceholder: "Goi chup cuoi",
-    bestForPlaceholder: "Phu hop cho cap doi muon mot buoi chup gon gang",
-  },
-  {
-    key: "cn",
-    label: "Chinese",
-    shortLabel: "CN",
-    namePlaceholder: "婚礼拍摄套餐",
-    bestForPlaceholder: "适合想要精致半天拍摄的情侣",
-  },
-];
+};
+
+function createLocaleFields(t: ReturnType<typeof useTranslations>): LocaleField[] {
+  return [
+    {
+      key: "en",
+      label: t("locales.en.label"),
+      shortLabel: t("locales.en.short"),
+      namePlaceholder: t("locales.en.namePlaceholder"),
+      bestForPlaceholder: t("locales.en.bestForPlaceholder"),
+    },
+    {
+      key: "vi",
+      label: t("locales.vi.label"),
+      shortLabel: t("locales.vi.short"),
+      namePlaceholder: t("locales.vi.namePlaceholder"),
+      bestForPlaceholder: t("locales.vi.bestForPlaceholder"),
+    },
+    {
+      key: "cn",
+      label: t("locales.cn.label"),
+      shortLabel: t("locales.cn.short"),
+      namePlaceholder: t("locales.cn.namePlaceholder"),
+      bestForPlaceholder: t("locales.cn.bestForPlaceholder"),
+    },
+  ];
+}
 
 function getLocalizedFieldError(
   fieldErrors: {
@@ -218,7 +223,7 @@ function LocaleSwitch({
   onChange,
   getStatus,
 }: {
-  locales: typeof LOCALE_FIELDS;
+  locales: LocaleField[];
   activeLocale: LocaleKey;
   onChange: (locale: LocaleKey) => void;
   getStatus: (locale: LocaleKey) => "complete" | "incomplete" | "neutral";
@@ -283,8 +288,9 @@ function LocaleEditor({
   placeholder,
   error,
   multiline = false,
+  t,
 }: {
-  locales: typeof LOCALE_FIELDS;
+  locales: LocaleField[];
   group: "name" | "bestFor";
   activeLocale: LocaleKey;
   onChangeLocale: (locale: LocaleKey) => void;
@@ -296,22 +302,23 @@ function LocaleEditor({
   placeholder: string;
   error?: string;
   multiline?: boolean;
+  t: ReturnType<typeof useTranslations>;
 }) {
   const localeMeta = locales.find((locale) => locale.key === activeLocale);
 
   return (
     <div className="space-y-4">
       <LocaleGroupHeader
-        title={group === "name" ? "Package names" : "Best for"}
+        title={group === "name" ? t("localeEditor.packageNames") : t("localeEditor.bestFor")}
         description={
           group === "name"
-            ? "Pick a locale and fill it. All 3 locales are required."
-            : "Edit one locale at a time to keep longer copy readable."
+            ? t("localeEditor.namesDescription")
+            : t("localeEditor.bestForDescription")
         }
         meta={
           <div className="flex items-center gap-3">
             <span className="rounded-full border border-border/70 bg-white/78 px-3 py-1.5 text-[11px] font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
-              {completedCount}/3 ready
+              {t("localeEditor.ready", { count: completedCount })}
             </span>
             <LocaleSwitch
               locales={locales}
@@ -331,7 +338,7 @@ function LocaleEditor({
           <div className="space-y-0.5">
             <p className="text-sm font-medium text-foreground">{label}</p>
             <p className="text-xs text-muted-foreground">
-              {localeMeta?.label} locale
+              {t("localeEditor.localeLabel", { locale: localeMeta?.label ?? "" })}
             </p>
           </div>
         </div>
@@ -371,6 +378,8 @@ export function PackageForm({
   description,
   onSubmit,
 }: PackageFormProps) {
+  const t = useTranslations("packages.form");
+  const localeFields = createLocaleFields(t);
   const [values, setValues] = useState<PackageFormValues>({
     name: initialValues?.name ?? EMPTY_LOCALIZED_TEXT,
     bestFor: initialValues?.bestFor ?? EMPTY_LOCALIZED_TEXT,
@@ -424,18 +433,18 @@ export function PackageForm({
   const previewDurationLabel =
     previewDurationSeconds > 0
       ? formatPackageDuration(previewDurationSeconds)
-      : "Session length pending";
+      : t("preview.sessionPending");
   const previewPhotosLabel =
     values.photoCount != null && values.photoCount >= 0
-      ? `${values.photoCount} photos`
-      : "Photo count pending";
+      ? t("preview.photos", { count: values.photoCount })
+      : t("preview.photoPending");
   const previewPriceLabel =
     values.pricing.amount != null && values.pricing.currency.trim()
       ? formatPackagePrice({
           amount: values.pricing.amount,
           currency: values.pricing.currency.trim().toUpperCase(),
         })
-      : "Pricing pending";
+      : t("preview.pricingPending");
   const hasCover = Boolean(cover.previewUrl);
 
   useEffect(() => {
@@ -502,10 +511,10 @@ export function PackageForm({
       });
     } catch (error) {
       notifyError(getFriendlyPackagesError(error));
-      setFieldErrors((current) => ({
-        ...current,
-        cover: "The cover image could not be uploaded. Please try again.",
-      }));
+        setFieldErrors((current) => ({
+          ...current,
+          cover: t("errors.coverUploadFailed"),
+        }));
     } finally {
       setIsUploadingCover(false);
     }
@@ -518,48 +527,46 @@ export function PackageForm({
     const nextFieldErrors: typeof fieldErrors = {};
 
     if (!values.name.en.trim()) {
-      nextFieldErrors.nameEn = "English package name is required.";
+      nextFieldErrors.nameEn = t("errors.nameEnRequired");
     }
     if (!values.name.vi.trim()) {
-      nextFieldErrors.nameVi = "Vietnamese package name is required.";
+      nextFieldErrors.nameVi = t("errors.nameViRequired");
     }
     if (!values.name.cn.trim()) {
-      nextFieldErrors.nameCn = "Chinese package name is required.";
+      nextFieldErrors.nameCn = t("errors.nameCnRequired");
     }
     if (!values.bestFor.en.trim()) {
-      nextFieldErrors.bestForEn = "English best-for copy is required.";
+      nextFieldErrors.bestForEn = t("errors.bestForEnRequired");
     }
     if (!values.bestFor.vi.trim()) {
-      nextFieldErrors.bestForVi = "Vietnamese best-for copy is required.";
+      nextFieldErrors.bestForVi = t("errors.bestForViRequired");
     }
     if (!values.bestFor.cn.trim()) {
-      nextFieldErrors.bestForCn = "Chinese best-for copy is required.";
+      nextFieldErrors.bestForCn = t("errors.bestForCnRequired");
     }
     if (
       !Number.isFinite(values.durationMinutes) ||
       (values.durationMinutes ?? 0) <= 0
     ) {
-      nextFieldErrors.duration = "Duration must be a positive number of minutes.";
+      nextFieldErrors.duration = t("errors.durationInvalid");
     }
     if (
       !Number.isFinite(values.photoCount) ||
       (values.photoCount ?? 0) < 0
     ) {
-      nextFieldErrors.photoCount =
-        "Photo count must be zero or greater.";
+      nextFieldErrors.photoCount = t("errors.photoCountInvalid");
     }
     if (
       !Number.isFinite(values.pricing.amount) ||
       (values.pricing.amount ?? 0) < 0
     ) {
-      nextFieldErrors.pricingAmount =
-        "Pricing amount must be zero or greater.";
+      nextFieldErrors.pricingAmount = t("errors.pricingAmountInvalid");
     }
     if (!values.pricing.currency.trim()) {
-      nextFieldErrors.pricingCurrency = "Pricing currency is required.";
+      nextFieldErrors.pricingCurrency = t("errors.pricingCurrencyRequired");
     }
     if (mode === "create" && !cover.uploadToken) {
-      nextFieldErrors.cover = "Upload a package cover before saving.";
+      nextFieldErrors.cover = t("errors.coverRequired");
     }
 
     setFieldErrors(nextFieldErrors);
@@ -617,7 +624,7 @@ export function PackageForm({
   }
 
   function countCompletedLocales(group: "name" | "bestFor") {
-    return LOCALE_FIELDS.filter((locale) => values[group][locale.key].trim()).length;
+    return localeFields.filter((locale) => values[group][locale.key].trim()).length;
   }
 
   function handleLocaleFocus(locale: LocaleKey) {
@@ -637,28 +644,28 @@ export function PackageForm({
         <div className="mb-6 flex flex-col gap-3 border-b border-border/60 pb-5">
           <div className="space-y-2">
             <p className="text-xs font-semibold tracking-[0.2em] text-[--color-brand-muted] uppercase">
-              Package details
+              {t("sections.packageDetails.eyebrow")}
             </p>
             <div>
               <h2 className="text-xl font-semibold tracking-tight text-foreground">
-                Build this package offer
+                {t("sections.packageDetails.title")}
               </h2>
               <p className="mt-1 max-w-2xl text-sm leading-6 text-muted-foreground">
-                Fill the localized offer copy first, then confirm the booking numbers, pricing, and cover before saving.
+                {t("sections.packageDetails.description")}
               </p>
             </div>
           </div>
         </div>
 
-          <div className="grid gap-6 xl:grid-cols-[minmax(0,1.28fr)_minmax(320px,0.72fr)]">
+        <div className="grid gap-6 xl:grid-cols-[minmax(0,1.28fr)_minmax(320px,0.72fr)]">
           <div className="space-y-5">
             <PackageFormSection
-              eyebrow="Names"
-              title="Localized package naming"
-              description="Fill all locales for the package name."
+              eyebrow={t("sections.names.eyebrow")}
+              title={t("sections.names.title")}
+              description={t("sections.names.description")}
             >
               <LocaleEditor
-                locales={LOCALE_FIELDS}
+                locales={localeFields}
                 group="name"
                 activeLocale={activeNameLocale}
                 onChangeLocale={handleLocaleFocus}
@@ -679,9 +686,9 @@ export function PackageForm({
                       undefined,
                   }));
                 }}
-                label="Package name"
+                label={t("sections.names.fieldLabel")}
                 placeholder={
-                  LOCALE_FIELDS.find((locale) => locale.key === activeNameLocale)
+                  localeFields.find((locale) => locale.key === activeNameLocale)
                     ?.namePlaceholder ?? ""
                 }
                 error={getLocalizedFieldError(
@@ -689,16 +696,17 @@ export function PackageForm({
                   "name",
                   activeNameLocale,
                 )}
+                t={t}
               />
             </PackageFormSection>
 
             <PackageFormSection
-              eyebrow="Audience"
-              title="Best-fit positioning"
-              description="Define who this package is for in each locale."
+              eyebrow={t("sections.audience.eyebrow")}
+              title={t("sections.audience.title")}
+              description={t("sections.audience.description")}
             >
               <LocaleEditor
-                locales={LOCALE_FIELDS}
+                locales={localeFields}
                 group="bestFor"
                 activeLocale={activeBestForLocale}
                 onChangeLocale={handleLocaleFocus}
@@ -719,9 +727,9 @@ export function PackageForm({
                       undefined,
                   }));
                 }}
-                label="Best for"
+                label={t("sections.audience.fieldLabel")}
                 placeholder={
-                  LOCALE_FIELDS.find((locale) => locale.key === activeBestForLocale)
+                  localeFields.find((locale) => locale.key === activeBestForLocale)
                     ?.bestForPlaceholder ?? ""
                 }
                 error={getLocalizedFieldError(
@@ -730,22 +738,23 @@ export function PackageForm({
                   activeBestForLocale,
                 )}
                 multiline
+                t={t}
               />
             </PackageFormSection>
 
             <PackageFormSection
-              eyebrow="Offer setup"
-              title="Offer details and pricing"
-              description="Set delivery numbers and price in one pass."
+              eyebrow={t("sections.offer.eyebrow")}
+              title={t("sections.offer.title")}
+              description={t("sections.offer.description")}
             >
               <div className="grid gap-5 xl:grid-cols-2">
                 <div className="space-y-4 rounded-[1.2rem] border border-border/70 bg-white/86 p-4">
                   <p className="text-xs font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
-                    Offer details
+                    {t("sections.offer.detailsTitle")}
                   </p>
                   <label className="min-w-0 space-y-2">
                     <span className="text-sm font-medium text-foreground">
-                      Duration (minutes)
+                      {t("fields.durationMinutes")}
                     </span>
                     <Input
                       type="number"
@@ -764,12 +773,12 @@ export function PackageForm({
                           duration: undefined,
                         }));
                       }}
-                      placeholder="90"
+                      placeholder={t("fields.durationPlaceholder")}
                       aria-invalid={Boolean(fieldErrors.duration)}
                       className="h-14 text-lg tracking-[0.02em]"
                     />
                     <p className="text-xs text-muted-foreground">
-                      Saved to backend as seconds.
+                      {t("fields.durationHint")}
                     </p>
                     {fieldErrors.duration ? (
                       <p className="text-sm text-red-600">{fieldErrors.duration}</p>
@@ -778,7 +787,7 @@ export function PackageForm({
 
                   <label className="min-w-0 space-y-2">
                     <span className="text-sm font-medium text-foreground">
-                      Photo count
+                      {t("fields.photoCount")}
                     </span>
                     <Input
                       type="number"
@@ -797,12 +806,12 @@ export function PackageForm({
                           photoCount: undefined,
                         }));
                       }}
-                      placeholder="80"
+                      placeholder={t("fields.photoCountPlaceholder")}
                       aria-invalid={Boolean(fieldErrors.photoCount)}
                       className="h-14 text-lg tracking-[0.02em]"
                     />
                     <p className="text-xs text-muted-foreground">
-                      Final delivered image count.
+                      {t("fields.photoCountHint")}
                     </p>
                     {fieldErrors.photoCount ? (
                       <p className="text-sm text-red-600">{fieldErrors.photoCount}</p>
@@ -812,11 +821,11 @@ export function PackageForm({
 
                 <div className="space-y-4 rounded-[1.2rem] border border-border/70 bg-white/86 p-4">
                   <p className="text-xs font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
-                    Pricing
+                    {t("sections.offer.pricingTitle")}
                   </p>
                   <label className="min-w-0 space-y-2">
                     <span className="text-sm font-medium text-foreground">
-                      Amount
+                      {t("fields.amount")}
                     </span>
                     <Input
                       type="text"
@@ -840,12 +849,12 @@ export function PackageForm({
                           pricingAmount: undefined,
                         }));
                       }}
-                      placeholder="1,000,000"
+                      placeholder={t("fields.amountPlaceholder")}
                       aria-invalid={Boolean(fieldErrors.pricingAmount)}
                       className="h-14 min-w-0 text-lg tracking-[0.02em]"
                     />
                     <p className="text-xs text-muted-foreground">
-                      Auto-formatted while typing.
+                      {t("fields.amountHint")}
                     </p>
                     {fieldErrors.pricingAmount ? (
                       <p className="text-sm text-red-600">
@@ -856,7 +865,7 @@ export function PackageForm({
 
                   <label className="min-w-0 space-y-2">
                     <span className="text-sm font-medium text-foreground">
-                      Currency
+                      {t("fields.currency")}
                     </span>
                     <PackageCurrencySelect
                       className="min-w-0"
@@ -876,7 +885,7 @@ export function PackageForm({
                       }}
                     />
                     <p className="text-xs text-muted-foreground">
-                      Search by country, code, or symbol.
+                      {t("fields.currencyHint")}
                     </p>
                     {fieldErrors.pricingCurrency ? (
                       <p className="text-sm text-red-600">
@@ -891,12 +900,12 @@ export function PackageForm({
 
           <div className="space-y-5">
             <PackageFormSection
-              eyebrow="Cover"
-              title="Lead package artwork"
+              eyebrow={t("sections.cover.eyebrow")}
+              title={t("sections.cover.title")}
               description={
                 mode === "create"
-                  ? "Upload the main package image before saving. The same upload-token flow is kept intact."
-                  : "Keep the current package cover or replace it without changing the existing update behavior."
+                  ? t("sections.cover.createDescription")
+                  : t("sections.cover.editDescription")
               }
               className="sticky top-6"
             >
@@ -927,21 +936,21 @@ export function PackageForm({
               />
               <div className="mt-6 border-t border-border/60 pt-6">
                 <p className="mb-4 text-[11px] font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
-                  Customer-facing preview
+                  {t("preview.title")}
                 </p>
                 <article className="overflow-hidden rounded-[1.5rem] border border-border/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.99),rgba(247,243,236,0.95))] shadow-[0_30px_70px_-44px_rgba(15,23,42,0.35)]">
                   <div className="relative aspect-[4/5] overflow-hidden bg-[linear-gradient(180deg,rgba(249,245,238,0.88),rgba(241,236,228,0.9))]">
                     {hasCover ? (
                       <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.45),rgba(232,224,212,0.5))] p-3">
-                        <img
-                          src={cover.previewUrl ?? ""}
-                          alt={previewName || "Package cover preview"}
+                          <img
+                            src={cover.previewUrl ?? ""}
+                            alt={previewName || t("preview.coverAlt")}
                           className="h-full w-full rounded-[1rem] object-contain object-center"
                         />
                       </div>
                     ) : (
                       <div className="flex h-full items-center justify-center px-6 text-center text-sm text-muted-foreground">
-                        Upload a cover image to render the customer card hero.
+                        {t("preview.uploadHint")}
                       </div>
                     )}
                     <span className="absolute top-3 right-3 rounded-full border border-white/45 bg-black/40 px-2.5 py-1 text-[10px] font-semibold tracking-[0.14em] text-white/90 uppercase">
@@ -951,22 +960,22 @@ export function PackageForm({
 
                   <div className="space-y-4 px-6 pt-6 pb-6 text-center">
                     <h4 className="line-clamp-2 text-3xl leading-tight font-semibold tracking-tight text-foreground">
-                      {previewName || "Package name in active locale"}
+                      {previewName || t("preview.nameFallback")}
                     </h4>
 
                     <div className="space-y-3">
                       <div className="space-y-1">
                         <p className="text-[10px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-                          Best for
+                          {t("preview.bestFor")}
                         </p>
                         <p className="line-clamp-3 text-sm leading-6 text-muted-foreground">
-                          {previewBestFor || "Best-for description in active locale"}
+                          {previewBestFor || t("preview.bestForFallback")}
                         </p>
                       </div>
 
                       <div className="space-y-1">
                         <p className="text-[10px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-                          Duration
+                          {t("preview.duration")}
                         </p>
                         <p className="text-sm font-medium text-foreground">
                           {previewDurationLabel}
@@ -975,7 +984,7 @@ export function PackageForm({
 
                       <div className="space-y-1">
                         <p className="text-[10px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-                          Number of photos
+                          {t("preview.photoCount")}
                         </p>
                         <p className="text-sm font-medium text-foreground">
                           {previewPhotosLabel}
@@ -991,7 +1000,7 @@ export function PackageForm({
                       type="button"
                       className="h-12 w-full rounded-full text-sm font-semibold tracking-[0.08em] uppercase"
                     >
-                      Request Now
+                      {t("preview.requestNow")}
                     </Button>
                   </div>
                 </article>
@@ -1005,10 +1014,10 @@ export function PackageForm({
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="space-y-1">
             <p className="text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-              Final check
+              {t("finalCheck.title")}
             </p>
             <p className="text-sm text-muted-foreground">
-              Save once the localized copy, raw session numbers, pricing object, and cover artwork all look correct.
+              {t("finalCheck.description")}
             </p>
           </div>
           <Button
@@ -1017,7 +1026,7 @@ export function PackageForm({
             className="min-w-52 rounded-full"
             disabled={isSubmitting || isUploadingCover}
           >
-            {isSubmitting ? "Saving..." : submitLabel}
+            {isSubmitting ? t("actions.saving") : submitLabel}
           </Button>
         </div>
       </div>

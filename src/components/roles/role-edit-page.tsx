@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
@@ -18,6 +19,7 @@ import { ROUTES } from "@/lib/constants/routes";
 import { queueNavigationToast } from "@/lib/toast";
 
 export function RoleEditPage({ id }: { id: string }) {
+  const t = useTranslations("roles.edit");
   const router = useRouter();
   const [role, setRole] = useState<RoleRecord | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -43,7 +45,7 @@ export function RoleEditPage({ id }: { id: string }) {
     const response = await updateRole(id, payload);
     queueNavigationToast({
       intent: "success",
-      title: response.message ?? "Role updated successfully.",
+      title: response.message ?? t("toasts.updated"),
     });
     router.replace(ROUTES.admin.roles.detail(response.data.id));
   }
@@ -51,29 +53,29 @@ export function RoleEditPage({ id }: { id: string }) {
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
-        eyebrow="Edit role"
-        title="Update a role."
-        description="Adjust the role name while keeping the role key and usage history intact."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        description={t("description")}
         meta={
           <BackButton
             href={ROUTES.admin.roles.detail(id)}
             confirm
-            confirmTitle="Discard these changes?"
-            confirmDescription="Any modifications will be lost."
-            confirmLabel="Discard"
+            confirmTitle={t("confirm.title")}
+            confirmDescription={t("confirm.description")}
+            confirmLabel={t("confirm.confirmLabel")}
           />
         }
       />
       {isLoading ? (
-        <LoadingState title="Loading role" description="Fetching the current role record." />
+        <LoadingState title={t("loading.title")} description={t("loading.description")} />
       ) : error || !role ? (
-        <ErrorState title="Unable to load this role" description={error ?? "Role not found."} />
+        <ErrorState title={t("errorTitle")} description={error ?? t("notFound")} />
       ) : (
         <AdminSurface className="p-6 md:p-8">
           <RoleForm
             initialName={role.name}
-            submitLabel="Save changes"
-            description="Rename this role to keep your access model clear and consistent."
+            submitLabel={t("submitLabel")}
+            description={t("formDescription")}
             onSubmit={handleSubmit}
           />
         </AdminSurface>

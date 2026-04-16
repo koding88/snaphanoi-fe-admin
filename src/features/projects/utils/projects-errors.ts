@@ -1,5 +1,12 @@
 import { isApiError } from "@/lib/api/errors";
 
+type ErrorMessageResolver = (params: {
+  scope: string;
+  code?: string | null;
+  statusCode?: number;
+  fallback: string;
+}) => string;
+
 const PROJECT_ERROR_MESSAGES: Record<string, string> = {
   PROJECT_NOT_FOUND: "The requested project could not be found.",
   INVALID_PROJECT_GALLERY: "The selected gallery is invalid or inactive.",
@@ -16,13 +23,13 @@ const PROJECT_ERROR_MESSAGES: Record<string, string> = {
   Unauthorized: "Your session is no longer valid. Please sign in again.",
 };
 
-export function getFriendlyProjectsError(error: unknown) {
+export function getFriendlyProjectsError(error: unknown, resolve?: ErrorMessageResolver) {
   if (!isApiError(error)) {
     if (error instanceof Error && error.message) {
-      return error.message;
+      return resolve?.({ scope: "projects", fallback: error.message }) ?? error.message;
     }
 
-    return "Something went wrong. Please try again.";
+    return resolve?.({ scope: "projects", fallback: "Something went wrong. Please try again." }) ?? "Something went wrong. Please try again.";
   }
 
   const baseMessage =
@@ -32,5 +39,5 @@ export function getFriendlyProjectsError(error: unknown) {
     error.message ||
     "Something went wrong. Please try again.";
 
-  return baseMessage;
+  return resolve?.({ scope: "projects", code: error.code, statusCode: error.statusCode, fallback: baseMessage }) ?? baseMessage;
 }

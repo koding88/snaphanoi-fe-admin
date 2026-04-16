@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useEffectEvent } from "react";
+import { useTranslations } from "next-intl";
 import type EditorJS from "@editorjs/editorjs";
 import type { OutputData } from "@editorjs/editorjs";
 
@@ -71,10 +72,12 @@ export function BlogEditor({
   onChange,
   uploadImage,
 }: BlogEditorProps) {
+  const t = useTranslations("blogs.editor");
   const holderRef = useRef<HTMLDivElement | null>(null);
   const editorRef = useRef<EditorJS | null>(null);
   const latestValueRef = useRef<OutputData>(buildBlogEditorInitialContent(value));
   const latestUploadImageRef = useRef(uploadImage);
+  const latestTRef = useRef(t);
   const [editorError, setEditorError] = useState<string | null>(null);
   const [isBootstrapping, setIsBootstrapping] = useState(true);
   const handleEditorChange = useEffectEvent((nextData: OutputData) => {
@@ -88,6 +91,10 @@ export function BlogEditor({
   useEffect(() => {
     latestUploadImageRef.current = uploadImage;
   }, [uploadImage]);
+
+  useEffect(() => {
+    latestTRef.current = t;
+  }, [t]);
 
   useEffect(() => {
     if (!holderRef.current) {
@@ -188,8 +195,8 @@ export function BlogEditor({
           setIsBootstrapping(false);
           setEditorError(
             error instanceof Error && error.message
-              ? `The content editor could not be started. ${error.message}`
-              : "The content editor could not be started. Refresh and try again.",
+              ? latestTRef.current("bootErrorWithMessage", { message: error.message })
+              : latestTRef.current("bootError"),
           );
         }
 
@@ -221,7 +228,7 @@ export function BlogEditor({
         {isBootstrapping ? (
           <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-center px-6 pt-6">
             <div className="rounded-full border border-border/80 bg-white/88 px-4 py-2 text-xs font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase shadow-soft">
-              Loading editor
+              {t("loading")}
             </div>
           </div>
         ) : null}

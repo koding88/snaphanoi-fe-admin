@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { useTranslations } from "next-intl";
 
 import { AuthPasswordHint } from "@/components/auth/auth-password-hint";
 import { CountrySelect } from "@/components/shared/country-select";
@@ -40,6 +41,7 @@ export function UserForm({
   description,
   onSubmit,
 }: UserFormProps) {
+  const t = useTranslations("users.form");
   const [values, setValues] = useState<UserFormValues>({
     name: initialValues?.name ?? "",
     email: initialValues?.email ?? "",
@@ -64,27 +66,25 @@ export function UserForm({
     } = {};
 
     if (!values.name.trim()) {
-      nextFieldErrors.name = "Full name is required.";
+      nextFieldErrors.name = t("errors.nameRequired");
     }
 
     if (!values.email.trim()) {
-      nextFieldErrors.email = "Email is required.";
+      nextFieldErrors.email = t("errors.emailRequired");
     } else if (!/\S+@\S+\.\S+/.test(values.email.trim())) {
-      nextFieldErrors.email = "Enter a valid email address.";
+      nextFieldErrors.email = t("errors.emailInvalid");
     }
 
     if (mode === "create") {
       if (!values.password) {
-        nextFieldErrors.password = "Password is required.";
+        nextFieldErrors.password = t("errors.passwordRequired");
       } else if (!isStrongPassword(values.password)) {
-        nextFieldErrors.password =
-          "Password must be at least 8 characters and include uppercase, lowercase, and a number.";
+        nextFieldErrors.password = t("errors.passwordWeak");
       }
     }
 
     if (mode === "edit" && values.password && !isStrongPassword(values.password)) {
-      nextFieldErrors.password =
-        "If you provide a new password, it must be at least 8 characters and include uppercase, lowercase, and a number.";
+      nextFieldErrors.password = t("errors.passwordWeakEdit");
     }
 
     setFieldErrors(nextFieldErrors);
@@ -109,7 +109,7 @@ export function UserForm({
       {description ? <p className="text-sm leading-7 text-muted-foreground">{description}</p> : null}
       <div className="grid gap-5 md:grid-cols-2">
         <label className="space-y-2">
-          <span className="text-sm font-medium text-foreground">Full name</span>
+          <span className="text-sm font-medium text-foreground">{t("fields.fullName")}</span>
           <Input
             value={values.name}
             onChange={(event) => {
@@ -122,7 +122,7 @@ export function UserForm({
           {fieldErrors.name ? <p className="text-sm text-red-600">{fieldErrors.name}</p> : null}
         </label>
         <label className="space-y-2">
-          <span className="text-sm font-medium text-foreground">Email</span>
+          <span className="text-sm font-medium text-foreground">{t("fields.email")}</span>
           <Input
             type="email"
             value={values.email}
@@ -137,7 +137,7 @@ export function UserForm({
         </label>
         <label className="space-y-2">
           <span className="text-sm font-medium text-foreground">
-            {mode === "create" ? "Password" : "New password"}
+            {mode === "create" ? t("fields.password") : t("fields.newPassword")}
           </span>
           <PasswordInput
             value={values.password}
@@ -147,14 +147,14 @@ export function UserForm({
                 setFieldErrors((current) => ({ ...current, password: undefined }));
               }
             }
-            placeholder={mode === "create" ? "MySecurePass1" : "Leave blank to keep current password"}
+            placeholder={mode === "create" ? t("fields.passwordPlaceholderCreate") : t("fields.passwordPlaceholderEdit")}
             aria-invalid={Boolean(fieldErrors.password)}
           />
           {fieldErrors.password ? <p className="text-sm text-red-600">{fieldErrors.password}</p> : null}
           <AuthPasswordHint tone="light" />
         </label>
         <label className="space-y-2">
-          <span className="text-sm font-medium text-foreground">Country</span>
+          <span className="text-sm font-medium text-foreground">{t("fields.country")}</span>
           <CountrySelect
             value={values.countryCode}
             onChange={(countryCode) =>
@@ -163,21 +163,21 @@ export function UserForm({
           />
         </label>
         <label className="space-y-2">
-          <span className="text-sm font-medium text-foreground">Role</span>
+          <span className="text-sm font-medium text-foreground">{t("fields.role")}</span>
           <AppSelect
             value={values.roleId}
             onChange={(roleId) => setValues((current) => ({ ...current, roleId }))}
             options={roles.map((role) => ({
               value: role.id,
               label: role.name,
-              description: role.isSystem ? "System role" : "Custom role",
-            }))}
-            placeholder="Choose a role"
+               description: role.isSystem ? t("options.systemRole") : t("options.customRole"),
+             }))}
+            placeholder={t("fields.rolePlaceholder")}
           />
         </label>
         {mode === "edit" ? (
           <label className="space-y-2">
-            <span className="text-sm font-medium text-foreground">Status</span>
+            <span className="text-sm font-medium text-foreground">{t("fields.status")}</span>
             <AppSelect
               value={String(values.isActive)}
               onChange={(statusValue) =>
@@ -187,8 +187,8 @@ export function UserForm({
                 }))
               }
               options={[
-                { value: "true", label: "Active", description: "Can sign in and use the app" },
-                { value: "false", label: "Inactive", description: "Kept on record but cannot sign in" },
+                { value: "true", label: t("options.active"), description: t("options.activeDescription") },
+                { value: "false", label: t("options.inactive"), description: t("options.inactiveDescription") },
               ]}
             />
           </label>
@@ -196,7 +196,7 @@ export function UserForm({
       </div>
       <div className="flex justify-end pt-2">
         <Button type="submit" size="lg" className="min-w-44 rounded-full" disabled={isSubmitting}>
-          {isSubmitting ? "Saving..." : submitLabel}
+          {isSubmitting ? t("actions.saving") : submitLabel}
         </Button>
       </div>
     </form>

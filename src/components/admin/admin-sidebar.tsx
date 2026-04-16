@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -18,6 +19,7 @@ type AdminSidebarProps = {
 };
 
 export function AdminSidebar({ mobile = false, onNavigate, collapsed = false, onToggle }: AdminSidebarProps) {
+  const t = useTranslations();
   const pathname = usePathname();
 
   if (mobile) {
@@ -31,7 +33,7 @@ export function AdminSidebar({ mobile = false, onNavigate, collapsed = false, on
         <div className="border-b border-border/80 pb-4">
           <AppLogo compact collapsed={false} />
         </div>
-        <MobileNavContent pathname={pathname} onNavigate={onNavigate} />
+        <MobileNavContent pathname={pathname} onNavigate={onNavigate} t={t} />
       </aside>
     );
   }
@@ -66,7 +68,7 @@ export function AdminSidebar({ mobile = false, onNavigate, collapsed = false, on
             className={cn("size-4 transition-transform duration-300 ease-out", collapsed ? "" : "rotate-180")}
           />
           {!collapsed && (
-            <span className="ml-2 text-xs font-medium">Collapse</span>
+            <span className="ml-2 text-xs font-medium">{t("admin.sidebar.collapse")}</span>
           )}
         </button>
       )}
@@ -77,7 +79,7 @@ export function AdminSidebar({ mobile = false, onNavigate, collapsed = false, on
           <>
             <FontAwesomeIcon icon={faWandMagicSparkles} className="text-[--color-brand-muted]" />
             <span className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-              Navigation
+              {t("admin.sidebar.navigation")}
             </span>
           </>
         )}
@@ -105,7 +107,7 @@ export function AdminSidebar({ mobile = false, onNavigate, collapsed = false, on
                   : "border-transparent text-muted-foreground hover:bg-muted/50 hover:text-foreground",
                 collapsed ? "justify-center p-2.5" : "gap-3 px-3 py-2.5",
               )}
-              title={collapsed ? item.label : undefined}
+              title={collapsed ? t(`admin.nav.${item.key}.label`) : undefined}
             >
               {/* Active indicator bar */}
               {isActive && (
@@ -124,10 +126,10 @@ export function AdminSidebar({ mobile = false, onNavigate, collapsed = false, on
               </span>
               {!collapsed && (
                 <span className="flex flex-1 flex-col">
-                  <span className="font-medium">{item.label}</span>
-                  <span className="text-xs text-muted-foreground">{item.description}</span>
-                </span>
-              )}
+                    <span className="font-medium">{t(`admin.nav.${item.key}.label`)}</span>
+                    <span className="text-xs text-muted-foreground">{t(`admin.nav.${item.key}.description`)}</span>
+                  </span>
+                )}
               {!collapsed && !isActive && (
                 <span className="text-[10px] text-muted-foreground">
                   <FontAwesomeIcon icon={faChevronRight} />
@@ -141,12 +143,20 @@ export function AdminSidebar({ mobile = false, onNavigate, collapsed = false, on
   );
 }
 
-function MobileNavContent({ pathname, onNavigate }: { pathname: string; onNavigate?: () => void }) {
+function MobileNavContent({
+  pathname,
+  onNavigate,
+  t,
+}: {
+  pathname: string;
+  onNavigate?: () => void;
+  t: ReturnType<typeof useTranslations>;
+}) {
   return (
     <>
       <div className="mt-5 flex items-center gap-2 px-1 text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
         <FontAwesomeIcon icon={faWandMagicSparkles} />
-        Navigation
+        {t("admin.sidebar.navigation")}
       </div>
       <nav className="mt-3 flex flex-1 flex-col gap-2 overflow-y-auto pr-1">
         {ADMIN_NAV_ITEMS.map((item) => {
@@ -175,8 +185,8 @@ function MobileNavContent({ pathname, onNavigate }: { pathname: string; onNaviga
                 <FontAwesomeIcon icon={item.icon} />
               </span>
               <span className="flex flex-col">
-                <span className="font-medium">{item.label}</span>
-                <span className="text-xs text-muted-foreground">{item.description}</span>
+                <span className="font-medium">{t(`admin.nav.${item.key}.label`)}</span>
+                <span className="text-xs text-muted-foreground">{t(`admin.nav.${item.key}.description`)}</span>
               </span>
               <span className="ml-auto text-[10px] text-muted-foreground">
                 <FontAwesomeIcon icon={faChevronRight} />

@@ -1,4 +1,5 @@
 import { createElement, type CSSProperties, type ReactNode } from "react";
+import { useTranslations } from "next-intl";
 import type { OutputData } from "@editorjs/editorjs";
 import type { Layout } from "react-grid-layout/legacy";
 
@@ -228,6 +229,7 @@ function PreviewMedia({
 }
 
 export function BlogEditorPreview({ content }: { content: OutputData }) {
+  const t = useTranslations("blogs.editor");
   const normalized = normalizeBlogContent(content);
 
   return (
@@ -304,7 +306,7 @@ export function BlogEditorPreview({ content }: { content: OutputData }) {
                   <div className="relative w-full pt-[56.25%]">
                     <iframe
                       src={youtubeUrl}
-                      title={embedData.caption || "YouTube video"}
+                      title={embedData.caption || t("youtubeTitle")}
                       allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                       className="absolute inset-0 h-full w-full border-0"

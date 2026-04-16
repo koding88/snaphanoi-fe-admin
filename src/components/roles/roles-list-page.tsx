@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -37,6 +38,7 @@ const INITIAL_QUERY: RoleListQuery = {
 const SHOW_ROLE_CREATE_ACTIONS = false;
 
 export function RolesListPage() {
+  const t = useTranslations("roles.list");
   const [query, setQuery] = useState<RoleListQuery>(INITIAL_QUERY);
   const [keywordInput, setKeywordInput] = useState(INITIAL_QUERY.keyword ?? "");
   const [result, setResult] = useState<RolesListResult | null>(null);
@@ -97,7 +99,7 @@ export function RolesListPage() {
     setIsMutating(true);
     try {
       const response = await deleteRole(role.id);
-      notifySuccess(response.message ?? response.data.message, "Role deleted.");
+      notifySuccess(response.message ?? response.data.message, t("toasts.deleted"));
       await loadData(query);
     } catch (actionError) {
       notifyError(getFriendlyRolesError(actionError));
@@ -110,12 +112,12 @@ export function RolesListPage() {
   return (
     <AdminPageContainer tone="hero" className="space-y-6 pb-8">
       <PageHeader
-        eyebrow="Roles"
-        title="Manage access roles."
-        description="Review role identity and usage quickly from one compact table."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        description={t("description")}
         meta={
           <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1 text-[11px] font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
-            Admin only
+            {t("meta.adminOnly")}
           </span>
         }
         actions={
@@ -125,7 +127,7 @@ export function RolesListPage() {
               className={cn(buttonVariants(), "rounded-full px-4")}
             >
               <FontAwesomeIcon icon={faPlus} />
-              Create role
+              {t("actions.createRole")}
             </Link>
           ) : undefined
         }
@@ -133,20 +135,20 @@ export function RolesListPage() {
       <AdminSurface className="p-5 md:p-6">
         <div className="mb-3 flex flex-wrap gap-2">
           <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1 text-[10px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-            Quick filters
+            {t("filters.quick")}
           </span>
         </div>
         <div className="grid gap-3 md:grid-cols-3">
           <label className="space-y-1.5 md:col-span-2">
-            <span className="text-sm font-medium text-foreground">Search keyword</span>
+            <span className="text-sm font-medium text-foreground">{t("filters.searchLabel")}</span>
             <Input
               value={keywordInput}
               onChange={(event) => setKeywordInput(event.target.value)}
-              placeholder="Search role name"
+              placeholder={t("filters.searchPlaceholder")}
             />
           </label>
           <label className="space-y-1.5">
-            <span className="text-sm font-medium text-foreground">Role type</span>
+            <span className="text-sm font-medium text-foreground">{t("filters.roleType")}</span>
             <AppSelect
               value={String(query.isSystem)}
               onChange={(roleType) =>
@@ -158,9 +160,9 @@ export function RolesListPage() {
                 }))
               }
               options={[
-                { value: "all", label: "All role types" },
-                { value: "false", label: "Custom roles" },
-                { value: "true", label: "System roles" },
+                { value: "all", label: t("filters.typeAll") },
+                { value: "false", label: t("filters.typeCustom") },
+                { value: "true", label: t("filters.typeSystem") },
               ]}
             />
           </label>
@@ -168,12 +170,12 @@ export function RolesListPage() {
       </AdminSurface>
       {isLoading && !result ? (
         <LoadingState
-          title="Loading roles"
-          description="Preparing role definitions and usage counts."
+          title={t("loading.title")}
+          description={t("loading.description")}
         />
       ) : error ? (
         <ErrorState
-          title="Unable to load roles"
+          title={t("errorTitle")}
           description={error}
           action={
             <button
@@ -182,7 +184,7 @@ export function RolesListPage() {
               className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-5")}
             >
               <FontAwesomeIcon icon={faRotateLeft} />
-              Retry
+              {t("actions.retry")}
             </button>
           }
         />
@@ -192,8 +194,12 @@ export function RolesListPage() {
           <AdminSurface className="p-4">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <p className="text-xs text-muted-foreground">
-                Page {result.meta.page} of {result.meta.totalPages}. Total roles: {result.meta.total}.
-                {isRefreshing ? " Updating…" : ""}
+                {t("pagination.summary", {
+                  page: result.meta.page,
+                  totalPages: result.meta.totalPages,
+                  total: result.meta.total,
+                })}
+                {isRefreshing ? ` ${t("pagination.updating")}` : ""}
               </p>
               <div className="flex gap-2">
                 <button
@@ -205,7 +211,7 @@ export function RolesListPage() {
                     "rounded-full px-4 disabled:pointer-events-none disabled:opacity-50",
                   )}
                 >
-                  Previous
+                  {t("actions.previous")}
                 </button>
                 <button
                   type="button"
@@ -216,7 +222,7 @@ export function RolesListPage() {
                     "rounded-full px-4 disabled:pointer-events-none disabled:opacity-50",
                   )}
                 >
-                  Next
+                  {t("actions.next")}
                 </button>
               </div>
             </div>
@@ -224,9 +230,9 @@ export function RolesListPage() {
         </>
       ) : (
         <EmptyState
-          eyebrow="Roles"
-          title="No roles matched the current filters."
-          description="Try a broader keyword or switch role type."
+          eyebrow={t("eyebrow")}
+          title={t("empty.title")}
+          description={t("empty.description")}
           action={
             SHOW_ROLE_CREATE_ACTIONS ? (
               <Link
@@ -234,7 +240,7 @@ export function RolesListPage() {
                 className={cn(buttonVariants(), "rounded-full px-5")}
               >
                 <FontAwesomeIcon icon={faPlus} />
-                Create first role
+                {t("empty.createFirst")}
               </Link>
             ) : undefined
           }

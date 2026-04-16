@@ -2,10 +2,12 @@
 
 import { useMemo } from "react";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { AccountMenu } from "@/components/admin/account-menu";
+import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { AppLogo } from "@/components/shared/app-logo";
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/features/auth/store/auth.store";
@@ -17,6 +19,7 @@ type AdminTopbarProps = {
 };
 
 export function AdminTopbar({ onMenuClick }: AdminTopbarProps) {
+  const t = useTranslations();
   const pathname = usePathname();
   const user = useAuthStore((state) => state.user);
   const status = useAuthStore((state) => state.status);
@@ -43,17 +46,20 @@ export function AdminTopbar({ onMenuClick }: AdminTopbarProps) {
         <div className="hidden min-w-0 flex-1 items-center gap-4 lg:flex">
           <div className="min-w-0">
             <p className="text-xs font-semibold tracking-[0.24em] text-[--color-brand-muted] uppercase">
-              {activeItem?.label ?? "Admin"}
+              {activeItem ? t(`admin.nav.${activeItem.key}.label`) : t("admin.topbar.fallbackTitle")}
             </p>
             <p className="truncate text-sm text-muted-foreground">
-              {activeItem?.description ??
+              {(activeItem
+                ? t(`admin.nav.${activeItem.key}.description`)
+                : undefined) ??
                 (status === "authenticated" && user
-                  ? `${user.name} · ${user.roleName ?? "Studio member"}`
-                  : "Bootstrapping authenticated session")}
+                  ? `${user.name} · ${user.roleName ?? t("admin.topbar.studioMember")}`
+                  : t("admin.topbar.bootstrapping"))}
             </p>
           </div>
         </div>
         <div className="ml-auto flex items-center gap-2">
+          <LanguageSwitcher />
           <AccountMenu />
         </div>
       </div>

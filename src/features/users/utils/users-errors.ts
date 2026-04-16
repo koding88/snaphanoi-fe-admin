@@ -1,5 +1,12 @@
 import { isApiError } from "@/lib/api/errors";
 
+type ErrorMessageResolver = (params: {
+  scope: string;
+  code?: string | null;
+  statusCode?: number;
+  fallback: string;
+}) => string;
+
 const USER_ERROR_MESSAGES: Record<string, string> = {
   USER_EMAIL_ALREADY_EXISTS: "That email is already in use.",
   USER_NOT_FOUND: "The requested user could not be found.",
@@ -17,22 +24,26 @@ const USER_ERROR_MESSAGES: Record<string, string> = {
   Unauthorized: "Your session is no longer valid. Please sign in again.",
 };
 
-export function getFriendlyUsersError(error: unknown) {
+export function getFriendlyUsersError(error: unknown, resolve?: ErrorMessageResolver) {
   if (!isApiError(error)) {
-    return "Something went wrong. Please try again.";
+    return resolve?.({ scope: "users", fallback: "Something went wrong. Please try again." }) ?? "Something went wrong. Please try again.";
   }
 
   if (error.code && USER_ERROR_MESSAGES[error.code]) {
-    return USER_ERROR_MESSAGES[error.code];
+    const mapped = USER_ERROR_MESSAGES[error.code];
+    return resolve?.({ scope: "users", code: error.code, statusCode: error.statusCode, fallback: mapped }) ?? mapped;
   }
 
   if (error.statusCode === 403) {
-    return "You do not have permission to perform this action.";
+    const message = "You do not have permission to perform this action.";
+    return resolve?.({ scope: "users", code: error.code, statusCode: error.statusCode, fallback: message }) ?? message;
   }
 
   if (error.statusCode === 401) {
-    return "Your session is no longer valid. Please sign in again.";
+    const message = "Your session is no longer valid. Please sign in again.";
+    return resolve?.({ scope: "users", code: error.code, statusCode: error.statusCode, fallback: message }) ?? message;
   }
 
-  return error.message || "Something went wrong. Please try again.";
+  const fallback = error.message || "Something went wrong. Please try again.";
+  return resolve?.({ scope: "users", code: error.code, statusCode: error.statusCode, fallback }) ?? fallback;
 }

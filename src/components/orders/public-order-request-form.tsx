@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 import { AuthFeedback } from "@/components/auth/auth-feedback";
 import { AuthField } from "@/components/auth/auth-field";
@@ -52,6 +53,7 @@ const DEFAULT_FORM: FormState = {
 };
 
 export function PublicOrderRequestForm() {
+  const t = useTranslations("orders.publicRequest");
   const [form, setForm] = useState<FormState>(DEFAULT_FORM);
   const [galleries, setGalleries] = useState<PublicOrderGalleryOption[]>([]);
   const [packages, setPackages] = useState<PublicOrderPackageOption[]>([]);
@@ -96,9 +98,9 @@ export function PublicOrderRequestForm() {
       packages.map((pkg) => ({
         value: pkg.id,
         label: pkg.name,
-        description: `${pkg.photoCount} photos · ${Math.max(1, Math.round(pkg.duration / 60))} min`,
+        description: t("packageOption", { photos: pkg.photoCount, minutes: Math.max(1, Math.round(pkg.duration / 60)) }),
       })),
-    [packages],
+    [packages, t],
   );
 
   function setField<Value extends keyof FormState>(key: Value, value: FormState[Value]) {
@@ -110,38 +112,38 @@ export function PublicOrderRequestForm() {
     const nextErrors: Record<string, string> = {};
 
     if (!form.name.trim()) {
-      nextErrors.name = "Name is required.";
+      nextErrors.name = t("errors.nameRequired");
     }
 
     if (!form.email.trim()) {
-      nextErrors.email = "Email is required.";
+      nextErrors.email = t("errors.emailRequired");
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
-      nextErrors.email = "Enter a valid email address.";
+      nextErrors.email = t("errors.emailInvalid");
     }
 
     if (!form.galleryId) {
-      nextErrors.galleryId = "Gallery is required.";
+      nextErrors.galleryId = t("errors.galleryRequired");
     }
 
     if (!form.discoverySource.trim()) {
-      nextErrors.discoverySource = "Discovery source is required.";
+      nextErrors.discoverySource = t("errors.discoveryRequired");
     }
 
     if (!form.personalStory.trim()) {
-      nextErrors.personalStory = "Personal story is required.";
+      nextErrors.personalStory = t("errors.storyRequired");
     }
 
     if (form.mode === "package") {
       if (!form.packageId) {
-        nextErrors.packageId = "Package selection is required for package requests.";
+        nextErrors.packageId = t("errors.packageRequired");
       }
     } else {
       const parsedBudget = Number(form.budgetAmount.replace(/[^\d.]/g, ""));
       if (!Number.isFinite(parsedBudget) || parsedBudget <= 0) {
-        nextErrors.budgetAmount = "Budget amount must be greater than zero.";
+        nextErrors.budgetAmount = t("errors.budgetAmountInvalid");
       }
       if (!form.budgetCurrency.trim()) {
-        nextErrors.budgetCurrency = "Budget currency is required.";
+        nextErrors.budgetCurrency = t("errors.budgetCurrencyRequired");
       }
     }
 
@@ -186,8 +188,8 @@ export function PublicOrderRequestForm() {
       setHasRequested(true);
       notifySuccess(
         response.message,
-        "Request submitted successfully.",
-        "Please check your email and confirm from the link.",
+        t("toasts.submittedTitle"),
+        t("toasts.submittedDescription"),
       );
     } catch (error) {
       notifyError(getFriendlyOrdersError(error));
@@ -198,13 +200,13 @@ export function PublicOrderRequestForm() {
 
   return (
     <AuthFormShell
-      eyebrow="Order request"
-      title="Start your order request."
-      description="Submit the request first, then confirm via the email link to create the actual order."
+      eyebrow={t("eyebrow")}
+      title={t("title")}
+      description={t("description")}
       footer={
         <div className="text-sm text-white/65">
           <Link href={ROUTES.publicOrders.confirm} className="transition-opacity hover:opacity-100">
-            Already have a token? Confirm request
+            {t("footer.confirmLink")}
           </Link>
         </div>
       }
@@ -212,11 +214,11 @@ export function PublicOrderRequestForm() {
       <form className="space-y-5" noValidate onSubmit={handleSubmit}>
         {hasRequested ? (
           <AuthFeedback variant="success">
-            Confirmation email sent. Open the email and confirm to finish order creation.
+            {t("success")}
           </AuthFeedback>
         ) : null}
         <div className="space-y-2">
-          <p className="text-sm font-medium text-white/92">Request type</p>
+          <p className="text-sm font-medium text-white/92">{t("fields.requestType")}</p>
           <div className="flex gap-2">
             <button
               type="button"
@@ -228,7 +230,7 @@ export function PublicOrderRequestForm() {
                   : "border-white/20 bg-white/6 text-white/75 hover:border-white/30 hover:text-white",
               )}
             >
-              Package request
+              {t("fields.modePackage")}
             </button>
             <button
               type="button"
@@ -240,31 +242,31 @@ export function PublicOrderRequestForm() {
                   : "border-white/20 bg-white/6 text-white/75 hover:border-white/30 hover:text-white",
               )}
             >
-              Custom request
+              {t("fields.modeCustom")}
             </button>
           </div>
         </div>
-        <AuthField label="Full name" htmlFor="order-name" error={fieldErrors.name}>
+        <AuthField label={t("fields.fullName")} htmlFor="order-name" error={fieldErrors.name}>
           <Input
             id="order-name"
             value={form.name}
             onChange={(event) => setField("name", event.target.value)}
-            placeholder="Nguyen Van A"
+            placeholder={t("fields.fullNamePlaceholder")}
             aria-invalid={Boolean(fieldErrors.name)}
           />
         </AuthField>
-        <AuthField label="Email" htmlFor="order-email" error={fieldErrors.email}>
+        <AuthField label={t("fields.email")} htmlFor="order-email" error={fieldErrors.email}>
           <Input
             id="order-email"
             type="email"
             value={form.email}
             onChange={(event) => setField("email", event.target.value)}
-            placeholder="customer@example.com"
+            placeholder={t("fields.emailPlaceholder")}
             aria-invalid={Boolean(fieldErrors.email)}
           />
         </AuthField>
         <AuthField
-          label="Country"
+          label={t("fields.country")}
           htmlFor="order-country"
         >
           <CountrySelect
@@ -273,29 +275,29 @@ export function PublicOrderRequestForm() {
             onChange={(countryCode) => setField("countryCode", countryCode)}
           />
         </AuthField>
-        <AuthField label="Gallery" htmlFor="order-gallery" error={fieldErrors.galleryId}>
+        <AuthField label={t("fields.gallery")} htmlFor="order-gallery" error={fieldErrors.galleryId}>
           <AppSelect
             value={form.galleryId}
             onChange={(value) => setField("galleryId", value)}
             options={galleryOptions}
-            placeholder={isBootstrapping ? "Loading galleries..." : "Select gallery"}
+            placeholder={isBootstrapping ? t("fields.loadingGalleries") : t("fields.selectGallery")}
             disabled={isBootstrapping}
           />
         </AuthField>
         {form.mode === "package" ? (
-          <AuthField label="Package" htmlFor="order-package" error={fieldErrors.packageId}>
+          <AuthField label={t("fields.package")} htmlFor="order-package" error={fieldErrors.packageId}>
             <AppSelect
               value={form.packageId}
               onChange={(value) => setField("packageId", value)}
               options={packageOptions}
-              placeholder={isBootstrapping ? "Loading packages..." : "Select package"}
+              placeholder={isBootstrapping ? t("fields.loadingPackages") : t("fields.selectPackage")}
               disabled={isBootstrapping}
             />
           </AuthField>
         ) : (
           <div className="grid gap-4 sm:grid-cols-2">
             <AuthField
-              label="Budget amount"
+              label={t("fields.budgetAmount")}
               htmlFor="order-budget-amount"
               error={fieldErrors.budgetAmount}
             >
@@ -304,12 +306,12 @@ export function PublicOrderRequestForm() {
                 inputMode="numeric"
                 value={form.budgetAmount}
                 onChange={(event) => setField("budgetAmount", event.target.value)}
-                placeholder="2500000"
+                placeholder={t("fields.budgetAmountPlaceholder")}
                 aria-invalid={Boolean(fieldErrors.budgetAmount)}
               />
             </AuthField>
             <AuthField
-              label="Budget currency"
+              label={t("fields.budgetCurrency")}
               htmlFor="order-budget-currency"
               error={fieldErrors.budgetCurrency}
             >
@@ -317,14 +319,14 @@ export function PublicOrderRequestForm() {
                 id="order-budget-currency"
                 value={form.budgetCurrency}
                 onChange={(event) => setField("budgetCurrency", event.target.value)}
-                placeholder="VND"
+                placeholder={t("fields.budgetCurrencyPlaceholder")}
                 aria-invalid={Boolean(fieldErrors.budgetCurrency)}
               />
             </AuthField>
           </div>
         )}
         <AuthField
-          label="How did you discover us?"
+          label={t("fields.discoverySource")}
           htmlFor="order-discovery"
           error={fieldErrors.discoverySource}
         >
@@ -332,12 +334,12 @@ export function PublicOrderRequestForm() {
             id="order-discovery"
             value={form.discoverySource}
             onChange={(event) => setField("discoverySource", event.target.value)}
-            placeholder="facebook"
+            placeholder={t("fields.discoveryPlaceholder")}
             aria-invalid={Boolean(fieldErrors.discoverySource)}
           />
         </AuthField>
         <AuthField
-          label="Personal story"
+          label={t("fields.personalStory")}
           htmlFor="order-personal-story"
           error={fieldErrors.personalStory}
         >
@@ -345,13 +347,13 @@ export function PublicOrderRequestForm() {
             id="order-personal-story"
             value={form.personalStory}
             onChange={(event) => setField("personalStory", event.target.value)}
-            placeholder="Tell us what you want us to capture..."
+            placeholder={t("fields.personalStoryPlaceholder")}
             rows={5}
             className="flex w-full rounded-2xl border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(250,247,241,0.92))] px-4 py-3 text-sm text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_8px_18px_rgba(15,23,42,0.04)] outline-none transition-all duration-300 placeholder:text-muted-foreground/80 focus:border-[--color-brand]/40 focus:bg-white focus:ring-3 focus:ring-[--color-brand]/12"
           />
         </AuthField>
         <Button type="submit" size="lg" className="h-12 w-full rounded-full" disabled={isSubmitting}>
-          {isSubmitting ? "Submitting..." : "Submit request"}
+          {isSubmitting ? t("actions.submitting") : t("actions.submit")}
         </Button>
       </form>
     </AuthFormShell>

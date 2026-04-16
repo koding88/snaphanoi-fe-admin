@@ -1,0 +1,1223 @@
+{
+  "metadata": {
+    "title": {
+      "default": "SnapHanoi Admin",
+      "template": "%s | SnapHanoi Admin"
+    },
+    "description": "Nền tảng cho trải nghiệm quản trị SnapHanoi, được xây dựng cho quy trình vận hành dịch vụ hình ảnh cao cấp."
+  },
+  "languageSwitcher": {
+    "label": "Ngôn ngữ",
+    "english": "English",
+    "vietnamese": "Tiếng Việt"
+  },
+  "common": {
+    "actions": {
+      "back": "Quay lại",
+      "confirm": "Xác nhận",
+      "cancel": "Hủy",
+      "working": "Đang xử lý...",
+      "retry": "Thử lại",
+      "previous": "Trước",
+      "next": "Sau"
+    }
+  },
+  "admin": {
+    "sidebar": {
+      "navigation": "Điều hướng",
+      "collapse": "Thu gọn"
+    },
+    "topbar": {
+      "fallbackTitle": "Quản trị",
+      "studioMember": "Thành viên studio",
+      "bootstrapping": "Đang khởi tạo phiên đăng nhập"
+    },
+    "nav": {
+      "dashboard": {
+        "label": "Tổng quan",
+        "description": "Toàn cảnh điều hành"
+      },
+      "users": {
+        "label": "Người dùng",
+        "description": "Nhân sự và quyền truy cập"
+      },
+      "roles": {
+        "label": "Vai trò",
+        "description": "Định nghĩa vai trò"
+      },
+      "galleries": {
+        "label": "Bộ sưu tập",
+        "description": "Nhóm portfolio"
+      },
+      "projects": {
+        "label": "Dự án",
+        "description": "Câu chuyện và ảnh bìa"
+      },
+      "blogs": {
+        "label": "Blog",
+        "description": "Nhật ký và câu chuyện"
+      },
+      "packages": {
+        "label": "Gói dịch vụ",
+        "description": "Sản phẩm phiên chụp"
+      },
+      "orders": {
+        "label": "Đơn hàng",
+        "description": "Yêu cầu và thực hiện"
+      }
+    },
+    "account": {
+      "triggerLabel": "Tài khoản",
+      "fallbackEmail": "Quản trị viên studio",
+      "signedIn": "Đang đăng nhập",
+      "fallbackName": "Tài khoản studio",
+      "fallbackWorkspace": "Không gian quản trị",
+      "profileLabel": "Thiết lập hồ sơ",
+      "profileDescription": "Thông tin cá nhân và quốc gia",
+      "securityLabel": "Bảo mật",
+      "securityDescription": "Đổi mật khẩu và phiên truy cập",
+      "signOut": "Đăng xuất",
+      "signingOut": "Đang đăng xuất...",
+      "signOutDescription": "Kết thúc phiên quản trị này"
+    }
+  },
+  "auth": {
+    "shell": {
+      "eyebrow": "truy cập studio",
+      "title": "Thiết kế cho vận hành studio ảnh cao cấp, không phải back office chung chung.",
+      "description": "Bề mặt xác thực công khai giữ cùng tinh thần gọn gàng với khu quản trị: giọng điệu biên tập, phân cấp trực diện và luồng truy cập sạch.",
+      "card1": "Xác thực với lộ trình khôi phục rõ ràng",
+      "card2": "Khôi phục phiên nhẹ nhàng khi workspace vẫn hợp lệ",
+      "card3": "Trải nghiệm tinh chỉnh từ mobile đến desktop"
+    },
+    "passwordHint": "Dùng ít nhất 8 ký tự gồm chữ hoa, chữ thường và số.",
+    "login": {
+      "eyebrow": "Đăng nhập",
+      "title": "Đăng nhập vào bảng điều khiển studio.",
+      "description": "Đăng nhập để quản lý khách hàng, quyền đội ngũ và vận hành studio trong một trung tâm điều hành.",
+      "forgotPassword": "Quên mật khẩu?",
+      "email": "Email",
+      "password": "Mật khẩu",
+      "passwordPlaceholder": "Nhập mật khẩu của bạn",
+      "submit": "Vào workspace",
+      "submitting": "Đang đăng nhập...",
+      "passwordChangedTitle": "Đổi mật khẩu thành công.",
+      "passwordChangedDescription": "Vui lòng đăng nhập lại bằng mật khẩu mới.",
+      "errors": {
+        "emailRequired": "Email là bắt buộc.",
+        "emailInvalid": "Nhập địa chỉ email hợp lệ.",
+        "passwordRequired": "Mật khẩu là bắt buộc."
+      }
+    },
+    "forgotPassword": {
+      "eyebrow": "Quên mật khẩu",
+      "title": "Yêu cầu liên kết đặt lại mật khẩu.",
+      "description": "Nếu email thuộc một tài khoản, chúng tôi sẽ gửi liên kết đặt lại mà không tiết lộ thông tin tài khoản ở màn hình này.",
+      "returnToLogin": "Quay lại đăng nhập",
+      "email": "Email",
+      "submit": "Gửi liên kết đặt lại",
+      "submitting": "Đang gửi...",
+      "successTitle": "Đã nhận yêu cầu đặt lại.",
+      "successDescription": "Nếu tài khoản tồn tại, liên kết đặt lại đã được gửi.",
+      "errors": {
+        "emailRequired": "Email là bắt buộc.",
+        "emailInvalid": "Nhập địa chỉ email hợp lệ."
+      }
+    },
+    "register": {
+      "eyebrow": "Đăng ký",
+      "title": "Yêu cầu quyền truy cập studio.",
+      "description": "Chúng tôi sẽ tạo yêu cầu đăng ký chờ duyệt và gửi liên kết xác nhận đến email trước khi tài khoản được kích hoạt.",
+      "footer": "Đăng ký chưa tạo tài khoản sử dụng ngay lập tức.",
+      "backToLogin": "Quay lại đăng nhập",
+      "fullName": "Họ và tên",
+      "email": "Email",
+      "password": "Mật khẩu",
+      "country": "Quốc gia",
+      "countryHint": "Tìm theo tên",
+      "submit": "Gửi liên kết xác nhận",
+      "submitting": "Đang gửi...",
+      "successTitle": "Đã gửi yêu cầu đăng ký.",
+      "successDescription": "Kiểm tra email để lấy liên kết xác nhận.",
+      "errors": {
+        "nameRequired": "Họ và tên là bắt buộc.",
+        "emailRequired": "Email là bắt buộc.",
+        "emailInvalid": "Nhập địa chỉ email hợp lệ.",
+        "passwordRequired": "Mật khẩu là bắt buộc.",
+        "passwordWeak": "Mật khẩu phải có ít nhất 8 ký tự gồm chữ hoa, chữ thường và số."
+      }
+    },
+    "registerConfirm": {
+      "eyebrow": "Xác nhận đăng ký",
+      "title": "Hoàn tất kích hoạt tài khoản.",
+      "description": "Nếu bạn mở trang này từ email, mã xác nhận đã được đính kèm và sẵn sàng sử dụng.",
+      "returnToLogin": "Quay lại đăng nhập",
+      "linkDetected": "Đã nhận diện liên kết xác nhận. Tiếp tục bên dưới hoặc nhập mã khác thủ công.",
+      "token": "Mã xác nhận",
+      "tokenAlt": "Mã xác nhận khác",
+      "tokenPlaceholder": "Dán mã xác nhận của bạn",
+      "useLinkToken": "Dùng mã từ liên kết email",
+      "useDifferentToken": "Dùng mã khác",
+      "submit": "Kích hoạt tài khoản",
+      "submitting": "Đang kích hoạt...",
+      "successTitle": "Xác nhận đăng ký thành công.",
+      "successDescription": "Bây giờ bạn có thể đăng nhập bằng tài khoản mới.",
+      "errors": {
+        "tokenRequired": "Mã xác nhận là bắt buộc."
+      }
+    },
+    "resetPassword": {
+      "eyebrow": "Đặt lại mật khẩu",
+      "title": "Chọn mật khẩu mới.",
+      "description": "Nếu bạn mở trang này từ email, mã đặt lại đã được đính kèm. Sau khi thành công, bạn sẽ đăng nhập lại bằng mật khẩu mới.",
+      "backToLogin": "Quay lại đăng nhập",
+      "linkDetected": "Đã nhận diện liên kết đặt lại. Tiếp tục bên dưới hoặc chuyển sang nhập mã thủ công nếu cần.",
+      "token": "Mã đặt lại",
+      "differentToken": "Mã đặt lại khác",
+      "tokenPlaceholder": "Dán mã đặt lại của bạn",
+      "useLinkToken": "Dùng mã từ liên kết email",
+      "useDifferentToken": "Dùng mã khác",
+      "newPassword": "Mật khẩu mới",
+      "confirmPassword": "Xác nhận mật khẩu mới",
+      "submit": "Lưu mật khẩu mới",
+      "submitting": "Đang cập nhật...",
+      "successTitle": "Đổi mật khẩu thành công.",
+      "successDescription": "Vui lòng đăng nhập lại bằng mật khẩu mới.",
+      "errors": {
+        "tokenRequired": "Mã đặt lại là bắt buộc.",
+        "newPasswordRequired": "Mật khẩu mới là bắt buộc.",
+        "newPasswordWeak": "Mật khẩu mới phải có ít nhất 8 ký tự gồm chữ hoa, chữ thường và số.",
+        "confirmRequired": "Xác nhận mật khẩu là bắt buộc.",
+        "confirmMismatch": "Xác nhận mật khẩu không khớp."
+      }
+    }
+  },
+  "users": {
+    "badges": {
+      "active": "Hoạt động",
+      "inactive": "Ngưng hoạt động",
+      "deleted": "Đã xóa",
+      "noRole": "Không có vai trò"
+    },
+    "list": {
+      "eyebrow": "Người dùng",
+      "title": "Quản lý tài khoản người dùng.",
+      "description": "Tạo, cập nhật, lưu trữ và khôi phục quyền truy cập đội ngũ từ một bảng.",
+      "meta": { "adminOnly": "Chỉ quản trị" },
+      "actions": { "addUser": "Thêm người dùng", "retry": "Thử lại", "previous": "Trước", "next": "Sau" },
+      "filters": {
+        "quick": "Bộ lọc nhanh",
+        "searchLabel": "Từ khóa tìm kiếm",
+        "searchPlaceholder": "Tìm theo tên hoặc email",
+        "status": "Trạng thái",
+        "statusAll": "Tất cả người dùng",
+        "statusActive": "Chỉ đang hoạt động",
+        "statusInactive": "Chỉ ngưng hoạt động",
+        "role": "Vai trò",
+        "roleAll": "Tất cả vai trò",
+        "roleAllDescription": "Không lọc theo vai trò",
+        "systemRole": "Vai trò hệ thống",
+        "customRole": "Vai trò tùy chỉnh",
+        "deleted": "Bản ghi đã lưu trữ",
+        "hideArchived": "Ẩn đã lưu trữ",
+        "showArchived": "Hiện cả đã lưu trữ"
+      },
+      "loading": { "title": "Đang tải người dùng", "description": "Đang chuẩn bị danh sách người dùng và bộ lọc mới nhất." },
+      "errors": { "loadTitle": "Không thể tải người dùng" },
+      "pagination": {
+        "summary": "Trang {page}/{totalPages}. Tổng người dùng: {total}.",
+        "updating": "Đang cập nhật..."
+      },
+      "empty": {
+        "title": "Không có người dùng phù hợp bộ lọc hiện tại.",
+        "description": "Hãy thử từ khóa rộng hơn hoặc đặt lại một bộ lọc.",
+        "createFirst": "Tạo người dùng đầu tiên"
+      },
+      "toasts": { "archived": "Đã lưu trữ người dùng.", "restored": "Đã khôi phục người dùng." }
+    },
+    "table": {
+      "title": "Bản ghi người dùng",
+      "description": "Thông tin, vai trò và vòng đời trong một bảng.",
+      "columns": { "user": "Người dùng", "role": "Vai trò", "country": "Quốc gia", "status": "Trạng thái", "actions": "Thao tác" },
+      "actions": { "edit": "Sửa", "restore": "Khôi phục", "delete": "Xóa" },
+      "dialogs": {
+        "deleteTitle": "Xóa {name}?",
+        "restoreTitle": "Khôi phục {name}?",
+        "deleteDescription": "Thao tác này lưu trữ tài khoản. Bạn có thể khôi phục sau.",
+        "restoreDescription": "Thao tác này đưa tài khoản đã lưu trữ về trạng thái hoạt động.",
+        "deleteConfirm": "Xóa người dùng",
+        "restoreConfirm": "Khôi phục người dùng",
+        "selectedRecord": "Bản ghi đã chọn"
+      }
+    },
+    "form": {
+      "fields": {
+        "fullName": "Họ và tên",
+        "email": "Email",
+        "password": "Mật khẩu",
+        "newPassword": "Mật khẩu mới",
+        "passwordPlaceholderCreate": "MySecurePass1",
+        "passwordPlaceholderEdit": "Để trống nếu giữ mật khẩu hiện tại",
+        "country": "Quốc gia",
+        "role": "Vai trò",
+        "rolePlaceholder": "Chọn vai trò",
+        "status": "Trạng thái"
+      },
+      "options": {
+        "systemRole": "Vai trò hệ thống",
+        "customRole": "Vai trò tùy chỉnh",
+        "active": "Hoạt động",
+        "activeDescription": "Có thể đăng nhập và sử dụng ứng dụng",
+        "inactive": "Ngưng hoạt động",
+        "inactiveDescription": "Giữ trong hệ thống nhưng không thể đăng nhập"
+      },
+      "errors": {
+        "nameRequired": "Họ và tên là bắt buộc.",
+        "emailRequired": "Email là bắt buộc.",
+        "emailInvalid": "Nhập địa chỉ email hợp lệ.",
+        "passwordRequired": "Mật khẩu là bắt buộc.",
+        "passwordWeak": "Mật khẩu phải có ít nhất 8 ký tự gồm chữ hoa, chữ thường và số.",
+        "passwordWeakEdit": "Nếu nhập mật khẩu mới, mật khẩu phải có ít nhất 8 ký tự gồm chữ hoa, chữ thường và số."
+      },
+      "actions": { "saving": "Đang lưu..." }
+    },
+    "create": {
+      "eyebrow": "Tạo người dùng",
+      "eyebrow": "Tạo gallery",
+      "eyebrow": "Tạo vai trò",
+      "title": "Thêm thành viên mới.",
+      "description": "Tạo tài khoản studio mới với vai trò, quốc gia và mật khẩu ban đầu phù hợp.",
+      "confirm": {
+        "title": "Hủy tạo người dùng mới?",
+        "description": "Biểu mẫu sẽ được xóa và bạn sẽ quay về danh sách người dùng.",
+        "confirmLabel": "Hủy"
+      },
+      "loading": { "title": "Đang chuẩn bị biểu mẫu", "description": "Đang tải danh sách vai trò để tạo người dùng." },
+      "errorTitle": "Không thể chuẩn bị biểu mẫu người dùng",
+      "submitLabel": "Tạo tài khoản",
+      "formDescription": "Chọn vai trò và quốc gia, sau đó đặt mật khẩu ban đầu cho tài khoản này.",
+      "toasts": { "created": "Tạo người dùng thành công." }
+    },
+    "edit": {
+      "eyebrow": "Sửa người dùng",
+      "eyebrow": "Sửa gallery",
+      "eyebrow": "Sửa vai trò",
+      "title": "Cập nhật thông tin tài khoản.",
+      "description": "Điều chỉnh vai trò, trạng thái hoạt động, hồ sơ hoặc thay mật khẩu khi cần.",
+      "confirm": {
+        "title": "Hủy các thay đổi này?",
+        "description": "Mọi chỉnh sửa sẽ bị mất.",
+        "confirmLabel": "Hủy"
+      },
+      "loading": { "title": "Đang tải người dùng", "description": "Đang lấy bản ghi người dùng và danh sách vai trò." },
+      "errorTitle": "Không thể tải người dùng này",
+      "userNotFound": "Không tìm thấy người dùng.",
+      "submitLabel": "Lưu thay đổi",
+      "formDescription": "Để trống trường mật khẩu nếu muốn giữ mật khẩu hiện tại.",
+      "toasts": { "updated": "Cập nhật người dùng thành công." }
+    },
+    "detail": {
+      "eyebrow": "Chi tiết người dùng",
+      "eyebrow": "Chi tiết gallery",
+      "eyebrow": "Chi tiết vai trò",
+      "title": "Xem thông tin tài khoản.",
+      "description": "Xem người dùng, vai trò, quốc gia và trạng thái tài khoản trước khi chỉnh sửa.",
+      "actions": { "edit": "Sửa", "restore": "Khôi phục", "delete": "Xóa" },
+      "loading": { "title": "Đang tải người dùng", "description": "Đang lấy bản ghi người dùng đã chọn." },
+      "errorTitle": "Không thể tải người dùng này",
+      "userNotFound": "Không tìm thấy người dùng.",
+      "adminActionsTitle": "Thao tác quản trị",
+      "adminActionsDescription": "Nút lưu trữ và khôi phục được đặt ở đây để tránh thao tác nhầm.",
+      "dialogs": {
+        "deleteTitle": "Xóa {name}?",
+        "restoreTitle": "Khôi phục {name}?",
+        "deleteDescription": "Thao tác này lưu trữ tài khoản. Bạn có thể khôi phục sau.",
+        "restoreDescription": "Thao tác này đưa tài khoản đã lưu trữ trở lại hoạt động.",
+        "deleteConfirm": "Xóa người dùng",
+        "restoreConfirm": "Khôi phục người dùng"
+      },
+      "toasts": { "archived": "Đã lưu trữ người dùng.", "restored": "Đã khôi phục người dùng." }
+    },
+    "detailCard": {
+      "id": "ID: {id}",
+      "sections": { "identity": "Định danh tài khoản", "profile": "Hồ sơ và trạng thái", "metadata": "Metadata quản trị" },
+      "fields": {
+        "email": "Email",
+        "country": "Quốc gia",
+        "role": "Vai trò",
+        "noRole": "Chưa gán vai trò",
+        "lifecycle": "Vòng đời",
+        "timeline": "Dòng thời gian",
+        "createdAt": "Tạo lúc",
+        "updatedAt": "Cập nhật lúc"
+      },
+      "lifecycle": {
+        "archivedOn": "Lưu trữ vào {date}",
+        "active": "Tài khoản hoạt động",
+        "inactive": "Tài khoản ngưng hoạt động",
+        "notDeleted": "Chưa xóa"
+      }
+    },
+    "profilePage": {
+      "eyebrow": "Hồ sơ của tôi",
+      "title": "Thiết lập hồ sơ.",
+      "description": "Cập nhật tên, email và quốc gia của bạn mà không cần mở trang sửa người dùng.",
+      "unavailable": "Không thể lấy hồ sơ người dùng hiện tại.",
+      "toasts": { "updated": "Cập nhật hồ sơ thành công." }
+    },
+    "profileForm": {
+      "fields": {
+        "fullName": "Họ và tên",
+        "email": "Email",
+        "newEmail": "Email mới",
+        "country": "Quốc gia",
+        "verificationCode": "Mã xác minh"
+      },
+      "email": {
+        "status": {
+          "codeSent": "Đã gửi mã xác minh. Nhập mã 6 chữ số gửi tới {email}.",
+          "pending": "Email mới chưa được xác minh. Hãy xác minh trước khi áp dụng.",
+          "current": "Đây là email hiện đang gắn với tài khoản của bạn."
+        },
+        "pendingVerification": "Chờ xác minh",
+        "current": "Email hiện tại",
+        "resendIn": "Bạn có thể yêu cầu mã mới sau {time}."
+      },
+      "dialog": {
+        "title": "Xác minh email mới",
+        "description": "Nhập mã 6 chữ số được gửi đến",
+        "expiresIn": "Mã này sẽ hết hạn sau {time}.",
+        "expired": "Mã xác minh này có thể đã hết hạn. Hãy yêu cầu mã mới nếu cần."
+      },
+      "actions": {
+        "sendingCode": "Đang gửi mã...",
+        "enterCode": "Nhập mã",
+        "verifyEmail": "Xác minh email",
+        "saveProfile": "Lưu hồ sơ",
+        "saving": "Đang lưu...",
+        "sendingNewCode": "Đang gửi mã mới...",
+        "resendIn": "Có thể gửi lại sau {time}",
+        "resendCode": "Gửi lại mã",
+        "cancel": "Hủy",
+        "verifying": "Đang xác minh..."
+      },
+      "errors": {
+        "nameRequired": "Họ và tên là bắt buộc.",
+        "emailRequired": "Email là bắt buộc.",
+        "emailInvalid": "Nhập địa chỉ email hợp lệ.",
+        "emailSame": "Hãy dùng email khác email đang gắn với tài khoản.",
+        "otpRequired": "Mã xác minh là bắt buộc.",
+        "otpLength": "Nhập đủ mã xác minh 6 chữ số."
+      },
+      "toasts": {
+        "codeSent": "Đã gửi mã xác minh.",
+        "codeSentDescription": "Dùng mã đã gửi tới {email}.",
+        "emailChanged": "Đổi email thành công.",
+        "emailChangedDescription": "Hồ sơ của bạn đã phản ánh email mới ngay lập tức."
+      }
+    },
+    "changePassword": {
+      "page": {
+        "eyebrow": "Bảo mật",
+        "title": "Đổi mật khẩu của bạn.",
+        "description": "Vì bảo mật, luồng này sẽ đăng xuất sau khi cập nhật thành công để mật khẩu mới là điểm truy cập tiếp theo.",
+        "toasts": {
+          "success": "Đổi mật khẩu thành công.",
+          "description": "Bạn sẽ đăng nhập lại bằng mật khẩu mới."
+        }
+      },
+      "form": {
+        "fields": { "current": "Mật khẩu hiện tại", "new": "Mật khẩu mới", "confirm": "Xác nhận mật khẩu mới" },
+        "errors": {
+          "currentRequired": "Mật khẩu hiện tại là bắt buộc.",
+          "newRequired": "Mật khẩu mới là bắt buộc.",
+          "newWeak": "Mật khẩu mới phải có ít nhất 8 ký tự gồm chữ hoa, chữ thường và số.",
+          "confirmRequired": "Xác nhận mật khẩu là bắt buộc.",
+          "confirmMismatch": "Xác nhận mật khẩu không khớp."
+        },
+        "actions": { "updating": "Đang cập nhật...", "submit": "Lưu mật khẩu mới" }
+      }
+    }
+  },
+  "roles": {
+    "badges": { "system": "Hệ thống", "custom": "Tùy chỉnh" },
+    "list": {
+      "eyebrow": "Vai trò",
+      "title": "Quản lý vai trò truy cập.",
+      "description": "Xem nhanh định danh vai trò và mức sử dụng trong một bảng gọn.",
+      "meta": { "adminOnly": "Chỉ quản trị" },
+      "actions": { "createRole": "Tạo vai trò", "retry": "Thử lại", "previous": "Trước", "next": "Sau" },
+      "filters": {
+        "quick": "Bộ lọc nhanh",
+        "searchLabel": "Từ khóa tìm kiếm",
+        "searchPlaceholder": "Tìm tên vai trò",
+        "roleType": "Loại vai trò",
+        "typeAll": "Tất cả loại vai trò",
+        "typeCustom": "Vai trò tùy chỉnh",
+        "typeSystem": "Vai trò hệ thống"
+      },
+      "loading": { "title": "Đang tải vai trò", "description": "Đang chuẩn bị định nghĩa vai trò và số lượng sử dụng." },
+      "errorTitle": "Không thể tải danh sách vai trò",
+      "pagination": { "summary": "Trang {page}/{totalPages}. Tổng vai trò: {total}.", "updating": "Đang cập nhật..." },
+      "empty": {
+        "title": "Không có vai trò phù hợp bộ lọc hiện tại.",
+        "description": "Hãy thử từ khóa rộng hơn hoặc đổi loại vai trò.",
+        "createFirst": "Tạo vai trò đầu tiên"
+      },
+      "toasts": { "deleted": "Đã xóa vai trò." }
+    },
+    "table": {
+      "title": "Bản ghi vai trò",
+      "description": "Định danh vai trò và mức sử dụng trong một bảng.",
+      "columns": { "role": "Vai trò", "type": "Loại", "users": "Người dùng", "actions": "Thao tác" },
+      "usersSummary": "Hoạt động {active} / Đã xóa {deleted}",
+      "actions": { "edit": "Sửa", "delete": "Xóa" },
+      "dialogs": {
+        "deleteTitle": "Xóa {name}?",
+        "deleteDescription": "Chỉ có thể xóa khi vai trò không còn được sử dụng. Nếu còn, bạn sẽ thấy thông báo xung đột.",
+        "deleteConfirm": "Xóa vai trò",
+        "selectedRole": "Vai trò đã chọn"
+      }
+    },
+    "form": {
+      "fields": { "name": "Tên vai trò", "placeholder": "Manager" },
+      "errors": { "nameRequired": "Tên vai trò là bắt buộc." },
+      "actions": { "saving": "Đang lưu..." }
+    },
+    "create": {
+      "title": "Tạo vai trò mới.",
+      "description": "Đặt tên vai trò rõ ràng cho đội ngũ studio.",
+      "confirm": { "title": "Hủy tạo vai trò mới?", "description": "Biểu mẫu sẽ bị xóa và bạn sẽ quay lại danh sách vai trò.", "confirmLabel": "Hủy" },
+      "submitLabel": "Tạo vai trò",
+      "formDescription": "Dùng tên vai trò dễ hiểu ngay khi nhìn vào.",
+      "toasts": { "created": "Tạo vai trò thành công." }
+    },
+    "edit": {
+      "title": "Cập nhật vai trò.",
+      "description": "Điều chỉnh tên vai trò nhưng giữ nguyên role key và lịch sử sử dụng.",
+      "confirm": { "title": "Hủy các thay đổi này?", "description": "Mọi chỉnh sửa sẽ bị mất.", "confirmLabel": "Hủy" },
+      "loading": { "title": "Đang tải vai trò", "description": "Đang lấy bản ghi vai trò hiện tại." },
+      "errorTitle": "Không thể tải vai trò này",
+      "notFound": "Không tìm thấy vai trò.",
+      "submitLabel": "Lưu thay đổi",
+      "formDescription": "Đổi tên vai trò để mô hình phân quyền luôn rõ ràng và nhất quán.",
+      "toasts": { "updated": "Cập nhật vai trò thành công." }
+    },
+    "detail": {
+      "title": "Xem vai trò và người dùng được gán.",
+      "description": "Xem thông tin vai trò, nơi được sử dụng, và quản lý bước tiếp theo trong một trang.",
+      "actions": { "edit": "Sửa", "delete": "Xóa", "previous": "Trước", "next": "Sau" },
+      "loading": { "title": "Đang tải vai trò", "description": "Đang lấy bản ghi vai trò và người dùng đang được gán." },
+      "errorTitle": "Không thể tải vai trò này",
+      "notFound": "Không tìm thấy vai trò.",
+      "users": {
+        "eyebrow": "Người dùng theo vai trò",
+        "title": "Người dùng được gán vai trò này",
+        "description": "Xem ai đang dùng vai trò này và lọc theo trạng thái tài khoản khi cần.",
+        "filters": { "all": "Tất cả người dùng được gán", "active": "Chỉ hoạt động", "inactive": "Chỉ ngưng hoạt động", "deleted": "Chỉ đã lưu trữ" },
+        "pagination": "Trang {page}/{totalPages}. Tổng người dùng: {total}.",
+        "emptyTitle": "Không có người dùng phù hợp truy vấn vai trò-người dùng.",
+        "emptyDescription": "Hãy thử trạng thái khác hoặc quay lại sau khi vai trò được gán người dùng."
+      },
+      "dialogs": {
+        "deleteTitle": "Xóa {name}?",
+        "deleteDescription": "Nếu vai trò vẫn đang được gán, thao tác xóa sẽ bị chặn cho tới khi gán lại xong.",
+        "deleteConfirm": "Xóa vai trò",
+        "roleInFocus": "Vai trò đang xem"
+      },
+      "toasts": { "deleted": "Đã xóa vai trò." }
+    },
+    "detailCard": {
+      "id": "ID: {id}",
+      "roleKey": "Mã vai trò: {key}",
+      "lifecycle": { "system": "Vai trò do hệ thống quản lý", "custom": "Vai trò tùy chỉnh" },
+      "sections": { "identity": "Định danh vai trò", "usage": "Tóm tắt sử dụng", "metadata": "Metadata quản trị" },
+      "fields": {
+        "activeUsers": "Người dùng hoạt động",
+        "archivedUsers": "Người dùng đã lưu trữ",
+        "timeline": "Dòng thời gian",
+        "createdAt": "Tạo lúc",
+        "updatedAt": "Cập nhật lúc"
+      }
+    },
+    "roleUsersTable": {
+      "columns": { "user": "Người dùng", "country": "Quốc gia", "status": "Trạng thái" }
+    }
+  },
+  "galleries": {
+    "badges": { "archived": "Đã lưu trữ", "active": "Hoạt động", "inactive": "Ngưng hoạt động" },
+    "list": {
+      "title": "Quản lý bộ sưu tập.",
+      "description": "Quản lý nhóm gallery đa ngôn ngữ với lọc nhanh và kiểm soát vòng đời.",
+      "meta": { "adminOnly": "Chỉ quản trị" },
+      "actions": { "create": "Tạo gallery", "retry": "Thử lại", "previous": "Trước", "next": "Sau" },
+      "filters": {
+        "quick": "Bộ lọc nhanh",
+        "searchLabel": "Từ khóa tìm kiếm",
+        "searchPlaceholder": "Tìm theo tên gallery",
+        "status": "Trạng thái",
+        "statusAll": "Tất cả gallery",
+        "statusActive": "Chỉ hoạt động",
+        "statusInactive": "Chỉ ngưng hoạt động",
+        "pageSize": "Kích thước trang",
+        "perPage": "{value} mỗi trang"
+      },
+      "loading": { "title": "Đang tải gallery", "description": "Đang chuẩn bị danh sách gallery và kết quả lọc mới nhất." },
+      "errorTitle": "Không thể tải danh sách gallery",
+      "pagination": { "summary": "Trang {page}/{totalPages}. Tổng gallery: {total}.", "updating": "Đang cập nhật..." },
+      "empty": {
+        "title": "Không có gallery phù hợp bộ lọc hiện tại.",
+        "description": "Hãy thử từ khóa rộng hơn hoặc đổi bộ lọc trạng thái.",
+        "createFirst": "Tạo gallery đầu tiên"
+      },
+      "toasts": { "archived": "Đã lưu trữ gallery.", "restored": "Đã khôi phục gallery thành công." }
+    },
+    "table": {
+      "title": "Bản ghi gallery",
+      "description": "Tên đa ngôn ngữ và trạng thái vòng đời trong một bảng.",
+      "columns": {
+        "gallery": "Bộ sưu tập",
+        "createdBy": "Tạo bởi",
+        "updated": "Cập nhật",
+        "status": "Trạng thái",
+        "actions": "Thao tác"
+      },
+      "actions": { "edit": "Sửa", "restore": "Khôi phục", "delete": "Xóa" },
+      "dialogs": {
+        "deleteTitle": "Xóa {name}?",
+        "restoreTitle": "Khôi phục {name}?",
+        "deleteDescription": "Thao tác này lưu trữ gallery. Bạn có thể khôi phục sau.",
+        "restoreDescription": "Thao tác này đưa gallery đã lưu trữ trở lại bộ sưu tập hoạt động.",
+        "deleteConfirm": "Xóa gallery",
+        "restoreConfirm": "Khôi phục gallery",
+        "selectedGallery": "Bộ sưu tập đã chọn"
+      }
+    },
+    "form": {
+      "sectionEyebrow": "Tên gọi",
+      "localizedTitle": "Đặt tên gallery theo ngôn ngữ",
+      "localizedDescription": "Điền từng tab ngôn ngữ. Cần đủ 3 tên trước khi lưu.",
+      "fieldLabel": "Tên gallery",
+      "placeholders": { "en": "Couple", "vi": "Cặp đôi", "cn": "情侣" },
+      "errors": {
+        "enRequired": "Tên tiếng Anh là bắt buộc.",
+        "viRequired": "Tên tiếng Việt là bắt buộc.",
+        "cnRequired": "Tên tiếng Trung là bắt buộc."
+      },
+      "actions": { "saving": "Đang lưu..." }
+    },
+    "create": {
+      "title": "Tạo gallery mới.",
+      "description": "Thêm tên đa ngôn ngữ để bộ sưu tập sẵn sàng cho các ngôn ngữ hỗ trợ.",
+      "confirm": { "title": "Hủy tạo gallery mới?", "description": "Biểu mẫu sẽ bị xóa và bạn sẽ quay về danh sách gallery.", "confirmLabel": "Hủy" },
+      "submitLabel": "Tạo gallery",
+      "formDescription": "Contract backend yêu cầu đủ cả 3 tên theo ngôn ngữ.",
+      "toasts": { "created": "Tạo gallery thành công." }
+    },
+    "edit": {
+      "title": "Cập nhật tên gallery.",
+      "description": "Tinh chỉnh tên theo ngôn ngữ nhưng giữ nguyên bản ghi gallery hiện tại.",
+      "confirm": { "title": "Hủy các thay đổi này?", "description": "Mọi chỉnh sửa sẽ bị mất.", "confirmLabel": "Hủy" },
+      "loading": { "title": "Đang tải gallery", "description": "Đang lấy bản ghi gallery hiện tại." },
+      "errorTitle": "Không thể tải gallery này",
+      "notFound": "Không tìm thấy gallery.",
+      "submitLabel": "Lưu thay đổi",
+      "formDescription": "Cập nhật tên vẫn giữ nguyên ID và lịch sử vòng đời gallery.",
+      "toasts": { "updated": "Cập nhật gallery thành công." }
+    },
+    "detail": {
+      "title": "Xem gallery này.",
+      "description": "Kiểm tra tên đa ngôn ngữ, trạng thái vòng đời và thông tin sở hữu trước khi chỉnh sửa.",
+      "actions": { "edit": "Sửa", "restore": "Khôi phục", "delete": "Xóa" },
+      "loading": { "title": "Đang tải gallery", "description": "Đang lấy bản ghi gallery đã chọn." },
+      "errorTitle": "Không thể tải gallery này",
+      "notFound": "Không tìm thấy gallery.",
+      "adminActionsTitle": "Thao tác quản trị",
+      "adminActionsDescription": "Nút lưu trữ và khôi phục đặt ở đây để hạn chế thao tác nhầm trên vòng đời gallery.",
+      "dialogs": {
+        "deleteTitle": "Xóa {name}?",
+        "restoreTitle": "Khôi phục {name}?",
+        "deleteDescription": "Thao tác này lưu trữ gallery. Bạn có thể khôi phục sau.",
+        "restoreDescription": "Thao tác này đưa gallery đã lưu trữ trở lại bộ sưu tập hoạt động.",
+        "deleteConfirm": "Xóa gallery",
+        "restoreConfirm": "Khôi phục gallery"
+      },
+      "toasts": { "archived": "Đã lưu trữ gallery.", "restored": "Đã khôi phục gallery thành công." }
+    },
+    "detailCard": {
+      "id": "ID: {id}",
+      "sections": { "record": "Bản ghi gallery", "names": "Tên đa ngôn ngữ", "metadata": "Metadata quản trị" },
+      "namesDescription": "Bộ tên chính dùng cho các locale được hỗ trợ.",
+      "fields": {
+        "english": "Tiếng Anh",
+        "vietnamese": "Tiếng Việt",
+        "chinese": "Tiếng Trung",
+        "createdBy": "Tạo bởi",
+        "lifecycle": "Vòng đời",
+        "timeline": "Dòng thời gian",
+        "createdAt": "Tạo lúc",
+        "updatedAt": "Cập nhật lúc"
+      },
+      "lifecycle": {
+        "archivedOn": "Lưu trữ vào {date}",
+        "active": "Bản ghi hoạt động",
+        "inactive": "Bản ghi ngưng hoạt động",
+        "notDeleted": "Chưa xóa"
+      }
+    }
+  },
+  "projects": {
+    "badges": {
+      "archived": "Đã lưu trữ",
+      "active": "Đang hoạt động",
+      "inactive": "Tạm dừng",
+      "published": "Đã xuất bản",
+      "draft": "Bản nháp"
+    },
+    "gallerySelect": {
+      "placeholder": "Chọn bộ sưu tập"
+    },
+    "coverField": {
+      "coverAlt": "Ảnh bìa dự án",
+      "title": "Ảnh bìa",
+      "requiredHint": "Tải ảnh bìa chính trước khi lưu dự án.",
+      "optionalHint": "Giữ ảnh bìa hiện tại hoặc tải ảnh thay thế khi cần.",
+      "replace": "Thay ảnh bìa",
+      "upload": "Tải ảnh bìa",
+      "remove": "Xóa",
+      "uploading": "Đang tải ảnh bìa..."
+    },
+    "list": {
+      "eyebrow": "Dự án",
+      "title": "Quản lý câu chuyện dự án.",
+      "description": "Quản lý nội dung dự án, trạng thái xuất bản và liên kết bộ sưu tập trong một nơi.",
+      "meta": { "adminOnly": "Chỉ dành cho quản trị viên" },
+      "actions": { "create": "Tạo dự án", "retry": "Thử lại", "previous": "Trang trước", "next": "Trang sau" },
+      "filters": {
+        "quick": "Bộ lọc nhanh",
+        "searchLabel": "Từ khóa tìm kiếm",
+        "searchPlaceholder": "Tìm theo tên dự án",
+        "status": "Trạng thái",
+        "statusAll": "Tất cả dự án",
+        "statusActive": "Chỉ đang hoạt động",
+        "statusInactive": "Chỉ tạm dừng",
+        "publication": "Xuất bản",
+        "publishAll": "Tất cả trạng thái xuất bản",
+        "publishPublished": "Chỉ đã xuất bản",
+        "publishDraft": "Chỉ bản nháp",
+        "pageSize": "Số dòng mỗi trang",
+        "perPage": "{value} dòng"
+      },
+      "loading": { "title": "Đang tải dự án", "description": "Đang chuẩn bị danh sách dự án, bộ lọc và trạng thái nội dung mới nhất." },
+      "errors": { "load": "Không thể tải danh sách dự án" },
+      "pagination": { "summary": "Trang {page}/{totalPages}. Tổng dự án: {total}.", "updating": "Đang cập nhật..." },
+      "empty": {
+        "title": "Không có dự án nào phù hợp với bộ lọc hiện tại.",
+        "description": "Hãy thử mở rộng từ khóa hoặc đặt lại bộ lọc trạng thái.",
+        "createFirst": "Tạo dự án đầu tiên"
+      },
+      "toasts": { "archived": "Đã lưu trữ dự án.", "restored": "Đã khôi phục dự án." }
+    },
+    "table": {
+      "title": "Danh sách dự án",
+      "description": "Theo dõi tên dự án, bộ sưu tập và vòng đời xuất bản trên cùng một bảng.",
+      "columns": {
+        "project": "Dự án",
+        "cover": "Ảnh bìa",
+        "gallery": "Bộ sưu tập",
+        "publish": "Xuất bản",
+        "status": "Trạng thái",
+        "updated": "Cập nhật",
+        "actions": "Thao tác"
+      },
+      "actions": { "edit": "Chỉnh sửa", "restore": "Khôi phục", "delete": "Xóa" },
+      "dialogs": {
+        "deleteTitle": "Xóa {name}?",
+        "restoreTitle": "Khôi phục {name}?",
+        "deleteDescription": "Thao tác này sẽ lưu trữ dự án tạm thời. Bạn có thể khôi phục lại sau.",
+        "restoreDescription": "Thao tác này sẽ đưa dự án đã lưu trữ trở lại danh sách đang hoạt động.",
+        "deleteConfirm": "Xóa dự án",
+        "restoreConfirm": "Khôi phục dự án",
+        "selected": "Dự án đang chọn"
+      }
+    },
+    "create": {
+      "eyebrow": "Tạo dự án",
+      "title": "Tạo câu chuyện dự án mới",
+      "description": "Thiết lập thông tin chính trước, sau đó hoàn thiện nội dung trong trình biên tập bên dưới.",
+      "confirm": {
+        "title": "Bỏ dự án mới này?",
+        "description": "Biểu mẫu sẽ được xóa và bạn sẽ quay lại danh sách dự án.",
+        "confirmLabel": "Bỏ"
+      },
+      "loading": { "title": "Đang tải biểu mẫu dự án", "description": "Đang chuẩn bị bộ sưu tập và các thành phần cần thiết cho trình biên tập." },
+      "errorTitle": "Không thể khởi tạo biểu mẫu này",
+      "empty": {
+        "eyebrow": "Dự án",
+        "title": "Hãy tạo bộ sưu tập trước.",
+        "description": "Dự án bắt buộc phải thuộc một bộ sưu tập đang hoạt động. Hãy tạo ít nhất một bộ sưu tập trước khi tạo dự án."
+      },
+      "submitLabel": "Tạo dự án",
+      "formDescription": "Luồng tạo mới vẫn giữ nguyên contract backend hiện tại và cung cấp không gian biên tập rộng rãi hơn.",
+      "toasts": { "created": "Tạo dự án thành công." }
+    },
+    "edit": {
+      "eyebrow": "Chỉnh sửa dự án",
+      "title": "Cập nhật nội dung và tài nguyên dự án",
+      "description": "Xem nhanh thông tin chính, sau đó tiếp tục chỉnh sửa câu chuyện trong không gian biên tập đầy đủ.",
+      "confirm": {
+        "title": "Bỏ các thay đổi này?",
+        "description": "Mọi chỉnh sửa chưa lưu sẽ bị mất.",
+        "confirmLabel": "Bỏ"
+      },
+      "loading": { "title": "Đang tải dự án", "description": "Đang lấy bản ghi dự án và các bộ sưu tập đang hoạt động." },
+      "errorTitle": "Không thể tải dự án này",
+      "notFound": "Không tìm thấy dự án.",
+      "submitLabel": "Lưu thay đổi",
+      "formDescription": "Luồng chỉnh sửa vẫn giữ nguyên semantics hiện tại của dự án và giúp khu vực biên tập dễ quan sát hơn.",
+      "toasts": { "updated": "Cập nhật dự án thành công." }
+    },
+    "detail": {
+      "eyebrow": "Chi tiết dự án",
+      "title": "Xem câu chuyện dự án.",
+      "description": "Kiểm tra ảnh bìa, tên đa ngôn ngữ, trạng thái xuất bản và nội dung đã lưu trước khi chỉnh sửa.",
+      "actions": { "edit": "Chỉnh sửa", "restore": "Khôi phục", "delete": "Xóa" },
+      "loading": { "title": "Đang tải dự án", "description": "Đang lấy bản ghi dự án đã chọn." },
+      "errorTitle": "Không thể tải dự án này",
+      "notFound": "Không tìm thấy dự án.",
+      "dialogs": { "deleteTitle": "Xóa {name}?", "restoreTitle": "Khôi phục {name}?", "deleteDescription": "Thao tác này sẽ lưu trữ dự án tạm thời. Bạn có thể khôi phục lại sau.", "restoreDescription": "Thao tác này sẽ đưa dự án đã lưu trữ trở lại danh sách đang hoạt động.", "deleteConfirm": "Xóa dự án", "restoreConfirm": "Khôi phục dự án" },
+      "story": {
+        "eyebrow": "Tài liệu câu chuyện",
+        "title": "Nội dung đã lưu",
+        "description": "Đây là bản xem chỉ đọc của tài liệu dự án đã lưu, khớp với model editor và payload backend hiện tại.",
+        "readonly": "Chế độ chỉ đọc",
+        "blocks": "{count} blocks",
+        "updated": "Cập nhật {date}",
+        "state": "Trạng thái tài liệu: {state}. Nội dung đang được hiển thị đúng theo dữ liệu đã lưu.",
+        "stateArchived": "bản ghi đã lưu trữ",
+        "stateActive": "bản ghi đang hoạt động"
+      },
+      "toasts": { "archived": "Đã lưu trữ dự án.", "restored": "Đã khôi phục dự án." }
+    },
+    "detailCard": {
+      "assetContext": "Thông tin tài nguyên",
+      "fileFormat": "Định dạng tệp",
+      "fileSize": "Dung lượng",
+      "coverDescription": "Ảnh bìa được backend quản lý và tái sử dụng trên các màn hình dự án.",
+      "storyIdentity": "Định danh câu chuyện",
+      "id": "ID: {id}",
+      "gallery": "Bộ sưu tập: {name}",
+      "owner": "Người phụ trách: {name}",
+      "updated": "Cập nhật {date}",
+      "multilingualTitles": "Tiêu đề đa ngôn ngữ",
+      "english": "Tiếng Anh",
+      "vietnamese": "Tiếng Việt",
+      "chinese": "Tiếng Trung",
+      "adminMetadata": "Thông tin quản trị",
+      "createdBy": "Tạo bởi",
+      "galleryContext": "Ngữ cảnh bộ sưu tập",
+      "galleryContextAvailable": "Câu chuyện này đang được nhóm trong bộ sưu tập này.",
+      "galleryContextMissing": "Tham chiếu bộ sưu tập gốc không còn sau quá trình dọn dữ liệu lưu trữ.",
+      "timeline": "Mốc thời gian",
+      "createdAt": "Tạo lúc",
+      "updatedAt": "Cập nhật lúc",
+      "lifecycle": { "title": "Vòng đời", "archivedOn": "Lưu trữ vào {date}", "active": "Bản ghi hoạt động", "inactive": "Bản ghi tạm dừng", "notDeleted": "Chưa xóa" }
+    },
+    "form": {
+      "sections": {
+        "metadata": { "eyebrow": "Thông tin dự án", "title": "Thông tin chính và ảnh bìa", "description": "Giữ bản ghi gọn gàng, dễ rà soát trước khi vào trình biên tập nội dung.", "createChip": "Luồng tạo mới vẫn giữ nguyên contract payload.", "editChip": "Luồng chỉnh sửa vẫn giữ nguyên semantics hiện tại của dự án." },
+        "story": { "eyebrow": "Nội dung câu chuyện", "title": "Xây dựng câu chuyện đầy đủ", "description": "Thêm văn bản, video YouTube nhúng và các bố cục media. Ảnh mới vẫn được tải lên trước và gửi bằng upload token.", "chip": "Trình biên tập toàn chiều rộng để viết và dàn bố cục mượt hơn." }
+      },
+      "fields": {
+        "gallery": "Bộ sưu tập",
+        "namesEyebrow": "Tên",
+        "localizedTitle": "Đặt tên đa ngôn ngữ",
+        "localizedDescription": "Căn chỉnh tên dự án ở tiếng Anh, tiếng Việt và tiếng Trung trước khi xuất bản.",
+        "projectName": "Tên dự án",
+        "placeholders": { "en": "Spring Romance", "vi": "Tình yêu mùa xuân", "cn": "春日恋曲" },
+        "publishingState": "Trạng thái xuất bản",
+        "publishOptions": {
+          "draft": { "label": "Bản nháp", "description": "Chỉ hiển thị trong khu vực quản trị cho đến khi bạn xuất bản" },
+          "published": { "label": "Đã xuất bản", "description": "Sẵn sàng hiển thị trên các bề mặt dành cho khách hàng" }
+        },
+        "cover": "Ảnh bìa",
+        "coverCreateHint": "Tải ảnh bìa chính trước khi lưu. Việc thay thế vẫn dùng luồng upload-token hiện tại.",
+        "coverEditHint": "Giữ ảnh hiện tại hoặc thay ảnh mới mà không làm thay đổi hành vi cập nhật dự án."
+      },
+      "actions": { "saving": "Đang lưu..." },
+      "errors": {
+        "coverUploadFailed": "Không thể tải ảnh bìa. Vui lòng thử lại.",
+        "galleryRequired": "Hãy chọn bộ sưu tập cho dự án này.",
+        "nameEnRequired": "Bắt buộc nhập tên tiếng Anh.",
+        "nameViRequired": "Bắt buộc nhập tên tiếng Việt.",
+        "nameCnRequired": "Bắt buộc nhập tên tiếng Trung.",
+        "coverRequired": "Cần tải ảnh bìa dự án trước khi lưu."
+      },
+      "editor": { "loading": "Đang tải trình biên tập" }
+    },
+    "editor": {
+      "loading": "Đang tải trình biên tập",
+      "bootError": "Không thể khởi động trình biên tập nội dung. Vui lòng tải lại và thử lại.",
+      "bootErrorWithMessage": "Không thể khởi động trình biên tập nội dung. {message}",
+      "youtubeTitle": "Video YouTube",
+      "mediaAlt": "Media dự án"
+    }
+  },
+  "packages": {
+    "badges": { "archived": "Đã lưu trữ", "active": "Đang hoạt động", "inactive": "Tạm dừng" },
+    "coverField": {
+      "coverAlt": "Ảnh bìa gói dịch vụ",
+      "title": "Ảnh bìa gói dịch vụ",
+      "requiredHint": "Tải ảnh bìa trước khi phát hành gói dịch vụ này.",
+      "optionalHint": "Tải ảnh bìa để bản xem trước gói dịch vụ hiển thị rõ ràng hơn.",
+      "replace": "Thay ảnh",
+      "upload": "Tải ảnh",
+      "remove": "Xóa ảnh",
+      "uploading": "Đang tải..."
+    },
+    "currencySelect": {
+      "searchPlaceholder": "Tìm quốc gia hoặc tiền tệ",
+      "clearSearch": "Xóa tìm kiếm tiền tệ",
+      "empty": "Không có lựa chọn tiền tệ nào phù hợp với từ khóa."
+    },
+    "list": {
+      "eyebrow": "Gói dịch vụ",
+      "title": "Quản lý danh sách gói dịch vụ.",
+      "description": "Tổ chức các gói dịch vụ đa ngôn ngữ với giá, ảnh bìa và trạng thái vòng đời.",
+      "meta": { "adminOnly": "Chỉ dành cho quản trị viên" },
+      "actions": { "create": "Tạo gói dịch vụ", "retry": "Thử lại", "previous": "Trang trước", "next": "Trang sau" },
+      "filters": {
+        "quick": "Bộ lọc nhanh",
+        "searchLabel": "Từ khóa tìm kiếm",
+        "searchPlaceholder": "Tìm theo tên gói dịch vụ",
+        "status": "Trạng thái",
+        "statusAll": "Tất cả gói dịch vụ",
+        "statusActive": "Chỉ đang hoạt động",
+        "statusInactive": "Chỉ tạm dừng",
+        "pageSize": "Số dòng mỗi trang",
+        "perPage": "{value} dòng"
+      },
+      "loading": { "title": "Đang tải gói dịch vụ", "description": "Đang chuẩn bị danh sách gói dịch vụ mới nhất và kết quả lọc." },
+      "errors": { "load": "Không thể tải danh sách gói dịch vụ" },
+      "pagination": { "summary": "Trang {page}/{totalPages}. Tổng gói dịch vụ: {total}.", "updating": "Đang cập nhật..." },
+      "empty": {
+        "title": "Không có gói dịch vụ nào phù hợp với bộ lọc hiện tại.",
+        "description": "Hãy thử mở rộng từ khóa hoặc đổi bộ lọc trạng thái.",
+        "createFirst": "Tạo gói dịch vụ đầu tiên"
+      },
+      "toasts": { "archived": "Đã lưu trữ gói dịch vụ.", "restored": "Đã khôi phục gói dịch vụ." }
+    },
+    "table": {
+      "title": "Danh sách gói dịch vụ",
+      "description": "Tên, ảnh bìa, nội dung gói và trạng thái được hiển thị trong cùng một bảng.",
+      "columns": {
+        "package": "Gói dịch vụ",
+        "cover": "Ảnh bìa",
+        "bestFor": "Phù hợp với",
+        "offer": "Nội dung gói",
+        "status": "Trạng thái",
+        "updated": "Cập nhật",
+        "actions": "Thao tác"
+      },
+      "offerPhotos": "{count} ảnh",
+      "actions": { "edit": "Chỉnh sửa", "restore": "Khôi phục", "delete": "Xóa" },
+      "dialogs": {
+        "deleteTitle": "Xóa {name}?",
+        "restoreTitle": "Khôi phục {name}?",
+        "deleteDescription": "Thao tác này sẽ lưu trữ gói dịch vụ. Bạn có thể khôi phục lại sau nếu cần.",
+        "restoreDescription": "Thao tác này sẽ đưa gói dịch vụ đã lưu trữ trở lại danh sách đang hoạt động.",
+        "deleteConfirm": "Xóa gói dịch vụ",
+        "restoreConfirm": "Khôi phục gói dịch vụ",
+        "selected": "Gói dịch vụ đang chọn"
+      }
+    },
+    "create": {
+      "eyebrow": "Tạo gói dịch vụ",
+      "title": "Tạo gói dịch vụ mới.",
+      "description": "Thêm nội dung đa ngôn ngữ, thông tin gói và ảnh bìa để hoàn thiện hồ sơ gói dịch vụ.",
+      "confirm": {
+        "title": "Bỏ gói dịch vụ mới này?",
+        "description": "Biểu mẫu sẽ được xóa và bạn sẽ quay lại danh sách gói dịch vụ.",
+        "confirmLabel": "Bỏ"
+      },
+      "submitLabel": "Tạo gói dịch vụ",
+      "formDescription": "Tất cả tên và mô tả phù hợp theo từng ngôn ngữ đều là bắt buộc theo contract backend.",
+      "toasts": { "created": "Tạo gói dịch vụ thành công." }
+    },
+    "edit": {
+      "eyebrow": "Chỉnh sửa gói dịch vụ",
+      "title": "Cập nhật thông tin gói dịch vụ.",
+      "description": "Điều chỉnh nội dung đa ngôn ngữ, thông tin gói và ảnh bìa mà vẫn giữ nguyên bản ghi gói dịch vụ.",
+      "confirm": {
+        "title": "Bỏ các thay đổi này?",
+        "description": "Mọi chỉnh sửa chưa lưu sẽ bị mất.",
+        "confirmLabel": "Bỏ"
+      },
+      "loading": { "title": "Đang tải gói dịch vụ", "description": "Đang lấy bản ghi gói dịch vụ hiện tại." },
+      "errorTitle": "Không thể tải gói dịch vụ này",
+      "notFound": "Không tìm thấy gói dịch vụ.",
+      "submitLabel": "Lưu thay đổi",
+      "formDescription": "Việc cập nhật vẫn giữ nguyên ID và lịch sử vòng đời của gói dịch vụ.",
+      "toasts": { "updated": "Cập nhật gói dịch vụ thành công." }
+    },
+    "detail": {
+      "eyebrow": "Chi tiết gói dịch vụ",
+      "title": "Xem chi tiết gói dịch vụ.",
+      "description": "Kiểm tra nội dung đa ngôn ngữ, thông tin gói chính và trạng thái trước khi chỉnh sửa.",
+      "actions": { "edit": "Chỉnh sửa", "restore": "Khôi phục", "delete": "Xóa" },
+      "loading": { "title": "Đang tải gói dịch vụ", "description": "Đang lấy bản ghi gói dịch vụ đã chọn." },
+      "errorTitle": "Không thể tải gói dịch vụ này",
+      "notFound": "Không tìm thấy gói dịch vụ.",
+      "dialogs": {
+        "deleteTitle": "Xóa {name}?",
+        "restoreTitle": "Khôi phục {name}?",
+        "deleteDescription": "Thao tác này sẽ lưu trữ gói dịch vụ tạm thời. Bạn có thể khôi phục lại sau nếu cần.",
+        "restoreDescription": "Thao tác này sẽ đưa gói dịch vụ đã lưu trữ trở lại danh sách đang hoạt động.",
+        "deleteConfirm": "Xóa gói dịch vụ",
+        "restoreConfirm": "Khôi phục gói dịch vụ"
+      },
+      "toasts": { "archived": "Đã lưu trữ gói dịch vụ.", "restored": "Đã khôi phục gói dịch vụ." }
+    },
+    "detailCard": {
+      "assetInfo": "Thông tin tệp",
+      "fileFormat": "Định dạng tệp",
+      "fileSize": "Dung lượng",
+      "englishName": "Tên tiếng Anh",
+      "coreOfferInfo": "Thông tin gói chính",
+      "vietnameseName": "Tên tiếng Việt",
+      "chineseName": "Tên tiếng Trung",
+      "bestFor": "Phù hợp với",
+      "english": "Tiếng Anh",
+      "vietnamese": "Tiếng Việt",
+      "chinese": "Tiếng Trung",
+      "duration": "Thời lượng",
+      "photoCount": "Số ảnh",
+      "pricing": "Giá",
+      "metaInfo": "Thông tin bổ sung",
+      "createdBy": "Người tạo",
+      "timeline": "Mốc thời gian",
+      "created": "Tạo lúc",
+      "updated": "Cập nhật lúc"
+    },
+    "form": {
+      "locales": {
+        "en": {
+          "label": "Tiếng Anh",
+          "short": "EN",
+          "namePlaceholder": "Classic portrait session",
+          "bestForPlaceholder": "For couples who want timeless portrait imagery with subtle editorial direction."
+        },
+        "vi": {
+          "label": "Tiếng Việt",
+          "short": "VI",
+          "namePlaceholder": "Gói chụp chân dung cổ điển",
+          "bestForPlaceholder": "Phù hợp với các cặp đôi muốn sở hữu bộ ảnh chân dung tinh tế theo phong cách biên tập."
+        },
+        "cn": {
+          "label": "Tiếng Trung",
+          "short": "CN",
+          "namePlaceholder": "经典肖像拍摄套餐",
+          "bestForPlaceholder": "适合希望获得精致编辑风格肖像作品的情侣。"
+        }
+      },
+      "localeEditor": {
+        "packageNames": "Tên gói dịch vụ",
+        "bestFor": "Mô tả phù hợp",
+        "namesDescription": "Mỗi ngôn ngữ đều là bắt buộc và nên tuân theo một cách đặt tên nhất quán.",
+        "bestForDescription": "Mô tả đối tượng phù hợp cho từng ngôn ngữ.",
+        "ready": "{count}/3 đã hoàn tất",
+        "localeLabel": "Đang chỉnh sửa: {locale}"
+      },
+      "sections": {
+        "packageDetails": {
+          "eyebrow": "Hồ sơ gói dịch vụ",
+          "title": "Thông tin đa ngôn ngữ",
+          "description": "Hoàn tất tên và mô tả phù hợp ở tất cả ngôn ngữ bắt buộc trước khi lưu."
+        },
+        "names": {
+          "eyebrow": "Tên",
+          "title": "Tên gói dịch vụ đa ngôn ngữ",
+          "description": "Đặt tên ngắn gọn nhưng vẫn thể hiện rõ định vị của gói dịch vụ.",
+          "fieldLabel": "Tên gói dịch vụ"
+        },
+        "audience": {
+          "eyebrow": "Đối tượng",
+          "title": "Thông điệp phù hợp",
+          "description": "Viết một mô tả hướng đúng đối tượng cho từng ngôn ngữ.",
+          "fieldLabel": "Phù hợp với"
+        },
+        "offer": {
+          "eyebrow": "Nội dung gói",
+          "title": "Cấu hình gói dịch vụ",
+          "description": "Thiết lập thời lượng, số ảnh bao gồm và thông tin giá.",
+          "detailsTitle": "Thông tin buổi chụp",
+          "pricingTitle": "Thông tin giá"
+        },
+        "cover": {
+          "eyebrow": "Hình ảnh",
+          "title": "Ảnh bìa",
+          "createDescription": "Tải ảnh bìa thể hiện rõ tinh thần của gói dịch vụ trên trang danh sách và chi tiết.",
+          "editDescription": "Thay ảnh bìa hiện tại nếu gói dịch vụ cần làm mới định hướng hình ảnh."
+        }
+      },
+      "fields": {
+        "durationMinutes": "Thời lượng (phút)",
+        "durationPlaceholder": "ví dụ 90",
+        "durationHint": "Giá trị phải lớn hơn 0.",
+        "photoCount": "Số ảnh bao gồm",
+        "photoCountPlaceholder": "ví dụ 25",
+        "photoCountHint": "Nhập 0 nếu gói dịch vụ không bao gồm ảnh chỉnh sửa.",
+        "amount": "Số tiền",
+        "amountPlaceholder": "ví dụ 2500000",
+        "amountHint": "Chỉ nhập số, hệ thống sẽ tự định dạng.",
+        "currency": "Tiền tệ",
+        "currencyHint": "Chọn đơn vị tiền tệ giao dịch cho gói dịch vụ này."
+      },
+      "preview": {
+        "sessionPending": "Thiết lập thời lượng buổi chụp",
+        "photoPending": "Thiết lập số ảnh bao gồm",
+        "pricingPending": "Thiết lập mức giá gói dịch vụ",
+        "photos": "{count} ảnh",
+        "title": "Xem trước",
+        "coverAlt": "Xem trước ảnh bìa gói dịch vụ",
+        "uploadHint": "Tải ảnh bìa để xem trước thẻ gói dịch vụ.",
+        "nameFallback": "Tên gói dịch vụ xem trước",
+        "bestFor": "Phù hợp với",
+        "bestForFallback": "Thêm mô tả phù hợp để xem trước phần này.",
+        "duration": "Thời lượng",
+        "photoCount": "Ảnh",
+        "requestNow": "Đặt ngay"
+      },
+      "finalCheck": {
+        "title": "Kiểm tra cuối",
+        "description": "Xem lại nội dung đa ngôn ngữ và thông tin gói thêm một lần nữa trước khi gửi."
+      },
+      "actions": { "saving": "Đang lưu..." },
+      "errors": {
+        "coverUploadFailed": "Tải ảnh bìa thất bại. Vui lòng thử lại.",
+        "nameEnRequired": "Bắt buộc nhập tên gói dịch vụ tiếng Anh.",
+        "nameViRequired": "Bắt buộc nhập tên gói dịch vụ tiếng Việt.",
+        "nameCnRequired": "Bắt buộc nhập tên gói dịch vụ tiếng Trung.",
+        "bestForEnRequired": "Bắt buộc nhập mô tả phù hợp bằng tiếng Anh.",
+        "bestForViRequired": "Bắt buộc nhập mô tả phù hợp bằng tiếng Việt.",
+        "bestForCnRequired": "Bắt buộc nhập mô tả phù hợp bằng tiếng Trung.",
+        "durationInvalid": "Thời lượng phải lớn hơn 0.",
+        "photoCountInvalid": "Số ảnh phải từ 0 trở lên.",
+        "pricingAmountInvalid": "Số tiền phải từ 0 trở lên.",
+        "pricingCurrencyRequired": "Bắt buộc chọn tiền tệ.",
+        "coverRequired": "Bắt buộc có ảnh bìa khi tạo gói dịch vụ."
+      }
+    }
+  },
+  "blogs": {
+    "badges": { "archived": "Đã lưu trữ", "active": "Đang hoạt động", "inactive": "Tạm dừng", "published": "Đã xuất bản", "draft": "Bản nháp", "pinned": "Ghim", "standard": "Thường" },
+    "coverField": { "coverAlt": "Ảnh bìa bài viết", "title": "Ảnh bìa", "requiredHint": "Tải ảnh đại diện trước khi lưu bài viết.", "optionalHint": "Giữ ảnh hiện tại hoặc tải ảnh thay thế khi cần.", "replace": "Thay ảnh", "upload": "Tải ảnh", "remove": "Xóa", "uploading": "Đang tải ảnh..." },
+    "list": {
+      "eyebrow": "Bài viết",
+      "title": "Quản lý bài viết biên tập.",
+      "description": "Quản lý bài viết, mức ưu tiên hiển thị và vòng đời xuất bản một cách gọn gàng hơn.",
+      "meta": { "adminOnly": "Chỉ dành cho quản trị viên" },
+      "actions": { "create": "Tạo bài viết", "retry": "Thử lại", "previous": "Trang trước", "next": "Trang sau" },
+      "filters": { "quick": "Bộ lọc nhanh", "searchLabel": "Từ khóa", "searchPlaceholder": "Tìm theo tiêu đề", "status": "Trạng thái", "statusAll": "Tất cả", "statusActive": "Đang hoạt động", "statusInactive": "Tạm dừng", "publication": "Xuất bản", "publishAll": "Tất cả trạng thái xuất bản", "publishPublished": "Đã xuất bản", "publishDraft": "Bản nháp", "pinState": "Ghim", "pinAll": "Tất cả", "pinPinned": "Đã ghim", "pinStandard": "Thường", "pageSize": "Số dòng", "perPage": "{value} dòng" },
+      "loading": { "title": "Đang tải bài viết", "description": "Đang chuẩn bị danh sách bài viết và bộ lọc hiện tại." },
+      "errors": { "load": "Không thể tải danh sách bài viết" },
+      "pagination": { "summary": "Trang {page}/{totalPages}. Tổng: {total}.", "updating": "Đang cập nhật..." },
+      "empty": { "title": "Không có bài viết nào phù hợp với bộ lọc.", "description": "Hãy thử mở rộng từ khóa hoặc giảm bớt bộ lọc.", "createFirst": "Tạo bài viết đầu tiên" },
+      "toasts": { "archived": "Đã lưu trữ bài viết.", "restored": "Đã khôi phục bài viết." }
+    },
+    "table": {
+      "title": "Danh sách bài viết",
+      "description": "Theo dõi nhận diện bài viết, mức ưu tiên hiển thị và vòng đời trong cùng một bảng.",
+      "columns": { "blog": "Bài viết", "cover": "Ảnh bìa", "pin": "Ghim", "publish": "Xuất bản", "status": "Trạng thái", "updated": "Cập nhật", "actions": "Thao tác" },
+      "by": "Bởi {name}",
+      "actions": { "edit": "Chỉnh sửa", "restore": "Khôi phục", "delete": "Xóa" },
+      "dialogs": { "deleteTitle": "Xóa {name}?", "restoreTitle": "Khôi phục {name}?", "deleteDescription": "Thao tác này sẽ lưu trữ bài viết tạm thời.", "restoreDescription": "Thao tác này sẽ khôi phục bài viết về thư viện đang hoạt động.", "deleteConfirm": "Xóa bài viết", "restoreConfirm": "Khôi phục bài viết", "selected": "Bài viết đang chọn" }
+    },
+    "create": { "eyebrow": "Tạo bài viết", "title": "Tạo bài viết mới", "description": "Thiết lập thông tin chính trước, sau đó hoàn thiện nội dung trong trình biên tập.", "confirm": { "title": "Bỏ bài viết mới này?", "description": "Biểu mẫu sẽ được xóa và bạn sẽ quay lại danh sách.", "confirmLabel": "Bỏ" }, "submitLabel": "Tạo bài viết", "formDescription": "Luồng tạo mới vẫn giữ nguyên contract backend và cho không gian biên tập rộng rãi hơn.", "toasts": { "created": "Tạo bài viết thành công." } },
+    "edit": { "eyebrow": "Chỉnh sửa bài viết", "title": "Cập nhật bài viết", "description": "Xem nhanh thông tin chính rồi tiếp tục chỉnh sửa nội dung trong không gian làm việc đầy đủ.", "confirm": { "title": "Bỏ thay đổi?", "description": "Mọi chỉnh sửa chưa lưu sẽ bị mất.", "confirmLabel": "Bỏ" }, "loading": { "title": "Đang tải bài viết", "description": "Đang lấy dữ liệu bài viết hiện tại." }, "errorTitle": "Không thể tải bài viết này", "notFound": "Không tìm thấy bài viết.", "submitLabel": "Lưu thay đổi", "formDescription": "Luồng chỉnh sửa giữ nguyên semantics hiện tại của bài viết và giúp khu vực biên tập dễ sử dụng hơn.", "toasts": { "updated": "Cập nhật bài viết thành công." } },
+    "detail": {
+      "eyebrow": "Chi tiết bài viết",
+      "title": "Xem bài viết biên tập.",
+      "description": "Kiểm tra ảnh bìa, mức ưu tiên hiển thị và nội dung đã lưu trước khi thay đổi.",
+      "actions": { "edit": "Chỉnh sửa", "restore": "Khôi phục", "delete": "Xóa" },
+      "loading": { "title": "Đang tải bài viết", "description": "Đang lấy bài viết đã chọn." },
+      "errorTitle": "Không thể tải bài viết này",
+      "notFound": "Không tìm thấy bài viết.",
+      "dialogs": { "deleteTitle": "Xóa {name}?", "restoreTitle": "Khôi phục {name}?", "deleteDescription": "Thao tác này sẽ lưu trữ bài viết tạm thời.", "restoreDescription": "Thao tác này sẽ đưa bài viết trở lại thư viện đang hoạt động.", "deleteConfirm": "Xóa bài viết", "restoreConfirm": "Khôi phục bài viết" },
+      "document": { "eyebrow": "Tài liệu biên tập", "title": "Nội dung bài viết đã lưu", "description": "Đây là bản xem chỉ đọc của nội dung bài viết đã lưu.", "readonly": "Chế độ chỉ đọc", "blocks": "{count} blocks", "updated": "Cập nhật {date}", "state": "Trạng thái tài liệu: {state}.", "stateArchived": "bản ghi đã lưu trữ", "stateActive": "bản ghi hoạt động" },
+      "toasts": { "archived": "Đã lưu trữ bài viết.", "restored": "Đã khôi phục bài viết." }
+    },
+    "detailCard": {
+      "coverAsset": "Thông tin ảnh bìa",
+      "fileFormat": "Định dạng tệp",
+      "fileSize": "Dung lượng",
+      "coverDescription": "Ảnh bìa được backend quản lý và tái sử dụng ở danh sách và trang chi tiết.",
+      "editorialIdentity": "Thông tin biên tập",
+      "id": "ID: {id}",
+      "owner": "Người phụ trách: {name}",
+      "updated": "Cập nhật {date}",
+      "editorialState": "Trạng thái biên tập",
+      "placement": { "title": "Vị trí", "pinned": "Nổi bật đã ghim", "standard": "Vị trí thông thường", "pinnedDescription": "Bài ghim luôn được ưu tiên hiển thị phía trên.", "standardDescription": "Sắp xếp theo dòng thời gian mặc định." },
+      "publication": { "title": "Xuất bản", "published": "Đã xuất bản", "draft": "Bản nháp", "publishedDescription": "Hiển thị trên bề mặt công khai.", "draftDescription": "Chỉ hiển thị trong khu vực quản trị trước khi xuất bản." },
+      "adminMetadata": "Thông tin quản trị",
+      "createdBy": "Tạo bởi",
+      "recordState": { "title": "Trạng thái bản ghi", "active": "Hoạt động", "inactive": "Tạm dừng", "description": "Bạn có thể lưu trữ và khôi phục bản ghi tại đây." },
+      "timeline": "Mốc thời gian",
+      "createdAt": "Tạo lúc",
+      "updatedAt": "Cập nhật lúc",
+      "lifecycle": { "title": "Vòng đời", "archivedOn": "Lưu trữ vào {date}", "active": "Bản ghi hoạt động", "inactive": "Bản ghi tạm dừng", "notDeleted": "Chưa xóa" }
+    },
+    "form": {
+      "sections": { "metadata": { "eyebrow": "Thông tin bài viết", "title": "Thông tin chính và ảnh bìa", "description": "Giữ bản ghi gọn gàng trước khi vào khu vực viết bài.", "createChip": "Luồng tạo mới vẫn giữ nguyên payload backend.", "editChip": "Luồng chỉnh sửa vẫn giữ nguyên semantics hiện tại của bài viết." }, "content": { "eyebrow": "Nội dung bài viết", "title": "Xây dựng bài viết đầy đủ", "description": "Thêm văn bản, video YouTube nhúng và các khối bố cục media.", "chip": "Trình biên tập toàn chiều rộng để viết, dàn bố cục và sắp xếp ảnh." } },
+      "fields": {
+        "title": "Tiêu đề bài viết",
+        "titlePlaceholder": "Studio notes from a mountain wedding",
+        "publishingState": "Trạng thái xuất bản",
+        "pinnedState": "Trạng thái ghim",
+        "cover": "Ảnh bìa",
+        "coverCreateHint": "Tải ảnh đại diện trước khi lưu.",
+        "coverEditHint": "Giữ ảnh hiện tại hoặc thay ảnh khi cần.",
+        "publishOptions": { "draft": { "label": "Bản nháp", "description": "Chỉ hiển thị trong khu vực quản trị" }, "published": { "label": "Đã xuất bản", "description": "Sẵn sàng hiển thị công khai" } },
+        "pinOptions": { "standard": { "label": "Thường", "description": "Sắp xếp tự nhiên theo timeline" }, "pinned": { "label": "Đã ghim", "description": "Luôn ưu tiên trên cùng" } }
+      },
+      "actions": { "saving": "Đang lưu..." },
+      "errors": { "coverUploadFailed": "Không thể tải ảnh bìa. Vui lòng thử lại.", "titleRequired": "Bắt buộc nhập tiêu đề bài viết.", "coverRequired": "Cần tải ảnh bìa bài viết trước khi lưu." }
+    },
+    "editor": { "loading": "Đang tải trình biên tập", "bootError": "Không thể khởi động trình biên tập. Vui lòng tải lại.", "bootErrorWithMessage": "Không thể khởi động trình biên tập. {message}", "youtubeTitle": "Video YouTube", "mediaTitle": "Media bài viết", "mediaAlt": "Media bài viết" }
+  },
+  "orders": {
+    "badges": { "cancelled": "Đã hủy", "completed": "Hoàn thành", "confirmed": "Đã xác nhận", "contacted": "Đã liên hệ", "pending": "Đang chờ", "paid": "Đã thanh toán", "refunded": "Đã hoàn tiền", "partiallyPaid": "Thanh toán một phần", "unpaid": "Chưa thanh toán" },
+    "list": {
+      "eyebrow": "Đơn hàng",
+      "title": "Quản lý yêu cầu đặt lịch và xử lý đơn hàng.",
+      "description": "Theo dõi yêu cầu, tiến trình thanh toán và cập nhật vòng đời trong một hàng đợi.",
+      "actions": { "retry": "Thử lại", "previous": "Trang trước", "next": "Trang sau", "resetFilters": "Đặt lại bộ lọc" },
+      "filters": { "quick": "Bộ lọc nhanh", "searchLabel": "Từ khóa", "searchPlaceholder": "Mã đơn, tên khách hàng hoặc email", "status": "Trạng thái", "statusAll": "Tất cả", "statusPending": "Đang chờ", "statusContacted": "Đã liên hệ", "statusConfirmed": "Đã xác nhận", "statusCompleted": "Hoàn thành", "statusCancelled": "Đã hủy", "paymentStatus": "Trạng thái thanh toán", "paymentAll": "Tất cả", "paymentUnpaid": "Chưa thanh toán", "paymentPartiallyPaid": "Thanh toán một phần", "paymentPaid": "Đã thanh toán", "paymentRefunded": "Đã hoàn tiền", "discoverySource": "Nguồn biết đến", "discoveryAll": "Tất cả", "discoveryInstagram": "Instagram", "discoveryFacebook": "Facebook", "discoveryTiktok": "TikTok", "discoveryGoogle": "Google", "discoveryFriend": "Bạn bè", "discoveryOther": "Khác", "pageSize": "Số dòng", "perPage": "{value} dòng" },
+      "loading": { "title": "Đang tải đơn hàng", "description": "Đang chuẩn bị các bản ghi đơn hàng mới nhất và bộ lọc hiện tại." },
+      "errors": { "load": "Không thể tải danh sách đơn hàng" },
+      "pagination": { "summary": "Trang {page}/{totalPages}. Tổng đơn hàng: {total}", "updating": "Đang cập nhật..." },
+      "empty": { "title": "Không có đơn hàng nào phù hợp với bộ lọc.", "description": "Hãy thử xóa bớt một vài bộ lọc để hiển thị thêm yêu cầu." }
+    },
+    "table": { "title": "Danh sách đơn hàng", "description": "Theo dõi vòng đời yêu cầu và tiến trình thanh toán trên cùng một màn hình.", "columns": { "order": "Đơn hàng", "customer": "Khách hàng", "source": "Nguồn", "item": "Hạng mục", "lifecycle": "Vòng đời" }, "na": "Không có", "item": { "package": "Gói dịch vụ", "custom": "Tùy chỉnh", "noItem": "Không có hạng mục", "budget": "Ngân sách", "snapshotMissing": "Thiếu snapshot", "noItemSnapshot": "Không có snapshot hạng mục" } },
+    "detail": { "eyebrow": "Chi tiết đơn hàng", "title": "Xem yêu cầu đơn hàng này.", "description": "Xem thông tin khách hàng, snapshot hạng mục và cập nhật trạng thái trong cùng một nơi.", "descriptionWithCustomer": "Khách hàng: {customer} · Giữ đồng bộ vòng đời và thanh toán.", "actions": { "refresh": "Làm mới" }, "loading": { "title": "Đang tải đơn hàng", "description": "Đang lấy chi tiết đơn hàng và trạng thái mới nhất." }, "errorTitle": "Không thể tải đơn hàng này", "notFound": "Không tìm thấy đơn hàng." },
+    "detailCard": { "na": "Không có", "identity": { "eyebrow": "Định danh đơn hàng", "description": "Giữ đồng bộ vòng đời và tiến trình thanh toán trước khi chốt bàn giao." }, "currentCondition": { "title": "Tình trạng hiện tại", "description": "Đơn hàng hiện đang ở trạng thái {status} và thanh toán ở mức {payment}.", "hint": "Dùng bảng hành động bên dưới để áp dụng bước chuyển trạng thái hợp lệ tiếp theo." }, "requestedItem": { "title": "Hạng mục yêu cầu", "subtitle": "Snapshot đặt lịch và giá", "empty": "Đơn hàng này chưa có snapshot hạng mục." }, "item": { "packageItem": "Hạng mục gói dịch vụ", "customItem": "Hạng mục tùy chỉnh", "package": "Gói dịch vụ", "galleryLabel": "Bộ sưu tập", "gallery": "Bộ sưu tập: {name}", "durationMinutes": "{count} phút", "durationNa": "Không có thời lượng", "photoCount": "{count} ảnh", "photoCountNa": "Không có số ảnh", "pricing": "Giá", "canonicalPricing": "Giá chuẩn của đơn hàng", "customDescription": "Yêu cầu tùy chỉnh trong bộ sưu tập này.", "budget": "Ngân sách", "confirmedBudget": "Ngân sách tùy chỉnh đã xác nhận" }, "metadata": { "title": "Thông tin quản trị", "discoverySource": "Nguồn biết đến", "created": "Tạo", "updated": "Cập nhật" }, "story": { "title": "Câu chuyện cá nhân", "long": "Ghi chú dài", "short": "Ghi chú ngắn", "empty": "Chưa có nội dung câu chuyện." } },
+    "updatePanel": { "eyebrow": "Thao tác vòng đời", "description": "Xem trạng thái hiện tại, chọn bước chuyển trạng thái hợp lệ tiếp theo và lưu cập nhật.", "current": "Hiện tại", "selected": "Đã chọn", "orderStatus": "Trạng thái đơn hàng", "paymentStatus": "Trạng thái thanh toán", "invalidPaymentSelection": "Không có trạng thái thanh toán hợp lệ cho trạng thái đã chọn.", "applyChange": "Sẽ áp dụng: {status} và {payment}.", "noPendingChange": "Chưa có thay đổi nào để lưu. Hãy chọn trạng thái mới.", "noChange": "Không phát hiện thay đổi. Hãy chọn trạng thái mới.", "updated": "Cập nhật đơn hàng thành công.", "actions": { "saving": "Đang lưu...", "save": "Lưu cập nhật đơn hàng" } },
+    "publicRequest": { "eyebrow": "Yêu cầu đơn hàng", "title": "Bắt đầu gửi yêu cầu.", "description": "Gửi yêu cầu trước, sau đó xác nhận qua email để tạo đơn hàng thực tế.", "footer": { "confirmLink": "Đã có token? Xác nhận yêu cầu" }, "success": "Đã gửi email xác nhận. Mở email và xác nhận để hoàn tất tạo đơn hàng.", "packageOption": "{photos} ảnh · {minutes} phút", "fields": { "requestType": "Loại yêu cầu", "modePackage": "Yêu cầu gói dịch vụ", "modeCustom": "Yêu cầu tùy chỉnh", "fullName": "Họ và tên", "fullNamePlaceholder": "Nguyễn Văn A", "email": "Email", "emailPlaceholder": "customer@example.com", "country": "Quốc gia", "gallery": "Bộ sưu tập", "loadingGalleries": "Đang tải bộ sưu tập...", "selectGallery": "Chọn bộ sưu tập", "package": "Gói dịch vụ", "loadingPackages": "Đang tải gói dịch vụ...", "selectPackage": "Chọn gói dịch vụ", "budgetAmount": "Số tiền ngân sách", "budgetAmountPlaceholder": "2500000", "budgetCurrency": "Tiền tệ ngân sách", "budgetCurrencyPlaceholder": "VND", "discoverySource": "Bạn biết đến chúng tôi qua đâu?", "discoveryPlaceholder": "facebook", "personalStory": "Câu chuyện cá nhân", "personalStoryPlaceholder": "Hãy cho chúng tôi biết điều bạn muốn lưu giữ..." }, "errors": { "nameRequired": "Bắt buộc nhập tên.", "emailRequired": "Bắt buộc nhập email.", "emailInvalid": "Hãy nhập email hợp lệ.", "galleryRequired": "Bắt buộc chọn bộ sưu tập.", "discoveryRequired": "Bắt buộc nhập nguồn biết đến.", "storyRequired": "Bắt buộc nhập câu chuyện cá nhân.", "packageRequired": "Bắt buộc chọn gói dịch vụ cho loại yêu cầu này.", "budgetAmountInvalid": "Số tiền ngân sách phải lớn hơn 0.", "budgetCurrencyRequired": "Bắt buộc nhập tiền tệ ngân sách." }, "toasts": { "submittedTitle": "Gửi yêu cầu thành công.", "submittedDescription": "Vui lòng kiểm tra email và xác nhận qua liên kết." }, "actions": { "submitting": "Đang gửi...", "submit": "Gửi yêu cầu" } },
+    "publicConfirm": { "eyebrow": "Xác nhận đơn hàng", "title": "Xác nhận yêu cầu đơn hàng.", "description": "Dùng token trong email. Lần xác nhận thành công đầu tiên sẽ tạo đơn hàng. Nếu dùng lại token, hệ thống sẽ trả về cùng trạng thái thành công.", "footer": { "backToRequest": "Quay lại biểu mẫu yêu cầu" }, "linkDetected": "Đã nhận diện liên kết xác nhận. Tiếp tục bên dưới hoặc nhập token khác.", "confirmed": "Đơn hàng {orderNumber} đã được xác nhận. Chúng tôi sẽ liên hệ qua {email}.", "fields": { "token": "Token xác nhận", "differentToken": "Token xác nhận khác", "tokenPlaceholder": "Dán token của bạn" }, "summary": { "title": "Tóm tắt đơn hàng", "orderNumber": "Mã đơn hàng: {orderNumber}", "item": "Hạng mục: {type}", "package": "Yêu cầu gói dịch vụ", "custom": "Yêu cầu tùy chỉnh", "amount": "Số tiền: {amount}" }, "errors": { "tokenRequired": "Bắt buộc nhập token xác nhận." }, "toasts": { "confirmedTitle": "Xác nhận đơn hàng thành công.", "confirmedDescription": "Nếu token này đã được dùng gần đây, hệ thống sẽ trả về cùng đơn hàng thay vì tạo trùng lặp." }, "actions": { "useLinkToken": "Dùng token từ liên kết email", "useDifferentToken": "Dùng token khác", "confirming": "Đang xác nhận...", "confirm": "Xác nhận đơn hàng" } }
+  },
+  "shared": {
+    "loading": {
+      "title": "Đang chuẩn bị giao diện",
+      "description": "Các thành phần nền tảng đang được tải vào workspace."
+    },
+    "confirmDialog": {
+      "eyebrow": "Xác nhận thao tác"
+    },
+    "countrySelect": {
+      "searchPlaceholder": "Tìm tên quốc gia hoặc mã",
+      "clearSearch": "Xóa tìm kiếm quốc gia",
+      "selected": "Đã chọn",
+      "empty": "Không có quốc gia phù hợp từ khóa tìm kiếm."
+    }
+  }
+}

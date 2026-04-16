@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useTranslations } from "next-intl";
 
 import { OrderPaymentBadge } from "@/components/orders/order-payment-badge";
 import { OrderStatusBadge } from "@/components/orders/order-status-badge";
@@ -27,6 +28,7 @@ type OrderUpdatePanelProps = {
 };
 
 export function OrderUpdatePanel({ order, onUpdated }: OrderUpdatePanelProps) {
+  const t = useTranslations("orders.updatePanel");
   const [status, setStatus] = useState<OrderStatus>(order.status);
   const [paymentStatus, setPaymentStatus] = useState<OrderPaymentStatus>(
     order.paymentStatus,
@@ -86,7 +88,7 @@ export function OrderUpdatePanel({ order, onUpdated }: OrderUpdatePanelProps) {
     event.preventDefault();
 
     if (isUnchanged) {
-      notifyError("No change detected. Select a new status or payment status.");
+      notifyError(t("noChange"));
       return;
     }
 
@@ -98,7 +100,7 @@ export function OrderUpdatePanel({ order, onUpdated }: OrderUpdatePanelProps) {
         ...(paymentStatus !== order.paymentStatus ? { paymentStatus } : {}),
       });
       onUpdated(response.data);
-      notifySuccess(response.message, "Order updated successfully.");
+      notifySuccess(response.message, t("updated"));
     } catch (error) {
       notifyError(getFriendlyOrdersError(error));
     } finally {
@@ -110,17 +112,17 @@ export function OrderUpdatePanel({ order, onUpdated }: OrderUpdatePanelProps) {
     <section className="rounded-[1.6rem] border border-[--color-brand]/25 bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(247,243,236,0.9))] p-5 shadow-[0_24px_70px_-52px_rgba(15,23,42,0.45)]">
       <div className="space-y-2">
         <p className="text-[10px] font-semibold tracking-[0.2em] text-[--color-brand-muted] uppercase">
-          Lifecycle actions
+          {t("eyebrow")}
         </p>
         <p className="text-sm leading-6 text-muted-foreground">
-          Review current state, choose the next valid transition, and save this order update.
+          {t("description")}
         </p>
       </div>
 
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         <div className="rounded-[1rem] border border-border/70 bg-white/82 p-3">
           <p className="text-[10px] font-semibold tracking-[0.16em] text-muted-foreground uppercase">
-            Current
+            {t("current")}
           </p>
           <div className="mt-2 flex flex-wrap gap-2">
             <OrderStatusBadge status={order.status} />
@@ -129,7 +131,7 @@ export function OrderUpdatePanel({ order, onUpdated }: OrderUpdatePanelProps) {
         </div>
         <div className="rounded-[1rem] border border-border/70 bg-white/82 p-3">
           <p className="text-[10px] font-semibold tracking-[0.16em] text-muted-foreground uppercase">
-            Selected
+            {t("selected")}
           </p>
           <div className="mt-2 flex flex-wrap gap-2">
             <OrderStatusBadge status={status} />
@@ -140,7 +142,7 @@ export function OrderUpdatePanel({ order, onUpdated }: OrderUpdatePanelProps) {
 
       <form className="mt-4 grid gap-4" onSubmit={handleSubmit}>
         <label className="space-y-2">
-          <span className="text-sm font-medium text-foreground">Order status</span>
+          <span className="text-sm font-medium text-foreground">{t("orderStatus")}</span>
           <AppSelect
             value={status}
             onChange={(value) => setStatus(value as OrderStatus)}
@@ -149,9 +151,9 @@ export function OrderUpdatePanel({ order, onUpdated }: OrderUpdatePanelProps) {
           />
         </label>
         <label className="space-y-2">
-          <span className="text-sm font-medium text-foreground">
-            Payment status
-          </span>
+            <span className="text-sm font-medium text-foreground">
+              {t("paymentStatus")}
+            </span>
           <AppSelect
             value={
               paymentOptions.some((option) => option.value === paymentStatus)
@@ -164,17 +166,17 @@ export function OrderUpdatePanel({ order, onUpdated }: OrderUpdatePanelProps) {
           />
           {paymentOptions.length === 0 ? (
             <p className="text-xs text-muted-foreground">
-              No payment status is valid for the selected status from the current payment progression.
+              {t("invalidPaymentSelection")}
             </p>
           ) : null}
         </label>
         {!isUnchanged ? (
           <p className="text-xs text-muted-foreground">
-            Saving will apply: {formatOrderStatus(status)} and {formatOrderPaymentStatus(paymentStatus)}.
+            {t("applyChange", { status: formatOrderStatus(status), payment: formatOrderPaymentStatus(paymentStatus) })}
           </p>
         ) : (
           <p className="text-xs text-muted-foreground">
-            No pending change yet. Select a new status to enable saving.
+            {t("noPendingChange")}
           </p>
         )}
         <div>
@@ -184,7 +186,7 @@ export function OrderUpdatePanel({ order, onUpdated }: OrderUpdatePanelProps) {
             className="h-11 w-full rounded-full px-6"
             disabled={isSubmitting || isUnchanged || !hasValidPaymentSelection}
           >
-            {isSubmitting ? "Saving..." : "Save order update"}
+            {isSubmitting ? t("actions.saving") : t("actions.save")}
           </Button>
         </div>
       </form>

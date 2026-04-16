@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useState, type FormEvent } from "react";
+import { useTranslations } from "next-intl";
 import type { OutputData } from "@editorjs/editorjs";
 
 import { BlogCoverField } from "@/components/blogs/blog-cover-field";
@@ -29,9 +30,7 @@ const BlogEditor = dynamic(
     loading: () => (
       <div className="rounded-2xl border border-border/70 bg-white p-6 shadow-sm">
         <div className="flex min-h-[560px] items-center justify-center rounded-xl border border-dashed border-border/60 bg-white">
-          <p className="text-xs font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-            Loading editor
-          </p>
+          <div className="h-2.5 w-28 rounded-full bg-border/60" />
         </div>
       </div>
     ),
@@ -82,6 +81,7 @@ export function BlogForm({
   description,
   onSubmit,
 }: BlogFormProps) {
+  const t = useTranslations("blogs.form");
   const [values, setValues] = useState<BlogFormValues>({
     name: initialValues?.name ?? "",
     isPinned: initialValues?.isPinned ?? false,
@@ -165,7 +165,7 @@ export function BlogForm({
       notifyError(getFriendlyBlogsError(error));
       setFieldErrors((current) => ({
         ...current,
-        cover: "The cover image could not be uploaded. Please try again.",
+        cover: t("errors.coverUploadFailed"),
       }));
     } finally {
       setIsUploadingCover(false);
@@ -178,11 +178,11 @@ export function BlogForm({
     const nextFieldErrors: typeof fieldErrors = {};
 
     if (!values.name.trim()) {
-      nextFieldErrors.name = "Blog title is required.";
+      nextFieldErrors.name = t("errors.titleRequired");
     }
 
     if (mode === "create" && !cover.uploadToken) {
-      nextFieldErrors.cover = "Upload a blog cover before saving.";
+      nextFieldErrors.cover = t("errors.coverRequired");
     }
 
     const contentError = getBlogEditorSubmitError(values.content);
@@ -221,41 +221,41 @@ export function BlogForm({
         <div className="mb-6 flex flex-col gap-2 border-b border-border/60 pb-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="space-y-2">
             <p className="text-xs font-semibold tracking-[0.2em] text-[--color-brand-muted] uppercase">
-              Blog metadata
+              {t("sections.metadata.eyebrow")}
             </p>
             <div>
               <h2 className="text-xl font-semibold tracking-tight text-foreground">
-                Core details and cover
+                {t("sections.metadata.title")}
               </h2>
               <p className="mt-1 max-w-2xl text-sm leading-6 text-muted-foreground">
-                Keep the journal record clean and easy to scan before moving into the writing workspace.
+                {t("sections.metadata.description")}
               </p>
             </div>
           </div>
           <div className="rounded-full border border-border/70 bg-white/80 px-4 py-2 text-xs font-medium text-muted-foreground shadow-sm">
             {mode === "create"
-              ? "Create keeps the backend payload intact."
-              : "Edit keeps the current blog semantics intact."}
+              ? t("sections.metadata.createChip")
+              : t("sections.metadata.editChip")}
           </div>
         </div>
 
         <div className="grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)]">
           <div className="grid gap-5 md:grid-cols-2">
             <label className="space-y-2 md:col-span-2">
-              <span className="text-sm font-medium text-foreground">Blog title</span>
+              <span className="text-sm font-medium text-foreground">{t("fields.title")}</span>
               <Input
                 value={values.name}
                 onChange={(event) => {
                   setValues((current) => ({ ...current, name: event.target.value }));
                   setFieldErrors((current) => ({ ...current, name: undefined }));
                 }}
-                placeholder="Studio notes from a mountain wedding"
+                placeholder={t("fields.titlePlaceholder")}
                 aria-invalid={Boolean(fieldErrors.name)}
               />
               {fieldErrors.name ? <p className="text-sm text-red-600">{fieldErrors.name}</p> : null}
             </label>
             <label className="space-y-2">
-              <span className="text-sm font-medium text-foreground">Publishing state</span>
+              <span className="text-sm font-medium text-foreground">{t("fields.publishingState")}</span>
               <AppSelect
                 value={String(values.isPublished)}
                 onChange={(nextValue) =>
@@ -267,19 +267,19 @@ export function BlogForm({
                 options={[
                   {
                     value: "false",
-                    label: "Draft",
-                    description: "Visible only in admin until you publish it",
+                    label: t("fields.publishOptions.draft.label"),
+                    description: t("fields.publishOptions.draft.description"),
                   },
                   {
                     value: "true",
-                    label: "Published",
-                    description: "Ready for published blog surfaces and editorial promotion",
+                    label: t("fields.publishOptions.published.label"),
+                    description: t("fields.publishOptions.published.description"),
                   },
                 ]}
               />
             </label>
             <label className="space-y-2">
-              <span className="text-sm font-medium text-foreground">Pinned state</span>
+              <span className="text-sm font-medium text-foreground">{t("fields.pinnedState")}</span>
               <AppSelect
                 value={String(values.isPinned)}
                 onChange={(nextValue) =>
@@ -291,13 +291,13 @@ export function BlogForm({
                 options={[
                   {
                     value: "false",
-                    label: "Standard placement",
-                    description: "Ordered naturally by the published timeline",
+                    label: t("fields.pinOptions.standard.label"),
+                    description: t("fields.pinOptions.standard.description"),
                   },
                   {
                     value: "true",
-                    label: "Pinned feature",
-                    description: "Floats to the top of public blog collections",
+                    label: t("fields.pinOptions.pinned.label"),
+                    description: t("fields.pinOptions.pinned.description"),
                   },
                 ]}
               />
@@ -306,11 +306,11 @@ export function BlogForm({
 
           <div className="rounded-[1.75rem] border border-border/70 bg-white/72 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.78)] md:p-5">
             <div className="mb-4 space-y-1">
-              <p className="text-sm font-medium text-foreground">Cover image</p>
+              <p className="text-sm font-medium text-foreground">{t("fields.cover")}</p>
               <p className="text-sm leading-6 text-muted-foreground">
                 {mode === "create"
-                  ? "Upload the lead image before saving. Replacements still use the same upload-token flow."
-                  : "Keep the current cover or replace it without changing the existing update behavior."}
+                  ? t("fields.coverCreateHint")
+                  : t("fields.coverEditHint")}
               </p>
             </div>
             <BlogCoverField
@@ -346,19 +346,19 @@ export function BlogForm({
         <div className="flex flex-col gap-2 pb-1 lg:flex-row lg:items-end lg:justify-between">
           <div className="space-y-2">
             <p className="text-xs font-semibold tracking-[0.2em] text-[--color-brand-muted] uppercase">
-              Blog content
+              {t("sections.content.eyebrow")}
             </p>
             <div>
               <h2 className="text-xl font-semibold tracking-tight text-foreground">
-                Build the full editorial entry
+                {t("sections.content.title")}
               </h2>
               <p className="mt-1 max-w-3xl text-sm leading-6 text-muted-foreground">
-                Add text, YouTube embeds, and media layout blocks. New images still upload first and submit as upload tokens.
+                {t("sections.content.description")}
               </p>
             </div>
           </div>
           <div className="rounded-full border border-border/70 bg-white/80 px-4 py-2 text-xs font-medium text-muted-foreground shadow-sm">
-            Full-width editor for writing, layout, and image sequencing.
+            {t("sections.content.chip")}
           </div>
         </div>
 
@@ -375,7 +375,7 @@ export function BlogForm({
 
       <div className="flex justify-end pt-2">
         <Button type="submit" size="lg" className="min-w-44 rounded-full" disabled={isSubmitting || isUploadingCover}>
-          {isSubmitting ? "Saving..." : submitLabel}
+          {isSubmitting ? t("actions.saving") : submitLabel}
         </Button>
       </div>
     </form>

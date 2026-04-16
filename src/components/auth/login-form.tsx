@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, type FormEvent } from "react";
+import { useTranslations } from "next-intl";
 
 import { AuthField } from "@/components/auth/auth-field";
 import { AuthFormShell } from "@/components/auth/auth-form-shell";
@@ -22,6 +23,7 @@ type LoginFieldErrors = {
 };
 
 export function LoginForm() {
+  const t = useTranslations("auth.login");
   const router = useRouter();
   const searchParams = useSearchParams();
   const setAuthenticated = useAuthStore((state) => state.setAuthenticated);
@@ -33,25 +35,25 @@ export function LoginForm() {
   useEffect(() => {
     if (searchParams.get("passwordChanged") === "1") {
       notifySuccess(
-        "Password updated successfully.",
-        "Password updated successfully.",
-        "Please sign in again with your new password.",
+        t("passwordChangedTitle"),
+        t("passwordChangedTitle"),
+        t("passwordChangedDescription"),
       );
       router.replace(ROUTES.login);
     }
-  }, [router, searchParams]);
+  }, [router, searchParams, t]);
 
   function validateFields() {
     const nextErrors: LoginFieldErrors = {};
 
     if (!email.trim()) {
-      nextErrors.email = "Email is required.";
+      nextErrors.email = t("errors.emailRequired");
     } else if (!/\S+@\S+\.\S+/.test(email.trim())) {
-      nextErrors.email = "Enter a valid email address.";
+      nextErrors.email = t("errors.emailInvalid");
     }
 
     if (!password) {
-      nextErrors.password = "Password is required.";
+      nextErrors.password = t("errors.passwordRequired");
     }
 
     return nextErrors;
@@ -83,14 +85,14 @@ export function LoginForm() {
   }
 
   return (
-    <AuthFormShell
-      eyebrow="Login"
-      title="Sign into the studio console."
-      description="Sign in to manage clients, team access, and the studio workflow from one calm control room."
+      <AuthFormShell
+      eyebrow={t("eyebrow")}
+      title={t("title")}
+      description={t("description")}
       footer={
         <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-white/65">
           <Link href="/forgot-password" className="transition-opacity hover:opacity-100">
-            Forgot password?
+            {t("forgotPassword")}
           </Link>
           {/*
           <Link href="/register" className="transition-opacity hover:opacity-100">
@@ -101,7 +103,7 @@ export function LoginForm() {
       }
     >
       <form className="space-y-5" noValidate onSubmit={handleSubmit}>
-        <AuthField label="Email" htmlFor="email" error={fieldErrors.email ?? null}>
+        <AuthField label={t("email")} htmlFor="email" error={fieldErrors.email ?? null}>
           <Input
             id="email"
             name="email"
@@ -116,7 +118,7 @@ export function LoginForm() {
             aria-invalid={Boolean(fieldErrors.email)}
           />
         </AuthField>
-        <AuthField label="Password" htmlFor="password" error={fieldErrors.password ?? null}>
+        <AuthField label={t("password")} htmlFor="password" error={fieldErrors.password ?? null}>
           <PasswordInput
             id="password"
             name="password"
@@ -126,12 +128,12 @@ export function LoginForm() {
               setPassword(event.target.value);
               setFieldErrors((current) => ({ ...current, password: undefined }));
             }}
-            placeholder="Enter your password"
+            placeholder={t("passwordPlaceholder")}
             aria-invalid={Boolean(fieldErrors.password)}
           />
         </AuthField>
         <Button type="submit" size="lg" className="h-12 w-full rounded-full" disabled={isSubmitting}>
-          {isSubmitting ? "Signing in..." : "Enter workspace"}
+          {isSubmitting ? t("submitting") : t("submit")}
         </Button>
       </form>
     </AuthFormShell>

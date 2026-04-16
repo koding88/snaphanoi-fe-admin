@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import { StatusBadge } from "@/components/shared/status-badge";
 
 type UserStatusBadgeProps = {
@@ -6,13 +8,15 @@ type UserStatusBadgeProps = {
 };
 
 export function UserStatusBadge({ isActive, deletedAt }: UserStatusBadgeProps) {
+  const t = useTranslations("users.badges");
+
   if (deletedAt) {
-    return <StatusBadge tone="danger">Deleted</StatusBadge>;
+    return <StatusBadge tone="danger">{t("deleted")}</StatusBadge>;
   }
 
   if (isActive) {
-    return <StatusBadge tone="success">Active</StatusBadge>;
+    return <StatusBadge tone="success">{t("active")}</StatusBadge>;
   }
 
-  return <StatusBadge tone="warning">Inactive</StatusBadge>;
+  return <StatusBadge tone="warning">{t("inactive")}</StatusBadge>;
 }

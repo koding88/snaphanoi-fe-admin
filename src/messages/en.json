@@ -1,0 +1,1498 @@
+{
+  "metadata": {
+    "title": {
+      "default": "SnapHanoi Admin",
+      "template": "%s | SnapHanoi Admin"
+    },
+    "description": "Foundation for the SnapHanoi admin experience, built for a premium visual service workflow."
+  },
+  "languageSwitcher": {
+    "label": "Language",
+    "english": "English",
+    "vietnamese": "Tiếng Việt"
+  },
+  "common": {
+    "actions": {
+      "back": "Back",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "working": "Working...",
+      "retry": "Retry",
+      "previous": "Previous",
+      "next": "Next"
+    }
+  },
+  "admin": {
+    "sidebar": {
+      "navigation": "Navigation",
+      "collapse": "Collapse"
+    },
+    "topbar": {
+      "fallbackTitle": "Admin",
+      "studioMember": "Studio member",
+      "bootstrapping": "Bootstrapping authenticated session"
+    },
+    "nav": {
+      "dashboard": {
+        "label": "Dashboard",
+        "description": "Control room overview"
+      },
+      "users": {
+        "label": "Users",
+        "description": "People and access"
+      },
+      "roles": {
+        "label": "Roles",
+        "description": "Role definitions"
+      },
+      "galleries": {
+        "label": "Galleries",
+        "description": "Portfolio groups"
+      },
+      "projects": {
+        "label": "Projects",
+        "description": "Stories and covers"
+      },
+      "blogs": {
+        "label": "Blogs",
+        "description": "Journal and stories"
+      },
+      "packages": {
+        "label": "Packages",
+        "description": "Session offerings"
+      },
+      "orders": {
+        "label": "Orders",
+        "description": "Requests and fulfillment"
+      }
+    },
+    "account": {
+      "triggerLabel": "Account",
+      "fallbackEmail": "Studio admin",
+      "signedIn": "Signed in",
+      "fallbackName": "Studio account",
+      "fallbackWorkspace": "Admin workspace",
+      "profileLabel": "Profile settings",
+      "profileDescription": "Personal details and country",
+      "securityLabel": "Security",
+      "securityDescription": "Change password and session access",
+      "signOut": "Sign out",
+      "signingOut": "Signing out...",
+      "signOutDescription": "End this admin session"
+    }
+  },
+  "auth": {
+    "shell": {
+      "eyebrow": "studio access",
+      "title": "Built for a premium photography operation, not a generic back office.",
+      "description": "The public auth surface carries the same calm visual discipline as the admin area: editorial tone, direct hierarchy, and clean access flows.",
+      "card1": "Authentication with clear recovery paths",
+      "card2": "Quiet session recovery when the workspace is still valid",
+      "card3": "Refined mobile-to-desktop experience"
+    },
+    "passwordHint": "Use at least 8 characters with uppercase, lowercase, and a number.",
+    "login": {
+      "eyebrow": "Login",
+      "title": "Sign into the studio console.",
+      "description": "Sign in to manage clients, team access, and the studio workflow from one calm control room.",
+      "forgotPassword": "Forgot password?",
+      "email": "Email",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "submit": "Enter workspace",
+      "submitting": "Signing in...",
+      "passwordChangedTitle": "Password updated successfully.",
+      "passwordChangedDescription": "Please sign in again with your new password.",
+      "errors": {
+        "emailRequired": "Email is required.",
+        "emailInvalid": "Enter a valid email address.",
+        "passwordRequired": "Password is required."
+      }
+    },
+    "forgotPassword": {
+      "eyebrow": "Forgot password",
+      "title": "Request a fresh password link.",
+      "description": "If the email belongs to an account, we will send a reset link without revealing any account details on this screen.",
+      "returnToLogin": "Return to login",
+      "email": "Email",
+      "submit": "Send reset link",
+      "submitting": "Sending...",
+      "successTitle": "Reset request received.",
+      "successDescription": "If the account exists, a reset link has been sent.",
+      "errors": {
+        "emailRequired": "Email is required.",
+        "emailInvalid": "Enter a valid email address."
+      }
+    },
+    "register": {
+      "eyebrow": "Register",
+      "title": "Request studio access.",
+      "description": "We will create a pending registration request and send a confirmation link to your email before the account becomes active.",
+      "footer": "Registration does not create a usable account immediately.",
+      "backToLogin": "Back to login",
+      "fullName": "Full name",
+      "email": "Email",
+      "password": "Password",
+      "country": "Country",
+      "countryHint": "Search by name",
+      "submit": "Send confirmation link",
+      "submitting": "Submitting...",
+      "successTitle": "Registration request submitted.",
+      "successDescription": "Check your email for the confirmation link.",
+      "errors": {
+        "nameRequired": "Full name is required.",
+        "emailRequired": "Email is required.",
+        "emailInvalid": "Enter a valid email address.",
+        "passwordRequired": "Password is required.",
+        "passwordWeak": "Password must be at least 8 characters and include uppercase, lowercase, and a number."
+      }
+    },
+    "registerConfirm": {
+      "eyebrow": "Confirm registration",
+      "title": "Finish account activation.",
+      "description": "If you opened this page from the email link, the confirmation token is already attached and ready to use.",
+      "returnToLogin": "Return to login",
+      "linkDetected": "Confirmation link detected. Continue below, or enter a different token manually.",
+      "token": "Confirmation token",
+      "tokenAlt": "Different confirmation token",
+      "tokenPlaceholder": "Paste your confirmation token",
+      "useLinkToken": "Use the token from the email link",
+      "useDifferentToken": "Use a different token instead",
+      "submit": "Activate account",
+      "submitting": "Activating...",
+      "successTitle": "Registration confirmed.",
+      "successDescription": "You can now sign in with your new account.",
+      "errors": {
+        "tokenRequired": "Confirmation token is required."
+      }
+    },
+    "resetPassword": {
+      "eyebrow": "Reset password",
+      "title": "Choose a new password.",
+      "description": "If you opened this page from the email link, the reset token is already attached. After success, you will sign in again with the new password.",
+      "backToLogin": "Back to login",
+      "linkDetected": "Reset link detected. Continue below, or switch to manual token entry if needed.",
+      "token": "Reset token",
+      "differentToken": "Different reset token",
+      "tokenPlaceholder": "Paste your reset token",
+      "useLinkToken": "Use the token from the email link",
+      "useDifferentToken": "Use a different token instead",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm new password",
+      "submit": "Save new password",
+      "submitting": "Updating...",
+      "successTitle": "Password updated successfully.",
+      "successDescription": "Please sign in again with your new password.",
+      "errors": {
+        "tokenRequired": "Reset token is required.",
+        "newPasswordRequired": "New password is required.",
+        "newPasswordWeak": "New password must be at least 8 characters and include uppercase, lowercase, and a number.",
+        "confirmRequired": "Password confirmation is required.",
+        "confirmMismatch": "Password confirmation does not match."
+      }
+    }
+  },
+  "users": {
+    "badges": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "deleted": "Deleted",
+      "noRole": "No role"
+    },
+    "list": {
+      "eyebrow": "Users",
+      "title": "Manage user accounts.",
+      "description": "Create, update, archive, and restore team access quickly from one table.",
+      "meta": { "adminOnly": "Admin only" },
+      "actions": { "addUser": "Add user", "retry": "Retry", "previous": "Previous", "next": "Next" },
+      "filters": {
+        "quick": "Quick filters",
+        "searchLabel": "Search keyword",
+        "searchPlaceholder": "Search by name or email",
+        "status": "Status",
+        "statusAll": "All users",
+        "statusActive": "Active only",
+        "statusInactive": "Inactive only",
+        "role": "Role",
+        "roleAll": "All roles",
+        "roleAllDescription": "No role filter",
+        "systemRole": "System role",
+        "customRole": "Custom role",
+        "deleted": "Deleted records",
+        "hideArchived": "Hide archived",
+        "showArchived": "Show archived too"
+      },
+      "loading": { "title": "Loading users", "description": "Preparing the latest user list and filter options." },
+      "errors": { "loadTitle": "Unable to load users" },
+      "pagination": {
+        "summary": "Page {page} of {totalPages}. Total users: {total}.",
+        "updating": "Updating..."
+      },
+      "empty": {
+        "title": "No users matched the current filters.",
+        "description": "Try a broader keyword or reset one of the filters.",
+        "createFirst": "Create first user"
+      },
+      "toasts": { "archived": "User archived.", "restored": "User restored." }
+    },
+    "table": {
+      "title": "User records",
+      "description": "Identity, role, and lifecycle in one view.",
+      "columns": { "user": "User", "role": "Role", "country": "Country", "status": "Status", "actions": "Actions" },
+      "actions": { "edit": "Edit", "restore": "Restore", "delete": "Delete" },
+      "dialogs": {
+        "deleteTitle": "Delete {name}?",
+        "restoreTitle": "Restore {name}?",
+        "deleteDescription": "This archives the account for now. It can still be restored later.",
+        "restoreDescription": "This returns the archived account to the active roster.",
+        "deleteConfirm": "Delete user",
+        "restoreConfirm": "Restore user",
+        "selectedRecord": "Selected record"
+      }
+    },
+    "form": {
+      "fields": {
+        "fullName": "Full name",
+        "email": "Email",
+        "password": "Password",
+        "newPassword": "New password",
+        "passwordPlaceholderCreate": "MySecurePass1",
+        "passwordPlaceholderEdit": "Leave blank to keep current password",
+        "country": "Country",
+        "role": "Role",
+        "rolePlaceholder": "Choose a role",
+        "status": "Status"
+      },
+      "options": {
+        "systemRole": "System role",
+        "customRole": "Custom role",
+        "active": "Active",
+        "activeDescription": "Can sign in and use the app",
+        "inactive": "Inactive",
+        "inactiveDescription": "Kept on record but cannot sign in"
+      },
+      "errors": {
+        "nameRequired": "Full name is required.",
+        "emailRequired": "Email is required.",
+        "emailInvalid": "Enter a valid email address.",
+        "passwordRequired": "Password is required.",
+        "passwordWeak": "Password must be at least 8 characters and include uppercase, lowercase, and a number.",
+        "passwordWeakEdit": "If you provide a new password, it must be at least 8 characters and include uppercase, lowercase, and a number."
+      },
+      "actions": { "saving": "Saving..." }
+    },
+    "create": {
+      "eyebrow": "Create user",
+      "eyebrow": "Create gallery",
+      "eyebrow": "Create role",
+      "title": "Add a new team member.",
+      "description": "Create a new studio account with the right role, location, and a first-time password.",
+      "confirm": {
+        "title": "Discard this new user?",
+        "description": "The form will be cleared and you will return to the user list.",
+        "confirmLabel": "Discard"
+      },
+      "loading": { "title": "Preparing form", "description": "Loading available role options for user creation." },
+      "errorTitle": "Unable to prepare user form",
+      "submitLabel": "Create account",
+      "formDescription": "Choose a role and country, then set a first-time password for this account.",
+      "toasts": { "created": "User created successfully." }
+    },
+    "edit": {
+      "eyebrow": "Edit user",
+      "eyebrow": "Edit gallery",
+      "eyebrow": "Edit role",
+      "title": "Update account details.",
+      "description": "Adjust role, availability, profile details, or replace the password when needed.",
+      "confirm": {
+        "title": "Discard these changes?",
+        "description": "Any modifications will be lost.",
+        "confirmLabel": "Discard"
+      },
+      "loading": { "title": "Loading user", "description": "Fetching the current user record and role options." },
+      "errorTitle": "Unable to load this user",
+      "userNotFound": "User not found.",
+      "submitLabel": "Save changes",
+      "formDescription": "Leave the password field empty if the current password should stay in place.",
+      "toasts": { "updated": "User updated successfully." }
+    },
+    "detail": {
+      "eyebrow": "User detail",
+      "eyebrow": "Gallery detail",
+      "eyebrow": "Role detail",
+      "title": "Review this account.",
+      "description": "See the person, role, location, and account state in one place before making changes.",
+      "actions": { "edit": "Edit", "restore": "Restore", "delete": "Delete" },
+      "loading": { "title": "Loading user", "description": "Fetching the selected user record." },
+      "errorTitle": "Unable to load this user",
+      "userNotFound": "User not found.",
+      "adminActionsTitle": "Admin actions",
+      "adminActionsDescription": "Archive and restore controls stay here so account lifecycle actions remain deliberate.",
+      "dialogs": {
+        "deleteTitle": "Delete {name}?",
+        "restoreTitle": "Restore {name}?",
+        "deleteDescription": "This archives the account for now. You can restore it later if needed.",
+        "restoreDescription": "This will bring the archived account back into the active roster.",
+        "deleteConfirm": "Delete user",
+        "restoreConfirm": "Restore user"
+      },
+      "toasts": { "archived": "User archived.", "restored": "User restored." }
+    },
+    "detailCard": {
+      "id": "ID: {id}",
+      "sections": { "identity": "Account identity", "profile": "Profile and account state", "metadata": "Admin metadata" },
+      "fields": {
+        "email": "Email",
+        "country": "Country",
+        "role": "Role",
+        "noRole": "No role assigned",
+        "lifecycle": "Lifecycle",
+        "timeline": "Timeline",
+        "createdAt": "Created at",
+        "updatedAt": "Updated at"
+      },
+      "lifecycle": {
+        "archivedOn": "Archived on {date}",
+        "active": "Active account",
+        "inactive": "Inactive account",
+        "notDeleted": "Not deleted"
+      }
+    },
+    "profilePage": {
+      "eyebrow": "My profile",
+      "title": "Profile settings.",
+      "description": "Keep your own name, email, and country details up to date without opening the admin user editor.",
+      "unavailable": "Current user profile is unavailable.",
+      "toasts": { "updated": "Profile updated successfully." }
+    },
+    "profileForm": {
+      "fields": {
+        "fullName": "Full name",
+        "email": "Email",
+        "newEmail": "New email",
+        "country": "Country",
+        "verificationCode": "Verification code"
+      },
+      "email": {
+        "status": {
+          "codeSent": "Verification code sent. Enter the 6-digit code sent to {email}.",
+          "pending": "New email is not verified yet. Verify it before it becomes your account email.",
+          "current": "This is the email currently tied to your account."
+        },
+        "pendingVerification": "Pending verification",
+        "current": "Current email",
+        "resendIn": "You can request another code in {time}."
+      },
+      "dialog": {
+        "title": "Verify your new email",
+        "description": "Enter the 6-digit code sent to",
+        "expiresIn": "This code expires in {time}.",
+        "expired": "This verification code may have expired. Request a new one if needed."
+      },
+      "actions": {
+        "sendingCode": "Sending code...",
+        "enterCode": "Enter code",
+        "verifyEmail": "Verify email",
+        "saveProfile": "Save profile",
+        "saving": "Saving...",
+        "sendingNewCode": "Sending new code...",
+        "resendIn": "Resend available in {time}",
+        "resendCode": "Resend code",
+        "cancel": "Cancel",
+        "verifying": "Verifying..."
+      },
+      "errors": {
+        "nameRequired": "Full name is required.",
+        "emailRequired": "Email is required.",
+        "emailInvalid": "Enter a valid email address.",
+        "emailSame": "Use a different email from the one already on your account.",
+        "otpRequired": "Verification code is required.",
+        "otpLength": "Enter the full 6-digit verification code."
+      },
+      "toasts": {
+        "codeSent": "Verification code sent.",
+        "codeSentDescription": "Use the code sent to {email}.",
+        "emailChanged": "Email changed successfully.",
+        "emailChangedDescription": "Your profile now reflects the new email immediately."
+      }
+    },
+    "changePassword": {
+      "page": {
+        "eyebrow": "Security",
+        "title": "Change your password.",
+        "description": "For security, this flow signs you out after a successful update so the new password becomes the next point of entry.",
+        "toasts": {
+          "success": "Password changed successfully.",
+          "description": "You will sign in again with the new password."
+        }
+      },
+      "form": {
+        "fields": { "current": "Current password", "new": "New password", "confirm": "Confirm new password" },
+        "errors": {
+          "currentRequired": "Current password is required.",
+          "newRequired": "New password is required.",
+          "newWeak": "New password must be at least 8 characters and include uppercase, lowercase, and a number.",
+          "confirmRequired": "Password confirmation is required.",
+          "confirmMismatch": "Password confirmation does not match."
+        },
+        "actions": { "updating": "Updating...", "submit": "Save new password" }
+      }
+    }
+  },
+  "roles": {
+    "badges": { "system": "System", "custom": "Custom" },
+    "list": {
+      "eyebrow": "Roles",
+      "title": "Manage access roles.",
+      "description": "Review role identity and usage quickly from one compact table.",
+      "meta": { "adminOnly": "Admin only" },
+      "actions": { "createRole": "Create role", "retry": "Retry", "previous": "Previous", "next": "Next" },
+      "filters": {
+        "quick": "Quick filters",
+        "searchLabel": "Search keyword",
+        "searchPlaceholder": "Search role name",
+        "roleType": "Role type",
+        "typeAll": "All role types",
+        "typeCustom": "Custom roles",
+        "typeSystem": "System roles"
+      },
+      "loading": { "title": "Loading roles", "description": "Preparing role definitions and usage counts." },
+      "errorTitle": "Unable to load roles",
+      "pagination": { "summary": "Page {page} of {totalPages}. Total roles: {total}.", "updating": "Updating..." },
+      "empty": {
+        "title": "No roles matched the current filters.",
+        "description": "Try a broader keyword or switch role type.",
+        "createFirst": "Create first role"
+      },
+      "toasts": { "deleted": "Role deleted." }
+    },
+    "table": {
+      "title": "Role records",
+      "description": "Role identity and usage at a glance.",
+      "columns": { "role": "Role", "type": "Type", "users": "Users", "actions": "Actions" },
+      "usersSummary": "Active {active} / Deleted {deleted}",
+      "actions": { "edit": "Edit", "delete": "Delete" },
+      "dialogs": {
+        "deleteTitle": "Delete {name}?",
+        "deleteDescription": "Delete is only available when the role is no longer being used. Otherwise you will see a conflict message.",
+        "deleteConfirm": "Delete role",
+        "selectedRole": "Selected role"
+      }
+    },
+    "form": {
+      "fields": { "name": "Role name", "placeholder": "Manager" },
+      "errors": { "nameRequired": "Role name is required." },
+      "actions": { "saving": "Saving..." }
+    },
+    "create": {
+      "title": "Create a new role.",
+      "description": "Define a clear role name for your studio team.",
+      "confirm": { "title": "Discard this new role?", "description": "The form will be cleared and you will return to the role list.", "confirmLabel": "Discard" },
+      "submitLabel": "Create role",
+      "formDescription": "Use role names that are easy to understand at a glance.",
+      "toasts": { "created": "Role created successfully." }
+    },
+    "edit": {
+      "title": "Update a role.",
+      "description": "Adjust the role name while keeping the role key and usage history intact.",
+      "confirm": { "title": "Discard these changes?", "description": "Any modifications will be lost.", "confirmLabel": "Discard" },
+      "loading": { "title": "Loading role", "description": "Fetching the current role record." },
+      "errorTitle": "Unable to load this role",
+      "notFound": "Role not found.",
+      "submitLabel": "Save changes",
+      "formDescription": "Rename this role to keep your access model clear and consistent.",
+      "toasts": { "updated": "Role updated successfully." }
+    },
+    "detail": {
+      "title": "Inspect a role and its assigned users.",
+      "description": "Review the role itself, see where it is in use, and manage the next step from one page.",
+      "actions": { "edit": "Edit", "delete": "Delete", "previous": "Previous", "next": "Next" },
+      "loading": { "title": "Loading role", "description": "Fetching the role record and users currently assigned to it." },
+      "errorTitle": "Unable to load this role",
+      "notFound": "Role not found.",
+      "users": {
+        "eyebrow": "Role users",
+        "title": "Users assigned to this role",
+        "description": "Review who currently uses this role and filter by account state when needed.",
+        "filters": { "all": "All assigned users", "active": "Active only", "inactive": "Inactive only", "deleted": "Archived only" },
+        "pagination": "Page {page} of {totalPages}. Total users: {total}.",
+        "emptyTitle": "No users matched this role-user query.",
+        "emptyDescription": "Try a different status view, or return later once the role has people assigned to it."
+      },
+      "dialogs": {
+        "deleteTitle": "Delete {name}?",
+        "deleteDescription": "If this role is still assigned, removal will be blocked until reassignment is complete.",
+        "deleteConfirm": "Delete role",
+        "roleInFocus": "Role in focus"
+      },
+      "toasts": { "deleted": "Role deleted." }
+    },
+    "detailCard": {
+      "id": "ID: {id}",
+      "roleKey": "Role key: {key}",
+      "lifecycle": { "system": "System-managed role", "custom": "Custom role" },
+      "sections": { "identity": "Role identity", "usage": "Usage summary", "metadata": "Admin metadata" },
+      "fields": {
+        "activeUsers": "Active users",
+        "archivedUsers": "Archived users",
+        "timeline": "Timeline",
+        "createdAt": "Created at",
+        "updatedAt": "Updated at"
+      }
+    },
+    "roleUsersTable": {
+      "columns": { "user": "User", "country": "Country", "status": "Status" }
+    }
+  },
+  "galleries": {
+    "badges": { "archived": "Archived", "active": "Active", "inactive": "Inactive" },
+    "list": {
+      "title": "Manage gallery collections.",
+      "description": "Maintain multilingual gallery groups with faster filtering and lifecycle control.",
+      "meta": { "adminOnly": "Admin only" },
+      "actions": { "create": "Create gallery", "retry": "Retry", "previous": "Previous", "next": "Next" },
+      "filters": {
+        "quick": "Quick filters",
+        "searchLabel": "Search keyword",
+        "searchPlaceholder": "Search by gallery name",
+        "status": "Status",
+        "statusAll": "All galleries",
+        "statusActive": "Active only",
+        "statusInactive": "Inactive only",
+        "pageSize": "Page size",
+        "perPage": "{value} per page"
+      },
+      "loading": { "title": "Loading galleries", "description": "Preparing the latest gallery list and filter results." },
+      "errorTitle": "Unable to load galleries",
+      "pagination": { "summary": "Page {page} of {totalPages}. Total galleries: {total}.", "updating": "Updating..." },
+      "empty": {
+        "title": "No galleries matched the current filters.",
+        "description": "Try a broader keyword or change the status filter.",
+        "createFirst": "Create first gallery"
+      },
+      "toasts": { "archived": "Gallery archived.", "restored": "Gallery restored successfully." }
+    },
+    "table": {
+      "title": "Gallery records",
+      "description": "Multilingual names and lifecycle in one view.",
+      "columns": {
+        "gallery": "Gallery",
+        "createdBy": "Created by",
+        "updated": "Updated",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "actions": { "edit": "Edit", "restore": "Restore", "delete": "Delete" },
+      "dialogs": {
+        "deleteTitle": "Delete {name}?",
+        "restoreTitle": "Restore {name}?",
+        "deleteDescription": "This archives the gallery. You can restore it later if needed.",
+        "restoreDescription": "This restores the archived gallery into the active collection.",
+        "deleteConfirm": "Delete gallery",
+        "restoreConfirm": "Restore gallery",
+        "selectedGallery": "Selected gallery"
+      }
+    },
+    "form": {
+      "sectionEyebrow": "Names",
+      "localizedTitle": "Localized gallery naming",
+      "localizedDescription": "Use one language tab at a time. All three localized names are required before saving.",
+      "fieldLabel": "Gallery name",
+      "placeholders": { "en": "Couple", "vi": "Cap doi", "cn": "情侣" },
+      "errors": {
+        "enRequired": "English name is required.",
+        "viRequired": "Vietnamese name is required.",
+        "cnRequired": "Chinese name is required."
+      },
+      "actions": { "saving": "Saving..." }
+    },
+    "create": {
+      "title": "Create a new gallery.",
+      "description": "Add multilingual names so this collection is ready across supported languages.",
+      "confirm": { "title": "Discard this new gallery?", "description": "The form will be cleared and you will return to the gallery list.", "confirmLabel": "Discard" },
+      "submitLabel": "Create gallery",
+      "formDescription": "All three localized names are required by the backend contract.",
+      "toasts": { "created": "Gallery created successfully." }
+    },
+    "edit": {
+      "title": "Update gallery names.",
+      "description": "Refine localized naming while keeping the existing gallery record.",
+      "confirm": { "title": "Discard these changes?", "description": "Any modifications will be lost.", "confirmLabel": "Discard" },
+      "loading": { "title": "Loading gallery", "description": "Fetching the current gallery record." },
+      "errorTitle": "Unable to load this gallery",
+      "notFound": "Gallery not found.",
+      "submitLabel": "Save changes",
+      "formDescription": "Updating names keeps the same gallery ID and lifecycle history.",
+      "toasts": { "updated": "Gallery updated successfully." }
+    },
+    "detail": {
+      "title": "Review this gallery.",
+      "description": "Inspect multilingual names, lifecycle state, and ownership context before making changes.",
+      "actions": { "edit": "Edit", "restore": "Restore", "delete": "Delete" },
+      "loading": { "title": "Loading gallery", "description": "Fetching the selected gallery record." },
+      "errorTitle": "Unable to load this gallery",
+      "notFound": "Gallery not found.",
+      "adminActionsTitle": "Admin actions",
+      "adminActionsDescription": "Archive and restore controls are kept here so gallery lifecycle changes stay deliberate.",
+      "dialogs": {
+        "deleteTitle": "Delete {name}?",
+        "restoreTitle": "Restore {name}?",
+        "deleteDescription": "This archives the gallery for now. You can restore it later if needed.",
+        "restoreDescription": "This will bring the archived gallery back into the active collection.",
+        "deleteConfirm": "Delete gallery",
+        "restoreConfirm": "Restore gallery"
+      },
+      "toasts": { "archived": "Gallery archived.", "restored": "Gallery restored successfully." }
+    },
+    "detailCard": {
+      "id": "ID: {id}",
+      "sections": { "record": "Gallery record", "names": "Multilingual names", "metadata": "Admin metadata" },
+      "namesDescription": "Primary naming set used across supported locales.",
+      "fields": {
+        "english": "English",
+        "vietnamese": "Vietnamese",
+        "chinese": "Chinese",
+        "createdBy": "Created by",
+        "lifecycle": "Lifecycle",
+        "timeline": "Timeline",
+        "createdAt": "Created at",
+        "updatedAt": "Updated at"
+      },
+      "lifecycle": {
+        "archivedOn": "Archived on {date}",
+        "active": "Active record",
+        "inactive": "Inactive record",
+        "notDeleted": "Not deleted"
+      }
+    }
+  },
+  "projects": {
+    "badges": {
+      "archived": "Archived",
+      "active": "Active",
+      "inactive": "Inactive",
+      "published": "Published",
+      "draft": "Draft"
+    },
+    "gallerySelect": {
+      "placeholder": "Choose a gallery"
+    },
+    "coverField": {
+      "coverAlt": "Project cover",
+      "title": "Cover image",
+      "requiredHint": "Upload the primary cover before saving the project.",
+      "optionalHint": "Keep the current cover or upload a replacement when needed.",
+      "replace": "Replace cover",
+      "upload": "Upload cover",
+      "remove": "Remove",
+      "uploading": "Uploading cover image..."
+    },
+    "list": {
+      "eyebrow": "Projects",
+      "title": "Manage project stories.",
+      "description": "Manage project stories, publication, and gallery linkage with faster operational scanning.",
+      "meta": { "adminOnly": "Admin only" },
+      "actions": { "create": "Create project", "retry": "Retry", "previous": "Previous", "next": "Next" },
+      "filters": {
+        "quick": "Quick filters",
+        "searchLabel": "Search keyword",
+        "searchPlaceholder": "Search by project title",
+        "status": "Status",
+        "statusAll": "All projects",
+        "statusActive": "Active only",
+        "statusInactive": "Inactive only",
+        "publication": "Publication",
+        "publishAll": "All publish states",
+        "publishPublished": "Published only",
+        "publishDraft": "Draft only",
+        "pageSize": "Page size",
+        "perPage": "{value} per page"
+      },
+      "loading": { "title": "Loading projects", "description": "Preparing the latest projects, filters, and content states." },
+      "errors": { "load": "Unable to load projects" },
+      "pagination": { "summary": "Page {page} of {totalPages}. Total projects: {total}.", "updating": "Updating..." },
+      "empty": {
+        "title": "No projects matched the current filters.",
+        "description": "Try a broader keyword or reset one of the status filters.",
+        "createFirst": "Create first project"
+      },
+      "toasts": { "archived": "Project archived.", "restored": "Project restored successfully." }
+    },
+    "table": {
+      "title": "Project records",
+      "description": "Story identity, gallery context, and publish lifecycle at a glance.",
+      "columns": {
+        "project": "Project",
+        "cover": "Cover",
+        "gallery": "Gallery",
+        "publish": "Publish",
+        "status": "Status",
+        "updated": "Updated",
+        "actions": "Actions"
+      },
+      "actions": { "edit": "Edit", "restore": "Restore", "delete": "Delete" },
+      "dialogs": {
+        "deleteTitle": "Delete {name}?",
+        "restoreTitle": "Restore {name}?",
+        "deleteDescription": "This archives the project for now. You can restore it later if needed.",
+        "restoreDescription": "This restores the archived project to the active studio library.",
+        "deleteConfirm": "Delete project",
+        "restoreConfirm": "Restore project",
+        "selected": "Selected project"
+      }
+    },
+    "create": {
+      "eyebrow": "Create project",
+      "title": "Create a new project story",
+      "description": "Set the core metadata first, then shape the full story in the editor workspace below.",
+      "confirm": {
+        "title": "Discard this new project?",
+        "description": "The form will be cleared and you will return to the project list.",
+        "confirmLabel": "Discard"
+      },
+      "loading": { "title": "Loading project form", "description": "Preparing galleries and editor dependencies." },
+      "errorTitle": "Unable to prepare this form",
+      "empty": {
+        "eyebrow": "Projects",
+        "title": "Create a gallery first.",
+        "description": "Projects must belong to an active gallery. Add at least one gallery before creating a project."
+      },
+      "submitLabel": "Create project",
+      "formDescription": "Create keeps the same backend contract while giving the story editor a clearer, full-width workspace.",
+      "toasts": { "created": "Project created successfully." }
+    },
+    "edit": {
+      "eyebrow": "Edit project",
+      "title": "Update project story and assets",
+      "description": "Review the metadata quickly, then continue editing the project story in the full-width workspace.",
+      "confirm": {
+        "title": "Discard these changes?",
+        "description": "Any modifications will be lost.",
+        "confirmLabel": "Discard"
+      },
+      "loading": { "title": "Loading project", "description": "Fetching the project record and active gallery options." },
+      "errorTitle": "Unable to load this project",
+      "notFound": "Project not found.",
+      "submitLabel": "Save changes",
+      "formDescription": "Edit keeps the current project semantics intact while making the story editor easier to scan and use.",
+      "toasts": { "updated": "Project updated successfully." }
+    },
+    "detail": {
+      "eyebrow": "Project detail",
+      "title": "Review this project story.",
+      "description": "Inspect the studio-facing cover, multilingual naming, publication state, and saved story document before making changes.",
+      "actions": { "edit": "Edit", "restore": "Restore", "delete": "Delete" },
+      "loading": { "title": "Loading project", "description": "Fetching the selected project record." },
+      "errorTitle": "Unable to load this project",
+      "notFound": "Project not found.",
+      "dialogs": {
+        "deleteTitle": "Delete {name}?",
+        "restoreTitle": "Restore {name}?",
+        "deleteDescription": "This archives the project for now. You can restore it later if needed.",
+        "restoreDescription": "This will bring the archived project back into the active collection.",
+        "deleteConfirm": "Delete project",
+        "restoreConfirm": "Restore project"
+      },
+      "story": {
+        "eyebrow": "Story document",
+        "title": "Saved editorial content",
+        "description": "Read-only rendering of the saved project document. This matches the current editor model and backend payload.",
+        "readonly": "Readonly preview",
+        "blocks": "{count} blocks",
+        "updated": "Updated {date}",
+        "state": "Document state: {state}. Content is shown exactly as currently saved.",
+        "stateArchived": "archived record",
+        "stateActive": "active record"
+      },
+      "toasts": { "archived": "Project archived.", "restored": "Project restored successfully." }
+    },
+    "detailCard": {
+      "assetContext": "Asset context",
+      "fileFormat": "File format",
+      "fileSize": "File size",
+      "coverDescription": "Cover media is stored as a backend-managed file and reused across project surfaces.",
+      "storyIdentity": "Story identity",
+      "id": "ID: {id}",
+      "gallery": "Gallery: {name}",
+      "owner": "Owner: {name}",
+      "updated": "Updated {date}",
+      "multilingualTitles": "Multilingual titles",
+      "english": "English",
+      "vietnamese": "Vietnamese",
+      "chinese": "Chinese",
+      "adminMetadata": "Admin metadata",
+      "createdBy": "Created by",
+      "galleryContext": "Gallery context",
+      "galleryContextAvailable": "Story is grouped under this gallery.",
+      "galleryContextMissing": "Original gallery reference is no longer available after retention cleanup.",
+      "timeline": "Timeline",
+      "createdAt": "Created at",
+      "updatedAt": "Updated at",
+      "lifecycle": {
+        "title": "Lifecycle",
+        "archivedOn": "Archived on {date}",
+        "active": "Active record",
+        "inactive": "Inactive record",
+        "notDeleted": "Not deleted"
+      }
+    },
+    "form": {
+      "sections": {
+        "metadata": {
+          "eyebrow": "Project metadata",
+          "title": "Core details and cover",
+          "description": "Keep the essential record clean and easy to scan before moving into the story editor.",
+          "createChip": "Create flow keeps the same payload contract.",
+          "editChip": "Edit flow keeps the current project semantics intact."
+        },
+        "story": {
+          "eyebrow": "Story content",
+          "title": "Build the full project story",
+          "description": "Add text, YouTube embeds, and media layout blocks. New images still upload to storage first and submit as upload tokens.",
+          "chip": "Full-width editor for smoother writing and media composition."
+        }
+      },
+      "fields": {
+        "gallery": "Gallery",
+        "namesEyebrow": "Names",
+        "localizedTitle": "Localized project naming",
+        "localizedDescription": "Align project naming across English, Vietnamese, and Chinese before publishing.",
+        "projectName": "Project name",
+        "placeholders": { "en": "Spring Romance", "vi": "Tinh yeu mua xuan", "cn": "春日恋曲" },
+        "publishingState": "Publishing state",
+        "publishOptions": {
+          "draft": { "label": "Draft", "description": "Visible only in admin until you publish it" },
+          "published": { "label": "Published", "description": "Ready for customer-facing surfaces that consume published projects" }
+        },
+        "cover": "Cover image",
+        "coverCreateHint": "Upload the primary cover before saving. Replacements still follow the existing upload-token flow.",
+        "coverEditHint": "Keep the current cover or replace it without changing the project update behavior."
+      },
+      "actions": { "saving": "Saving..." },
+      "errors": {
+        "coverUploadFailed": "The cover image could not be uploaded. Please try again.",
+        "galleryRequired": "Select a gallery for this project.",
+        "nameEnRequired": "English name is required.",
+        "nameViRequired": "Vietnamese name is required.",
+        "nameCnRequired": "Chinese name is required.",
+        "coverRequired": "Upload a project cover before saving."
+      },
+      "editor": { "loading": "Loading editor" }
+    },
+    "editor": {
+      "loading": "Loading editor",
+      "bootError": "The content editor could not be started. Refresh and try again.",
+      "bootErrorWithMessage": "The content editor could not be started. {message}",
+      "youtubeTitle": "YouTube video",
+      "mediaAlt": "Project media"
+    }
+  },
+  "packages": {
+    "badges": { "archived": "Archived", "active": "Active", "inactive": "Inactive" },
+    "coverField": {
+      "coverAlt": "Package cover",
+      "title": "Package cover",
+      "requiredHint": "Upload a cover image before publishing this package.",
+      "optionalHint": "Upload a cover image to improve the package preview.",
+      "replace": "Replace image",
+      "upload": "Upload image",
+      "remove": "Remove image",
+      "uploading": "Uploading..."
+    },
+    "currencySelect": {
+      "searchPlaceholder": "Search country or currency",
+      "clearSearch": "Clear currency search",
+      "empty": "No currency option matched your search."
+    },
+    "list": {
+      "eyebrow": "Packages",
+      "title": "Manage session packages.",
+      "description": "Organize multilingual package offers with pricing, cover image, and lifecycle controls.",
+      "meta": { "adminOnly": "Admin only" },
+      "actions": { "create": "Create package", "retry": "Retry", "previous": "Previous", "next": "Next" },
+      "filters": {
+        "quick": "Quick filters",
+        "searchLabel": "Search keyword",
+        "searchPlaceholder": "Search by package name",
+        "status": "Status",
+        "statusAll": "All packages",
+        "statusActive": "Active only",
+        "statusInactive": "Inactive only",
+        "pageSize": "Page size",
+        "perPage": "{value} per page"
+      },
+      "loading": { "title": "Loading packages", "description": "Preparing the latest package list and filter results." },
+      "errors": { "load": "Unable to load packages" },
+      "pagination": { "summary": "Page {page} of {totalPages}. Total packages: {total}.", "updating": "Updating..." },
+      "empty": {
+        "title": "No packages matched the current filters.",
+        "description": "Try a broader keyword or change the status filter.",
+        "createFirst": "Create first package"
+      },
+      "toasts": { "archived": "Package archived.", "restored": "Package restored successfully." }
+    },
+    "table": {
+      "title": "Package records",
+      "description": "Names, cover, offer details, and lifecycle in one view.",
+      "columns": {
+        "package": "Package",
+        "cover": "Cover",
+        "bestFor": "Best for",
+        "offer": "Offer",
+        "status": "Status",
+        "updated": "Updated",
+        "actions": "Actions"
+      },
+      "offerPhotos": "{count, plural, one {# photo} other {# photos}}",
+      "actions": { "edit": "Edit", "restore": "Restore", "delete": "Delete" },
+      "dialogs": {
+        "deleteTitle": "Delete {name}?",
+        "restoreTitle": "Restore {name}?",
+        "deleteDescription": "This archives the package. You can restore it later if needed.",
+        "restoreDescription": "This restores the archived package into the active list.",
+        "deleteConfirm": "Delete package",
+        "restoreConfirm": "Restore package",
+        "selected": "Selected package"
+      }
+    },
+    "create": {
+      "eyebrow": "Create package",
+      "title": "Create a new package.",
+      "description": "Add multilingual details, offer information, and a cover image for a complete package record.",
+      "confirm": {
+        "title": "Discard this new package?",
+        "description": "The form will be cleared and you will return to the package list.",
+        "confirmLabel": "Discard"
+      },
+      "submitLabel": "Create package",
+      "formDescription": "All localized names and best-for descriptions are required by the backend contract.",
+      "toasts": { "created": "Package created successfully." }
+    },
+    "edit": {
+      "eyebrow": "Edit package",
+      "title": "Update package details.",
+      "description": "Refine localized copy, offer information, and cover image while keeping the same package record.",
+      "confirm": {
+        "title": "Discard these changes?",
+        "description": "Any modifications will be lost.",
+        "confirmLabel": "Discard"
+      },
+      "loading": { "title": "Loading package", "description": "Fetching the current package record." },
+      "errorTitle": "Unable to load this package",
+      "notFound": "Package not found.",
+      "submitLabel": "Save changes",
+      "formDescription": "Updating details keeps the same package ID and lifecycle history.",
+      "toasts": { "updated": "Package updated successfully." }
+    },
+    "detail": {
+      "eyebrow": "Package detail",
+      "title": "Review this package.",
+      "description": "Inspect localized details, core offer information, and lifecycle state before making changes.",
+      "actions": { "edit": "Edit", "restore": "Restore", "delete": "Delete" },
+      "loading": { "title": "Loading package", "description": "Fetching the selected package record." },
+      "errorTitle": "Unable to load this package",
+      "notFound": "Package not found.",
+      "dialogs": {
+        "deleteTitle": "Delete {name}?",
+        "restoreTitle": "Restore {name}?",
+        "deleteDescription": "This archives the package for now. You can restore it later if needed.",
+        "restoreDescription": "This will bring the archived package back into the active list.",
+        "deleteConfirm": "Delete package",
+        "restoreConfirm": "Restore package"
+      },
+      "toasts": { "archived": "Package archived.", "restored": "Package restored successfully." }
+    },
+    "detailCard": {
+      "assetInfo": "Asset info",
+      "fileFormat": "File format",
+      "fileSize": "File size",
+      "englishName": "English name",
+      "coreOfferInfo": "Core offer info",
+      "vietnameseName": "Vietnamese name",
+      "chineseName": "Chinese name",
+      "bestFor": "Best for",
+      "english": "English",
+      "vietnamese": "Vietnamese",
+      "chinese": "Chinese",
+      "duration": "Duration",
+      "photoCount": "Photo count",
+      "pricing": "Pricing",
+      "metaInfo": "Meta info",
+      "createdBy": "Created by",
+      "timeline": "Timeline",
+      "created": "Created",
+      "updated": "Updated"
+    },
+    "form": {
+      "locales": {
+        "en": {
+          "label": "English",
+          "short": "EN",
+          "namePlaceholder": "Classic portrait session",
+          "bestForPlaceholder": "For couples who want timeless portrait imagery with subtle editorial direction."
+        },
+        "vi": {
+          "label": "Vietnamese",
+          "short": "VI",
+          "namePlaceholder": "Gói chụp chân dung cổ điển",
+          "bestForPlaceholder": "Phù hợp với các cặp đôi muốn sở hữu bộ ảnh chân dung tinh tế theo phong cách biên tập."
+        },
+        "cn": {
+          "label": "Chinese",
+          "short": "CN",
+          "namePlaceholder": "经典肖像拍摄套餐",
+          "bestForPlaceholder": "适合希望获得精致编辑风格肖像作品的情侣。"
+        }
+      },
+      "localeEditor": {
+        "packageNames": "Package names",
+        "bestFor": "Best-for copy",
+        "namesDescription": "Each locale name is required and should follow one clear naming style.",
+        "bestForDescription": "Describe who this package is designed for in each locale.",
+        "ready": "{count}/3 ready",
+        "localeLabel": "Now editing: {locale}"
+      },
+      "sections": {
+        "packageDetails": {
+          "eyebrow": "Package profile",
+          "title": "Localized package details",
+          "description": "Complete names and best-for copy in all required locales before saving."
+        },
+        "names": {
+          "eyebrow": "Names",
+          "title": "Localized package names",
+          "description": "Use concise names that still reflect the positioning of each package.",
+          "fieldLabel": "Package name"
+        },
+        "audience": {
+          "eyebrow": "Audience",
+          "title": "Best-for messaging",
+          "description": "Write one audience-focused description per locale.",
+          "fieldLabel": "Best for"
+        },
+        "offer": {
+          "eyebrow": "Offer",
+          "title": "Core offer setup",
+          "description": "Set duration, included photo count, and pricing details.",
+          "detailsTitle": "Session details",
+          "pricingTitle": "Pricing details"
+        },
+        "cover": {
+          "eyebrow": "Visual",
+          "title": "Cover image",
+          "createDescription": "Upload a clean cover visual that represents this package in list and detail views.",
+          "editDescription": "Replace the current cover if this package needs a refreshed visual direction."
+        }
+      },
+      "fields": {
+        "durationMinutes": "Duration (minutes)",
+        "durationPlaceholder": "e.g. 90",
+        "durationHint": "Must be greater than 0.",
+        "photoCount": "Included photo count",
+        "photoCountPlaceholder": "e.g. 25",
+        "photoCountHint": "Use 0 if this package does not include edited photos.",
+        "amount": "Price amount",
+        "amountPlaceholder": "e.g. 2500000",
+        "amountHint": "Numbers only. Formatting is applied automatically.",
+        "currency": "Currency",
+        "currencyHint": "Choose the transaction currency for this package."
+      },
+      "preview": {
+        "sessionPending": "Set session duration",
+        "photoPending": "Set included photo count",
+        "pricingPending": "Set package pricing",
+        "photos": "{count, plural, one {# photo} other {# photos}}",
+        "title": "Live preview",
+        "coverAlt": "Package cover preview",
+        "uploadHint": "Upload a cover image to preview this package card.",
+        "nameFallback": "Package name preview",
+        "bestFor": "Best for",
+        "bestForFallback": "Add best-for copy to preview how this section appears.",
+        "duration": "Duration",
+        "photoCount": "Photos",
+        "requestNow": "Request now"
+      },
+      "finalCheck": {
+        "title": "Final check",
+        "description": "Review localized content and offer details once more before submitting."
+      },
+      "actions": { "saving": "Saving..." },
+      "errors": {
+        "coverUploadFailed": "Failed to upload cover image. Please try again.",
+        "nameEnRequired": "English package name is required.",
+        "nameViRequired": "Vietnamese package name is required.",
+        "nameCnRequired": "Chinese package name is required.",
+        "bestForEnRequired": "English best-for text is required.",
+        "bestForViRequired": "Vietnamese best-for text is required.",
+        "bestForCnRequired": "Chinese best-for text is required.",
+        "durationInvalid": "Duration must be greater than 0.",
+        "photoCountInvalid": "Photo count must be 0 or greater.",
+        "pricingAmountInvalid": "Pricing amount must be 0 or greater.",
+        "pricingCurrencyRequired": "Currency is required.",
+        "coverRequired": "A cover image is required when creating a package."
+      }
+    }
+  },
+  "blogs": {
+    "badges": {
+      "archived": "Archived",
+      "active": "Active",
+      "inactive": "Inactive",
+      "published": "Published",
+      "draft": "Draft",
+      "pinned": "Pinned",
+      "standard": "Standard"
+    },
+    "coverField": {
+      "coverAlt": "Blog cover",
+      "title": "Cover image",
+      "requiredHint": "Upload the lead cover before saving the blog.",
+      "optionalHint": "Keep the current cover or upload a replacement when needed.",
+      "replace": "Replace cover",
+      "upload": "Upload cover",
+      "remove": "Remove",
+      "uploading": "Uploading cover image..."
+    },
+    "list": {
+      "eyebrow": "Blogs",
+      "title": "Manage editorial journal entries.",
+      "description": "Manage editorial entries, publishing priority, and lifecycle with faster scanning.",
+      "meta": { "adminOnly": "Admin only" },
+      "actions": { "create": "Create blog", "retry": "Retry", "previous": "Previous", "next": "Next" },
+      "filters": {
+        "quick": "Quick filters",
+        "searchLabel": "Search keyword",
+        "searchPlaceholder": "Search by blog title",
+        "status": "Status",
+        "statusAll": "All blogs",
+        "statusActive": "Active only",
+        "statusInactive": "Inactive only",
+        "publication": "Publication",
+        "publishAll": "All publish states",
+        "publishPublished": "Published only",
+        "publishDraft": "Draft only",
+        "pinState": "Pin state",
+        "pinAll": "All pin states",
+        "pinPinned": "Pinned only",
+        "pinStandard": "Standard only",
+        "pageSize": "Page size",
+        "perPage": "{value} per page"
+      },
+      "loading": { "title": "Loading blogs", "description": "Preparing editorial entries and current filter states." },
+      "errors": { "load": "Unable to load blogs" },
+      "pagination": { "summary": "Page {page} of {totalPages}. Total blogs: {total}.", "updating": "Updating..." },
+      "empty": { "title": "No blog entries matched the current filters.", "description": "Try a broader keyword or relax the publication, pin, or lifecycle filters.", "createFirst": "Create first blog" },
+      "toasts": { "archived": "Blog archived.", "restored": "Blog restored successfully." }
+    },
+    "table": {
+      "title": "Blog records",
+      "description": "Editorial identity, publishing priority, and lifecycle in one view.",
+      "columns": { "blog": "Blog", "cover": "Cover", "pin": "Pin", "publish": "Publish", "status": "Status", "updated": "Updated", "actions": "Actions" },
+      "by": "By {name}",
+      "actions": { "edit": "Edit", "restore": "Restore", "delete": "Delete" },
+      "dialogs": {
+        "deleteTitle": "Delete {name}?",
+        "restoreTitle": "Restore {name}?",
+        "deleteDescription": "This archives the blog for now. You can restore it later if needed.",
+        "restoreDescription": "This restores the archived blog to the active editorial library.",
+        "deleteConfirm": "Delete blog",
+        "restoreConfirm": "Restore blog",
+        "selected": "Selected blog"
+      }
+    },
+    "create": {
+      "eyebrow": "Create blog",
+      "title": "Create a new editorial entry",
+      "description": "Set the core metadata first, then shape the full journal piece in the editor workspace below.",
+      "confirm": { "title": "Discard this new blog?", "description": "The form will be cleared and you will return to the blog list.", "confirmLabel": "Discard" },
+      "submitLabel": "Create blog",
+      "formDescription": "Create keeps the same backend contract while giving the editorial editor a full-width workspace.",
+      "toasts": { "created": "Blog created successfully." }
+    },
+    "edit": {
+      "eyebrow": "Edit blog",
+      "title": "Update the editorial entry",
+      "description": "Review the metadata quickly, then continue editing the content in the full-width workspace.",
+      "confirm": { "title": "Discard these changes?", "description": "Any modifications will be lost.", "confirmLabel": "Discard" },
+      "loading": { "title": "Loading blog", "description": "Fetching the current blog record and cover asset." },
+      "errorTitle": "Unable to load this blog",
+      "notFound": "Blog not found.",
+      "submitLabel": "Save changes",
+      "formDescription": "Edit keeps the current blog semantics intact while making the editorial workspace easier to scan and use.",
+      "toasts": { "updated": "Blog updated successfully." }
+    },
+    "detail": {
+      "eyebrow": "Blog detail",
+      "title": "Review this editorial entry.",
+      "description": "Inspect the lead cover, publishing priority, and saved content document before making changes.",
+      "actions": { "edit": "Edit", "restore": "Restore", "delete": "Delete" },
+      "loading": { "title": "Loading blog", "description": "Fetching the selected editorial entry." },
+      "errorTitle": "Unable to load this blog",
+      "notFound": "Blog not found.",
+      "dialogs": { "deleteTitle": "Delete {name}?", "restoreTitle": "Restore {name}?", "deleteDescription": "This archives the blog for now. You can restore it later if needed.", "restoreDescription": "This will bring the archived blog back into the active editorial library.", "deleteConfirm": "Delete blog", "restoreConfirm": "Restore blog" },
+      "document": {
+        "eyebrow": "Editorial document",
+        "title": "Saved blog content",
+        "description": "Read-only rendering of the saved blog document. This matches the current editor model and backend payload.",
+        "readonly": "Readonly preview",
+        "blocks": "{count} blocks",
+        "updated": "Updated {date}",
+        "state": "Document state: {state}. Content is shown exactly as currently saved.",
+        "stateArchived": "archived record",
+        "stateActive": "active record"
+      },
+      "toasts": { "archived": "Blog archived.", "restored": "Blog restored successfully." }
+    },
+    "detailCard": {
+      "coverAsset": "Cover asset context",
+      "fileFormat": "File format",
+      "fileSize": "File size",
+      "coverDescription": "Cover asset is backend-managed and reused for editorial list/detail rendering.",
+      "editorialIdentity": "Editorial identity",
+      "id": "ID: {id}",
+      "owner": "Owner: {name}",
+      "updated": "Updated {date}",
+      "editorialState": "Editorial state",
+      "placement": {
+        "title": "Placement",
+        "pinned": "Pinned feature",
+        "standard": "Standard placement",
+        "pinnedDescription": "Pinned entries stay highlighted above regular chronology.",
+        "standardDescription": "Follows default chronology ordering in editorial feeds."
+      },
+      "publication": {
+        "title": "Publication",
+        "published": "Published",
+        "draft": "Draft",
+        "publishedDescription": "Visible to public blog surfaces.",
+        "draftDescription": "Visible only in admin until publication."
+      },
+      "adminMetadata": "Admin metadata",
+      "createdBy": "Created by",
+      "recordState": { "title": "Record state", "active": "Active", "inactive": "Inactive", "description": "Lifecycle controls in this view archive and restore the record." },
+      "timeline": "Timeline",
+      "createdAt": "Created at",
+      "updatedAt": "Updated at",
+      "lifecycle": { "title": "Lifecycle", "archivedOn": "Archived on {date}", "active": "Active record", "inactive": "Inactive record", "notDeleted": "Not deleted" }
+    },
+    "form": {
+      "sections": {
+        "metadata": { "eyebrow": "Blog metadata", "title": "Core details and cover", "description": "Keep the journal record clean and easy to scan before moving into the writing workspace.", "createChip": "Create keeps the backend payload intact.", "editChip": "Edit keeps the current blog semantics intact." },
+        "content": { "eyebrow": "Blog content", "title": "Build the full editorial entry", "description": "Add text, YouTube embeds, and media layout blocks. New images still upload first and submit as upload tokens.", "chip": "Full-width editor for writing, layout, and image sequencing." }
+      },
+      "fields": {
+        "title": "Blog title",
+        "titlePlaceholder": "Studio notes from a mountain wedding",
+        "publishingState": "Publishing state",
+        "pinnedState": "Pinned state",
+        "cover": "Cover image",
+        "coverCreateHint": "Upload the lead image before saving. Replacements still use the same upload-token flow.",
+        "coverEditHint": "Keep the current cover or replace it without changing the existing update behavior.",
+        "publishOptions": {
+          "draft": { "label": "Draft", "description": "Visible only in admin until you publish it" },
+          "published": { "label": "Published", "description": "Ready for published blog surfaces and editorial promotion" }
+        },
+        "pinOptions": {
+          "standard": { "label": "Standard placement", "description": "Ordered naturally by the published timeline" },
+          "pinned": { "label": "Pinned feature", "description": "Floats to the top of public blog collections" }
+        }
+      },
+      "actions": { "saving": "Saving..." },
+      "errors": { "coverUploadFailed": "The cover image could not be uploaded. Please try again.", "titleRequired": "Blog title is required.", "coverRequired": "Upload a blog cover before saving." }
+    },
+    "editor": {
+      "loading": "Loading editor",
+      "bootError": "The content editor could not be started. Refresh and try again.",
+      "bootErrorWithMessage": "The content editor could not be started. {message}",
+      "youtubeTitle": "YouTube video",
+      "mediaTitle": "Blog media",
+      "mediaAlt": "Blog media"
+    }
+  },
+  "orders": {
+    "badges": {
+      "cancelled": "Cancelled",
+      "completed": "Completed",
+      "confirmed": "Confirmed",
+      "contacted": "Contacted",
+      "pending": "Pending",
+      "paid": "Paid",
+      "refunded": "Refunded",
+      "partiallyPaid": "Partially paid",
+      "unpaid": "Unpaid"
+    },
+    "list": {
+      "eyebrow": "Orders",
+      "title": "Manage order requests and fulfillment.",
+      "description": "Track requests, payment progression, and lifecycle updates from one operational queue.",
+      "actions": { "retry": "Retry", "previous": "Previous", "next": "Next", "resetFilters": "Reset filters" },
+      "filters": {
+        "quick": "Quick filters",
+        "searchLabel": "Search keyword",
+        "searchPlaceholder": "Order number, customer name, or email",
+        "status": "Status",
+        "statusAll": "All statuses",
+        "statusPending": "Pending",
+        "statusContacted": "Contacted",
+        "statusConfirmed": "Confirmed",
+        "statusCompleted": "Completed",
+        "statusCancelled": "Cancelled",
+        "paymentStatus": "Payment status",
+        "paymentAll": "All payment statuses",
+        "paymentUnpaid": "Unpaid",
+        "paymentPartiallyPaid": "Partially paid",
+        "paymentPaid": "Paid",
+        "paymentRefunded": "Refunded",
+        "discoverySource": "Discovery source",
+        "discoveryAll": "All discovery sources",
+        "discoveryInstagram": "Instagram",
+        "discoveryFacebook": "Facebook",
+        "discoveryTiktok": "TikTok",
+        "discoveryGoogle": "Google",
+        "discoveryFriend": "Friend",
+        "discoveryOther": "Other",
+        "pageSize": "Page size",
+        "perPage": "{value} per page"
+      },
+      "loading": { "title": "Loading orders", "description": "Preparing the latest order records and filters." },
+      "errors": { "load": "Unable to load orders" },
+      "pagination": { "summary": "Page {page} of {totalPages}. Total orders: {total}", "updating": "Updating..." },
+      "empty": { "title": "No orders matched the current filters.", "description": "Try clearing one or more filters to show more requests." }
+    },
+    "table": {
+      "title": "Order records",
+      "description": "Track request lifecycle and payment progression in one operational view.",
+      "columns": { "order": "Order", "customer": "Customer", "source": "Source", "item": "Item", "lifecycle": "Lifecycle" },
+      "na": "N/A",
+      "item": { "package": "Package", "custom": "Custom", "noItem": "No item", "budget": "Budget", "snapshotMissing": "Snapshot missing", "noItemSnapshot": "No item snapshot" }
+    },
+    "detail": {
+      "eyebrow": "Order detail",
+      "title": "Review this order request.",
+      "description": "See customer context, item snapshot, and update status or payment progression in one place.",
+      "descriptionWithCustomer": "Customer: {customer} · Keep lifecycle and payment progression aligned.",
+      "actions": { "refresh": "Refresh" },
+      "loading": { "title": "Loading order", "description": "Pulling the latest order detail and status." },
+      "errorTitle": "Unable to load this order",
+      "notFound": "Order not found."
+    },
+    "detailCard": {
+      "na": "N/A",
+      "identity": { "eyebrow": "Order identity", "description": "Keep lifecycle and payment progression aligned before confirming final delivery." },
+      "currentCondition": { "title": "Current condition", "description": "Order is currently {status} with payment marked as {payment}.", "hint": "Use the lifecycle action panel below to apply the next valid transition." },
+      "requestedItem": { "title": "Requested item", "subtitle": "Booking and pricing snapshot", "empty": "No item snapshot is available for this order." },
+      "item": {
+        "packageItem": "Package item",
+        "customItem": "Custom item",
+        "package": "Package",
+        "galleryLabel": "Gallery",
+        "gallery": "Gallery: {name}",
+        "durationMinutes": "{count} min",
+        "durationNa": "Duration N/A",
+        "photoCount": "{count} photos",
+        "photoCountNa": "Photo count N/A",
+        "pricing": "Pricing",
+        "canonicalPricing": "Canonical order pricing",
+        "customDescription": "Custom request scoped to this gallery.",
+        "budget": "Budget",
+        "confirmedBudget": "Confirmed custom request budget"
+      },
+      "metadata": { "title": "Admin metadata", "discoverySource": "Discovery source", "created": "Created", "updated": "Updated" },
+      "story": { "title": "Personal story", "long": "Long note", "short": "Short note", "empty": "No story provided." }
+    },
+    "updatePanel": {
+      "eyebrow": "Lifecycle actions",
+      "description": "Review current state, choose the next valid transition, and save this order update.",
+      "current": "Current",
+      "selected": "Selected",
+      "orderStatus": "Order status",
+      "paymentStatus": "Payment status",
+      "invalidPaymentSelection": "No payment status is valid for the selected status from the current payment progression.",
+      "applyChange": "Saving will apply: {status} and {payment}.",
+      "noPendingChange": "No pending change yet. Select a new status to enable saving.",
+      "noChange": "No change detected. Select a new status or payment status.",
+      "updated": "Order updated successfully.",
+      "actions": { "saving": "Saving...", "save": "Save order update" }
+    },
+    "publicRequest": {
+      "eyebrow": "Order request",
+      "title": "Start your order request.",
+      "description": "Submit the request first, then confirm via the email link to create the actual order.",
+      "footer": { "confirmLink": "Already have a token? Confirm request" },
+      "success": "Confirmation email sent. Open the email and confirm to finish order creation.",
+      "packageOption": "{photos} photos · {minutes} min",
+      "fields": {
+        "requestType": "Request type",
+        "modePackage": "Package request",
+        "modeCustom": "Custom request",
+        "fullName": "Full name",
+        "fullNamePlaceholder": "Nguyen Van A",
+        "email": "Email",
+        "emailPlaceholder": "customer@example.com",
+        "country": "Country",
+        "gallery": "Gallery",
+        "loadingGalleries": "Loading galleries...",
+        "selectGallery": "Select gallery",
+        "package": "Package",
+        "loadingPackages": "Loading packages...",
+        "selectPackage": "Select package",
+        "budgetAmount": "Budget amount",
+        "budgetAmountPlaceholder": "2500000",
+        "budgetCurrency": "Budget currency",
+        "budgetCurrencyPlaceholder": "VND",
+        "discoverySource": "How did you discover us?",
+        "discoveryPlaceholder": "facebook",
+        "personalStory": "Personal story",
+        "personalStoryPlaceholder": "Tell us what you want us to capture..."
+      },
+      "errors": {
+        "nameRequired": "Name is required.",
+        "emailRequired": "Email is required.",
+        "emailInvalid": "Enter a valid email address.",
+        "galleryRequired": "Gallery is required.",
+        "discoveryRequired": "Discovery source is required.",
+        "storyRequired": "Personal story is required.",
+        "packageRequired": "Package selection is required for package requests.",
+        "budgetAmountInvalid": "Budget amount must be greater than zero.",
+        "budgetCurrencyRequired": "Budget currency is required."
+      },
+      "toasts": { "submittedTitle": "Request submitted successfully.", "submittedDescription": "Please check your email and confirm from the link." },
+      "actions": { "submitting": "Submitting...", "submit": "Submit request" }
+    },
+    "publicConfirm": {
+      "eyebrow": "Confirm order",
+      "title": "Confirm your order request.",
+      "description": "Use the token from the email. The first successful confirmation creates the order. Repeating the same token returns the same success state.",
+      "footer": { "backToRequest": "Back to order request" },
+      "linkDetected": "Confirmation link detected. Continue below, or enter a different token.",
+      "confirmed": "Order {orderNumber} is confirmed. We will follow up through {email}.",
+      "fields": { "token": "Confirmation token", "differentToken": "Different confirmation token", "tokenPlaceholder": "Paste your token" },
+      "summary": {
+        "title": "Order summary",
+        "orderNumber": "Order number: {orderNumber}",
+        "item": "Item: {type}",
+        "package": "Package request",
+        "custom": "Custom request",
+        "amount": "Amount: {amount}"
+      },
+      "errors": { "tokenRequired": "Confirmation token is required." },
+      "toasts": { "confirmedTitle": "Order confirmed successfully.", "confirmedDescription": "If this token was already used recently, the same order is returned instead of creating a duplicate." },
+      "actions": { "useLinkToken": "Use token from the email link", "useDifferentToken": "Use a different token instead", "confirming": "Confirming...", "confirm": "Confirm order" }
+    }
+  },
+  "shared": {
+    "loading": {
+      "title": "Preparing surface",
+      "description": "Foundation components are loading into the workspace."
+    },
+    "confirmDialog": {
+      "eyebrow": "Confirm action"
+    },
+    "countrySelect": {
+      "searchPlaceholder": "Search country name or code",
+      "clearSearch": "Clear country search",
+      "selected": "Selected",
+      "empty": "No country matched your search."
+    }
+  }
+}

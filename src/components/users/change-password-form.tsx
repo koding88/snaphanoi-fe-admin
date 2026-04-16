@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { useTranslations } from "next-intl";
 
 import { AuthPasswordHint } from "@/components/auth/auth-password-hint";
 import { Button } from "@/components/ui/button";
@@ -20,6 +21,7 @@ type ChangePasswordFormProps = {
 export function ChangePasswordForm({
   onSubmit,
 }: ChangePasswordFormProps) {
+  const t = useTranslations("users.changePassword.form");
   const [values, setValues] = useState({
     currentPassword: "",
     newPassword: "",
@@ -41,20 +43,19 @@ export function ChangePasswordForm({
     } = {};
 
     if (!values.currentPassword) {
-      nextFieldErrors.currentPassword = "Current password is required.";
+      nextFieldErrors.currentPassword = t("errors.currentRequired");
     }
 
     if (!values.newPassword) {
-      nextFieldErrors.newPassword = "New password is required.";
+      nextFieldErrors.newPassword = t("errors.newRequired");
     } else if (!isStrongPassword(values.newPassword)) {
-      nextFieldErrors.newPassword =
-        "New password must be at least 8 characters and include uppercase, lowercase, and a number.";
+      nextFieldErrors.newPassword = t("errors.newWeak");
     }
 
     if (!values.confirmNewPassword) {
-      nextFieldErrors.confirmNewPassword = "Password confirmation is required.";
+      nextFieldErrors.confirmNewPassword = t("errors.confirmRequired");
     } else if (values.newPassword !== values.confirmNewPassword) {
-      nextFieldErrors.confirmNewPassword = "Password confirmation does not match.";
+      nextFieldErrors.confirmNewPassword = t("errors.confirmMismatch");
     }
 
     setFieldErrors(nextFieldErrors);
@@ -82,7 +83,7 @@ export function ChangePasswordForm({
   return (
     <form className="space-y-6" noValidate onSubmit={handleSubmit}>
       <label className="space-y-2 block">
-        <span className="text-sm font-medium text-foreground">Current password</span>
+        <span className="text-sm font-medium text-foreground">{t("fields.current")}</span>
         <PasswordInput
           value={values.currentPassword}
           onChange={(event) => {
@@ -94,7 +95,7 @@ export function ChangePasswordForm({
         {fieldErrors.currentPassword ? <p className="text-sm text-red-600">{fieldErrors.currentPassword}</p> : null}
       </label>
       <label className="space-y-2 block">
-        <span className="text-sm font-medium text-foreground">New password</span>
+        <span className="text-sm font-medium text-foreground">{t("fields.new")}</span>
         <PasswordInput
           value={values.newPassword}
           onChange={(event) => {
@@ -107,7 +108,7 @@ export function ChangePasswordForm({
         <AuthPasswordHint tone="light" />
       </label>
       <label className="space-y-2 block">
-        <span className="text-sm font-medium text-foreground">Confirm new password</span>
+        <span className="text-sm font-medium text-foreground">{t("fields.confirm")}</span>
         <PasswordInput
           value={values.confirmNewPassword}
           onChange={(event) => {
@@ -123,7 +124,7 @@ export function ChangePasswordForm({
       </label>
       <div className="flex justify-end pt-2">
         <Button type="submit" size="lg" className="min-w-44 rounded-full" disabled={isSubmitting}>
-          {isSubmitting ? "Updating..." : "Save new password"}
+          {isSubmitting ? t("actions.updating") : t("actions.submit")}
         </Button>
       </div>
     </form>

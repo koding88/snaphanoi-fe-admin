@@ -1,5 +1,12 @@
 import { isApiError } from "@/lib/api/errors";
 
+type ErrorMessageResolver = (params: {
+  scope: string;
+  code?: string | null;
+  statusCode?: number;
+  fallback: string;
+}) => string;
+
 const ERROR_MESSAGES = {
   login: {
     INVALID_CREDENTIALS: "Invalid email or password.",
@@ -28,9 +35,9 @@ const ERROR_MESSAGES = {
 
 type AuthErrorContext = keyof typeof ERROR_MESSAGES;
 
-export function getFriendlyAuthError(error: unknown, context: AuthErrorContext) {
+export function getFriendlyAuthError(error: unknown, context: AuthErrorContext, resolve?: ErrorMessageResolver) {
   if (!isApiError(error)) {
-    return "Something went wrong. Please try again.";
+    return resolve?.({ scope: `auth.${context}`, fallback: "Something went wrong. Please try again." }) ?? "Something went wrong. Please try again.";
   }
 
   const mappedMessage = error.code
@@ -38,20 +45,24 @@ export function getFriendlyAuthError(error: unknown, context: AuthErrorContext) 
     : null;
 
   if (mappedMessage) {
-    return mappedMessage;
+    return resolve?.({ scope: `auth.${context}`, code: error.code, statusCode: error.statusCode, fallback: mappedMessage }) ?? mappedMessage;
   }
 
   if (error.statusCode === 401) {
-    return "Your session is no longer valid. Please sign in again.";
+    const message = "Your session is no longer valid. Please sign in again.";
+    return resolve?.({ scope: `auth.${context}`, code: error.code, statusCode: error.statusCode, fallback: message }) ?? message;
   }
 
   if (error.statusCode === 403) {
-    return "You do not have permission to perform this action.";
+    const message = "You do not have permission to perform this action.";
+    return resolve?.({ scope: `auth.${context}`, code: error.code, statusCode: error.statusCode, fallback: message }) ?? message;
   }
 
   if (error.statusCode >= 500) {
-    return "The server is temporarily unavailable. Please try again in a moment.";
+    const message = "The server is temporarily unavailable. Please try again in a moment.";
+    return resolve?.({ scope: `auth.${context}`, code: error.code, statusCode: error.statusCode, fallback: message }) ?? message;
   }
 
-  return error.message || "Something went wrong. Please try again.";
+  const fallback = error.message || "Something went wrong. Please try again.";
+  return resolve?.({ scope: `auth.${context}`, code: error.code, statusCode: error.statusCode, fallback }) ?? fallback;
 }

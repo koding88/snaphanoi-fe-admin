@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
@@ -34,6 +35,7 @@ const INITIAL_QUERY: ProjectListQuery = {
 };
 
 export function ProjectsListPage() {
+  const t = useTranslations("projects.list");
   const [query, setQuery] = useState<ProjectListQuery>(INITIAL_QUERY);
   const [keywordInput, setKeywordInput] = useState(INITIAL_QUERY.keyword ?? "");
   const [result, setResult] = useState<ProjectsListResult | null>(null);
@@ -95,7 +97,7 @@ export function ProjectsListPage() {
 
     try {
       const response = await deleteProject(project.id);
-      notifySuccess(response.message ?? response.data.message, "Project archived.");
+      notifySuccess(response.message ?? response.data.message, t("toasts.archived"));
       await loadData(query);
     } catch (actionError) {
       notifyError(getFriendlyProjectsError(actionError));
@@ -110,7 +112,7 @@ export function ProjectsListPage() {
 
     try {
       const response = await restoreProject(project.id);
-      notifySuccess(response.message, "Project restored successfully.");
+      notifySuccess(response.message, t("toasts.restored"));
       await loadData(query);
     } catch (actionError) {
       notifyError(getFriendlyProjectsError(actionError));
@@ -123,12 +125,12 @@ export function ProjectsListPage() {
   return (
     <AdminPageContainer tone="hero" className="space-y-6 pb-8">
       <PageHeader
-        eyebrow="Projects"
-        title="Manage project stories."
-        description="Manage project stories, publication, and gallery linkage with faster operational scanning."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        description={t("description")}
         meta={
           <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1 text-[11px] font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
-            Admin only
+            {t("meta.adminOnly")}
           </span>
         }
         actions={
@@ -137,27 +139,27 @@ export function ProjectsListPage() {
             className={cn(buttonVariants(), "rounded-full px-4")}
           >
             <FontAwesomeIcon icon={faPlus} />
-            Create project
+            {t("actions.create")}
           </Link>
         }
       />
       <AdminSurface className="p-5 md:p-6">
         <div className="mb-3 flex flex-wrap gap-2">
           <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1 text-[10px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-            Quick filters
+            {t("filters.quick")}
           </span>
         </div>
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
           <label className="space-y-1.5 xl:col-span-2">
-            <span className="text-sm font-medium text-foreground">Search keyword</span>
+            <span className="text-sm font-medium text-foreground">{t("filters.searchLabel")}</span>
             <Input
               value={keywordInput}
               onChange={(event) => setKeywordInput(event.target.value)}
-              placeholder="Search by project title"
+              placeholder={t("filters.searchPlaceholder")}
             />
           </label>
           <label className="space-y-1.5">
-            <span className="text-sm font-medium text-foreground">Status</span>
+            <span className="text-sm font-medium text-foreground">{t("filters.status")}</span>
             <AppSelect
               value={String(query.isActive)}
               onChange={(statusValue) =>
@@ -168,14 +170,14 @@ export function ProjectsListPage() {
                 }))
               }
               options={[
-                { value: "all", label: "All projects" },
-                { value: "true", label: "Active only" },
-                { value: "false", label: "Inactive only" },
+                { value: "all", label: t("filters.statusAll") },
+                { value: "true", label: t("filters.statusActive") },
+                { value: "false", label: t("filters.statusInactive") },
               ]}
             />
           </label>
           <label className="space-y-1.5">
-            <span className="text-sm font-medium text-foreground">Publication</span>
+            <span className="text-sm font-medium text-foreground">{t("filters.publication")}</span>
             <AppSelect
               value={String(query.isPublished)}
               onChange={(publishValue) =>
@@ -186,14 +188,14 @@ export function ProjectsListPage() {
                 }))
               }
               options={[
-                { value: "all", label: "All publish states" },
-                { value: "true", label: "Published only" },
-                { value: "false", label: "Draft only" },
+                { value: "all", label: t("filters.publishAll") },
+                { value: "true", label: t("filters.publishPublished") },
+                { value: "false", label: t("filters.publishDraft") },
               ]}
             />
           </label>
           <label className="space-y-1.5">
-            <span className="text-sm font-medium text-foreground">Page size</span>
+            <span className="text-sm font-medium text-foreground">{t("filters.pageSize")}</span>
             <AppSelect
               value={String(query.limit)}
               onChange={(limitValue) =>
@@ -204,9 +206,9 @@ export function ProjectsListPage() {
                 }))
               }
               options={[
-                { value: "10", label: "10 per page" },
-                { value: "20", label: "20 per page" },
-                { value: "50", label: "50 per page" },
+                { value: "10", label: t("filters.perPage", { value: 10 }) },
+                { value: "20", label: t("filters.perPage", { value: 20 }) },
+                { value: "50", label: t("filters.perPage", { value: 50 }) },
               ]}
             />
           </label>
@@ -214,12 +216,12 @@ export function ProjectsListPage() {
       </AdminSurface>
       {isLoading && !result ? (
         <LoadingState
-          title="Loading projects"
-          description="Preparing the latest projects, filters, and content states."
+          title={t("loading.title")}
+          description={t("loading.description")}
         />
       ) : error ? (
         <ErrorState
-          title="Unable to load projects"
+          title={t("errors.load")}
           description={error}
           action={
             <button
@@ -228,7 +230,7 @@ export function ProjectsListPage() {
               className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-5")}
             >
               <FontAwesomeIcon icon={faRotateLeft} />
-              Retry
+              {t("actions.retry")}
             </button>
           }
         />
@@ -242,10 +244,14 @@ export function ProjectsListPage() {
           />
           <AdminSurface className="p-4">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-              <p className="text-xs text-muted-foreground">
-                Page {result.meta.page} of {result.meta.totalPages}. Total projects: {result.meta.total}.
-                {isRefreshing ? " Updating…" : ""}
-              </p>
+                <p className="text-xs text-muted-foreground">
+                  {t("pagination.summary", {
+                    page: result.meta.page,
+                    totalPages: result.meta.totalPages,
+                    total: result.meta.total,
+                  })}
+                  {isRefreshing ? ` ${t("pagination.updating")}` : ""}
+                </p>
               <div className="flex gap-2">
                 <button
                   type="button"
@@ -253,7 +259,7 @@ export function ProjectsListPage() {
                   onClick={() => setQuery((current) => ({ ...current, page: current.page - 1 }))}
                   className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-4 disabled:pointer-events-none disabled:opacity-50")}
                 >
-                  Previous
+                  {t("actions.previous")}
                 </button>
                 <button
                   type="button"
@@ -261,7 +267,7 @@ export function ProjectsListPage() {
                   onClick={() => setQuery((current) => ({ ...current, page: current.page + 1 }))}
                   className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-4 disabled:pointer-events-none disabled:opacity-50")}
                 >
-                  Next
+                  {t("actions.next")}
                 </button>
               </div>
             </div>
@@ -269,16 +275,16 @@ export function ProjectsListPage() {
         </>
       ) : (
         <EmptyState
-          eyebrow="Projects"
-          title="No projects matched the current filters."
-          description="Try a broader keyword or reset one of the status filters."
+          eyebrow={t("eyebrow")}
+          title={t("empty.title")}
+          description={t("empty.description")}
           action={
             <Link
               href={ROUTES.admin.projects.create}
               className={cn(buttonVariants(), "rounded-full px-5")}
             >
               <FontAwesomeIcon icon={faPlus} />
-              Create first project
+              {t("empty.createFirst")}
             </Link>
           }
         />

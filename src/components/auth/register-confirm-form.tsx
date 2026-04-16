@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState, type FormEvent } from "react";
+import { useTranslations } from "next-intl";
 
 import { AuthFeedback } from "@/components/auth/auth-feedback";
 import { AuthField } from "@/components/auth/auth-field";
@@ -16,6 +17,7 @@ import { ROUTES } from "@/lib/constants/routes";
 import { notifyError, notifySuccess } from "@/lib/toast";
 
 export function RegisterConfirmForm() {
+  const t = useTranslations("auth.registerConfirm");
   const router = useRouter();
   const searchParams = useSearchParams();
   const [token, setToken] = useState("");
@@ -52,7 +54,7 @@ export function RegisterConfirmForm() {
     setFieldError(null);
 
     if (!token.trim()) {
-      setFieldError("Confirmation token is required.");
+      setFieldError(t("errors.tokenRequired"));
       return;
     }
 
@@ -62,8 +64,8 @@ export function RegisterConfirmForm() {
       const response = await registerConfirm({ token });
       notifySuccess(
         response.message,
-        "Registration confirmed.",
-        "You can now sign in with your new account.",
+        t("successTitle"),
+        t("successDescription"),
       );
       setDidConfirm(true);
     } catch (submissionError) {
@@ -74,14 +76,14 @@ export function RegisterConfirmForm() {
   }
 
   return (
-    <AuthFormShell
-      eyebrow="Confirm registration"
-      title="Finish account activation."
-      description="If you opened this page from the email link, the confirmation token is already attached and ready to use."
+      <AuthFormShell
+      eyebrow={t("eyebrow")}
+      title={t("title")}
+      description={t("description")}
       footer={
         <div className="text-sm text-white/65">
           <Link href="/login" className="transition-opacity hover:opacity-100">
-            Return to login
+            {t("returnToLogin")}
           </Link>
         </div>
       }
@@ -89,10 +91,10 @@ export function RegisterConfirmForm() {
       <form className="space-y-5" noValidate onSubmit={handleSubmit}>
         {prefilledFromLink && !showManualToken ? (
           <AuthFeedback variant="info">
-            Confirmation link detected. Continue below, or enter a different token manually.
+            {t("linkDetected")}
           </AuthFeedback>
         ) : (
-          <AuthField label="Confirmation token" htmlFor="confirmation-token" error={fieldError}>
+          <AuthField label={t("token")} htmlFor="confirmation-token" error={fieldError}>
             <Input
               id="confirmation-token"
               name="token"
@@ -101,7 +103,7 @@ export function RegisterConfirmForm() {
                 setToken(event.target.value);
                 setFieldError(null);
               }}
-              placeholder="Paste your confirmation token"
+              placeholder={t("tokenPlaceholder")}
               aria-invalid={Boolean(fieldError)}
             />
           </AuthField>
@@ -112,11 +114,11 @@ export function RegisterConfirmForm() {
             onClick={() => setShowManualToken((current) => !current)}
             className="text-sm text-white/76 transition hover:text-white"
           >
-            {showManualToken ? "Use the token from the email link" : "Use a different token instead"}
+            {showManualToken ? t("useLinkToken") : t("useDifferentToken")}
           </button>
         ) : null}
         {prefilledFromLink && showManualToken ? (
-          <AuthField label="Different confirmation token" htmlFor="confirmation-token-manual" error={fieldError}>
+          <AuthField label={t("tokenAlt")} htmlFor="confirmation-token-manual" error={fieldError}>
             <Input
               id="confirmation-token-manual"
               name="token-manual"
@@ -125,13 +127,13 @@ export function RegisterConfirmForm() {
                 setToken(event.target.value);
                 setFieldError(null);
               }}
-              placeholder="Paste your confirmation token"
+              placeholder={t("tokenPlaceholder")}
               aria-invalid={Boolean(fieldError)}
             />
           </AuthField>
         ) : null}
         <Button type="submit" size="lg" className="h-12 w-full rounded-full" disabled={isSubmitting}>
-          {isSubmitting ? "Activating..." : "Activate account"}
+          {isSubmitting ? t("submitting") : t("submit")}
         </Button>
       </form>
     </AuthFormShell>

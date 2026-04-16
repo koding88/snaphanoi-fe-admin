@@ -1,5 +1,9 @@
+import { useTranslations } from "next-intl";
+
 import { StatusBadge } from "@/components/shared/status-badge";
 
 export function UserRoleBadge({ roleName }: { roleName: string | null }) {
-  return <StatusBadge tone="default">{roleName ?? "No role"}</StatusBadge>;
+  const t = useTranslations("users.badges");
+
+  return <StatusBadge tone="default">{roleName ?? t("noRole")}</StatusBadge>;
 }

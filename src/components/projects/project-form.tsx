@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useState, type FormEvent } from "react";
+import { useTranslations } from "next-intl";
 import type { OutputData } from "@editorjs/editorjs";
 
 import { ProjectCoverField } from "@/components/projects/project-cover-field";
@@ -36,9 +37,7 @@ const ProjectEditor = dynamic(
     loading: () => (
       <div className="rounded-2xl border border-border/70 bg-white p-6 shadow-sm">
         <div className="flex min-h-[560px] items-center justify-center rounded-xl border border-dashed border-border/60 bg-white">
-          <p className="text-xs font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-            Loading editor
-          </p>
+          <div className="h-2.5 w-28 rounded-full bg-border/60" />
         </div>
       </div>
     ),
@@ -95,6 +94,7 @@ export function ProjectForm({
   description,
   onSubmit,
 }: ProjectFormProps) {
+  const t = useTranslations("projects.form");
   const [values, setValues] = useState<ProjectFormValues>({
     galleryId: initialValues?.galleryId ?? galleries[0]?.id ?? "",
     name: {
@@ -202,7 +202,7 @@ export function ProjectForm({
       notifyError(getFriendlyProjectsError(error));
       setFieldErrors((current) => ({
         ...current,
-        cover: "The cover image could not be uploaded. Please try again.",
+        cover: t("errors.coverUploadFailed"),
       }));
     } finally {
       setIsUploadingCover(false);
@@ -215,23 +215,23 @@ export function ProjectForm({
     const nextFieldErrors: typeof fieldErrors = {};
 
     if (mode === "create" && !values.galleryId) {
-      nextFieldErrors.galleryId = "Select a gallery for this project.";
+      nextFieldErrors.galleryId = t("errors.galleryRequired");
     }
 
     if (!values.name.en.trim()) {
-      nextFieldErrors.nameEn = "English name is required.";
+      nextFieldErrors.nameEn = t("errors.nameEnRequired");
     }
 
     if (!values.name.vi.trim()) {
-      nextFieldErrors.nameVi = "Vietnamese name is required.";
+      nextFieldErrors.nameVi = t("errors.nameViRequired");
     }
 
     if (!values.name.cn.trim()) {
-      nextFieldErrors.nameCn = "Chinese name is required.";
+      nextFieldErrors.nameCn = t("errors.nameCnRequired");
     }
 
     if (mode === "create" && !cover.uploadToken) {
-      nextFieldErrors.cover = "Upload a project cover before saving.";
+      nextFieldErrors.cover = t("errors.coverRequired");
     }
 
     const contentError = getProjectEditorSubmitError(values.content);
@@ -277,22 +277,21 @@ export function ProjectForm({
         <div className="mb-6 flex flex-col gap-2 border-b border-border/60 pb-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="space-y-2">
             <p className="text-xs font-semibold tracking-[0.2em] text-[--color-brand-muted] uppercase">
-              Project metadata
+              {t("sections.metadata.eyebrow")}
             </p>
             <div>
               <h2 className="text-xl font-semibold tracking-tight text-foreground">
-                Core details and cover
+                {t("sections.metadata.title")}
               </h2>
               <p className="mt-1 max-w-2xl text-sm leading-6 text-muted-foreground">
-                Keep the essential record clean and easy to scan before moving
-                into the story editor.
+                {t("sections.metadata.description")}
               </p>
             </div>
           </div>
           <div className="rounded-full border border-border/70 bg-white/80 px-4 py-2 text-xs font-medium text-muted-foreground shadow-sm">
             {mode === "create"
-              ? "Create flow keeps the same payload contract."
-              : "Edit flow keeps the current project semantics intact."}
+              ? t("sections.metadata.createChip")
+              : t("sections.metadata.editChip")}
           </div>
         </div>
 
@@ -300,7 +299,7 @@ export function ProjectForm({
           <div className="grid gap-5 md:grid-cols-2">
             <div className="space-y-2 md:col-span-2">
               <span className="text-sm font-medium text-foreground">
-                Gallery
+                {t("fields.gallery")}
               </span>
               <ProjectGallerySelect
                 value={values.galleryId}
@@ -326,14 +325,14 @@ export function ProjectForm({
                   vi: fieldErrors.nameVi,
                   cn: fieldErrors.nameCn,
                 }}
-                sectionEyebrow="Names"
-                sectionTitle="Localized project naming"
-                sectionDescription="Align project naming across English, Vietnamese, and Chinese before publishing."
-                fieldLabel="Project name"
+                sectionEyebrow={t("fields.namesEyebrow")}
+                sectionTitle={t("fields.localizedTitle")}
+                sectionDescription={t("fields.localizedDescription")}
+                fieldLabel={t("fields.projectName")}
                 placeholders={{
-                  en: "Spring Romance",
-                  vi: "Tinh yeu mua xuan",
-                  cn: "春日恋曲",
+                  en: t("fields.placeholders.en"),
+                  vi: t("fields.placeholders.vi"),
+                  cn: t("fields.placeholders.cn"),
                 }}
                 onChange={(locale, nextValue) => {
                   setValues((current) => ({
@@ -349,7 +348,7 @@ export function ProjectForm({
             </div>
             <label className="space-y-2 md:col-span-2">
               <span className="text-sm font-medium text-foreground">
-                Publishing state
+                {t("fields.publishingState")}
               </span>
               <AppSelect
                 value={String(values.isPublished)}
@@ -362,14 +361,13 @@ export function ProjectForm({
                 options={[
                   {
                     value: "false",
-                    label: "Draft",
-                    description: "Visible only in admin until you publish it",
+                    label: t("fields.publishOptions.draft.label"),
+                    description: t("fields.publishOptions.draft.description"),
                   },
                   {
                     value: "true",
-                    label: "Published",
-                    description:
-                      "Ready for customer-facing surfaces that consume published projects",
+                    label: t("fields.publishOptions.published.label"),
+                    description: t("fields.publishOptions.published.description"),
                   },
                 ]}
               />
@@ -378,11 +376,11 @@ export function ProjectForm({
 
           <div className="rounded-[1.75rem] border border-border/70 bg-white/72 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.78)] md:p-5">
             <div className="mb-4 space-y-1">
-              <p className="text-sm font-medium text-foreground">Cover image</p>
+              <p className="text-sm font-medium text-foreground">{t("fields.cover")}</p>
               <p className="text-sm leading-6 text-muted-foreground">
                 {mode === "create"
-                  ? "Upload the primary cover before saving. Replacements still follow the existing upload-token flow."
-                  : "Keep the current cover or replace it without changing the project update behavior."}
+                  ? t("fields.coverCreateHint")
+                  : t("fields.coverEditHint")}
               </p>
             </div>
             <ProjectCoverField
@@ -418,20 +416,19 @@ export function ProjectForm({
         <div className="flex flex-col gap-2 pb-1 lg:flex-row lg:items-end lg:justify-between">
           <div className="space-y-2">
             <p className="text-xs font-semibold tracking-[0.2em] text-[--color-brand-muted] uppercase">
-              Story content
+              {t("sections.story.eyebrow")}
             </p>
             <div>
               <h2 className="text-xl font-semibold tracking-tight text-foreground">
-                Build the full project story
+                {t("sections.story.title")}
               </h2>
               <p className="mt-1 max-w-3xl text-sm leading-6 text-muted-foreground">
-                Add text, YouTube embeds, and media layout blocks. New images
-                still upload to storage first and submit as upload tokens.
+                {t("sections.story.description")}
               </p>
             </div>
           </div>
           <div className="rounded-full border border-border/70 bg-white/80 px-4 py-2 text-xs font-medium text-muted-foreground shadow-sm">
-            Full-width editor for smoother writing and media composition.
+            {t("sections.story.chip")}
           </div>
         </div>
 
@@ -454,7 +451,7 @@ export function ProjectForm({
           className="min-w-44 rounded-full"
           disabled={isSubmitting || isUploadingCover}
         >
-          {isSubmitting ? "Saving..." : submitLabel}
+          {isSubmitting ? t("actions.saving") : submitLabel}
         </Button>
       </div>
     </form>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
@@ -18,6 +19,7 @@ import { ROUTES } from "@/lib/constants/routes";
 import { queueNavigationToast } from "@/lib/toast";
 
 export function GalleryEditPage({ id }: { id: string }) {
+  const t = useTranslations("galleries.edit");
   const router = useRouter();
   const [gallery, setGallery] = useState<GalleryRecord | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -43,7 +45,7 @@ export function GalleryEditPage({ id }: { id: string }) {
     const response = await updateGallery(id, payload);
     queueNavigationToast({
       intent: "success",
-      title: response.message ?? "Gallery updated successfully.",
+      title: response.message ?? t("toasts.updated"),
     });
     router.replace(ROUTES.admin.galleries.detail(response.data.id));
   }
@@ -51,23 +53,23 @@ export function GalleryEditPage({ id }: { id: string }) {
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
-        eyebrow="Edit gallery"
-        title="Update gallery names."
-        description="Refine localized naming while keeping the existing gallery record."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        description={t("description")}
         meta={
           <BackButton
             href={ROUTES.admin.galleries.detail(id)}
             confirm
-            confirmTitle="Discard these changes?"
-            confirmDescription="Any modifications will be lost."
-            confirmLabel="Discard"
+            confirmTitle={t("confirm.title")}
+            confirmDescription={t("confirm.description")}
+            confirmLabel={t("confirm.confirmLabel")}
           />
         }
       />
       {isLoading ? (
-        <LoadingState title="Loading gallery" description="Fetching the current gallery record." />
+        <LoadingState title={t("loading.title")} description={t("loading.description")} />
       ) : error || !gallery ? (
-        <ErrorState title="Unable to load this gallery" description={error ?? "Gallery not found."} />
+        <ErrorState title={t("errorTitle")} description={error ?? t("notFound")} />
       ) : (
         <AdminSurface className="p-6 md:p-8">
           <GalleryForm
@@ -76,8 +78,8 @@ export function GalleryEditPage({ id }: { id: string }) {
               vi: gallery.name.vi,
               cn: gallery.name.cn,
             }}
-            submitLabel="Save changes"
-            description="Updating names keeps the same gallery ID and lifecycle history."
+            submitLabel={t("submitLabel")}
+            description={t("formDescription")}
             onSubmit={handleSubmit}
           />
         </AdminSurface>

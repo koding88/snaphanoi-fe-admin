@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { useTranslations } from "next-intl";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -15,6 +16,7 @@ import { faArrowRightFromBracket, faLock, faUserGear } from "@/lib/icons/fa";
 import { cn } from "@/lib/utils";
 
 export function AccountMenu() {
+  const t = useTranslations("admin.account");
   const router = useRouter();
   const rootRef = useRef<HTMLDivElement | null>(null);
   const closeTimeoutRef = useRef<number | null>(null);
@@ -106,12 +108,12 @@ export function AccountMenu() {
         aria-expanded={open}
       >
         <span className="hidden text-left md:block">
-          <span className="block text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-            Account
-          </span>
-          <span className="block max-w-44 truncate text-sm text-foreground">
-            {user?.email ?? "Studio admin"}
-          </span>
+            <span className="block text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
+              {t("triggerLabel")}
+            </span>
+            <span className="block max-w-44 truncate text-sm text-foreground">
+              {user?.email ?? t("fallbackEmail")}
+            </span>
         </span>
         <span className="flex size-10 items-center justify-center rounded-full bg-[linear-gradient(135deg,rgba(20,27,39,0.98),rgba(49,39,25,0.88))] text-sm font-semibold text-white">
           {(user?.name ?? "A").charAt(0).toUpperCase()}
@@ -121,27 +123,27 @@ export function AccountMenu() {
         <div className="dialog-enter absolute right-0 top-[calc(100%+0.7rem)] z-[90] w-72 overflow-hidden rounded-[1.5rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,244,237,0.96))] p-2 shadow-[0_24px_64px_rgba(15,23,42,0.18)]">
           <div className="rounded-[1.2rem] border border-border/70 bg-white/70 px-4 py-3">
             <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-              Signed in
+              {t("signedIn")}
             </p>
             <p className="mt-2 text-sm font-medium text-foreground">
-              {user?.name ?? "Studio account"}
+              {user?.name ?? t("fallbackName")}
             </p>
             <p className="mt-1 text-sm text-muted-foreground">
-              {user?.email ?? "Admin workspace"}
+              {user?.email ?? t("fallbackWorkspace")}
             </p>
           </div>
           <div className="mt-2 space-y-1">
             <AccountMenuLink
               href={ROUTES.admin.users.me}
-              label="Profile settings"
-              description="Personal details and country"
+              label={t("profileLabel")}
+              description={t("profileDescription")}
               icon={faUserGear}
               onSelect={() => setOpen(false)}
             />
             <AccountMenuLink
               href={ROUTES.admin.users.changePassword}
-              label="Security"
-              description="Change password and session access"
+              label={t("securityLabel")}
+              description={t("securityDescription")}
               icon={faLock}
               onSelect={() => setOpen(false)}
             />
@@ -156,10 +158,10 @@ export function AccountMenu() {
               </span>
               <span className="min-w-0">
                 <span className="block font-medium transition-transform duration-200 group-hover:translate-x-0.5">
-                  {isLoggingOut ? "Signing out..." : "Sign out"}
+                  {isLoggingOut ? t("signingOut") : t("signOut")}
                 </span>
                 <span className="block text-xs text-muted-foreground transition-colors duration-200 group-hover:text-foreground/72">
-                  End this admin session
+                  {t("signOutDescription")}
                 </span>
               </span>
             </button>

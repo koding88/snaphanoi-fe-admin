@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -26,6 +27,7 @@ import { consumeNavigationToast, notifyError, notifySuccess } from "@/lib/toast"
 import { cn } from "@/lib/utils";
 
 export function GalleryDetailPage({ id }: { id: string }) {
+  const t = useTranslations("galleries.detail");
   const router = useRouter();
   const [gallery, setGallery] = useState<GalleryRecord | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -64,14 +66,14 @@ export function GalleryDetailPage({ id }: { id: string }) {
     try {
       if (dialogMode === "delete") {
         const response = await deleteGallery(gallery.id);
-        notifySuccess(response.message ?? response.data.message, "Gallery archived.");
+        notifySuccess(response.message ?? response.data.message, t("toasts.archived"));
         router.replace(ROUTES.admin.galleries.root);
         return;
       }
 
       const response = await restoreGallery(gallery.id);
       setGallery(response.data);
-      notifySuccess(response.message, "Gallery restored successfully.");
+      notifySuccess(response.message, t("toasts.restored"));
       setDialogMode(null);
     } catch (actionError) {
       notifyError(getFriendlyGalleriesError(actionError));
@@ -83,9 +85,9 @@ export function GalleryDetailPage({ id }: { id: string }) {
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
-        eyebrow="Gallery detail"
-        title="Review this gallery."
-        description="Inspect multilingual names, lifecycle state, and ownership context before making changes."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        description={t("description")}
         meta={<BackButton href={ROUTES.admin.galleries.root} />}
         actions={
           gallery ? (
@@ -95,7 +97,7 @@ export function GalleryDetailPage({ id }: { id: string }) {
                 className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-5")}
               >
                 <FontAwesomeIcon icon={faUserPen} />
-                Edit
+                {t("actions.edit")}
               </Link>
               {gallery.deletedAt ? (
                 <button
@@ -104,7 +106,7 @@ export function GalleryDetailPage({ id }: { id: string }) {
                   className={cn(buttonVariants(), "rounded-full px-5")}
                 >
                   <FontAwesomeIcon icon={faRotateLeft} />
-                  Restore
+                  {t("actions.restore")}
                 </button>
               ) : (
                 <button
@@ -113,7 +115,7 @@ export function GalleryDetailPage({ id }: { id: string }) {
                   className={cn(buttonVariants({ variant: "destructive" }), "rounded-full px-5")}
                 >
                   <FontAwesomeIcon icon={faTrashCan} />
-                  Delete
+                  {t("actions.delete")}
                 </button>
               )}
             </div>
@@ -121,31 +123,31 @@ export function GalleryDetailPage({ id }: { id: string }) {
         }
       />
       {isLoading ? (
-        <LoadingState title="Loading gallery" description="Fetching the selected gallery record." />
+        <LoadingState title={t("loading.title")} description={t("loading.description")} />
       ) : error || !gallery ? (
-        <ErrorState title="Unable to load this gallery" description={error ?? "Gallery not found."} />
+        <ErrorState title={t("errorTitle")} description={error ?? t("notFound")} />
       ) : (
         <>
           <GalleryDetailCard gallery={gallery} />
           <AdminSurface className="p-6 md:p-8">
             <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-              Admin actions
+              {t("adminActionsTitle")}
             </p>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">
-              Archive and restore controls are kept here so gallery lifecycle changes stay deliberate.
+              {t("adminActionsDescription")}
             </p>
           </AdminSurface>
         </>
       )}
       <ConfirmDialog
         open={Boolean(dialogMode && gallery)}
-        title={dialogMode === "delete" ? `Delete ${gallery?.name.en}?` : `Restore ${gallery?.name.en}?`}
+        title={dialogMode === "delete" ? t("dialogs.deleteTitle", { name: gallery?.name.en ?? "" }) : t("dialogs.restoreTitle", { name: gallery?.name.en ?? "" })}
         description={
           dialogMode === "delete"
-            ? "This archives the gallery for now. You can restore it later if needed."
-            : "This will bring the archived gallery back into the active collection."
+            ? t("dialogs.deleteDescription")
+            : t("dialogs.restoreDescription")
         }
-        confirmLabel={dialogMode === "delete" ? "Delete gallery" : "Restore gallery"}
+        confirmLabel={dialogMode === "delete" ? t("dialogs.deleteConfirm") : t("dialogs.restoreConfirm")}
         confirmVariant={dialogMode === "delete" ? "destructive" : "default"}
         isSubmitting={isSubmitting}
         onCancel={() => setDialogMode(null)}

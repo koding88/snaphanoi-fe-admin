@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { useTranslations } from "next-intl";
 
 import { LocalizedNameEditor } from "@/components/shared/localized-name-editor";
 import { Button } from "@/components/ui/button";
@@ -26,6 +27,7 @@ export function GalleryForm({
   description,
   onSubmit,
 }: GalleryFormProps) {
+  const t = useTranslations("galleries.form");
   const [values, setValues] = useState<GalleryFormValues>(initialValues);
   const [fieldErrors, setFieldErrors] = useState<Partial<Record<keyof GalleryFormValues, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -36,13 +38,13 @@ export function GalleryForm({
     const nextFieldErrors: Partial<Record<keyof GalleryFormValues, string>> = {};
 
     if (!values.en.trim()) {
-      nextFieldErrors.en = "English name is required.";
+      nextFieldErrors.en = t("errors.enRequired");
     }
     if (!values.vi.trim()) {
-      nextFieldErrors.vi = "Vietnamese name is required.";
+      nextFieldErrors.vi = t("errors.viRequired");
     }
     if (!values.cn.trim()) {
-      nextFieldErrors.cn = "Chinese name is required.";
+      nextFieldErrors.cn = t("errors.cnRequired");
     }
 
     if (Object.keys(nextFieldErrors).length > 0) {
@@ -78,14 +80,14 @@ export function GalleryForm({
       <LocalizedNameEditor
         value={values}
         errors={fieldErrors}
-        sectionEyebrow="Names"
-        sectionTitle="Localized gallery naming"
-        sectionDescription="Use one language tab at a time. All three localized names are required before saving."
-        fieldLabel="Gallery name"
+        sectionEyebrow={t("sectionEyebrow")}
+        sectionTitle={t("localizedTitle")}
+        sectionDescription={t("localizedDescription")}
+        fieldLabel={t("fieldLabel")}
         placeholders={{
-          en: "Couple",
-          vi: "Cap doi",
-          cn: "情侣",
+          en: t("placeholders.en"),
+          vi: t("placeholders.vi"),
+          cn: t("placeholders.cn"),
         }}
         onChange={(locale, nextValue) => {
           setValues((current) => ({ ...current, [locale]: nextValue }));
@@ -94,7 +96,7 @@ export function GalleryForm({
       />
       <div className="flex justify-end pt-2">
         <Button type="submit" size="lg" className="min-w-44 rounded-full" disabled={isSubmitting}>
-          {isSubmitting ? "Saving..." : submitLabel}
+          {isSubmitting ? t("actions.saving") : submitLabel}
         </Button>
       </div>
     </form>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
@@ -14,6 +15,7 @@ import { ROUTES } from "@/lib/constants/routes";
 import { notifySuccess } from "@/lib/toast";
 
 export function ChangePasswordPage() {
+  const t = useTranslations("users.changePassword.page");
   const router = useRouter();
   const [shouldRedirect, setShouldRedirect] = useState(false);
 
@@ -46,8 +48,8 @@ export function ChangePasswordPage() {
     const response = await changeMyPassword(payload);
     notifySuccess(
       response.message,
-      "Password changed successfully.",
-      "You will sign in again with the new password.",
+      t("toasts.success"),
+      t("toasts.description"),
     );
     setShouldRedirect(true);
   }
@@ -55,9 +57,9 @@ export function ChangePasswordPage() {
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
-        eyebrow="Security"
-        title="Change your password."
-        description="For security, this flow signs you out after a successful update so the new password becomes the next point of entry."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        description={t("description")}
       />
       <AdminSurface className="p-6 md:p-8">
         <ChangePasswordForm onSubmit={handleSubmit} />

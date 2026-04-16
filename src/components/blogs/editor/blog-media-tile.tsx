@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import type { BlogEditorMediaItem } from "@/components/blogs/editor/blog-editor.types";
 
 type BlogMediaTileProps = {
@@ -11,12 +13,14 @@ export function BlogMediaTile({
   className = "h-full w-full overflow-hidden rounded-none border-0 bg-transparent shadow-none",
   mediaClassName = "h-full w-full min-h-0 object-cover",
 }: BlogMediaTileProps) {
+  const t = useTranslations("blogs.editor");
+
   return (
     <div className={className}>
       {item.kind === "youtube" ? (
         <iframe
           src={item.url}
-          title="Blog media"
+          title={t("mediaTitle")}
           className="h-full w-full border-0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
@@ -26,7 +30,7 @@ export function BlogMediaTile({
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={item.url}
-          alt="Blog media"
+          alt={t("mediaAlt")}
           className={mediaClassName}
           decoding="async"
           draggable={false}

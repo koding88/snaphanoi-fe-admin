@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import { AdminSurface } from "@/components/admin/admin-surface";
 import { PackageStatusBadge } from "@/components/packages/package-status-badge";
 import { ProjectCoverPreview } from "@/components/projects/project-cover-preview";
@@ -9,6 +11,7 @@ import {
 import { formatCreatorDisplayName, formatDateTime } from "@/features/users/utils/users-format";
 
 export function PackageDetailCard({ pkg }: { pkg: PackageDetailRecord }) {
+  const t = useTranslations("packages.detailCard");
   const coverSizeKb = Math.max(1, Math.round(pkg.coverImage.size / 1024));
   const creatorName = formatCreatorDisplayName(pkg.createdBy.name);
 
@@ -23,25 +26,25 @@ export function PackageDetailCard({ pkg }: { pkg: PackageDetailRecord }) {
             imageClassName="rounded-[1.35rem]"
           />
           <div className="mt-5 rounded-[1.5rem] border border-border/80 bg-white/78 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]">
-            <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-              Asset info
-            </p>
+              <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
+                {t("assetInfo")}
+              </p>
             <p className="mt-3 text-base font-medium text-foreground">
               {pkg.coverImage.originalName}
             </p>
             <div className="mt-3 grid gap-3 sm:grid-cols-2">
               <div>
-                <p className="text-[11px] font-medium tracking-[0.18em] text-muted-foreground uppercase">
-                  File format
-                </p>
+                  <p className="text-[11px] font-medium tracking-[0.18em] text-muted-foreground uppercase">
+                    {t("fileFormat")}
+                  </p>
                 <p className="mt-1 text-sm text-foreground">
                   {pkg.coverImage.mimeType}
                 </p>
               </div>
               <div>
-                <p className="text-[11px] font-medium tracking-[0.18em] text-muted-foreground uppercase">
-                  File size
-                </p>
+                  <p className="text-[11px] font-medium tracking-[0.18em] text-muted-foreground uppercase">
+                    {t("fileSize")}
+                  </p>
                 <p className="mt-1 text-sm text-foreground">{coverSizeKb} KB</p>
               </div>
             </div>
@@ -54,7 +57,7 @@ export function PackageDetailCard({ pkg }: { pkg: PackageDetailRecord }) {
           <div className="space-y-4">
             <div className="space-y-2">
               <p className="text-[11px] font-semibold tracking-[0.24em] text-[--color-brand-muted] uppercase">
-                English package name
+                {t("englishName")}
               </p>
               <h2 className="font-heading text-4xl leading-[0.95] tracking-[0.03em] text-foreground md:text-5xl xl:text-[4.25rem]">
                 {pkg.name.en}
@@ -64,12 +67,12 @@ export function PackageDetailCard({ pkg }: { pkg: PackageDetailRecord }) {
 
           <section className="space-y-4">
             <p className="text-[11px] font-semibold tracking-[0.24em] text-[--color-brand-muted] uppercase">
-              Core offer info
+              {t("coreOfferInfo")}
             </p>
             <div className="grid gap-4 md:grid-cols-2">
               <div className="rounded-[1.6rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.78),rgba(248,244,237,0.94))] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.78)]">
                 <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-                  Vietnamese package name
+                  {t("vietnameseName")}
                 </p>
                 <p className="mt-4 text-2xl leading-tight text-foreground">
                   {pkg.name.vi}
@@ -77,7 +80,7 @@ export function PackageDetailCard({ pkg }: { pkg: PackageDetailRecord }) {
               </div>
               <div className="rounded-[1.6rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.78),rgba(248,244,237,0.94))] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.78)]">
                 <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-                  Chinese package name
+                  {t("chineseName")}
                 </p>
                 <p className="mt-4 text-2xl leading-tight text-foreground">
                   {pkg.name.cn}
@@ -86,25 +89,25 @@ export function PackageDetailCard({ pkg }: { pkg: PackageDetailRecord }) {
             </div>
             <div className="rounded-[1.6rem] border border-border/80 bg-white/76 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.74)]">
               <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-                Best for
+                {t("bestFor")}
               </p>
               <div className="mt-4 grid gap-3 md:grid-cols-3">
                 <div>
-                  <p className="text-xs font-medium tracking-[0.16em] text-muted-foreground uppercase">
-                    English
-                  </p>
+                    <p className="text-xs font-medium tracking-[0.16em] text-muted-foreground uppercase">
+                      {t("english")}
+                    </p>
                   <p className="mt-1 text-base leading-7 text-foreground">{pkg.bestFor.en}</p>
                 </div>
                 <div>
-                  <p className="text-xs font-medium tracking-[0.16em] text-muted-foreground uppercase">
-                    Vietnamese
-                  </p>
+                    <p className="text-xs font-medium tracking-[0.16em] text-muted-foreground uppercase">
+                      {t("vietnamese")}
+                    </p>
                   <p className="mt-1 text-base leading-7 text-foreground">{pkg.bestFor.vi}</p>
                 </div>
                 <div>
-                  <p className="text-xs font-medium tracking-[0.16em] text-muted-foreground uppercase">
-                    Chinese
-                  </p>
+                    <p className="text-xs font-medium tracking-[0.16em] text-muted-foreground uppercase">
+                      {t("chinese")}
+                    </p>
                   <p className="mt-1 text-base leading-7 text-foreground">{pkg.bestFor.cn}</p>
                 </div>
               </div>
@@ -112,7 +115,7 @@ export function PackageDetailCard({ pkg }: { pkg: PackageDetailRecord }) {
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
               <div className="rounded-[1.5rem] border border-border/80 bg-white/76 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.74)]">
                 <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-                  Duration
+                  {t("duration")}
                 </p>
                 <p className="mt-3 text-xl font-medium text-foreground">
                   {formatPackageDuration(pkg.duration)}
@@ -120,7 +123,7 @@ export function PackageDetailCard({ pkg }: { pkg: PackageDetailRecord }) {
               </div>
               <div className="rounded-[1.5rem] border border-border/80 bg-white/76 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.74)]">
                 <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-                  Photo count
+                  {t("photoCount")}
                 </p>
                 <p className="mt-3 text-xl font-medium text-foreground">
                   {pkg.photoCount}
@@ -128,7 +131,7 @@ export function PackageDetailCard({ pkg }: { pkg: PackageDetailRecord }) {
               </div>
               <div className="rounded-[1.5rem] border border-border/80 bg-white/76 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.74)] md:col-span-2 xl:col-span-1">
                 <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-                  Pricing
+                  {t("pricing")}
                 </p>
                 <p className="mt-3 text-xl font-medium text-foreground">
                   {formatPackagePrice(pkg.pricing)}
@@ -139,12 +142,12 @@ export function PackageDetailCard({ pkg }: { pkg: PackageDetailRecord }) {
 
           <section className="space-y-4">
             <p className="text-[11px] font-semibold tracking-[0.24em] text-[--color-brand-muted] uppercase">
-              Meta info
+              {t("metaInfo")}
             </p>
             <div className="grid gap-4 md:grid-cols-2">
               <div className="rounded-[1.5rem] border border-border/70 bg-white/60 p-5">
                 <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-                  Created by
+                  {t("createdBy")}
                 </p>
                 <p className="mt-3 text-xl font-medium text-foreground">
                   {creatorName}
@@ -152,12 +155,12 @@ export function PackageDetailCard({ pkg }: { pkg: PackageDetailRecord }) {
               </div>
               <div className="rounded-[1.5rem] border border-border/70 bg-white/60 p-5">
                 <p className="text-[11px] font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-                  Timeline
+                  {t("timeline")}
                 </p>
                 <div className="mt-3 space-y-3">
                   <div>
                     <p className="text-xs font-medium tracking-[0.16em] text-muted-foreground uppercase">
-                      Created
+                      {t("created")}
                     </p>
                     <p className="mt-1 text-base text-foreground">
                       {formatDateTime(pkg.createdAt)}
@@ -165,7 +168,7 @@ export function PackageDetailCard({ pkg }: { pkg: PackageDetailRecord }) {
                   </div>
                   <div>
                     <p className="text-xs font-medium tracking-[0.16em] text-muted-foreground uppercase">
-                      Updated
+                      {t("updated")}
                     </p>
                     <p className="mt-1 text-base text-foreground">
                       {formatDateTime(pkg.updatedAt)}

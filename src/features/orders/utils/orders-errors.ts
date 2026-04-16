@@ -1,5 +1,12 @@
 import { isApiError } from "@/lib/api/errors";
 
+type ErrorMessageResolver = (params: {
+  scope: string;
+  code?: string | null;
+  statusCode?: number;
+  fallback: string;
+}) => string;
+
 const ORDER_ERROR_MESSAGES: Record<string, string> = {
   ORDER_NOT_FOUND: "The requested order could not be found.",
   INVALID_ORDER_REQUEST: "The request payload is invalid. Review the form and try again.",
@@ -17,13 +24,13 @@ const ORDER_ERROR_MESSAGES: Record<string, string> = {
   Unauthorized: "Your session is no longer valid. Please sign in again.",
 };
 
-export function getFriendlyOrdersError(error: unknown) {
+export function getFriendlyOrdersError(error: unknown, resolve?: ErrorMessageResolver) {
   if (!isApiError(error)) {
     if (error instanceof Error && error.message) {
-      return error.message;
+      return resolve?.({ scope: "orders", fallback: error.message }) ?? error.message;
     }
 
-    return "Something went wrong. Please try again.";
+    return resolve?.({ scope: "orders", fallback: "Something went wrong. Please try again." }) ?? "Something went wrong. Please try again.";
   }
 
   const isDiscoverySourceValidationError =
@@ -42,5 +49,5 @@ export function getFriendlyOrdersError(error: unknown) {
     error.message ||
     "Something went wrong. Please try again.";
 
-  return baseMessage;
+  return resolve?.({ scope: "orders", code: error.code, statusCode: error.statusCode, fallback: baseMessage }) ?? baseMessage;
 }

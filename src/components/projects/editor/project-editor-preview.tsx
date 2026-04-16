@@ -1,4 +1,5 @@
 import { createElement, type CSSProperties, type ReactNode } from "react";
+import { useTranslations } from "next-intl";
 import type { OutputData } from "@editorjs/editorjs";
 import type { Layout } from "react-grid-layout/legacy";
 import type { ProjectEditorMediaItem } from "@/components/projects/editor/project-editor.types";
@@ -227,6 +228,7 @@ function PreviewMedia({
 }
 
 export function ProjectEditorPreview({ content }: { content: OutputData }) {
+  const t = useTranslations("projects.editor");
   const normalized = normalizeProjectContent(content);
 
   return (
@@ -303,7 +305,7 @@ export function ProjectEditorPreview({ content }: { content: OutputData }) {
                   <div className="relative w-full pt-[56.25%]">
                     <iframe
                       src={youtubeUrl}
-                      title={embedData.caption || "YouTube video"}
+                      title={embedData.caption || t("youtubeTitle")}
                       allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                       className="absolute inset-0 h-full w-full border-0"

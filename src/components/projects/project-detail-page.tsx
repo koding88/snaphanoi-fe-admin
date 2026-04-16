@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
@@ -27,6 +28,7 @@ import { consumeNavigationToast, notifyError, notifySuccess } from "@/lib/toast"
 import { cn } from "@/lib/utils";
 
 export function ProjectDetailPage({ id }: { id: string }) {
+  const t = useTranslations("projects.detail");
   const router = useRouter();
   const [project, setProject] = useState<ProjectDetailRecord | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -65,14 +67,14 @@ export function ProjectDetailPage({ id }: { id: string }) {
     try {
       if (dialogMode === "delete") {
         const response = await deleteProject(project.id);
-        notifySuccess(response.message ?? response.data.message, "Project archived.");
+        notifySuccess(response.message ?? response.data.message, t("toasts.archived"));
         router.replace(ROUTES.admin.projects.root);
         return;
       }
 
       const response = await restoreProject(project.id);
       setProject(response.data);
-      notifySuccess(response.message, "Project restored successfully.");
+      notifySuccess(response.message, t("toasts.restored"));
       setDialogMode(null);
     } catch (actionError) {
       notifyError(getFriendlyProjectsError(actionError));
@@ -84,9 +86,9 @@ export function ProjectDetailPage({ id }: { id: string }) {
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
-        eyebrow="Project detail"
-        title="Review this project story."
-        description="Inspect the studio-facing cover, multilingual naming, publication state, and saved story document before making changes."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        description={t("description")}
         meta={<BackButton href={ROUTES.admin.projects.root} />}
         actions={
           project ? (
@@ -96,7 +98,7 @@ export function ProjectDetailPage({ id }: { id: string }) {
                 className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-5")}
               >
                 <FontAwesomeIcon icon={faUserPen} />
-                Edit
+                {t("actions.edit")}
               </Link>
               {project.deletedAt ? (
                 <button
@@ -105,7 +107,7 @@ export function ProjectDetailPage({ id }: { id: string }) {
                   className={cn(buttonVariants(), "rounded-full px-5")}
                 >
                   <FontAwesomeIcon icon={faRotateLeft} />
-                  Restore
+                  {t("actions.restore")}
                 </button>
               ) : (
                 <button
@@ -114,7 +116,7 @@ export function ProjectDetailPage({ id }: { id: string }) {
                   className={cn(buttonVariants({ variant: "destructive" }), "rounded-full px-5")}
                 >
                   <FontAwesomeIcon icon={faTrashCan} />
-                  Delete
+                  {t("actions.delete")}
                 </button>
               )}
             </div>
@@ -122,9 +124,9 @@ export function ProjectDetailPage({ id }: { id: string }) {
         }
       />
       {isLoading ? (
-        <LoadingState title="Loading project" description="Fetching the selected project record." />
+        <LoadingState title={t("loading.title")} description={t("loading.description")} />
       ) : error || !project ? (
-        <ErrorState title="Unable to load this project" description={error ?? "Project not found."} />
+        <ErrorState title={t("errorTitle")} description={error ?? t("notFound")} />
       ) : (
         <>
           <ProjectDetailCard project={project} />
@@ -132,29 +134,31 @@ export function ProjectDetailPage({ id }: { id: string }) {
             <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
               <div className="space-y-3">
                 <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-                  Story document
+                  {t("story.eyebrow")}
                 </p>
                 <h2 className="font-heading text-3xl tracking-[0.04em] text-foreground md:text-[2.35rem]">
-                  Saved editorial content
+                  {t("story.title")}
                 </h2>
                 <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
-                  Read-only rendering of the saved project document. This matches the current editor model and backend payload.
+                  {t("story.description")}
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 <span className="rounded-full border border-border/80 bg-white/70 px-4 py-2 text-[11px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-                  Readonly preview
+                  {t("story.readonly")}
                 </span>
                 <span className="rounded-full border border-border/80 bg-white/70 px-4 py-2 text-[11px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
-                  {project.content.blocks?.length ?? 0} blocks
+                  {t("story.blocks", { count: project.content.blocks?.length ?? 0 })}
                 </span>
                 <span className="rounded-full border border-border/80 bg-white/70 px-4 py-2 text-[11px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
-                  Updated {formatDateTime(project.updatedAt)}
+                  {t("story.updated", { date: formatDateTime(project.updatedAt) })}
                 </span>
               </div>
             </div>
             <div className="mt-5 rounded-[1.4rem] border border-border/70 bg-white/70 px-4 py-3 text-sm text-muted-foreground">
-              Document state: {project.deletedAt ? "archived record" : "active record"}. Content is shown exactly as currently saved.
+              {t("story.state", {
+                state: project.deletedAt ? t("story.stateArchived") : t("story.stateActive"),
+              })}
             </div>
             <div className="mt-6 rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.88),rgba(249,245,238,0.92))] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.78)] md:p-8">
               <ProjectEditorPreview content={project.content} />
@@ -166,15 +170,15 @@ export function ProjectDetailPage({ id }: { id: string }) {
         open={Boolean(dialogMode && project)}
         title={
           dialogMode === "delete"
-            ? `Delete ${project?.name.en}?`
-            : `Restore ${project?.name.en}?`
+            ? t("dialogs.deleteTitle", { name: project?.name.en ?? "" })
+            : t("dialogs.restoreTitle", { name: project?.name.en ?? "" })
         }
         description={
           dialogMode === "delete"
-            ? "This archives the project for now. You can restore it later if needed."
-            : "This will bring the archived project back into the active collection."
+            ? t("dialogs.deleteDescription")
+            : t("dialogs.restoreDescription")
         }
-        confirmLabel={dialogMode === "delete" ? "Delete project" : "Restore project"}
+        confirmLabel={dialogMode === "delete" ? t("dialogs.deleteConfirm") : t("dialogs.restoreConfirm")}
         confirmVariant={dialogMode === "delete" ? "destructive" : "default"}
         isSubmitting={isSubmitting}
         onCancel={() => setDialogMode(null)}

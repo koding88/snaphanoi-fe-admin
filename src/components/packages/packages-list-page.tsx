@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
@@ -37,6 +38,7 @@ const INITIAL_QUERY: PackageListQuery = {
 };
 
 export function PackagesListPage() {
+  const t = useTranslations("packages.list");
   const [query, setQuery] = useState<PackageListQuery>(INITIAL_QUERY);
   const [keywordInput, setKeywordInput] = useState(INITIAL_QUERY.keyword ?? "");
   const [result, setResult] = useState<PackagesListResult | null>(null);
@@ -99,7 +101,7 @@ export function PackagesListPage() {
 
     try {
       const response = await deletePackage(pkg.id);
-      notifySuccess(response.message ?? response.data.message, "Package archived.");
+      notifySuccess(response.message ?? response.data.message, t("toasts.archived"));
       await loadData(query);
     } catch (actionError) {
       notifyError(getFriendlyPackagesError(actionError));
@@ -114,7 +116,7 @@ export function PackagesListPage() {
 
     try {
       const response = await restorePackage(pkg.id);
-      notifySuccess(response.message, "Package restored successfully.");
+      notifySuccess(response.message, t("toasts.restored"));
       await loadData(query);
     } catch (actionError) {
       notifyError(getFriendlyPackagesError(actionError));
@@ -127,12 +129,12 @@ export function PackagesListPage() {
   return (
     <AdminPageContainer tone="hero" className="space-y-6 pb-8">
       <PageHeader
-        eyebrow="Packages"
-        title="Manage photography packages."
-        description="Review package offer data, pricing, and lifecycle quickly from one list."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        description={t("description")}
         meta={
           <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1 text-[11px] font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
-            Admin only
+            {t("meta.adminOnly")}
           </span>
         }
         actions={
@@ -141,7 +143,7 @@ export function PackagesListPage() {
             className={cn(buttonVariants(), "rounded-full px-4")}
           >
             <FontAwesomeIcon icon={faPlus} />
-            Create package
+            {t("actions.create")}
           </Link>
         }
       />
@@ -149,22 +151,22 @@ export function PackagesListPage() {
       <AdminSurface className="p-5 md:p-6">
         <div className="mb-3 flex flex-wrap gap-2">
           <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1 text-[10px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-            Quick filters
+            {t("filters.quick")}
           </span>
         </div>
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
           <label className="space-y-1.5 xl:col-span-2">
             <span className="text-sm font-medium text-foreground">
-              Search keyword
+              {t("filters.searchLabel")}
             </span>
             <Input
               value={keywordInput}
               onChange={(event) => setKeywordInput(event.target.value)}
-              placeholder="Search by package title"
+              placeholder={t("filters.searchPlaceholder")}
             />
           </label>
           <label className="space-y-1.5">
-            <span className="text-sm font-medium text-foreground">Status</span>
+            <span className="text-sm font-medium text-foreground">{t("filters.status")}</span>
             <AppSelect
               value={String(query.isActive)}
               onChange={(statusValue) =>
@@ -176,15 +178,15 @@ export function PackagesListPage() {
                 }))
               }
               options={[
-                { value: "all", label: "All packages" },
-                { value: "true", label: "Active only" },
-                { value: "false", label: "Inactive only" },
+                { value: "all", label: t("filters.statusAll") },
+                { value: "true", label: t("filters.statusActive") },
+                { value: "false", label: t("filters.statusInactive") },
               ]}
             />
           </label>
           <label className="space-y-1.5">
             <span className="text-sm font-medium text-foreground">
-              Page size
+              {t("filters.pageSize")}
             </span>
             <AppSelect
               value={String(query.limit)}
@@ -196,9 +198,9 @@ export function PackagesListPage() {
                 }))
               }
               options={[
-                { value: "10", label: "10 per page" },
-                { value: "20", label: "20 per page" },
-                { value: "50", label: "50 per page" },
+                { value: "10", label: t("filters.perPage", { value: 10 }) },
+                { value: "20", label: t("filters.perPage", { value: 20 }) },
+                { value: "50", label: t("filters.perPage", { value: 50 }) },
               ]}
             />
           </label>
@@ -207,12 +209,12 @@ export function PackagesListPage() {
 
       {isLoading && !result ? (
         <LoadingState
-          title="Loading packages"
-          description="Preparing the latest package records and offer filters."
+          title={t("loading.title")}
+          description={t("loading.description")}
         />
       ) : error ? (
         <ErrorState
-          title="Unable to load packages"
+          title={t("errors.load")}
           description={error}
           action={
             <button
@@ -224,7 +226,7 @@ export function PackagesListPage() {
               )}
             >
               <FontAwesomeIcon icon={faRotateLeft} />
-              Retry
+              {t("actions.retry")}
             </button>
           }
         />
@@ -239,9 +241,12 @@ export function PackagesListPage() {
           <AdminSurface className="p-4">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <p className="text-xs text-muted-foreground">
-                Page {result.meta.page} of {result.meta.totalPages}. Total packages:{" "}
-                {result.meta.total}
-                {isRefreshing ? " Updating…" : ""}
+                {t("pagination.summary", {
+                  page: result.meta.page,
+                  totalPages: result.meta.totalPages,
+                  total: result.meta.total,
+                })}
+                {isRefreshing ? ` ${t("pagination.updating")}` : ""}
               </p>
               <div className="flex gap-2">
                 <button
@@ -258,7 +263,7 @@ export function PackagesListPage() {
                     "rounded-full px-4 disabled:pointer-events-none disabled:opacity-50",
                   )}
                 >
-                  Previous
+                  {t("actions.previous")}
                 </button>
                 <button
                   type="button"
@@ -274,7 +279,7 @@ export function PackagesListPage() {
                     "rounded-full px-4 disabled:pointer-events-none disabled:opacity-50",
                   )}
                 >
-                  Next
+                  {t("actions.next")}
                 </button>
               </div>
             </div>
@@ -282,16 +287,16 @@ export function PackagesListPage() {
         </>
       ) : (
         <EmptyState
-          eyebrow="Packages"
-          title="No packages matched the current filters."
-          description="Try a broader keyword or reset the active status filter."
+          eyebrow={t("eyebrow")}
+          title={t("empty.title")}
+          description={t("empty.description")}
           action={
             <Link
               href={ROUTES.admin.packages.create}
               className={cn(buttonVariants(), "rounded-full px-5")}
             >
               <FontAwesomeIcon icon={faPlus} />
-              Create first package
+              {t("empty.createFirst")}
             </Link>
           }
         />

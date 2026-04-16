@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
@@ -18,6 +19,7 @@ import { ROUTES } from "@/lib/constants/routes";
 import { queueNavigationToast } from "@/lib/toast";
 
 export function UserCreatePage() {
+  const t = useTranslations("users.create");
   const router = useRouter();
   const [roles, setRoles] = useState<RoleOption[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -49,7 +51,7 @@ export function UserCreatePage() {
 
     queueNavigationToast({
       intent: "success",
-      title: response.message ?? "User created successfully.",
+      title: response.message ?? t("toasts.created"),
     });
     router.replace(ROUTES.admin.users.detail(response.data.id));
   }
@@ -57,33 +59,33 @@ export function UserCreatePage() {
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
-        eyebrow="Create user"
-        title="Add a new team member."
-        description="Create a new studio account with the right role, location, and a first-time password."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        description={t("description")}
         meta={
           <BackButton
             href={ROUTES.admin.users.root}
             confirm
-            confirmTitle="Discard this new user?"
-            confirmDescription="The form will be cleared and you will return to the user list."
-            confirmLabel="Discard"
+            confirmTitle={t("confirm.title")}
+            confirmDescription={t("confirm.description")}
+            confirmLabel={t("confirm.confirmLabel")}
           />
         }
       />
       {isLoading ? (
         <LoadingState
-          title="Preparing form"
-          description="Loading available role options for user creation."
+          title={t("loading.title")}
+          description={t("loading.description")}
         />
       ) : error ? (
-        <ErrorState title="Unable to prepare user form" description={error} />
+        <ErrorState title={t("errorTitle")} description={error} />
       ) : (
         <AdminSurface className="p-6 md:p-8">
           <UserForm
             mode="create"
             roles={roles}
-            submitLabel="Create account"
-            description="Choose a role and country, then set a first-time password for this account."
+            submitLabel={t("submitLabel")}
+            description={t("formDescription")}
             onSubmit={handleSubmit}
           />
         </AdminSurface>

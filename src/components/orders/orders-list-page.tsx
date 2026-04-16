@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
@@ -35,39 +36,10 @@ const INITIAL_QUERY: OrderListQuery = {
   discoverySource: "",
 };
 
-const STATUS_OPTIONS: Array<{ value: OrderStatus | ""; label: string }> = [
-  { value: "", label: "All statuses" },
-  { value: "pending", label: "Pending" },
-  { value: "contacted", label: "Contacted" },
-  { value: "confirmed", label: "Confirmed" },
-  { value: "completed", label: "Completed" },
-  { value: "cancelled", label: "Cancelled" },
-];
-
-const PAYMENT_STATUS_OPTIONS: Array<{
-  value: OrderPaymentStatus | "";
-  label: string;
-}> = [
-  { value: "", label: "All payment statuses" },
-  { value: "unpaid", label: "Unpaid" },
-  { value: "partiallyPaid", label: "Partially paid" },
-  { value: "paid", label: "Paid" },
-  { value: "refunded", label: "Refunded" },
-];
-
-const DISCOVERY_SOURCE_OPTIONS: Array<{ value: string; label: string }> = [
-  { value: "", label: "All discovery sources" },
-  { value: "instagram", label: "Instagram" },
-  { value: "facebook", label: "Facebook" },
-  { value: "tiktok", label: "TikTok" },
-  { value: "google", label: "Google" },
-  { value: "friend", label: "Friend" },
-  { value: "other", label: "Other" },
-];
-
 const ALL_SELECT_VALUE = "__all__";
 
 export function OrdersListPage() {
+  const t = useTranslations("orders.list");
   const [query, setQuery] = useState<OrderListQuery>(INITIAL_QUERY);
   const [keywordInput, setKeywordInput] = useState(INITIAL_QUERY.keyword);
   const [result, setResult] = useState<OrdersListResult | null>(null);
@@ -76,6 +48,33 @@ export function OrdersListPage() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const hasLoadedOnceRef = useRef(false);
   const debouncedKeyword = useDebouncedValue(keywordInput, 300);
+
+  const statusOptions: Array<{ value: OrderStatus | ""; label: string }> = [
+    { value: "", label: t("filters.statusAll") },
+    { value: "pending", label: t("filters.statusPending") },
+    { value: "contacted", label: t("filters.statusContacted") },
+    { value: "confirmed", label: t("filters.statusConfirmed") },
+    { value: "completed", label: t("filters.statusCompleted") },
+    { value: "cancelled", label: t("filters.statusCancelled") },
+  ];
+
+  const paymentStatusOptions: Array<{ value: OrderPaymentStatus | ""; label: string }> = [
+    { value: "", label: t("filters.paymentAll") },
+    { value: "unpaid", label: t("filters.paymentUnpaid") },
+    { value: "partiallyPaid", label: t("filters.paymentPartiallyPaid") },
+    { value: "paid", label: t("filters.paymentPaid") },
+    { value: "refunded", label: t("filters.paymentRefunded") },
+  ];
+
+  const discoverySourceOptions: Array<{ value: string; label: string }> = [
+    { value: "", label: t("filters.discoveryAll") },
+    { value: "instagram", label: t("filters.discoveryInstagram") },
+    { value: "facebook", label: t("filters.discoveryFacebook") },
+    { value: "tiktok", label: t("filters.discoveryTiktok") },
+    { value: "google", label: t("filters.discoveryGoogle") },
+    { value: "friend", label: t("filters.discoveryFriend") },
+    { value: "other", label: t("filters.discoveryOther") },
+  ];
 
   const loadData = useCallback(async (nextQuery: OrderListQuery) => {
     const isInitialLoad = !hasLoadedOnceRef.current;
@@ -127,30 +126,30 @@ export function OrdersListPage() {
   return (
     <AdminPageContainer tone="hero" className="space-y-6 pb-8">
       <PageHeader
-        eyebrow="Orders"
-        title="Manage order requests and fulfillment."
-        description="Track requests, payment progression, and lifecycle updates from one operational queue."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        description={t("description")}
       />
 
       <AdminSurface className="p-5 md:p-6">
         <div className="mb-3 flex flex-wrap gap-2">
           <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1 text-[10px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-            Quick filters
+            {t("filters.quick")}
           </span>
         </div>
         <div className="grid gap-3 lg:grid-cols-2 xl:grid-cols-5">
           <label className="space-y-1.5 xl:col-span-2">
             <span className="text-sm font-medium text-foreground">
-              Search keyword
+              {t("filters.searchLabel")}
             </span>
             <Input
               value={keywordInput}
               onChange={(event) => setKeywordInput(event.target.value)}
-              placeholder="Order number, customer name, or email"
+              placeholder={t("filters.searchPlaceholder")}
             />
           </label>
           <label className="space-y-1.5">
-            <span className="text-sm font-medium text-foreground">Status</span>
+            <span className="text-sm font-medium text-foreground">{t("filters.status")}</span>
             <AppSelect
               value={query.status || ALL_SELECT_VALUE}
               onChange={(value) =>
@@ -161,7 +160,7 @@ export function OrdersListPage() {
                     value === ALL_SELECT_VALUE ? "" : (value as OrderStatus),
                 }))
               }
-              options={STATUS_OPTIONS.map((option) => ({
+              options={statusOptions.map((option) => ({
                 value: option.value || ALL_SELECT_VALUE,
                 label: option.label,
               }))}
@@ -169,7 +168,7 @@ export function OrdersListPage() {
           </label>
           <label className="space-y-1.5">
             <span className="text-sm font-medium text-foreground">
-              Payment status
+              {t("filters.paymentStatus")}
             </span>
             <AppSelect
               value={query.paymentStatus || ALL_SELECT_VALUE}
@@ -183,7 +182,7 @@ export function OrdersListPage() {
                       : (value as OrderPaymentStatus),
                 }))
               }
-              options={PAYMENT_STATUS_OPTIONS.map((option) => ({
+              options={paymentStatusOptions.map((option) => ({
                 value: option.value || ALL_SELECT_VALUE,
                 label: option.label,
               }))}
@@ -191,7 +190,7 @@ export function OrdersListPage() {
           </label>
           <label className="space-y-1.5">
             <span className="text-sm font-medium text-foreground">
-              Discovery source
+              {t("filters.discoverySource")}
             </span>
             <AppSelect
               value={query.discoverySource || ALL_SELECT_VALUE}
@@ -202,7 +201,7 @@ export function OrdersListPage() {
                   discoverySource: value === ALL_SELECT_VALUE ? "" : value,
                 }))
               }
-              options={DISCOVERY_SOURCE_OPTIONS.map((option) => ({
+              options={discoverySourceOptions.map((option) => ({
                 value: option.value || ALL_SELECT_VALUE,
                 label: option.label,
               }))}
@@ -213,12 +212,12 @@ export function OrdersListPage() {
 
       {isLoading && !result ? (
         <LoadingState
-          title="Loading orders"
-          description="Preparing the latest order records and filters."
+          title={t("loading.title")}
+          description={t("loading.description")}
         />
       ) : error ? (
         <ErrorState
-          title="Unable to load orders"
+          title={t("errors.load")}
           description={error}
           action={
             <button
@@ -230,7 +229,7 @@ export function OrdersListPage() {
               )}
             >
               <FontAwesomeIcon icon={faRotateLeft} />
-              Retry
+              {t("actions.retry")}
             </button>
           }
         />
@@ -240,13 +239,12 @@ export function OrdersListPage() {
           <AdminSurface className="p-4">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <p className="text-xs text-muted-foreground">
-                Page {result.meta.page} of {result.meta.totalPages}. Total orders:{" "}
-                {result.meta.total}
-                {isRefreshing ? " Updating…" : ""}
+                {t("pagination.summary", { page: result.meta.page, totalPages: result.meta.totalPages, total: result.meta.total })}
+                {isRefreshing ? ` ${t("pagination.updating")}` : ""}
               </p>
               <div className="flex gap-2">
                 <label className="sr-only" htmlFor="order-page-size">
-                  Page size
+                  {t("filters.pageSize")}
                 </label>
                 <AppSelect
                   value={String(query.limit)}
@@ -258,9 +256,9 @@ export function OrdersListPage() {
                     }))
                   }
                   options={[
-                    { value: "10", label: "10 per page" },
-                    { value: "20", label: "20 per page" },
-                    { value: "50", label: "50 per page" },
+                    { value: "10", label: t("filters.perPage", { value: 10 }) },
+                    { value: "20", label: t("filters.perPage", { value: 20 }) },
+                    { value: "50", label: t("filters.perPage", { value: 50 }) },
                   ]}
                   className="w-[160px]"
                 />
@@ -278,7 +276,7 @@ export function OrdersListPage() {
                     "rounded-full px-4 disabled:pointer-events-none disabled:opacity-50",
                   )}
                 >
-                  Previous
+                  {t("actions.previous")}
                 </button>
                 <button
                   type="button"
@@ -294,7 +292,7 @@ export function OrdersListPage() {
                     "rounded-full px-4 disabled:pointer-events-none disabled:opacity-50",
                   )}
                 >
-                  Next
+                  {t("actions.next")}
                 </button>
               </div>
             </div>
@@ -302,9 +300,9 @@ export function OrdersListPage() {
         </>
       ) : (
         <EmptyState
-          eyebrow="Orders"
-          title="No orders matched the current filters."
-          description="Try clearing one or more filters to show more requests."
+          eyebrow={t("eyebrow")}
+          title={t("empty.title")}
+          description={t("empty.description")}
           action={
             <button
               type="button"
@@ -314,7 +312,7 @@ export function OrdersListPage() {
               }}
               className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-5")}
             >
-              Reset filters
+              {t("actions.resetFilters")}
             </button>
           }
         />

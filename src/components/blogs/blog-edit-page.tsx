@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
@@ -18,6 +19,7 @@ import { ROUTES } from "@/lib/constants/routes";
 import { queueNavigationToast } from "@/lib/toast";
 
 export function BlogEditPage({ id }: { id: string }) {
+  const t = useTranslations("blogs.edit");
   const router = useRouter();
   const [blog, setBlog] = useState<BlogDetailRecord | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -44,7 +46,7 @@ export function BlogEditPage({ id }: { id: string }) {
     const response = await updateBlog(id, payload);
     queueNavigationToast({
       intent: "success",
-      title: response.message ?? "Blog updated successfully.",
+      title: response.message ?? t("toasts.updated"),
     });
     router.replace(ROUTES.admin.blogs.detail(response.data.id));
   }
@@ -52,31 +54,31 @@ export function BlogEditPage({ id }: { id: string }) {
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
-        eyebrow="Edit blog"
-        title="Update the editorial entry"
-        description="Review the metadata quickly, then continue editing the content in the full-width workspace."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        description={t("description")}
         meta={
           <BackButton
             href={ROUTES.admin.blogs.detail(id)}
             confirm
-            confirmTitle="Discard these changes?"
-            confirmDescription="Any modifications will be lost."
-            confirmLabel="Discard"
+            confirmTitle={t("confirm.title")}
+            confirmDescription={t("confirm.description")}
+            confirmLabel={t("confirm.confirmLabel")}
           />
         }
       />
       {isLoading ? (
-        <LoadingState title="Loading blog" description="Fetching the current blog record and cover asset." />
+        <LoadingState title={t("loading.title")} description={t("loading.description")} />
       ) : error || !blog ? (
-        <ErrorState title="Unable to load this blog" description={error ?? "Blog not found."} />
+        <ErrorState title={t("errorTitle")} description={error ?? t("notFound")} />
       ) : (
         <AdminSurface className="overflow-hidden border-white/60 bg-white/84 p-6 shadow-[0_30px_100px_-70px_rgba(15,23,42,0.5)] md:p-8">
           <BlogForm
             mode="edit"
             initialValues={getBlogFormInitialValues(blog)}
             existingCoverImage={blog.coverImage}
-            submitLabel="Save changes"
-            description="Edit keeps the current blog semantics intact while making the editorial workspace easier to scan and use."
+            submitLabel={t("submitLabel")}
+            description={t("formDescription")}
             onSubmit={handleSubmit}
           />
         </AdminSurface>

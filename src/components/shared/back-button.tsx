@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -30,12 +31,13 @@ type BackButtonProps = {
 export function BackButton({
   href,
   confirm = false,
-  confirmTitle = "Leave this page?",
-  confirmDescription = "Any unsaved changes will be lost.",
-  confirmLabel = "Leave page",
+  confirmTitle,
+  confirmDescription,
+  confirmLabel,
   showLabel = true,
   className,
 }: BackButtonProps) {
+  const t = useTranslations();
   const router = useRouter();
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -71,14 +73,14 @@ export function BackButton({
         )}
       >
         <FontAwesomeIcon icon={faArrowRight} className="h-4 w-4 rotate-180" />
-        {showLabel && <span>Back</span>}
+        {showLabel && <span>{t("common.actions.back")}</span>}
       </Button>
       {confirm && (
         <ConfirmDialog
           open={dialogOpen}
-          title={confirmTitle}
-          description={confirmDescription}
-          confirmLabel={confirmLabel}
+          title={confirmTitle ?? "Leave this page?"}
+          description={confirmDescription ?? "Any unsaved changes will be lost."}
+          confirmLabel={confirmLabel ?? "Leave page"}
           confirmVariant="destructive"
           onCancel={() => setDialogOpen(false)}
           onConfirm={() => {

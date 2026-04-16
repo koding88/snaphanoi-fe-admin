@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
+import { useTranslations } from "next-intl";
 
 import { AuthField } from "@/components/auth/auth-field";
 import { AuthFormShell } from "@/components/auth/auth-form-shell";
@@ -12,6 +13,7 @@ import { getFriendlyAuthError } from "@/features/auth/utils/auth-errors";
 import { notifyError, notifySuccess } from "@/lib/toast";
 
 export function ForgotPasswordForm() {
+  const t = useTranslations("auth.forgotPassword");
   const [email, setEmail] = useState("");
   const [fieldError, setFieldError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -21,12 +23,12 @@ export function ForgotPasswordForm() {
     setFieldError(null);
 
     if (!email.trim()) {
-      setFieldError("Email is required.");
+      setFieldError(t("errors.emailRequired"));
       return;
     }
 
     if (!/\S+@\S+\.\S+/.test(email.trim())) {
-      setFieldError("Enter a valid email address.");
+      setFieldError(t("errors.emailInvalid"));
       return;
     }
 
@@ -36,8 +38,8 @@ export function ForgotPasswordForm() {
       const response = await forgotPassword({ email });
       notifySuccess(
         response.message,
-        "Reset request received.",
-        "If the account exists, a reset link has been sent.",
+        t("successTitle"),
+        t("successDescription"),
       );
     } catch (submissionError) {
       notifyError(getFriendlyAuthError(submissionError, "forgotPassword"));
@@ -47,20 +49,20 @@ export function ForgotPasswordForm() {
   }
 
   return (
-    <AuthFormShell
-      eyebrow="Forgot password"
-      title="Request a fresh password link."
-      description="If the email belongs to an account, we will send a reset link without revealing any account details on this screen."
+      <AuthFormShell
+      eyebrow={t("eyebrow")}
+      title={t("title")}
+      description={t("description")}
       footer={
         <div className="text-sm text-white/65">
           <Link href="/login" className="transition-opacity hover:opacity-100">
-            Return to login
+            {t("returnToLogin")}
           </Link>
         </div>
       }
     >
       <form className="space-y-5" noValidate onSubmit={handleSubmit}>
-        <AuthField label="Email" htmlFor="forgot-email" error={fieldError}>
+        <AuthField label={t("email")} htmlFor="forgot-email" error={fieldError}>
           <Input
             id="forgot-email"
             name="email"
@@ -76,7 +78,7 @@ export function ForgotPasswordForm() {
           />
         </AuthField>
         <Button type="submit" size="lg" className="h-12 w-full rounded-full" disabled={isSubmitting}>
-          {isSubmitting ? "Sending..." : "Send reset link"}
+          {isSubmitting ? t("submitting") : t("submit")}
         </Button>
       </form>
     </AuthFormShell>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useTranslations } from "next-intl";
 
 import { CountrySelect } from "@/components/shared/country-select";
 import {
@@ -64,6 +65,7 @@ export function ProfileForm({
   onRequestEmailOtp,
   onVerifyEmailOtp,
 }: ProfileFormProps) {
+  const t = useTranslations("users.profileForm");
   const initialCountryCode = user.countryCode ?? DEFAULT_COUNTRY_CODE;
   const [values, setValues] = useState({
     name: user.name,
@@ -95,15 +97,15 @@ export function ProfileForm({
     normalizedEmailDraft.length > 0 && resendAvailableInSeconds <= 0 && !isRequestingOtp && !isVerifyingOtp;
   const emailStatusText = useMemo(() => {
     if (pendingEmail && pendingEmail === normalizedEmailDraft) {
-      return `Verification code sent. Enter the 6-digit code sent to ${pendingEmail}.`;
+      return t("email.status.codeSent", { email: pendingEmail });
     }
 
     if (hasPendingEmailChange) {
-      return "New email is not verified yet. Verify it before it becomes your account email.";
+      return t("email.status.pending");
     }
 
-    return "This is the email currently tied to your account.";
-  }, [hasPendingEmailChange, normalizedEmailDraft, pendingEmail]);
+    return t("email.status.current");
+  }, [hasPendingEmailChange, normalizedEmailDraft, pendingEmail, t]);
 
   useEffect(() => {
     if (resendAvailableInSeconds <= 0) {
@@ -165,8 +167,8 @@ export function ProfileForm({
       setResendAvailableInSeconds(response.data.resendAvailableInSeconds);
       notifySuccess(
         response.message,
-        "Verification code sent.",
-        `Use the code sent to ${email}.`,
+        t("toasts.codeSent"),
+        t("toasts.codeSentDescription", { email }),
       );
     } catch (submissionError) {
       const resolvedMessage = getFriendlyUsersError(submissionError);
@@ -181,17 +183,17 @@ export function ProfileForm({
     setEmailError(null);
 
     if (!normalizedEmailDraft) {
-      setEmailError("Email is required.");
+      setEmailError(t("errors.emailRequired"));
       return;
     }
 
     if (!isValidEmail(normalizedEmailDraft)) {
-      setEmailError("Enter a valid email address.");
+      setEmailError(t("errors.emailInvalid"));
       return;
     }
 
     if (normalizedEmailDraft === verifiedEmail) {
-      setEmailError("Use a different email from the one already on your account.");
+      setEmailError(t("errors.emailSame"));
       return;
     }
 
@@ -205,12 +207,12 @@ export function ProfileForm({
     setOtpError(null);
 
     if (!normalizedOtp) {
-      setOtpError("Verification code is required.");
+      setOtpError(t("errors.otpRequired"));
       return;
     }
 
     if (normalizedOtp.length !== 6) {
-      setOtpError("Enter the full 6-digit verification code.");
+      setOtpError(t("errors.otpLength"));
       return;
     }
 
@@ -231,9 +233,9 @@ export function ProfileForm({
       setOtpExpiresInSeconds(0);
       setResendAvailableInSeconds(0);
       notifySuccess(
-        "Email changed successfully",
-        "Email changed successfully.",
-        "Your profile now reflects the new email immediately.",
+        t("toasts.emailChanged"),
+        t("toasts.emailChanged"),
+        t("toasts.emailChangedDescription"),
       );
     } catch (submissionError) {
       const resolvedMessage = getFriendlyUsersError(submissionError);
@@ -249,7 +251,7 @@ export function ProfileForm({
     const nextFieldErrors: { name?: string } = {};
 
     if (!values.name.trim()) {
-      nextFieldErrors.name = "Full name is required.";
+      nextFieldErrors.name = t("errors.nameRequired");
     }
 
     setFieldErrors(nextFieldErrors);
@@ -274,7 +276,7 @@ export function ProfileForm({
     <>
       <form className="space-y-6" noValidate onSubmit={handleSubmit}>
         <label className="space-y-2 block max-w-xl">
-          <span className="text-sm font-medium text-foreground">Full name</span>
+          <span className="text-sm font-medium text-foreground">{t("fields.fullName")}</span>
           <Input
             value={values.name}
             onChange={(event) => {
@@ -289,17 +291,17 @@ export function ProfileForm({
         <div className="rounded-[1.5rem] border border-border/80 bg-white/55 p-4 md:p-5">
           <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
             <div className="space-y-1">
-              <p className="text-sm font-medium text-foreground">Email</p>
+              <p className="text-sm font-medium text-foreground">{t("fields.email")}</p>
               <p className="text-sm leading-6 text-muted-foreground">{emailStatusText}</p>
             </div>
             <span className="text-xs font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-              {hasPendingEmailChange ? "Pending verification" : "Current email"}
+              {hasPendingEmailChange ? t("email.pendingVerification") : t("email.current")}
             </span>
           </div>
 
           <div className="mt-4 grid gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-start">
             <label className="space-y-2">
-              <span className="text-sm font-medium text-foreground">New email</span>
+              <span className="text-sm font-medium text-foreground">{t("fields.newEmail")}</span>
               <Input
                 type="email"
                 value={emailDraft}
@@ -335,14 +337,14 @@ export function ProfileForm({
                 }}
               >
                 {isRequestingOtp
-                  ? "Sending code..."
+                  ? t("actions.sendingCode")
                   : pendingEmail === normalizedEmailDraft
-                    ? "Enter code"
-                    : "Verify new email"}
+                    ? t("actions.enterCode")
+                    : t("actions.verifyEmail")}
               </Button>
               {resendAvailableInSeconds > 0 && pendingEmail === normalizedEmailDraft ? (
                 <p className="text-xs text-muted-foreground">
-                  You can request another code in {formatSecondsLabel(resendAvailableInSeconds)}.
+                  {t("email.resendIn", { time: formatSecondsLabel(resendAvailableInSeconds) })}
                 </p>
               ) : null}
             </div>
@@ -350,7 +352,7 @@ export function ProfileForm({
         </div>
 
         <label className="space-y-2 block max-w-xs">
-          <span className="text-sm font-medium text-foreground">Country</span>
+          <span className="text-sm font-medium text-foreground">{t("fields.country")}</span>
           <CountrySelect
             value={values.countryCode}
             onChange={(countryCode) => setValues((current) => ({ ...current, countryCode }))}
@@ -364,7 +366,7 @@ export function ProfileForm({
             className="min-w-44 rounded-full"
             disabled={isSubmitting || !profileDirty}
           >
-            {isSubmitting ? "Saving..." : "Save profile"}
+            {isSubmitting ? t("actions.saving") : t("actions.saveProfile")}
           </Button>
         </div>
       </form>
@@ -372,15 +374,15 @@ export function ProfileForm({
       <AlertDialog open={otpDialogOpen} onOpenChange={handleOtpDialogOpenChange}>
         <AlertDialogContent size="default" className="max-w-md gap-5 rounded-[1.5rem] p-5 sm:max-w-md">
           <AlertDialogHeader className="items-start text-left">
-            <AlertDialogTitle>Verify your new email</AlertDialogTitle>
+            <AlertDialogTitle>{t("dialog.title")}</AlertDialogTitle>
             <AlertDialogDescription className="text-left">
-              Enter the 6-digit code sent to <span className="font-medium text-foreground">{pendingEmail ?? normalizedEmailDraft}</span>.
+              {t("dialog.description")} <span className="font-medium text-foreground">{pendingEmail ?? normalizedEmailDraft}</span>.
             </AlertDialogDescription>
           </AlertDialogHeader>
 
           <div className="space-y-4">
             <div className="space-y-2">
-              <span className="text-sm font-medium text-foreground">Verification code</span>
+              <span className="text-sm font-medium text-foreground">{t("fields.verificationCode")}</span>
               <InputOTP
                 maxLength={6}
                 value={otpValue}
@@ -404,11 +406,11 @@ export function ProfileForm({
             </div>
 
             <div className="flex flex-col gap-2 text-sm text-muted-foreground">
-              <p>
-                {otpExpiresInSeconds > 0
-                  ? `This code expires in ${formatSecondsLabel(otpExpiresInSeconds)}.`
-                  : "This verification code may have expired. Request a new one if needed."}
-              </p>
+                <p>
+                  {otpExpiresInSeconds > 0
+                    ? t("dialog.expiresIn", { time: formatSecondsLabel(otpExpiresInSeconds) })
+                    : t("dialog.expired")}
+                </p>
               <div className="flex flex-wrap items-center gap-2">
                 <Button
                   type="button"
@@ -418,19 +420,19 @@ export function ProfileForm({
                   onClick={() => void sendOtp(pendingEmail ?? normalizedEmailDraft)}
                 >
                   {isRequestingOtp
-                    ? "Sending new code..."
+                    ? t("actions.sendingNewCode")
                     : resendAvailableInSeconds > 0
-                      ? `Resend available in ${formatSecondsLabel(resendAvailableInSeconds)}`
-                      : "Resend code"}
+                      ? t("actions.resendIn", { time: formatSecondsLabel(resendAvailableInSeconds) })
+                      : t("actions.resendCode")}
                 </Button>
               </div>
             </div>
           </div>
 
           <AlertDialogFooter className="gap-3">
-            <AlertDialogCancel disabled={isVerifyingOtp}>Cancel</AlertDialogCancel>
+            <AlertDialogCancel disabled={isVerifyingOtp}>{t("actions.cancel")}</AlertDialogCancel>
             <Button type="button" disabled={isVerifyingOtp} onClick={() => void handleVerifyOtp()}>
-              {isVerifyingOtp ? "Verifying..." : "Verify email"}
+              {isVerifyingOtp ? t("actions.verifying") : t("actions.verifyEmail")}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
@@ -19,6 +20,7 @@ import { ROUTES } from "@/lib/constants/routes";
 import { queueNavigationToast } from "@/lib/toast";
 
 export function UserEditPage({ id }: { id: string }) {
+  const t = useTranslations("users.edit");
   const router = useRouter();
   const [user, setUser] = useState<UserRecord | null>(null);
   const [roles, setRoles] = useState<RoleOption[]>([]);
@@ -54,7 +56,7 @@ export function UserEditPage({ id }: { id: string }) {
 
     queueNavigationToast({
       intent: "success",
-      title: response.message ?? "User updated successfully.",
+      title: response.message ?? t("toasts.updated"),
     });
     router.replace(ROUTES.admin.users.detail(response.data.id));
   }
@@ -62,31 +64,31 @@ export function UserEditPage({ id }: { id: string }) {
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
-        eyebrow="Edit user"
-        title="Update account details."
-        description="Adjust role, availability, profile details, or replace the password when needed."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        description={t("description")}
         meta={
           <BackButton
             href={ROUTES.admin.users.detail(id)}
             confirm
-            confirmTitle="Discard these changes?"
-            confirmDescription="Any modifications will be lost."
-            confirmLabel="Discard"
+            confirmTitle={t("confirm.title")}
+            confirmDescription={t("confirm.description")}
+            confirmLabel={t("confirm.confirmLabel")}
           />
         }
       />
       {isLoading ? (
-        <LoadingState title="Loading user" description="Fetching the current user record and role options." />
+        <LoadingState title={t("loading.title")} description={t("loading.description")} />
       ) : error || !user ? (
-        <ErrorState title="Unable to load this user" description={error ?? "User not found."} />
+        <ErrorState title={t("errorTitle")} description={error ?? t("userNotFound")} />
       ) : (
         <AdminSurface className="p-6 md:p-8">
           <UserForm
             mode="edit"
             roles={roles}
             initialValues={getUserFormInitialValues(user)}
-            submitLabel="Save changes"
-            description="Leave the password field empty if the current password should stay in place."
+            submitLabel={t("submitLabel")}
+            description={t("formDescription")}
             onSubmit={handleSubmit}
           />
         </AdminSurface>

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
@@ -21,6 +22,7 @@ import { consumeNavigationToast } from "@/lib/toast";
 import { cn } from "@/lib/utils";
 
 export function OrderDetailPage({ id }: { id: string }) {
+  const t = useTranslations("orders.detail");
   const router = useRouter();
   const [order, setOrder] = useState<OrderDetailRecord | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -50,12 +52,12 @@ export function OrderDetailPage({ id }: { id: string }) {
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
-        eyebrow="Order detail"
-        title={order ? order.orderNumber : "Review this order request."}
+        eyebrow={t("eyebrow")}
+        title={order ? order.orderNumber : t("title")}
         description={
           order
-            ? `Customer: ${order.customerInfo.name} · Keep lifecycle and payment progression aligned.`
-            : "See customer context, item snapshot, and update status or payment progression in one place."
+            ? t("descriptionWithCustomer", { customer: order.customerInfo.name })
+            : t("description")
         }
         meta={<BackButton href={ROUTES.admin.orders.root} />}
         actions={
@@ -72,20 +74,20 @@ export function OrderDetailPage({ id }: { id: string }) {
               )}
             >
               <FontAwesomeIcon icon={faArrowRotateRight} />
-              Refresh
+              {t("actions.refresh")}
             </Link>
           ) : null
         }
       />
       {isLoading ? (
         <LoadingState
-          title="Loading order"
-          description="Pulling the latest order detail and status."
+          title={t("loading.title")}
+          description={t("loading.description")}
         />
       ) : error || !order ? (
         <ErrorState
-          title="Unable to load this order"
-          description={error ?? "Order not found."}
+          title={t("errorTitle")}
+          description={error ?? t("notFound")}
         />
       ) : (
         <OrderDetailCard order={order} onUpdated={setOrder} />

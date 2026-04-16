@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -34,6 +35,7 @@ const INITIAL_QUERY: GalleryListQuery = {
 };
 
 export function GalleriesListPage() {
+  const t = useTranslations("galleries.list");
   const [query, setQuery] = useState<GalleryListQuery>(INITIAL_QUERY);
   const [keywordInput, setKeywordInput] = useState(INITIAL_QUERY.keyword ?? "");
   const [result, setResult] = useState<GalleriesListResult | null>(null);
@@ -95,7 +97,7 @@ export function GalleriesListPage() {
 
     try {
       const response = await deleteGallery(gallery.id);
-      notifySuccess(response.message ?? response.data.message, "Gallery archived.");
+      notifySuccess(response.message ?? response.data.message, t("toasts.archived"));
       await loadData(query);
     } catch (actionError) {
       notifyError(getFriendlyGalleriesError(actionError));
@@ -110,7 +112,7 @@ export function GalleriesListPage() {
 
     try {
       const response = await restoreGallery(gallery.id);
-      notifySuccess(response.message, "Gallery restored successfully.");
+      notifySuccess(response.message, t("toasts.restored"));
       await loadData(query);
     } catch (actionError) {
       notifyError(getFriendlyGalleriesError(actionError));
@@ -123,12 +125,12 @@ export function GalleriesListPage() {
   return (
     <AdminPageContainer tone="hero" className="space-y-6 pb-8">
       <PageHeader
-        eyebrow="Galleries"
-        title="Manage gallery collections."
-        description="Maintain multilingual gallery groups with faster filtering and lifecycle control."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        description={t("description")}
         meta={
           <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1 text-[11px] font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
-            Admin only
+            {t("meta.adminOnly")}
           </span>
         }
         actions={
@@ -137,27 +139,27 @@ export function GalleriesListPage() {
             className={cn(buttonVariants(), "rounded-full px-4")}
           >
             <FontAwesomeIcon icon={faPlus} />
-            Create gallery
+            {t("actions.create")}
           </Link>
         }
       />
       <AdminSurface className="p-5 md:p-6">
         <div className="mb-3 flex flex-wrap gap-2">
           <span className="rounded-full border border-border/80 bg-white/70 px-3 py-1 text-[10px] font-semibold tracking-[0.18em] text-[--color-brand-muted] uppercase">
-            Quick filters
+            {t("filters.quick")}
           </span>
         </div>
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
           <label className="space-y-1.5 xl:col-span-2">
-            <span className="text-sm font-medium text-foreground">Search keyword</span>
+            <span className="text-sm font-medium text-foreground">{t("filters.searchLabel")}</span>
             <Input
               value={keywordInput}
               onChange={(event) => setKeywordInput(event.target.value)}
-              placeholder="Search by gallery name"
+              placeholder={t("filters.searchPlaceholder")}
             />
           </label>
           <label className="space-y-1.5">
-            <span className="text-sm font-medium text-foreground">Status</span>
+            <span className="text-sm font-medium text-foreground">{t("filters.status")}</span>
             <AppSelect
               value={String(query.isActive)}
               onChange={(statusValue) =>
@@ -168,14 +170,14 @@ export function GalleriesListPage() {
                 }))
               }
               options={[
-                { value: "all", label: "All galleries" },
-                { value: "true", label: "Active only" },
-                { value: "false", label: "Inactive only" },
+                { value: "all", label: t("filters.statusAll") },
+                { value: "true", label: t("filters.statusActive") },
+                { value: "false", label: t("filters.statusInactive") },
               ]}
             />
           </label>
           <label className="space-y-1.5">
-            <span className="text-sm font-medium text-foreground">Page size</span>
+            <span className="text-sm font-medium text-foreground">{t("filters.pageSize")}</span>
             <AppSelect
               value={String(query.limit)}
               onChange={(limitValue) =>
@@ -186,9 +188,9 @@ export function GalleriesListPage() {
                 }))
               }
               options={[
-                { value: "10", label: "10 per page" },
-                { value: "20", label: "20 per page" },
-                { value: "50", label: "50 per page" },
+                { value: "10", label: t("filters.perPage", { value: 10 }) },
+                { value: "20", label: t("filters.perPage", { value: 20 }) },
+                { value: "50", label: t("filters.perPage", { value: 50 }) },
               ]}
             />
           </label>
@@ -196,12 +198,12 @@ export function GalleriesListPage() {
       </AdminSurface>
       {isLoading && !result ? (
         <LoadingState
-          title="Loading galleries"
-          description="Preparing the latest gallery list and filter results."
+          title={t("loading.title")}
+          description={t("loading.description")}
         />
       ) : error ? (
         <ErrorState
-          title="Unable to load galleries"
+          title={t("errorTitle")}
           description={error}
           action={
             <button
@@ -210,7 +212,7 @@ export function GalleriesListPage() {
               className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-5")}
             >
               <FontAwesomeIcon icon={faRotateLeft} />
-              Retry
+              {t("actions.retry")}
             </button>
           }
         />
@@ -225,8 +227,12 @@ export function GalleriesListPage() {
           <AdminSurface className="p-4">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <p className="text-xs text-muted-foreground">
-                Page {result.meta.page} of {result.meta.totalPages}. Total galleries: {result.meta.total}.
-                {isRefreshing ? " Updating…" : ""}
+                {t("pagination.summary", {
+                  page: result.meta.page,
+                  totalPages: result.meta.totalPages,
+                  total: result.meta.total,
+                })}
+                {isRefreshing ? ` ${t("pagination.updating")}` : ""}
               </p>
               <div className="flex gap-2">
                 <button
@@ -235,7 +241,7 @@ export function GalleriesListPage() {
                   onClick={() => setQuery((current) => ({ ...current, page: current.page - 1 }))}
                   className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-4 disabled:pointer-events-none disabled:opacity-50")}
                 >
-                  Previous
+                  {t("actions.previous")}
                 </button>
                 <button
                   type="button"
@@ -243,7 +249,7 @@ export function GalleriesListPage() {
                   onClick={() => setQuery((current) => ({ ...current, page: current.page + 1 }))}
                   className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-4 disabled:pointer-events-none disabled:opacity-50")}
                 >
-                  Next
+                  {t("actions.next")}
                 </button>
               </div>
             </div>
@@ -251,16 +257,16 @@ export function GalleriesListPage() {
         </>
       ) : (
         <EmptyState
-          eyebrow="Galleries"
-          title="No galleries matched the current filters."
-          description="Try a broader keyword or change the status filter."
+          eyebrow={t("eyebrow")}
+          title={t("empty.title")}
+          description={t("empty.description")}
           action={
             <Link
               href={ROUTES.admin.galleries.create}
               className={cn(buttonVariants(), "rounded-full px-5")}
             >
               <FontAwesomeIcon icon={faPlus} />
-              Create first gallery
+              {t("empty.createFirst")}
             </Link>
           }
         />

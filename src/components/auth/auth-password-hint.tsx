@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import { cn } from "@/lib/utils";
 
 type AuthPasswordHintProps = {
@@ -5,6 +7,8 @@ type AuthPasswordHintProps = {
 };
 
 export function AuthPasswordHint({ tone = "dark" }: AuthPasswordHintProps) {
+  const t = useTranslations("auth");
+
   return (
     <p
       className={cn(
@@ -14,7 +18,7 @@ export function AuthPasswordHint({ tone = "dark" }: AuthPasswordHintProps) {
           : "border-border/80 bg-[--color-brand-soft]/38 text-foreground/82",
       )}
     >
-      Use at least 8 characters with uppercase, lowercase, and a number.
+      {t("passwordHint")}
     </p>
   );
 }

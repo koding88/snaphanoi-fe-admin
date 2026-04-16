@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
@@ -19,6 +20,7 @@ import { ROUTES } from "@/lib/constants/routes";
 import { queueNavigationToast } from "@/lib/toast";
 
 export function ProjectCreatePage() {
+  const t = useTranslations("projects.create");
   const router = useRouter();
   const [galleries, setGalleries] = useState<ProjectGalleryOption[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -51,7 +53,7 @@ export function ProjectCreatePage() {
     const response = await createProject(payload);
     queueNavigationToast({
       intent: "success",
-      title: response.message ?? "Project created successfully.",
+      title: response.message ?? t("toasts.created"),
     });
     router.replace(ROUTES.admin.projects.detail(response.data.id));
   }
@@ -59,36 +61,39 @@ export function ProjectCreatePage() {
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
-        eyebrow="Create project"
-        title="Create a new project story"
-        description="Set the core metadata first, then shape the full story in the editor workspace below."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        description={t("description")}
         meta={
           <BackButton
             href={ROUTES.admin.projects.root}
             confirm
-            confirmTitle="Discard this new project?"
-            confirmDescription="The form will be cleared and you will return to the project list."
-            confirmLabel="Discard"
+            confirmTitle={t("confirm.title")}
+            confirmDescription={t("confirm.description")}
+            confirmLabel={t("confirm.confirmLabel")}
           />
         }
       />
       {isLoading ? (
-        <LoadingState title="Loading project form" description="Preparing galleries and editor dependencies." />
+        <LoadingState
+          title={t("loading.title")}
+          description={t("loading.description")}
+        />
       ) : error ? (
-        <ErrorState title="Unable to prepare this form" description={error} />
+        <ErrorState title={t("errorTitle")} description={error} />
       ) : galleries.length === 0 ? (
         <EmptyState
-          eyebrow="Projects"
-          title="Create a gallery first."
-          description="Projects must belong to an active gallery. Add at least one gallery before creating a project."
+          eyebrow={t("empty.eyebrow")}
+          title={t("empty.title")}
+          description={t("empty.description")}
         />
       ) : (
         <AdminSurface className="overflow-hidden border-white/60 bg-white/84 p-6 shadow-[0_30px_100px_-70px_rgba(15,23,42,0.5)] md:p-8">
           <ProjectForm
             mode="create"
             galleries={galleries}
-            submitLabel="Create project"
-            description="Create keeps the same backend contract while giving the story editor a clearer, full-width workspace."
+            submitLabel={t("submitLabel")}
+            description={t("formDescription")}
             onSubmit={handleSubmit}
           />
         </AdminSurface>

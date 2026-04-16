@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
@@ -24,6 +25,7 @@ import { consumeNavigationToast, notifyError, notifySuccess } from "@/lib/toast"
 import { cn } from "@/lib/utils";
 
 export function PackageDetailPage({ id }: { id: string }) {
+  const t = useTranslations("packages.detail");
   const router = useRouter();
   const [pkg, setPkg] = useState<PackageDetailRecord | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -66,7 +68,7 @@ export function PackageDetailPage({ id }: { id: string }) {
         const response = await deletePackage(pkg.id);
         notifySuccess(
           response.message ?? response.data.message,
-          "Package archived.",
+          t("toasts.archived"),
         );
         router.replace(ROUTES.admin.packages.root);
         return;
@@ -74,7 +76,7 @@ export function PackageDetailPage({ id }: { id: string }) {
 
       const response = await restorePackage(pkg.id);
       setPkg(response.data);
-      notifySuccess(response.message, "Package restored successfully.");
+      notifySuccess(response.message, t("toasts.restored"));
       setDialogMode(null);
     } catch (actionError) {
       notifyError(getFriendlyPackagesError(actionError));
@@ -86,9 +88,9 @@ export function PackageDetailPage({ id }: { id: string }) {
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
-        eyebrow="Package detail"
-        title="Review this package offer."
-        description="Review package naming, audience fit, pricing, and cover before updating this offer."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        description={t("description")}
         meta={<BackButton href={ROUTES.admin.packages.root} />}
         actions={
           pkg ? (
@@ -101,7 +103,7 @@ export function PackageDetailPage({ id }: { id: string }) {
                 )}
               >
                 <FontAwesomeIcon icon={faUserPen} />
-                Edit
+                {t("actions.edit")}
               </Link>
               {pkg.deletedAt ? (
                 <button
@@ -110,7 +112,7 @@ export function PackageDetailPage({ id }: { id: string }) {
                   className={cn(buttonVariants(), "rounded-full px-5")}
                 >
                   <FontAwesomeIcon icon={faRotateLeft} />
-                  Restore
+                  {t("actions.restore")}
                 </button>
               ) : (
                 <button
@@ -122,7 +124,7 @@ export function PackageDetailPage({ id }: { id: string }) {
                   )}
                 >
                   <FontAwesomeIcon icon={faTrashCan} />
-                  Delete
+                  {t("actions.delete")}
                 </button>
               )}
             </div>
@@ -131,13 +133,13 @@ export function PackageDetailPage({ id }: { id: string }) {
       />
       {isLoading ? (
         <LoadingState
-          title="Loading package"
-          description="Loading package details and cover."
+          title={t("loading.title")}
+          description={t("loading.description")}
         />
       ) : error || !pkg ? (
         <ErrorState
-          title="Unable to load this package"
-          description={error ?? "Package not found."}
+          title={t("errorTitle")}
+          description={error ?? t("notFound")}
         />
       ) : (
         <PackageDetailCard pkg={pkg} />
@@ -146,16 +148,16 @@ export function PackageDetailPage({ id }: { id: string }) {
         open={Boolean(dialogMode && pkg)}
         title={
           dialogMode === "delete"
-            ? `Delete ${pkg?.name.en}?`
-            : `Restore ${pkg?.name.en}?`
+            ? t("dialogs.deleteTitle", { name: pkg?.name.en ?? "" })
+            : t("dialogs.restoreTitle", { name: pkg?.name.en ?? "" })
         }
         description={
           dialogMode === "delete"
-            ? "This archives the package for now. You can restore it later if needed."
-            : "This will bring the archived package back into the active offer library."
+            ? t("dialogs.deleteDescription")
+            : t("dialogs.restoreDescription")
         }
         confirmLabel={
-          dialogMode === "delete" ? "Delete package" : "Restore package"
+          dialogMode === "delete" ? t("dialogs.deleteConfirm") : t("dialogs.restoreConfirm")
         }
         confirmVariant={dialogMode === "delete" ? "destructive" : "default"}
         isSubmitting={isSubmitting}

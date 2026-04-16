@@ -1,32 +1,39 @@
 import type { Metadata } from "next";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import { getLocale, getMessages, getTranslations } from "next-intl/server";
 
 import { AppProvider } from "@/providers/app-provider";
 import "@/lib/icons/fa";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: {
-    default: "SnapHanoi Admin",
-    template: "%s | SnapHanoi Admin",
-  },
-  description:
-    "Foundation for the SnapHanoi admin experience, built for a premium visual service workflow.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("metadata");
 
-export default function RootLayout({
+  return {
+    title: {
+      default: t("title.default"),
+      template: t("title.template"),
+    },
+    description: t("description"),
+  };
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
     <html
-      lang="en"
+      lang={locale}
       className="h-full scroll-smooth antialiased"
       suppressHydrationWarning
     >
       <body className="min-h-full bg-background text-foreground">
-        <AppProvider>{children}</AppProvider>
+        <AppProvider locale={locale} messages={messages}>{children}</AppProvider>
       </body>
     </html>
   );

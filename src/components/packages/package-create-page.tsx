@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
@@ -12,13 +13,14 @@ import { ROUTES } from "@/lib/constants/routes";
 import { queueNavigationToast } from "@/lib/toast";
 
 export function PackageCreatePage() {
+  const t = useTranslations("packages.create");
   const router = useRouter();
 
   async function handleSubmit(payload: Parameters<typeof createPackage>[0]) {
     const response = await createPackage(payload);
     queueNavigationToast({
       intent: "success",
-      title: response.message ?? "Package created successfully.",
+      title: response.message ?? t("toasts.created"),
     });
     router.replace(ROUTES.admin.packages.detail(response.data.id));
   }
@@ -26,24 +28,24 @@ export function PackageCreatePage() {
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
-        eyebrow="Create package"
-        title="Create a new photography package"
-        description="Fill the localized package copy, booking numbers, pricing, and cover in one practical admin flow."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        description={t("description")}
         meta={
           <BackButton
             href={ROUTES.admin.packages.root}
             confirm
-            confirmTitle="Discard this new package?"
-            confirmDescription="The form will be cleared and you will return to the package list."
-            confirmLabel="Discard"
+            confirmTitle={t("confirm.title")}
+            confirmDescription={t("confirm.description")}
+            confirmLabel={t("confirm.confirmLabel")}
           />
         }
       />
       <AdminSurface className="overflow-hidden border-white/60 bg-white/84 p-6 shadow-[0_30px_100px_-70px_rgba(15,23,42,0.5)] md:p-8">
         <PackageForm
           mode="create"
-          submitLabel="Create package"
-          description="The form keeps the backend payload intact while grouping multilingual copy, offer details, pricing, and cover artwork more clearly."
+          submitLabel={t("submitLabel")}
+          description={t("formDescription")}
           onSubmit={handleSubmit}
         />
       </AdminSurface>

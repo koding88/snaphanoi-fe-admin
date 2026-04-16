@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import { StatusBadge } from "@/components/shared/status-badge";
 
 type BlogStatusBadgeProps = {
@@ -6,9 +8,11 @@ type BlogStatusBadgeProps = {
 };
 
 export function BlogStatusBadge({ isActive, deletedAt }: BlogStatusBadgeProps) {
+  const t = useTranslations("blogs.badges");
+
   if (deletedAt) {
-    return <StatusBadge tone="danger">Archived</StatusBadge>;
+    return <StatusBadge tone="danger">{t("archived")}</StatusBadge>;
   }
 
-  return isActive ? <StatusBadge tone="success">Active</StatusBadge> : <StatusBadge tone="warning">Inactive</StatusBadge>;
+  return isActive ? <StatusBadge tone="success">{t("active")}</StatusBadge> : <StatusBadge tone="warning">{t("inactive")}</StatusBadge>;
 }

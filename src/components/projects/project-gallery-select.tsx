@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import { AppSelect } from "@/components/ui/select";
 
 export type ProjectGalleryOption = {
@@ -18,6 +20,8 @@ export function ProjectGallerySelect({
   galleries,
   disabled = false,
 }: ProjectGallerySelectProps) {
+  const t = useTranslations("projects.gallerySelect");
+
   return (
     <AppSelect
       value={value}
@@ -28,7 +32,7 @@ export function ProjectGallerySelect({
         label: gallery.name,
         description: gallery.id,
       }))}
-      placeholder="Choose a gallery"
+      placeholder={t("placeholder")}
     />
   );
 }

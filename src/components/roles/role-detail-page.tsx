@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -43,6 +44,7 @@ const INITIAL_USERS_QUERY: RoleUsersQuery = {
 const SHOW_ROLE_DELETE_ACTIONS = false;
 
 export function RoleDetailPage({ id }: { id: string }) {
+  const t = useTranslations("roles.detail");
   const router = useRouter();
   const [role, setRole] = useState<RoleRecord | null>(null);
   const [roleUsers, setRoleUsers] = useState<RoleUsersResult | null>(null);
@@ -86,7 +88,7 @@ export function RoleDetailPage({ id }: { id: string }) {
     setIsSubmitting(true);
     try {
       const response = await deleteRole(role.id);
-      notifySuccess(response.message ?? response.data.message, "Role deleted.");
+      notifySuccess(response.message ?? response.data.message, t("toasts.deleted"));
       router.replace(ROUTES.admin.roles.root);
     } catch (actionError) {
       notifyError(getFriendlyRolesError(actionError));
@@ -99,9 +101,9 @@ export function RoleDetailPage({ id }: { id: string }) {
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
-        eyebrow="Role detail"
-        title="Inspect a role and its assigned users."
-        description="Review the role itself, see where it is in use, and manage the next step from one page."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        description={t("description")}
         meta={<BackButton href={ROUTES.admin.roles.root} />}
         actions={
           role ? (
@@ -111,7 +113,7 @@ export function RoleDetailPage({ id }: { id: string }) {
                 className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-5")}
               >
                 <FontAwesomeIcon icon={faUserPen} />
-                Edit
+                {t("actions.edit")}
               </Link>
               {SHOW_ROLE_DELETE_ACTIONS ? (
                 <button
@@ -120,7 +122,7 @@ export function RoleDetailPage({ id }: { id: string }) {
                   className={cn(buttonVariants({ variant: "destructive" }), "rounded-full px-5")}
                 >
                   <FontAwesomeIcon icon={faTrashCan} />
-                  Delete
+                  {t("actions.delete")}
                 </button>
               ) : null}
             </div>
@@ -129,11 +131,11 @@ export function RoleDetailPage({ id }: { id: string }) {
       />
       {isLoading ? (
         <LoadingState
-          title="Loading role"
-          description="Fetching the role record and users currently assigned to it."
+          title={t("loading.title")}
+          description={t("loading.description")}
         />
       ) : error || !role ? (
-        <ErrorState title="Unable to load this role" description={error ?? "Role not found."} />
+        <ErrorState title={t("errorTitle")} description={error ?? t("notFound")} />
       ) : (
         <>
           <RoleDetailCard role={role} />
@@ -141,13 +143,13 @@ export function RoleDetailPage({ id }: { id: string }) {
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div className="space-y-2">
                 <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-                  Role users
+                  {t("users.eyebrow")}
                 </p>
                 <h3 className="font-heading text-3xl tracking-[0.04em] text-foreground">
-                  Users assigned to this role
+                  {t("users.title")}
                 </h3>
                 <p className="text-sm leading-7 text-muted-foreground">
-                  Review who currently uses this role and filter by account state when needed.
+                  {t("users.description")}
                 </p>
               </div>
               <div className="flex flex-wrap gap-3">
@@ -162,10 +164,10 @@ export function RoleDetailPage({ id }: { id: string }) {
                   }
                   className="min-w-52"
                   options={[
-                    { value: "all", label: "All assigned users" },
-                    { value: "active", label: "Active only" },
-                    { value: "inactive", label: "Inactive only" },
-                    { value: "deleted", label: "Archived only" },
+                    { value: "all", label: t("users.filters.all") },
+                    { value: "active", label: t("users.filters.active") },
+                    { value: "inactive", label: t("users.filters.inactive") },
+                    { value: "deleted", label: t("users.filters.deleted") },
                   ]}
                 />
               </div>
@@ -176,8 +178,11 @@ export function RoleDetailPage({ id }: { id: string }) {
                   <RoleUsersTable users={roleUsers.items} />
                   <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                     <p className="text-sm text-muted-foreground">
-                      Page {roleUsers.meta.page} of {roleUsers.meta.totalPages}. Total users:{" "}
-                      {roleUsers.meta.total}.
+                      {t("users.pagination", {
+                        page: roleUsers.meta.page,
+                        totalPages: roleUsers.meta.totalPages,
+                        total: roleUsers.meta.total,
+                      })}
                     </p>
                     <div className="flex gap-2">
                       <button
@@ -191,7 +196,7 @@ export function RoleDetailPage({ id }: { id: string }) {
                           "rounded-full px-4 disabled:pointer-events-none disabled:opacity-50",
                         )}
                       >
-                        Previous
+                        {t("actions.previous")}
                       </button>
                       <button
                         type="button"
@@ -204,16 +209,16 @@ export function RoleDetailPage({ id }: { id: string }) {
                           "rounded-full px-4 disabled:pointer-events-none disabled:opacity-50",
                         )}
                       >
-                        Next
+                        {t("actions.next")}
                       </button>
                     </div>
                   </div>
                 </>
               ) : (
                 <EmptyState
-                  eyebrow="Role users"
-                  title="No users matched this role-user query."
-                  description="Try a different status view, or return later once the role has people assigned to it."
+                  eyebrow={t("users.eyebrow")}
+                  title={t("users.emptyTitle")}
+                  description={t("users.emptyDescription")}
                 />
               )}
             </div>
@@ -222,9 +227,9 @@ export function RoleDetailPage({ id }: { id: string }) {
       )}
       <ConfirmDialog
         open={SHOW_ROLE_DELETE_ACTIONS && dialogOpen}
-        title={`Delete ${role?.name}?`}
-        description="If this role is still assigned, removal will be blocked until reassignment is complete."
-        confirmLabel="Delete role"
+        title={t("dialogs.deleteTitle", { name: role?.name ?? "" })}
+        description={t("dialogs.deleteDescription")}
+        confirmLabel={t("dialogs.deleteConfirm")}
         confirmVariant="destructive"
         isSubmitting={isSubmitting}
         onCancel={() => setDialogOpen(false)}
@@ -233,7 +238,7 @@ export function RoleDetailPage({ id }: { id: string }) {
           role ? (
             <div className="space-y-1">
               <p className="text-xs font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
-                Role in focus
+                {t("dialogs.roleInFocus")}
               </p>
               <p className="text-sm font-medium text-foreground">{role.name}</p>
               <p className="text-sm text-muted-foreground">{role.key}</p>

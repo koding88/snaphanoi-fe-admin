@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { useTranslations } from "next-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { ProjectCoverPreview } from "@/components/projects/project-cover-preview";
@@ -28,6 +29,7 @@ export function PackageCoverField({
   onSelectFile,
   onRemove,
 }: PackageCoverFieldProps) {
+  const t = useTranslations("packages.coverField");
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   return (
@@ -50,9 +52,9 @@ export function PackageCoverField({
 
       <div className="overflow-hidden rounded-[1.75rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(245,240,231,0.92))] shadow-[0_24px_70px_-48px_rgba(15,23,42,0.42)]">
         {previewUrl ? (
-          <ProjectCoverPreview
-            src={previewUrl}
-            alt={title ?? "Package cover"}
+            <ProjectCoverPreview
+              src={previewUrl}
+              alt={title ?? t("coverAlt")}
             className="rounded-none border-0 bg-transparent shadow-none"
             imageClassName="rounded-[1.2rem]"
           />
@@ -60,12 +62,12 @@ export function PackageCoverField({
           <div className="flex aspect-[4/3] items-center justify-center bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.92),rgba(241,245,249,0.8))] px-6 text-center">
             <div className="max-w-xs space-y-2">
               <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-                Cover image
+                {t("title")}
               </p>
               <p className="text-sm leading-6 text-muted-foreground">
                 {required
-                  ? "Upload the package cover before saving this offer."
-                  : "Keep the current cover or replace it when the offer artwork changes."}
+                  ? t("requiredHint")
+                  : t("optionalHint")}
               </p>
             </div>
           </div>
@@ -82,7 +84,7 @@ export function PackageCoverField({
             disabled={isUploading}
           >
             <FontAwesomeIcon icon={faArrowRotateRight} />
-            {previewUrl ? "Replace cover" : "Upload cover"}
+            {previewUrl ? t("replace") : t("upload")}
           </Button>
           {previewUrl ? (
             <Button
@@ -93,13 +95,13 @@ export function PackageCoverField({
               disabled={isUploading}
             >
               <FontAwesomeIcon icon={faTrashCan} />
-              Remove
+              {t("remove")}
             </Button>
           ) : null}
           {isUploading ? (
             <p className="inline-flex items-center gap-2 text-sm text-muted-foreground">
               <FontAwesomeIcon icon={faSpinner} className="animate-spin" />
-              Uploading cover image...
+              {t("uploading")}
             </p>
           ) : null}
         </div>

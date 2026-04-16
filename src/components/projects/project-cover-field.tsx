@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { useTranslations } from "next-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { ProjectCoverPreview } from "@/components/projects/project-cover-preview";
@@ -28,6 +29,7 @@ export function ProjectCoverField({
   onSelectFile,
   onRemove,
 }: ProjectCoverFieldProps) {
+  const t = useTranslations("projects.coverField");
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   return (
@@ -51,7 +53,7 @@ export function ProjectCoverField({
         {previewUrl ? (
           <ProjectCoverPreview
             src={previewUrl}
-            alt={title ?? "Project cover"}
+            alt={title ?? t("coverAlt")}
             className="rounded-none border-0 bg-transparent shadow-none"
             imageClassName="rounded-[1.2rem]"
           />
@@ -59,12 +61,12 @@ export function ProjectCoverField({
           <div className="flex aspect-[4/3] items-center justify-center bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.92),rgba(241,245,249,0.8))] px-6 text-center">
             <div className="max-w-xs space-y-2">
               <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-                Cover image
+                {t("title")}
               </p>
               <p className="text-sm leading-6 text-muted-foreground">
                 {required
-                  ? "Upload the primary cover before saving the project."
-                  : "Keep the current cover or upload a replacement when needed."}
+                  ? t("requiredHint")
+                  : t("optionalHint")}
               </p>
             </div>
           </div>
@@ -81,18 +83,18 @@ export function ProjectCoverField({
             disabled={isUploading}
           >
             <FontAwesomeIcon icon={faArrowRotateRight} />
-            {previewUrl ? "Replace cover" : "Upload cover"}
+            {previewUrl ? t("replace") : t("upload")}
           </Button>
           {previewUrl ? (
             <Button type="button" variant="ghost" className="rounded-full" onClick={onRemove} disabled={isUploading}>
               <FontAwesomeIcon icon={faTrashCan} />
-              Remove
+              {t("remove")}
             </Button>
           ) : null}
           {isUploading ? (
             <p className="inline-flex items-center gap-2 text-sm text-muted-foreground">
               <FontAwesomeIcon icon={faSpinner} className="animate-spin" />
-              Uploading cover image...
+              {t("uploading")}
             </p>
           ) : null}
         </div>

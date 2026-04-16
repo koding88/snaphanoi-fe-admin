@@ -4,9 +4,8 @@ import { ROUTES } from "@/lib/constants/routes";
 import { faClockRotateLeft, faFilm, faHouse, faLayerGroup, faPenNib, faRectangleList, faShieldHalved, faUserGroup } from "@/lib/icons/fa";
 
 export type AdminNavItem = {
+  key: "dashboard" | "users" | "roles" | "galleries" | "projects" | "blogs" | "packages" | "orders";
   href: string;
-  label: string;
-  description: string;
   icon: IconDefinition;
 };
 
@@ -20,51 +19,43 @@ export function isAdminNavItemActive(href: string, pathname: string) {
 
 export const ADMIN_NAV_ITEMS: AdminNavItem[] = [
   {
+    key: "dashboard",
     href: ROUTES.admin.dashboard,
-    label: "Dashboard",
-    description: "Control room overview",
     icon: faHouse,
   },
   {
+    key: "users",
     href: ROUTES.admin.users.root,
-    label: "Users",
-    description: "People and access",
     icon: faUserGroup,
   },
   {
+    key: "roles",
     href: ROUTES.admin.roles.root,
-    label: "Roles",
-    description: "Role definitions",
     icon: faShieldHalved,
   },
   {
+    key: "galleries",
     href: ROUTES.admin.galleries.root,
-    label: "Galleries",
-    description: "Portfolio groups",
     icon: faFilm,
   },
   {
+    key: "projects",
     href: ROUTES.admin.projects.root,
-    label: "Projects",
-    description: "Stories and covers",
     icon: faRectangleList,
   },
   {
+    key: "blogs",
     href: ROUTES.admin.blogs.root,
-    label: "Blogs",
-    description: "Journal and stories",
     icon: faPenNib,
   },
   {
+    key: "packages",
     href: ROUTES.admin.packages.root,
-    label: "Packages",
-    description: "Session offerings",
     icon: faLayerGroup,
   },
   {
+    key: "orders",
     href: ROUTES.admin.orders.root,
-    label: "Orders",
-    description: "Requests and fulfillment",
     icon: faClockRotateLeft,
   },
 ];

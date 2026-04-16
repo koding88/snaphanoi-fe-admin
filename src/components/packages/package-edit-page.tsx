@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { AdminPageContainer } from "@/components/admin/admin-page-container";
 import { AdminSurface } from "@/components/admin/admin-surface";
@@ -21,6 +22,7 @@ import { ROUTES } from "@/lib/constants/routes";
 import { queueNavigationToast } from "@/lib/toast";
 
 export function PackageEditPage({ id }: { id: string }) {
+  const t = useTranslations("packages.edit");
   const router = useRouter();
   const [pkg, setPkg] = useState<PackageDetailRecord | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -47,7 +49,7 @@ export function PackageEditPage({ id }: { id: string }) {
     const response = await updatePackage(id, payload);
     queueNavigationToast({
       intent: "success",
-      title: response.message ?? "Package updated successfully.",
+      title: response.message ?? t("toasts.updated"),
     });
     router.replace(ROUTES.admin.packages.detail(response.data.id));
   }
@@ -55,28 +57,28 @@ export function PackageEditPage({ id }: { id: string }) {
   return (
     <AdminPageContainer tone="hero" className="space-y-8 pb-10">
       <PageHeader
-        eyebrow="Edit package"
-        title="Update this photography package"
-        description="Review the localized package copy, booking numbers, pricing, and cover without changing the backend contract."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        description={t("description")}
         meta={
           <BackButton
             href={ROUTES.admin.packages.detail(id)}
             confirm
-            confirmTitle="Discard these changes?"
-            confirmDescription="Any modifications will be lost."
-            confirmLabel="Discard"
+            confirmTitle={t("confirm.title")}
+            confirmDescription={t("confirm.description")}
+            confirmLabel={t("confirm.confirmLabel")}
           />
         }
       />
       {isLoading ? (
         <LoadingState
-          title="Loading package"
-          description="Fetching the current package record and cover asset."
+          title={t("loading.title")}
+          description={t("loading.description")}
         />
       ) : error || !pkg ? (
         <ErrorState
-          title="Unable to load this package"
-          description={error ?? "Package not found."}
+          title={t("errorTitle")}
+          description={error ?? t("notFound")}
         />
       ) : (
         <AdminSurface className="overflow-hidden border-white/60 bg-white/84 p-6 shadow-[0_30px_100px_-70px_rgba(15,23,42,0.5)] md:p-8">
@@ -84,8 +86,8 @@ export function PackageEditPage({ id }: { id: string }) {
             mode="edit"
             initialValues={getPackageFormInitialValues(pkg)}
             existingCoverImage={pkg.coverImage}
-            submitLabel="Save changes"
-            description="Edit keeps the same raw duration, pricing, and localized payload shape while making the form faster to scan and update."
+            submitLabel={t("submitLabel")}
+            description={t("formDescription")}
             onSubmit={handleSubmit}
           />
         </AdminSurface>

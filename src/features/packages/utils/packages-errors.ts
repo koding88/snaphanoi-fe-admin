@@ -1,5 +1,12 @@
 import { isApiError } from "@/lib/api/errors";
 
+type ErrorMessageResolver = (params: {
+  scope: string;
+  code?: string | null;
+  statusCode?: number;
+  fallback: string;
+}) => string;
+
 const PACKAGE_ERROR_MESSAGES: Record<string, string> = {
   PACKAGE_NOT_FOUND: "The requested package could not be found.",
   PACKAGE_ALREADY_DELETED: "This package is already archived.",
@@ -22,13 +29,13 @@ const PACKAGE_ERROR_MESSAGES: Record<string, string> = {
   Unauthorized: "Your session is no longer valid. Please sign in again.",
 };
 
-export function getFriendlyPackagesError(error: unknown) {
+export function getFriendlyPackagesError(error: unknown, resolve?: ErrorMessageResolver) {
   if (!isApiError(error)) {
     if (error instanceof Error && error.message) {
-      return error.message;
+      return resolve?.({ scope: "packages", fallback: error.message }) ?? error.message;
     }
 
-    return "Something went wrong. Please try again.";
+    return resolve?.({ scope: "packages", fallback: "Something went wrong. Please try again." }) ?? "Something went wrong. Please try again.";
   }
 
   const baseMessage =
@@ -40,5 +47,5 @@ export function getFriendlyPackagesError(error: unknown) {
     error.message ||
     "Something went wrong. Please try again.";
 
-  return baseMessage;
+  return resolve?.({ scope: "packages", code: error.code, statusCode: error.statusCode, fallback: baseMessage }) ?? baseMessage;
 }

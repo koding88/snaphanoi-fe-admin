@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { useTranslations } from "next-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Button } from "@/components/ui/button";
@@ -27,6 +28,7 @@ export function BlogCoverField({
   onSelectFile,
   onRemove,
 }: BlogCoverFieldProps) {
+  const t = useTranslations("blogs.coverField");
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   return (
@@ -52,7 +54,7 @@ export function BlogCoverField({
               <div className="flex aspect-[4/3] items-center justify-center p-4 md:p-5">
                 {/* Blog cover URLs are backend-managed file assets, so plain img keeps the preview flexible. */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={previewUrl} alt={title ?? "Blog cover"} className="h-full w-full object-contain rounded-[1.2rem]" />
+                <img src={previewUrl} alt={title ?? t("coverAlt")} className="h-full w-full object-contain rounded-[1.2rem]" />
               </div>
             </div>
             {(title || meta) ? (
@@ -65,27 +67,27 @@ export function BlogCoverField({
         ) : (
           <div className="flex aspect-[4/3] items-center justify-center bg-muted/35 px-6 text-center">
             <div className="space-y-2">
-              <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-                Cover image
-              </p>
-              <p className="text-sm leading-6 text-muted-foreground">
-                {required
-                  ? "Upload the lead cover before saving the blog."
-                  : "Keep the current cover or upload a replacement when needed."}
-              </p>
+                <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
+                  {t("title")}
+                </p>
+                <p className="text-sm leading-6 text-muted-foreground">
+                  {required
+                    ? t("requiredHint")
+                    : t("optionalHint")}
+                </p>
+              </div>
             </div>
-          </div>
         )}
       </div>
       <div className="flex flex-wrap gap-2">
         <Button type="button" variant="outline" onClick={() => inputRef.current?.click()} disabled={isUploading}>
           <FontAwesomeIcon icon={faArrowRotateRight} />
-          {previewUrl ? "Replace cover" : "Upload cover"}
+          {previewUrl ? t("replace") : t("upload")}
         </Button>
         {previewUrl ? (
           <Button type="button" variant="ghost" onClick={onRemove} disabled={isUploading}>
             <FontAwesomeIcon icon={faTrashCan} />
-            Remove
+            {t("remove")}
           </Button>
         ) : null}
       </div>
@@ -93,7 +95,7 @@ export function BlogCoverField({
         {isUploading ? (
           <p className="inline-flex items-center gap-2 text-sm text-muted-foreground">
             <FontAwesomeIcon icon={faSpinner} className="animate-spin" />
-            Uploading cover image...
+            {t("uploading")}
           </p>
         ) : null}
         {error ? <p className="text-sm text-red-600">{error}</p> : null}

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
+import { useTranslations } from "next-intl";
 
 import { AuthField } from "@/components/auth/auth-field";
 import { AuthFormShell } from "@/components/auth/auth-form-shell";
@@ -23,6 +24,7 @@ type RegisterFieldErrors = {
 };
 
 export function RegisterForm() {
+  const t = useTranslations("auth.register");
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -36,20 +38,19 @@ export function RegisterForm() {
     const nextErrors: RegisterFieldErrors = {};
 
     if (!form.name.trim()) {
-      nextErrors.name = "Full name is required.";
+      nextErrors.name = t("errors.nameRequired");
     }
 
     if (!form.email.trim()) {
-      nextErrors.email = "Email is required.";
+      nextErrors.email = t("errors.emailRequired");
     } else if (!/\S+@\S+\.\S+/.test(form.email.trim())) {
-      nextErrors.email = "Enter a valid email address.";
+      nextErrors.email = t("errors.emailInvalid");
     }
 
     if (!form.password) {
-      nextErrors.password = "Password is required.";
+      nextErrors.password = t("errors.passwordRequired");
     } else if (!isStrongPassword(form.password)) {
-      nextErrors.password =
-        "Password must be at least 8 characters and include uppercase, lowercase, and a number.";
+      nextErrors.password = t("errors.passwordWeak");
     }
 
     return nextErrors;
@@ -70,8 +71,8 @@ export function RegisterForm() {
       const response = await register(form);
       notifySuccess(
         response.message,
-        "Registration request submitted.",
-        "Check your email for the confirmation link.",
+        t("successTitle"),
+        t("successDescription"),
       );
     } catch (submissionError) {
       notifyError(getFriendlyAuthError(submissionError, "register"));
@@ -81,21 +82,21 @@ export function RegisterForm() {
   }
 
   return (
-    <AuthFormShell
-      eyebrow="Register"
-      title="Request studio access."
-      description="We will create a pending registration request and send a confirmation link to your email before the account becomes active."
+      <AuthFormShell
+      eyebrow={t("eyebrow")}
+      title={t("title")}
+      description={t("description")}
       footer={
         <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-white/65">
-          <span>Registration does not create a usable account immediately.</span>
+          <span>{t("footer")}</span>
           <Link href="/login" className="transition-opacity hover:opacity-100">
-            Back to login
+            {t("backToLogin")}
           </Link>
         </div>
       }
     >
       <form className="space-y-5" noValidate onSubmit={handleSubmit}>
-        <AuthField label="Full name" htmlFor="name" error={fieldErrors.name ?? null}>
+        <AuthField label={t("fullName")} htmlFor="name" error={fieldErrors.name ?? null}>
           <Input
             id="name"
             name="name"
@@ -109,7 +110,7 @@ export function RegisterForm() {
             aria-invalid={Boolean(fieldErrors.name)}
           />
         </AuthField>
-        <AuthField label="Email" htmlFor="register-email" error={fieldErrors.email ?? null}>
+        <AuthField label={t("email")} htmlFor="register-email" error={fieldErrors.email ?? null}>
           <Input
             id="register-email"
             name="email"
@@ -124,7 +125,7 @@ export function RegisterForm() {
             aria-invalid={Boolean(fieldErrors.email)}
           />
         </AuthField>
-        <AuthField label="Password" htmlFor="register-password" error={fieldErrors.password ?? null}>
+        <AuthField label={t("password")} htmlFor="register-password" error={fieldErrors.password ?? null}>
           <PasswordInput
             id="register-password"
             name="password"
@@ -141,7 +142,7 @@ export function RegisterForm() {
           />
           <AuthPasswordHint />
         </AuthField>
-        <AuthField label="Country" htmlFor="countryCode" hint="Search by name">
+        <AuthField label={t("country")} htmlFor="countryCode" hint={t("countryHint")}>
           <CountrySelect
             id="countryCode"
             value={form.countryCode}
@@ -149,7 +150,7 @@ export function RegisterForm() {
           />
         </AuthField>
         <Button type="submit" size="lg" className="h-12 w-full rounded-full" disabled={isSubmitting}>
-          {isSubmitting ? "Submitting..." : "Send confirmation link"}
+          {isSubmitting ? t("submitting") : t("submit")}
         </Button>
       </form>
     </AuthFormShell>

@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import type { ProjectEditorMediaItem } from "@/components/projects/editor/project-editor.types";
 
 type ProjectMediaTileProps = {
@@ -11,12 +13,14 @@ export function ProjectMediaTile({
   className = "h-full w-full overflow-hidden rounded-none border-0 bg-transparent shadow-none",
   mediaClassName = "h-full w-full min-h-0 object-cover",
 }: ProjectMediaTileProps) {
+  const t = useTranslations("projects.editor");
+
   return (
     <div className={className}>
       {item.kind === "youtube" ? (
         <iframe
           src={item.url}
-          title="YouTube video"
+          title={t("youtubeTitle")}
           className={mediaClassName}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
@@ -26,7 +30,7 @@ export function ProjectMediaTile({
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={item.url}
-          alt="Project media"
+          alt={t("mediaAlt")}
           className={mediaClassName}
           decoding="async"
           draggable={false}

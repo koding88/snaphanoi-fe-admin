@@ -1,5 +1,12 @@
 import { isApiError } from "@/lib/api/errors";
 
+type ErrorMessageResolver = (params: {
+  scope: string;
+  code?: string | null;
+  statusCode?: number;
+  fallback: string;
+}) => string;
+
 const GALLERY_ERROR_MESSAGES: Record<string, string> = {
   GALLERY_NOT_FOUND: "The requested gallery could not be found.",
   GALLERY_NAME_EN_ALREADY_EXISTS: "That English gallery name already exists.",
@@ -11,9 +18,9 @@ const GALLERY_ERROR_MESSAGES: Record<string, string> = {
   Unauthorized: "Your session is no longer valid. Please sign in again.",
 };
 
-export function getFriendlyGalleriesError(error: unknown) {
+export function getFriendlyGalleriesError(error: unknown, resolve?: ErrorMessageResolver) {
   if (!isApiError(error)) {
-    return "Something went wrong. Please try again.";
+    return resolve?.({ scope: "galleries", fallback: "Something went wrong. Please try again." }) ?? "Something went wrong. Please try again.";
   }
 
   const baseMessage =
@@ -23,5 +30,5 @@ export function getFriendlyGalleriesError(error: unknown) {
     error.message ||
     "Something went wrong. Please try again.";
 
-  return baseMessage;
+  return resolve?.({ scope: "galleries", code: error.code, statusCode: error.statusCode, fallback: baseMessage }) ?? baseMessage;
 }
