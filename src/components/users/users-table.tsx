@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type KeyboardEvent, type MouseEvent, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -24,6 +25,7 @@ type UsersTableProps = {
 };
 
 export function UsersTable({ users, isBusy = false, onDelete, onRestore }: UsersTableProps) {
+  const t = useTranslations("users.table");
   const router = useRouter();
   const [pendingAction, setPendingAction] = useState<{
     type: "delete" | "restore";
@@ -63,22 +65,22 @@ export function UsersTable({ users, isBusy = false, onDelete, onRestore }: Users
     <>
       <div className="surface-enter overflow-hidden rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(248,244,237,0.88))] shadow-soft">
         <div className="border-b border-border/70 bg-white/56 px-5 py-3">
-          <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-            User records
+            <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
+            {t("title")}
           </p>
           <p className="mt-1 text-xs text-muted-foreground">
-            Identity, role, and lifecycle in one view.
+            {t("description")}
           </p>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-[760px] w-full table-fixed text-left">
+          <table className="w-full table-fixed text-left md:min-w-[760px]">
             <thead className="border-b border-border/80 bg-white/55">
               <tr className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
-                <th className="w-[38%] px-5 py-4">User</th>
-                <th className="w-[18%] px-5 py-4">Role</th>
-                <th className="w-[16%] px-5 py-4">Country</th>
-                <th className="w-[12%] px-5 py-4">Status</th>
-                <th className="w-[16%] px-5 py-4 text-right">Actions</th>
+                <th className="w-[38%] px-5 py-4">{t("columns.user")}</th>
+                <th className="hidden w-[18%] px-5 py-4 sm:table-cell">{t("columns.role")}</th>
+                <th className="hidden w-[16%] px-5 py-4 md:table-cell">{t("columns.country")}</th>
+                <th className="w-[12%] px-5 py-4">{t("columns.status")}</th>
+                <th className="w-[16%] px-5 py-4 text-right">{t("columns.actions")}</th>
               </tr>
             </thead>
             <tbody>
@@ -100,12 +102,14 @@ export function UsersTable({ users, isBusy = false, onDelete, onRestore }: Users
                     <div className="space-y-1">
                       <p className="font-medium text-foreground">{user.name}</p>
                       <p className="text-sm text-muted-foreground">{user.email}</p>
+                      <p className="text-xs text-muted-foreground sm:hidden">{user.roleName ?? "—"}</p>
+                      <p className="text-xs text-muted-foreground md:hidden">{formatCountryCode(user.countryCode)}</p>
                     </div>
                   </td>
-                  <td className="align-middle px-5 py-4">
+                  <td className="hidden align-middle px-5 py-4 sm:table-cell">
                     <UserRoleBadge roleName={user.roleName} />
                   </td>
-                  <td className="align-middle px-5 py-4 text-sm text-muted-foreground">
+                  <td className="hidden align-middle px-5 py-4 text-sm text-muted-foreground md:table-cell">
                     {formatCountryCode(user.countryCode)}
                   </td>
                   <td className="align-middle px-5 py-4">
@@ -121,10 +125,10 @@ export function UsersTable({ users, isBusy = false, onDelete, onRestore }: Users
                         href={ROUTES.admin.users.edit(user.id)}
                         className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
                         onClick={handleRowActionClick}
-                      >
-                        <FontAwesomeIcon icon={faUserPen} />
-                        Edit
-                      </Link>
+                        >
+                          <FontAwesomeIcon icon={faUserPen} />
+                          {t("actions.edit")}
+                        </Link>
                       {user.deletedAt ? (
                         <Button
                           type="button"
@@ -137,7 +141,7 @@ export function UsersTable({ users, isBusy = false, onDelete, onRestore }: Users
                           }}
                         >
                           <FontAwesomeIcon icon={faRotateLeft} />
-                          Restore
+                          {t("actions.restore")}
                         </Button>
                       ) : (
                         <Button
@@ -152,7 +156,7 @@ export function UsersTable({ users, isBusy = false, onDelete, onRestore }: Users
                           }}
                         >
                           <FontAwesomeIcon icon={faTrashCan} />
-                          Delete
+                          {t("actions.delete")}
                         </Button>
                       )}
                     </div>
@@ -167,15 +171,15 @@ export function UsersTable({ users, isBusy = false, onDelete, onRestore }: Users
         open={Boolean(pendingAction)}
         title={
           pendingAction?.type === "delete"
-            ? `Delete ${pendingAction.user.name}?`
-            : `Restore ${pendingAction?.user.name}?`
+            ? t("dialogs.deleteTitle", { name: pendingAction.user.name })
+            : t("dialogs.restoreTitle", { name: pendingAction?.user.name ?? "" })
         }
         description={
           pendingAction?.type === "delete"
-            ? "This archives the account for now. It can still be restored later."
-            : "This returns the archived account to the active roster."
+            ? t("dialogs.deleteDescription")
+            : t("dialogs.restoreDescription")
         }
-        confirmLabel={pendingAction?.type === "delete" ? "Delete user" : "Restore user"}
+        confirmLabel={pendingAction?.type === "delete" ? t("dialogs.deleteConfirm") : t("dialogs.restoreConfirm")}
         confirmVariant={pendingAction?.type === "delete" ? "destructive" : "default"}
         isSubmitting={isSubmitting}
         onCancel={() => setPendingAction(null)}
@@ -184,7 +188,7 @@ export function UsersTable({ users, isBusy = false, onDelete, onRestore }: Users
           pendingAction ? (
             <div className="space-y-1">
               <p className="text-xs font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
-                Selected record
+                {t("dialogs.selectedRecord")}
               </p>
               <p className="text-sm font-medium text-foreground">{pendingAction.user.name}</p>
               <p className="text-sm text-muted-foreground">{pendingAction.user.email}</p>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import type { OrderItemRecord, OrderRecord } from "@/features/orders/types/orders.types";
@@ -29,8 +30,8 @@ type OrdersTableProps = {
 function getOrderItemSummary(item: OrderItemRecord | undefined) {
   if (!item) {
     return {
-      type: "No item",
-      name: "No item snapshot",
+      type: "no-item",
+      name: "no-item-snapshot",
       amount: "",
     };
   }
@@ -42,23 +43,24 @@ function getOrderItemSummary(item: OrderItemRecord | undefined) {
         : item.packageSnapshot?.name.en;
 
     return {
-      type: "Package",
-      name: packageName ?? "Snapshot missing",
+      type: "package",
+      name: packageName ?? "snapshot-missing",
       amount: formatOrderMoney(item.pricing),
     };
   }
 
   return {
-    type: "Custom",
-    name: "Budget",
+    type: "custom",
+    name: "budget",
     amount: formatOrderMoney(item.budget),
   };
 }
 
 export function OrdersTable({ orders }: OrdersTableProps) {
+  const t = useTranslations("orders.table");
   const router = useRouter();
   const columnLayout =
-    "grid-cols-[minmax(176px,0.95fr)_minmax(210px,1.2fr)_minmax(112px,0.72fr)_minmax(148px,0.85fr)_minmax(168px,0.9fr)]";
+    "grid-cols-[minmax(0,1fr)_auto] md:grid-cols-[minmax(170px,0.95fr)_minmax(210px,1.2fr)_minmax(168px,0.95fr)_minmax(168px,0.9fr)] xl:grid-cols-[minmax(176px,0.95fr)_minmax(210px,1.2fr)_minmax(112px,0.72fr)_minmax(148px,0.85fr)_minmax(168px,0.9fr)]";
 
   function navigateToOrder(orderId: string) {
     router.push(ROUTES.admin.orders.detail(orderId));
@@ -130,24 +132,24 @@ export function OrdersTable({ orders }: OrdersTableProps) {
     <div className="surface-enter overflow-hidden rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(248,244,237,0.88))] shadow-soft">
       <div className="border-b border-border/70 bg-white/56 px-5 py-3">
         <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-          Order records
+          {t("title")}
         </p>
         <p className="mt-1 text-xs text-muted-foreground">
-          Track request lifecycle and payment progression in one operational view.
+          {t("description")}
         </p>
       </div>
       <div className="overflow-x-auto border-t border-border/10">
         <div
           className={cn(
-            "grid min-w-[860px] items-center gap-x-3 border-b border-border/80 bg-white/55 px-4 py-3 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
+            "hidden items-center gap-x-3 border-b border-border/80 bg-white/55 px-4 py-3 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase md:grid md:min-w-[740px] xl:min-w-[860px]",
             columnLayout,
           )}
         >
-          <div>Order</div>
-          <div>Customer</div>
-          <div>Source</div>
-          <div>Item</div>
-          <div className="text-center">Lifecycle</div>
+          <div>{t("columns.order")}</div>
+          <div>{t("columns.customer")}</div>
+          <div className="hidden xl:block">{t("columns.source")}</div>
+          <div>{t("columns.item")}</div>
+          <div className="text-center">{t("columns.lifecycle")}</div>
         </div>
         <div>
           {orders.map((order) => (
@@ -163,7 +165,7 @@ export function OrdersTable({ orders }: OrdersTableProps) {
                 }
               }}
               className={cn(
-                "group grid min-w-[860px] cursor-pointer items-center gap-x-3 border-b border-border/60 px-4 py-3 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0",
+                "group grid cursor-pointer items-center gap-x-3 border-b border-border/60 px-4 py-3 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0 md:min-w-[740px] xl:min-w-[860px]",
                 columnLayout,
               )}
             >
@@ -174,8 +176,29 @@ export function OrdersTable({ orders }: OrdersTableProps) {
                 <p className="mt-1 truncate text-xs text-muted-foreground">
                   {formatDateOnly(order.createdAt)}
                 </p>
+                <p className="mt-1 truncate text-xs text-muted-foreground md:hidden">
+                  {order.customerInfo.name} · {order.customerInfo.email}
+                </p>
+                <p className="mt-1 truncate text-[11px] text-muted-foreground md:hidden">
+                  {formatOrderDiscoverySource(order.discoverySource)}
+                </p>
+                <p className="mt-1 truncate text-[11px] text-muted-foreground md:hidden">
+                  {(() => {
+                    const summary = getOrderItemSummary(order.items[0]);
+
+                    if (summary.type === "package") {
+                      return t("item.package");
+                    }
+
+                    if (summary.type === "custom") {
+                      return t("item.custom");
+                    }
+
+                    return t("item.noItem");
+                  })()}
+                </p>
               </div>
-              <div className="min-w-0">
+              <div className="hidden min-w-0 md:block">
                 <p className="truncate font-medium text-foreground">
                   {order.customerInfo.name}
                 </p>
@@ -187,17 +210,17 @@ export function OrdersTable({ orders }: OrdersTableProps) {
                 </p>
                 <p
                   className="mt-1 text-[10px] font-semibold tracking-[0.14em] text-muted-foreground/85 uppercase"
-                  title={order.customerInfo.countryCode || "N/A"}
+                  title={order.customerInfo.countryCode || t("na")}
                 >
                   {(() => {
-                    const code = order.customerInfo.countryCode || "N/A";
+                    const code = order.customerInfo.countryCode || t("na");
                     const country = getCountryByCode(order.customerInfo.countryCode);
 
                     return country ? `${country.flag} ${code}` : code;
                   })()}
                 </p>
               </div>
-              <div className="min-w-0 text-sm text-muted-foreground">
+              <div className="hidden min-w-0 text-sm text-muted-foreground xl:block">
                 <div className="inline-flex items-center gap-1.5">
                   {(() => {
                     const icon = getSourceIcon(order.discoverySource);
@@ -217,13 +240,27 @@ export function OrdersTable({ orders }: OrdersTableProps) {
                   </span>
                 </div>
               </div>
-              <div className="min-w-0 text-sm">
+              <div className="hidden min-w-0 text-sm md:block">
                 {(() => {
                   const summary = getOrderItemSummary(order.items[0]);
                   return (
                     <div className="space-y-0.5">
-                      <p className="font-medium text-foreground">{summary.type}</p>
-                      <p className="truncate text-muted-foreground">{summary.name}</p>
+                      <p className="font-medium text-foreground">
+                        {summary.type === "package"
+                          ? t("item.package")
+                          : summary.type === "custom"
+                            ? t("item.custom")
+                            : t("item.noItem")}
+                      </p>
+                      <p className="truncate text-muted-foreground">
+                        {summary.name === "budget"
+                          ? t("item.budget")
+                          : summary.name === "snapshot-missing"
+                            ? t("item.snapshotMissing")
+                            : summary.name === "no-item-snapshot"
+                              ? t("item.noItemSnapshot")
+                              : summary.name}
+                      </p>
                       {summary.amount ? (
                         <p className="truncate text-muted-foreground">{summary.amount}</p>
                       ) : null}

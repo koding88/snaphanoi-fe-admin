@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type KeyboardEvent, type MouseEvent, useState } from "react";
+import { useTranslations } from "next-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { BlogPinBadge } from "@/components/blogs/blog-pin-badge";
@@ -24,9 +25,10 @@ type BlogsTableProps = {
 };
 
 export function BlogsTable({ blogs, isBusy = false, onDelete, onRestore }: BlogsTableProps) {
+  const t = useTranslations("blogs.table");
   const router = useRouter();
   const columnLayout =
-    "grid-cols-[minmax(220px,1.2fr)_112px_96px_104px_104px_112px_112px]";
+    "grid-cols-[minmax(0,1fr)_auto] md:grid-cols-[minmax(220px,1.2fr)_104px_104px_112px_112px] xl:grid-cols-[minmax(220px,1.2fr)_112px_96px_104px_104px_112px_112px]";
   const [pendingAction, setPendingAction] = useState<{
     type: "delete" | "restore";
     blog: BlogRecord;
@@ -67,27 +69,27 @@ export function BlogsTable({ blogs, isBusy = false, onDelete, onRestore }: Blogs
     <>
       <div className="surface-enter overflow-hidden rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(248,244,237,0.88))] shadow-soft">
         <div className="border-b border-border/70 bg-white/56 px-5 py-3">
-          <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-            Blog records
+            <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
+            {t("title")}
           </p>
           <p className="mt-1 text-xs text-muted-foreground">
-            Editorial identity, publishing priority, and lifecycle in one view.
+            {t("description")}
           </p>
         </div>
         <div className="border-t border-border/10">
           <div
             className={cn(
-              "grid min-w-[980px] items-center gap-x-3 border-b border-border/80 bg-white/55 px-5 py-3.5 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
+              "hidden items-center gap-x-3 border-b border-border/80 bg-white/55 px-5 py-3.5 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase md:grid md:min-w-[720px] xl:min-w-[980px]",
               columnLayout,
             )}
           >
-            <div>Blog</div>
-            <div className="text-center">Cover</div>
-            <div className="text-center">Pin</div>
-            <div className="text-center">Publish</div>
-            <div className="text-center">Status</div>
-            <div className="text-center">Updated</div>
-            <div className="text-center">Actions</div>
+            <div>{t("columns.blog")}</div>
+            <div className="hidden text-center xl:block">{t("columns.cover")}</div>
+            <div className="hidden text-center xl:block">{t("columns.pin")}</div>
+            <div className="text-center">{t("columns.publish")}</div>
+            <div className="text-center">{t("columns.status")}</div>
+            <div className="text-center">{t("columns.updated")}</div>
+            <div className="text-center">{t("columns.actions")}</div>
           </div>
           <div>
             {blogs.map((blog) => (
@@ -103,31 +105,36 @@ export function BlogsTable({ blogs, isBusy = false, onDelete, onRestore }: Blogs
                   }
                 }}
                 className={cn(
-                  "grid min-w-[980px] cursor-pointer items-center gap-x-3 border-b border-border/60 px-5 py-4 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0",
+                  "grid cursor-pointer items-center gap-x-3 border-b border-border/60 px-4 py-3 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0 md:min-w-[720px] md:px-5 md:py-4 xl:min-w-[980px]",
                   columnLayout,
                 )}
               >
                 <div className="space-y-1">
                   <p className="truncate font-medium text-foreground">{blog.name}</p>
-                  <p className="text-sm text-muted-foreground">By {formatCreatorDisplayName(blog.createdBy.name)}</p>
+                  <p className="text-sm text-muted-foreground">{t("by", { name: formatCreatorDisplayName(blog.createdBy.name) })}</p>
+                  <div className="mt-2 flex flex-wrap items-center gap-1.5 md:hidden">
+                    <BlogPinBadge isPinned={blog.isPinned} />
+                    <BlogPublishBadge isPublished={blog.isPublished} />
+                    <BlogStatusBadge isActive={blog.isActive} deletedAt={blog.deletedAt} />
+                  </div>
                 </div>
-                <div className="flex justify-center">
+                <div className="hidden justify-center xl:flex">
                   <div className="overflow-hidden rounded-2xl border border-border/80 bg-muted/40 shadow-[0_12px_30px_-24px_rgba(32,24,18,0.45)]">
                     {/* Table thumbnails use backend storage URLs directly and stay intentionally unoptimized here. */}
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={blog.coverImage.url} alt={blog.name} className="block h-16 w-24 object-cover" />
                   </div>
                 </div>
-                <div className="flex justify-center">
+                <div className="hidden justify-center xl:flex">
                   <BlogPinBadge isPinned={blog.isPinned} />
                 </div>
-                <div className="flex justify-center">
+                <div className="hidden justify-center md:flex">
                   <BlogPublishBadge isPublished={blog.isPublished} />
                 </div>
-                <div className="flex justify-center">
+                <div className="hidden justify-center md:flex">
                   <BlogStatusBadge isActive={blog.isActive} deletedAt={blog.deletedAt} />
                 </div>
-                <div className="text-center text-sm text-muted-foreground">
+                <div className="hidden text-center text-sm text-muted-foreground md:block">
                   <p className="leading-relaxed">{formatDateOnly(blog.updatedAt)}</p>
                 </div>
                 <div className="text-center">
@@ -136,19 +143,19 @@ export function BlogsTable({ blogs, isBusy = false, onDelete, onRestore }: Blogs
                       href={ROUTES.admin.blogs.edit(blog.id)}
                       className={cn(
                         buttonVariants({ variant: "outline", size: "sm" }),
-                        "h-8 w-[96px] px-2 text-xs",
+                         "h-8 w-[86px] px-2 text-xs md:w-[96px]",
                       )}
                       onClick={handleRowActionClick}
                     >
                       <FontAwesomeIcon icon={faUserPen} />
-                      Edit
+                      {t("actions.edit")}
                     </Link>
                     {blog.deletedAt ? (
                       <Button
                         type="button"
                         variant="outline"
                         size="sm"
-                         className="h-8 w-[96px] px-2 text-xs"
+                         className="h-8 w-[86px] px-2 text-xs md:w-[96px]"
                         disabled={isBusy}
                         onClick={(event) => {
                           handleRowActionClick(event);
@@ -156,14 +163,14 @@ export function BlogsTable({ blogs, isBusy = false, onDelete, onRestore }: Blogs
                         }}
                       >
                         <FontAwesomeIcon icon={faRotateLeft} />
-                        Restore
+                        {t("actions.restore")}
                       </Button>
                     ) : (
                       <Button
                         type="button"
                          variant="outline"
                          size="sm"
-                         className="h-8 w-[96px] border-red-200 px-2 text-xs text-red-700 hover:bg-red-50 hover:text-red-800"
+                         className="h-8 w-[86px] border-red-200 px-2 text-xs text-red-700 hover:bg-red-50 hover:text-red-800 md:w-[96px]"
                          disabled={isBusy}
                         onClick={(event) => {
                           handleRowActionClick(event);
@@ -171,7 +178,7 @@ export function BlogsTable({ blogs, isBusy = false, onDelete, onRestore }: Blogs
                         }}
                       >
                         <FontAwesomeIcon icon={faTrashCan} />
-                        Delete
+                        {t("actions.delete")}
                       </Button>
                     )}
                   </div>
@@ -185,15 +192,15 @@ export function BlogsTable({ blogs, isBusy = false, onDelete, onRestore }: Blogs
         open={Boolean(pendingAction)}
         title={
           pendingAction?.type === "delete"
-            ? `Delete ${pendingAction?.blog.name}?`
-            : `Restore ${pendingAction?.blog.name}?`
+            ? t("dialogs.deleteTitle", { name: pendingAction?.blog.name ?? "" })
+            : t("dialogs.restoreTitle", { name: pendingAction?.blog.name ?? "" })
         }
         description={
           pendingAction?.type === "delete"
-            ? "This archives the blog for now. You can restore it later if needed."
-            : "This restores the archived blog to the active editorial library."
+            ? t("dialogs.deleteDescription")
+            : t("dialogs.restoreDescription")
         }
-        confirmLabel={pendingAction?.type === "delete" ? "Delete blog" : "Restore blog"}
+        confirmLabel={pendingAction?.type === "delete" ? t("dialogs.deleteConfirm") : t("dialogs.restoreConfirm")}
         confirmVariant={pendingAction?.type === "delete" ? "destructive" : "default"}
         isSubmitting={isSubmitting}
         onCancel={() => setPendingAction(null)}
@@ -202,7 +209,7 @@ export function BlogsTable({ blogs, isBusy = false, onDelete, onRestore }: Blogs
           pendingAction ? (
             <div className="space-y-1">
               <p className="text-xs font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
-                Selected blog
+                {t("dialogs.selected")}
               </p>
               <p className="text-sm font-medium text-foreground">{pendingAction.blog.name}</p>
               <p className="text-sm text-muted-foreground">{formatCreatorDisplayName(pendingAction.blog.createdBy.name)}</p>

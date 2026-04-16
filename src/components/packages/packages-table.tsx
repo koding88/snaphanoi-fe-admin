@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type KeyboardEvent, type MouseEvent, useState } from "react";
+import { useTranslations } from "next-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
@@ -32,9 +33,10 @@ export function PackagesTable({
   onDelete,
   onRestore,
 }: PackagesTableProps) {
+  const t = useTranslations("packages.table");
   const router = useRouter();
   const columnLayout =
-    "grid-cols-[minmax(190px,1.15fr)_108px_minmax(160px,0.95fr)_150px_104px_112px_112px]";
+    "grid-cols-[minmax(0,1fr)_auto] md:grid-cols-[minmax(190px,1.15fr)_150px_104px_112px] xl:grid-cols-[minmax(190px,1.15fr)_108px_minmax(160px,0.95fr)_150px_104px_112px_112px]";
   const [pendingAction, setPendingAction] = useState<{
     type: "delete" | "restore";
     pkg: PackageRecord;
@@ -75,28 +77,28 @@ export function PackagesTable({
     <>
       <div className="surface-enter overflow-hidden rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(248,244,237,0.88))] shadow-soft">
         <div className="border-b border-border/70 bg-white/56 px-5 py-3">
-          <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-            Package records
+            <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
+            {t("title")}
           </p>
           <p className="mt-1 text-xs text-muted-foreground">
-            Offer positioning, pricing, and lifecycle in one view.
+            {t("description")}
           </p>
         </div>
         <div className="overflow-x-auto border-t border-border/10">
           <div
             className={cn(
-              "grid min-w-[940px] items-center gap-x-2.5 border-b border-border/80 bg-white/55 px-5 py-3.5 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
+              "hidden items-center gap-x-2.5 border-b border-border/80 bg-white/55 px-5 py-3.5 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase md:grid md:min-w-[700px] xl:min-w-[940px]",
               columnLayout,
             )}
           >
-            <div>Package</div>
-            <div className="text-center">Cover</div>
-            <div className="pl-4">Best for</div>
-            <div>Offer</div>
-            <div className="text-center">Status</div>
-            <div className="text-center">Updated</div>
-            <div className="sticky right-0 z-20 bg-inherit py-4 text-center">
-              Actions
+            <div>{t("columns.package")}</div>
+            <div className="hidden text-center xl:block">{t("columns.cover")}</div>
+            <div className="hidden pl-4 xl:block">{t("columns.bestFor")}</div>
+            <div>{t("columns.offer")}</div>
+            <div className="text-center">{t("columns.status")}</div>
+            <div className="hidden text-center xl:block">{t("columns.updated")}</div>
+            <div className="bg-inherit py-4 text-center md:sticky md:right-0 md:z-20">
+              {t("columns.actions")}
             </div>
           </div>
           <div>
@@ -113,7 +115,7 @@ export function PackagesTable({
                   }
                 }}
                 className={cn(
-                  "group grid min-w-[940px] cursor-pointer items-center gap-x-2.5 border-b border-border/60 px-5 py-4 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0",
+                  "group grid cursor-pointer items-center gap-x-2.5 border-b border-border/60 px-4 py-3 transition-[background-color,box-shadow] hover:bg-white/60 focus-visible:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-brand]/30 last:border-b-0 md:min-w-[700px] md:px-5 md:py-4 xl:min-w-[940px]",
                   columnLayout,
                 )}
               >
@@ -125,8 +127,18 @@ export function PackagesTable({
                     <p className="truncate"><span className="font-semibold tracking-[0.14em] uppercase">VI</span> {pkg.name.vi}</p>
                     <p className="truncate"><span className="font-semibold tracking-[0.14em] uppercase">CN</span> {pkg.name.cn}</p>
                   </div>
+                  <p className="mt-1 text-xs text-muted-foreground md:hidden">
+                    {formatPackageDuration(pkg.duration)} · {t("offerPhotos", { count: pkg.photoCount })}
+                  </p>
+                  <p className="text-xs font-semibold text-foreground md:hidden">{formatPackagePrice(pkg.pricing)}</p>
+                  <div className="mt-2 md:hidden">
+                    <PackageStatusBadge
+                      isActive={pkg.isActive}
+                      deletedAt={pkg.deletedAt}
+                    />
+                  </div>
                 </div>
-                <div className="flex justify-center">
+                <div className="hidden justify-center xl:flex">
                   <div className="overflow-hidden rounded-2xl border border-border/80 bg-muted/40 shadow-[0_12px_30px_-24px_rgba(32,24,18,0.45)]">
                     {/* Package list thumbnails use backend storage URLs directly and stay intentionally unoptimized here. */}
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -137,29 +149,29 @@ export function PackagesTable({
                     />
                   </div>
                 </div>
-                <div className="min-w-0 pl-4 text-sm text-muted-foreground">
+                <div className="hidden min-w-0 pl-4 text-sm text-muted-foreground xl:block">
                   <p className="truncate" title={getPackageBestForSummary(pkg.bestFor)}>
                     {getPackageBestForSummary(pkg.bestFor)}
                   </p>
                 </div>
-                <div className="min-w-0">
+                <div className="hidden min-w-0 md:block">
                   <p className="text-[13px] font-medium text-muted-foreground">
-                    {formatPackageDuration(pkg.duration)} · {pkg.photoCount} photos
+                    {formatPackageDuration(pkg.duration)} · {t("offerPhotos", { count: pkg.photoCount })}
                   </p>
                   <p className="mt-1.5 truncate text-lg font-semibold tracking-tight text-foreground">
                     {formatPackagePrice(pkg.pricing)}
                   </p>
                 </div>
-                <div className="flex justify-center">
+                <div className="hidden justify-center md:flex">
                   <PackageStatusBadge
                     isActive={pkg.isActive}
                     deletedAt={pkg.deletedAt}
                   />
                 </div>
-                <div className="text-center text-[13px] text-muted-foreground">
+                <div className="hidden text-center text-[13px] text-muted-foreground xl:block">
                   <p className="leading-relaxed">{formatDateOnly(pkg.updatedAt)}</p>
                 </div>
-                <div className="sticky right-0 z-10 self-stretch bg-inherit py-2 text-center">
+                <div className="self-stretch bg-inherit py-2 text-center md:sticky md:right-0 md:z-10">
                   <div
                     className="grid h-full content-center justify-items-center gap-1.5"
                     onClick={stopRowAction}
@@ -169,19 +181,19 @@ export function PackagesTable({
                       href={ROUTES.admin.packages.edit(pkg.id)}
                       className={cn(
                         buttonVariants({ variant: "outline", size: "sm" }),
-                         "h-8 w-[96px] px-2 text-xs",
+                         "h-8 w-[86px] px-2 text-xs md:w-[96px]",
                       )}
                       onClick={stopRowAction}
                     >
-                      <FontAwesomeIcon icon={faUserPen} />
-                      Edit
-                    </Link>
+                        <FontAwesomeIcon icon={faUserPen} />
+                        {t("actions.edit")}
+                      </Link>
                     {pkg.deletedAt ? (
                       <Button
                         type="button"
                         variant="outline"
                         size="sm"
-                         className="h-8 w-[96px] px-2 text-xs"
+                         className="h-8 w-[86px] px-2 text-xs md:w-[96px]"
                         disabled={isBusy}
                         onClick={(event) => {
                           stopRowAction(event);
@@ -189,14 +201,14 @@ export function PackagesTable({
                         }}
                       >
                         <FontAwesomeIcon icon={faRotateLeft} />
-                        Restore
+                        {t("actions.restore")}
                       </Button>
                     ) : (
                       <Button
                         type="button"
                          variant="outline"
                          size="sm"
-                         className="h-8 w-[96px] border-red-200 px-2 text-xs text-red-700 hover:bg-red-50 hover:text-red-800"
+                         className="h-8 w-[86px] border-red-200 px-2 text-xs text-red-700 hover:bg-red-50 hover:text-red-800 md:w-[96px]"
                          disabled={isBusy}
                         onClick={(event) => {
                           stopRowAction(event);
@@ -204,7 +216,7 @@ export function PackagesTable({
                         }}
                       >
                         <FontAwesomeIcon icon={faTrashCan} />
-                        Delete
+                        {t("actions.delete")}
                       </Button>
                     )}
                   </div>
@@ -218,18 +230,18 @@ export function PackagesTable({
         open={Boolean(pendingAction)}
         title={
           pendingAction?.type === "delete"
-            ? `Delete ${pendingAction.pkg.name.en}?`
-            : `Restore ${pendingAction?.pkg.name.en}?`
+            ? t("dialogs.deleteTitle", { name: pendingAction.pkg.name.en })
+            : t("dialogs.restoreTitle", { name: pendingAction?.pkg.name.en ?? "" })
         }
         description={
           pendingAction?.type === "delete"
-            ? "This archives the package for now. You can restore it later if needed."
-            : "This restores the archived package to the active offer library."
+            ? t("dialogs.deleteDescription")
+            : t("dialogs.restoreDescription")
         }
         confirmLabel={
           pendingAction?.type === "delete"
-            ? "Delete package"
-            : "Restore package"
+            ? t("dialogs.deleteConfirm")
+            : t("dialogs.restoreConfirm")
         }
         confirmVariant={
           pendingAction?.type === "delete" ? "destructive" : "default"
@@ -241,7 +253,7 @@ export function PackagesTable({
           pendingAction ? (
             <div className="space-y-1">
               <p className="text-xs font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
-                Selected package
+                {t("dialogs.selected")}
               </p>
               <p className="text-sm font-medium text-foreground">
                 {pendingAction.pkg.name.en}

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type KeyboardEvent, type MouseEvent, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -25,6 +26,7 @@ type RolesTableProps = {
 const SHOW_ROLE_DELETE_ACTIONS = false;
 
 export function RolesTable({ roles, onDelete, isBusy = false }: RolesTableProps) {
+  const t = useTranslations("roles.table");
   const router = useRouter();
   const [pendingRole, setPendingRole] = useState<RoleRecord | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -56,21 +58,21 @@ export function RolesTable({ roles, onDelete, isBusy = false }: RolesTableProps)
     <>
       <div className="surface-enter overflow-hidden rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(248,244,237,0.88))] shadow-soft">
         <div className="border-b border-border/70 bg-white/56 px-5 py-3">
-          <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-            Role records
+            <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
+            {t("title")}
           </p>
           <p className="mt-1 text-xs text-muted-foreground">
-            Role identity and usage at a glance.
+            {t("description")}
           </p>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-[720px] w-full table-fixed text-left">
+          <table className="w-full table-fixed text-left sm:min-w-[640px]">
             <thead className="border-b border-border/80 bg-white/55">
               <tr className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
-                <th className="w-[40%] px-5 py-4">Role</th>
-                <th className="w-[16%] px-5 py-4">Type</th>
-                <th className="w-[27%] px-5 py-4">Users</th>
-                <th className="w-[17%] px-5 py-4 text-right">Actions</th>
+                <th className="w-[40%] px-5 py-4">{t("columns.role")}</th>
+                <th className="w-[16%] px-5 py-4">{t("columns.type")}</th>
+                <th className="hidden w-[27%] px-5 py-4 md:table-cell">{t("columns.users")}</th>
+                <th className="w-[17%] px-5 py-4 text-right">{t("columns.actions")}</th>
               </tr>
             </thead>
             <tbody>
@@ -92,13 +94,16 @@ export function RolesTable({ roles, onDelete, isBusy = false }: RolesTableProps)
                     <div className="space-y-1">
                       <p className="font-medium text-foreground">{role.name}</p>
                       <p className="text-sm text-muted-foreground">{role.key}</p>
+                      <p className="text-xs text-muted-foreground md:hidden">
+                        {t("usersSummary", { active: role.activeUsersCount, deleted: role.deletedUsersCount })}
+                      </p>
                     </div>
                   </td>
                   <td className="align-middle px-5 py-4">
                     <RoleSystemBadge isSystem={role.isSystem} />
                   </td>
-                  <td className="align-middle px-5 py-4 text-sm text-muted-foreground">
-                    Active {role.activeUsersCount} / Deleted {role.deletedUsersCount}
+                  <td className="hidden align-middle px-5 py-4 text-sm text-muted-foreground md:table-cell">
+                    {t("usersSummary", { active: role.activeUsersCount, deleted: role.deletedUsersCount })}
                   </td>
                   <td className="align-middle px-5 py-4">
                     <div
@@ -112,7 +117,7 @@ export function RolesTable({ roles, onDelete, isBusy = false }: RolesTableProps)
                         onClick={handleRowActionClick}
                       >
                         <FontAwesomeIcon icon={faUserPen} />
-                        Edit
+                        {t("actions.edit")}
                       </Link>
                       {SHOW_ROLE_DELETE_ACTIONS ? (
                         <button
@@ -128,7 +133,7 @@ export function RolesTable({ roles, onDelete, isBusy = false }: RolesTableProps)
                           )}
                         >
                           <FontAwesomeIcon icon={faTrashCan} />
-                          Delete
+                          {t("actions.delete")}
                         </button>
                       ) : null}
                     </div>
@@ -141,9 +146,9 @@ export function RolesTable({ roles, onDelete, isBusy = false }: RolesTableProps)
       </div>
       <ConfirmDialog
         open={SHOW_ROLE_DELETE_ACTIONS && Boolean(pendingRole)}
-        title={`Delete ${pendingRole?.name}?`}
-        description="Delete is only available when the role is no longer being used. Otherwise you will see a conflict message."
-        confirmLabel="Delete role"
+        title={t("dialogs.deleteTitle", { name: pendingRole?.name ?? "" })}
+        description={t("dialogs.deleteDescription")}
+        confirmLabel={t("dialogs.deleteConfirm")}
         confirmVariant="destructive"
         isSubmitting={isSubmitting}
         onCancel={() => setPendingRole(null)}
@@ -152,7 +157,7 @@ export function RolesTable({ roles, onDelete, isBusy = false }: RolesTableProps)
           pendingRole ? (
             <div className="space-y-1">
               <p className="text-xs font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
-                Selected role
+                {t("dialogs.selectedRole")}
               </p>
               <p className="text-sm font-medium text-foreground">{pendingRole.name}</p>
               <p className="text-sm text-muted-foreground">{pendingRole.key}</p>

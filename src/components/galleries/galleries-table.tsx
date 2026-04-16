@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type KeyboardEvent, type MouseEvent, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -23,6 +24,7 @@ type GalleriesTableProps = {
 };
 
 export function GalleriesTable({ galleries, isBusy = false, onDelete, onRestore }: GalleriesTableProps) {
+  const t = useTranslations("galleries.table");
   const router = useRouter();
   const [pendingAction, setPendingAction] = useState<{
     type: "delete" | "restore";
@@ -61,22 +63,22 @@ export function GalleriesTable({ galleries, isBusy = false, onDelete, onRestore 
     <>
       <div className="surface-enter overflow-hidden rounded-[2rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(248,244,237,0.88))] shadow-soft">
         <div className="border-b border-border/70 bg-white/56 px-5 py-3">
-          <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
-            Gallery records
+            <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
+            {t("title")}
           </p>
           <p className="mt-1 text-xs text-muted-foreground">
-            Multilingual names and lifecycle in one view.
+            {t("description")}
           </p>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-[860px] w-full table-fixed text-left">
+          <table className="w-full table-fixed text-left sm:min-w-[700px] lg:min-w-[860px]">
             <thead className="border-b border-border/80 bg-white/55">
               <tr className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
-                <th className="w-[42%] px-5 py-4">Gallery</th>
-                <th className="w-[18%] px-5 py-4">Created by</th>
-                <th className="w-[14%] px-5 py-4">Updated</th>
-                <th className="w-[12%] px-5 py-4">Status</th>
-                <th className="w-[14%] px-5 py-4 text-right">Actions</th>
+                <th className="w-[42%] px-5 py-4">{t("columns.gallery")}</th>
+                <th className="hidden w-[18%] px-5 py-4 sm:table-cell">{t("columns.createdBy")}</th>
+                <th className="hidden w-[14%] px-5 py-4 lg:table-cell">{t("columns.updated")}</th>
+                <th className="w-[12%] px-5 py-4">{t("columns.status")}</th>
+                <th className="w-[14%] px-5 py-4 text-right">{t("columns.actions")}</th>
               </tr>
             </thead>
             <tbody>
@@ -100,11 +102,17 @@ export function GalleriesTable({ galleries, isBusy = false, onDelete, onRestore 
                       <p className="truncate"><span className="font-semibold tracking-[0.14em] uppercase">VI</span> {gallery.name.vi}</p>
                       <p className="truncate"><span className="font-semibold tracking-[0.14em] uppercase">CN</span> {gallery.name.cn}</p>
                     </div>
+                    <p className="mt-1 text-xs text-muted-foreground sm:hidden">
+                      {formatCreatorDisplayName(gallery.createdBy.name)}
+                    </p>
+                    <p className="mt-1 text-xs text-muted-foreground lg:hidden">
+                      {formatDateOnly(gallery.updatedAt)}
+                    </p>
                   </td>
-                  <td className="align-middle px-5 py-4 text-sm text-muted-foreground">
+                  <td className="hidden align-middle px-5 py-4 text-sm text-muted-foreground sm:table-cell">
                     {formatCreatorDisplayName(gallery.createdBy.name)}
                   </td>
-                  <td className="align-middle px-5 py-4 text-sm text-muted-foreground">{formatDateOnly(gallery.updatedAt)}</td>
+                  <td className="hidden align-middle px-5 py-4 text-sm text-muted-foreground lg:table-cell">{formatDateOnly(gallery.updatedAt)}</td>
                   <td className="align-middle px-5 py-4">
                     <GalleryStatusBadge isActive={gallery.isActive} deletedAt={gallery.deletedAt} />
                   </td>
@@ -120,7 +128,7 @@ export function GalleriesTable({ galleries, isBusy = false, onDelete, onRestore 
                         onClick={handleRowActionClick}
                       >
                         <FontAwesomeIcon icon={faUserPen} />
-                        Edit
+                        {t("actions.edit")}
                       </Link>
                       {gallery.deletedAt ? (
                         <Button
@@ -134,7 +142,7 @@ export function GalleriesTable({ galleries, isBusy = false, onDelete, onRestore 
                           }}
                         >
                           <FontAwesomeIcon icon={faRotateLeft} />
-                          Restore
+                          {t("actions.restore")}
                         </Button>
                       ) : (
                         <Button
@@ -149,7 +157,7 @@ export function GalleriesTable({ galleries, isBusy = false, onDelete, onRestore 
                           }}
                         >
                           <FontAwesomeIcon icon={faTrashCan} />
-                          Delete
+                          {t("actions.delete")}
                         </Button>
                       )}
                     </div>
@@ -164,15 +172,15 @@ export function GalleriesTable({ galleries, isBusy = false, onDelete, onRestore 
         open={Boolean(pendingAction)}
         title={
           pendingAction?.type === "delete"
-            ? `Delete ${pendingAction.gallery.name.en}?`
-            : `Restore ${pendingAction?.gallery.name.en}?`
+            ? t("dialogs.deleteTitle", { name: pendingAction.gallery.name.en })
+            : t("dialogs.restoreTitle", { name: pendingAction?.gallery.name.en ?? "" })
         }
         description={
           pendingAction?.type === "delete"
-            ? "This archives the gallery. You can restore it later if needed."
-            : "This restores the archived gallery into the active collection."
+            ? t("dialogs.deleteDescription")
+            : t("dialogs.restoreDescription")
         }
-        confirmLabel={pendingAction?.type === "delete" ? "Delete gallery" : "Restore gallery"}
+        confirmLabel={pendingAction?.type === "delete" ? t("dialogs.deleteConfirm") : t("dialogs.restoreConfirm")}
         confirmVariant={pendingAction?.type === "delete" ? "destructive" : "default"}
         isSubmitting={isSubmitting}
         onCancel={() => setPendingAction(null)}
@@ -181,7 +189,7 @@ export function GalleriesTable({ galleries, isBusy = false, onDelete, onRestore 
           pendingAction ? (
             <div className="space-y-1">
               <p className="text-xs font-semibold tracking-[0.16em] text-[--color-brand-muted] uppercase">
-                Selected gallery
+                {t("dialogs.selectedGallery")}
               </p>
               <p className="text-sm font-medium text-foreground">{pendingAction.gallery.name.en}</p>
               <p className="text-sm text-muted-foreground">{formatCreatorDisplayName(pendingAction.gallery.createdBy.name)}</p>
