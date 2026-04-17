@@ -8,7 +8,6 @@ import type { OutputData } from "@editorjs/editorjs";
 
 import type { BlogEditorImageUploader } from "@/components/blogs/editor/blog-editor.types";
 import styles from "@/components/blogs/editor/blog-editor.module.css";
-import { buildBlogEditorInitialContent } from "@/components/blogs/editor/blog-editor-adapter";
 
 function createBlogYouTubeEmbedTool(
   EmbedBase: new (...args: unknown[]) => {
@@ -61,21 +60,34 @@ function destroyEditor(instance: EditorJS | null) {
   }
 }
 
+async function saveEditorSnapshot(instance: EditorJS) {
+  const editorWithSave = instance as EditorJS & {
+    save?: () => Promise<OutputData>;
+    saver?: { save?: () => Promise<OutputData> };
+  };
+
+  if (typeof editorWithSave.saver?.save === "function") {
+    return editorWithSave.saver.save();
+  }
+
+  if (typeof editorWithSave.save === "function") {
+    return editorWithSave.save();
+  }
+
+  throw new Error("Editor save API is unavailable");
+}
+
 type BlogEditorProps = {
   value: OutputData;
   onChange: (value: OutputData) => void;
   uploadImage: BlogEditorImageUploader;
 };
 
-export function BlogEditor({
-  value,
-  onChange,
-  uploadImage,
-}: BlogEditorProps) {
+export function BlogEditor({ value, onChange, uploadImage }: BlogEditorProps) {
   const t = useTranslations("blogs.editor");
   const holderRef = useRef<HTMLDivElement | null>(null);
   const editorRef = useRef<EditorJS | null>(null);
-  const latestValueRef = useRef<OutputData>(buildBlogEditorInitialContent(value));
+  const latestValueRef = useRef<OutputData>(value);
   const latestUploadImageRef = useRef(uploadImage);
   const latestTRef = useRef(t);
   const [editorError, setEditorError] = useState<string | null>(null);
@@ -85,7 +97,7 @@ export function BlogEditor({
   });
 
   useEffect(() => {
-    latestValueRef.current = buildBlogEditorInitialContent(value);
+    latestValueRef.current = value;
   }, [value]);
 
   useEffect(() => {
@@ -144,10 +156,13 @@ export function BlogEditor({
               class: List as unknown as EditorJS.ToolConstructable,
               inlineToolbar: ["textColor", "highlight", "link"],
             },
-            textColor: inlineToolsModule.default as unknown as EditorJS.ToolConstructable,
-            highlight: inlineToolsModule.BlogHighlightInlineTool as unknown as EditorJS.ToolConstructable,
+            textColor:
+              inlineToolsModule.default as unknown as EditorJS.ToolConstructable,
+            highlight:
+              inlineToolsModule.BlogHighlightInlineTool as unknown as EditorJS.ToolConstructable,
             youtube: {
-              class: BlogYouTubeEmbedTool as unknown as EditorJS.ToolConstructable,
+              class:
+                BlogYouTubeEmbedTool as unknown as EditorJS.ToolConstructable,
               config: {
                 services: {
                   youtube: true,
@@ -155,7 +170,8 @@ export function BlogEditor({
               },
             },
             mediaLayout: {
-              class: BlogMediaLayoutTool as unknown as EditorJS.ToolConstructable,
+              class:
+                BlogMediaLayoutTool as unknown as EditorJS.ToolConstructable,
               config: {
                 uploadImage: (file: File) => latestUploadImageRef.current(file),
               },
@@ -166,7 +182,7 @@ export function BlogEditor({
               return;
             }
 
-            const nextData = await activeEditor.save();
+            const nextData = await saveEditorSnapshot(activeEditor);
             latestValueRef.current = nextData;
             handleEditorChange(nextData);
           },
@@ -195,7 +211,9 @@ export function BlogEditor({
           setIsBootstrapping(false);
           setEditorError(
             error instanceof Error && error.message
-              ? latestTRef.current("bootErrorWithMessage", { message: error.message })
+              ? latestTRef.current("bootErrorWithMessage", {
+                  message: error.message,
+                })
               : latestTRef.current("bootError"),
           );
         }

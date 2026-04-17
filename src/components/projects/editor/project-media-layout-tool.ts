@@ -40,17 +40,25 @@ type VisualMediaEntry = {
   errorMessage?: string;
 };
 
-const ensureData = (data?: Partial<ProjectEditorMediaLayoutData>): ProjectEditorMediaLayoutData => ({
-  items: Array.isArray(data?.items) ? (data.items as ProjectEditorMediaItem[]) : [],
+const ensureData = (
+  data?: Partial<ProjectEditorMediaLayoutData>,
+): ProjectEditorMediaLayoutData => ({
+  items: Array.isArray(data?.items)
+    ? (data.items as ProjectEditorMediaItem[])
+    : [],
   layout: Array.isArray(data?.layout) ? (data.layout as Layout) : [],
 });
 
-const buildSafeLayout = (items: Array<{ id: string }>, layout: Layout): Layout => {
+const buildSafeLayout = (
+  items: Array<{ id: string }>,
+  layout: Layout,
+): Layout => {
   const ids = new Set(items.map((item) => item.id));
   return layout.filter((entry) => ids.has(entry.i));
 };
 
-const cloneLayout = (layout: Layout): Layout => layout.map((entry) => ({ ...entry }));
+const cloneLayout = (layout: Layout): Layout =>
+  layout.map((entry) => ({ ...entry }));
 
 const getImageDimensions = (
   url: string,
@@ -89,7 +97,10 @@ const pickDefaultLayout = async (
   }
 };
 
-function buildUploadedImageItem(id: string, uploaded: ProjectEditorUploadResult): ProjectEditorMediaItem {
+function buildUploadedImageItem(
+  id: string,
+  uploaded: ProjectEditorUploadResult,
+): ProjectEditorMediaItem {
   return {
     id,
     kind: "image",
@@ -177,7 +188,11 @@ class ProjectMediaLayoutTool {
       return;
     }
 
-    this.setMessage(files.length === 1 ? "Uploading image..." : `Uploading ${files.length} images...`);
+    this.setMessage(
+      files.length === 1
+        ? "Uploading image..."
+        : `Uploading ${files.length} images...`,
+    );
 
     for (const file of files) {
       const id = `media-${Date.now()}-${Math.floor(Math.random() * 99999)}`;
@@ -197,8 +212,13 @@ class ProjectMediaLayoutTool {
       try {
         const uploaded = await this.config.uploadImage(file);
         this.pendingItems = this.pendingItems.filter((item) => item.id !== id);
-        this.pendingLayout = this.pendingLayout.filter((entry) => entry.i !== id);
-        this.data.items = [...this.data.items, buildUploadedImageItem(id, uploaded)];
+        this.pendingLayout = this.pendingLayout.filter(
+          (entry) => entry.i !== id,
+        );
+        this.data.items = [
+          ...this.data.items,
+          buildUploadedImageItem(id, uploaded),
+        ];
         this.data.layout = [...this.data.layout, layoutItem];
         this.publishChange();
       } catch (error) {
@@ -207,7 +227,10 @@ class ProjectMediaLayoutTool {
             ? {
                 ...item,
                 state: "error",
-                errorMessage: error instanceof Error ? error.message : "Image upload failed.",
+                errorMessage:
+                  error instanceof Error
+                    ? error.message
+                    : "Image upload failed.",
               }
             : item,
         );
@@ -250,7 +273,6 @@ class ProjectMediaLayoutTool {
     this.pendingLayout = this.pendingLayout.filter((entry) => entry.i !== id);
     void this.handleUpload([pending.file]);
   }
-
 
   private buildVisualItems(): VisualMediaEntry[] {
     return [
@@ -309,7 +331,11 @@ class ProjectMediaLayoutTool {
           ? createElement(
               "div",
               { className: "ce-grid-status ce-grid-status--error" },
-              createElement("span", null, entry.errorMessage ?? "Upload failed"),
+              createElement(
+                "span",
+                null,
+                entry.errorMessage ?? "Upload failed",
+              ),
               createElement(
                 "button",
                 {
@@ -334,9 +360,11 @@ class ProjectMediaLayoutTool {
       this.reactRoot = createRoot(this.reactMountEl);
     }
 
-
     const visualItems = this.buildVisualItems();
-    const visualLayout = [...(this.draftLayout ?? this.data.layout), ...this.pendingLayout];
+    const visualLayout = [
+      ...(this.draftLayout ?? this.data.layout),
+      ...this.pendingLayout,
+    ];
 
     const uploadBox = createElement(
       "button",
@@ -368,7 +396,11 @@ class ProjectMediaLayoutTool {
           this.renderReact();
         },
       },
-      createElement("span", { className: "ce-dropzone__title" }, "Add project media"),
+      createElement(
+        "span",
+        { className: "ce-dropzone__title" },
+        "Add project media",
+      ),
       createElement(
         "span",
         { className: "ce-dropzone__sub" },
@@ -387,15 +419,23 @@ class ProjectMediaLayoutTool {
       compactType: "vertical" as const,
       preventCollision: false,
       onLayoutChange: (nextLayout: Layout) => {
-        this.draftLayout = nextLayout.filter((entry) => this.data.items.some((item) => item.id === entry.i));
-        this.pendingLayout = nextLayout.filter((entry) => this.pendingItems.some((item) => item.id === entry.i));
+        this.draftLayout = nextLayout.filter((entry) =>
+          this.data.items.some((item) => item.id === entry.i),
+        );
+        this.pendingLayout = nextLayout.filter((entry) =>
+          this.pendingItems.some((item) => item.id === entry.i),
+        );
       },
       onDragStart: () => {
         this.draftLayout = cloneLayout(this.data.layout);
       },
       onDragStop: (nextLayout: Layout) => {
-        this.data.layout = nextLayout.filter((entry) => this.data.items.some((item) => item.id === entry.i));
-        this.pendingLayout = nextLayout.filter((entry) => this.pendingItems.some((item) => item.id === entry.i));
+        this.data.layout = nextLayout.filter((entry) =>
+          this.data.items.some((item) => item.id === entry.i),
+        );
+        this.pendingLayout = nextLayout.filter((entry) =>
+          this.pendingItems.some((item) => item.id === entry.i),
+        );
         this.publishChange();
         this.renderReact();
       },
@@ -403,13 +443,19 @@ class ProjectMediaLayoutTool {
         this.draftLayout = cloneLayout(this.data.layout);
       },
       onResizeStop: (nextLayout: Layout) => {
-        this.data.layout = nextLayout.filter((entry) => this.data.items.some((item) => item.id === entry.i));
-        this.pendingLayout = nextLayout.filter((entry) => this.pendingItems.some((item) => item.id === entry.i));
+        this.data.layout = nextLayout.filter((entry) =>
+          this.data.items.some((item) => item.id === entry.i),
+        );
+        this.pendingLayout = nextLayout.filter((entry) =>
+          this.pendingItems.some((item) => item.id === entry.i),
+        );
         this.publishChange();
         this.renderReact();
       },
       draggableCancel: ".ce-grid-remove,.ce-grid-retry",
-      resizeHandles: ["nw", "ne", "sw", "se"] as Array<"nw" | "ne" | "sw" | "se">,
+      resizeHandles: ["nw", "ne", "sw", "se"] as Array<
+        "nw" | "ne" | "sw" | "se"
+      >,
       children: gridChildren,
     } as ComponentProps<typeof EditableGrid>;
 
@@ -432,8 +478,14 @@ class ProjectMediaLayoutTool {
 
   destroy() {
     this.pendingItems.forEach((item) => URL.revokeObjectURL(item.url));
-    this.reactRoot?.unmount();
+    const root = this.reactRoot;
     this.reactRoot = null;
+
+    if (root) {
+      setTimeout(() => {
+        root.unmount();
+      }, 0);
+    }
   }
 }
 

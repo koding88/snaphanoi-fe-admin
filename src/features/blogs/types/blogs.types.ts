@@ -1,5 +1,7 @@
 import type { OutputData } from "@editorjs/editorjs";
 
+import type { BlogLocalizedText } from "@/features/blogs/utils/blog-localization";
+
 export type BlogFileRecord = {
   id: string;
   url: string;
@@ -15,7 +17,7 @@ export type BlogCreator = {
 
 export type BlogRecord = {
   id: string;
-  name: string;
+  name: BlogLocalizedText;
   coverImage: BlogFileRecord;
   isPinned: boolean;
   isPublished: boolean;

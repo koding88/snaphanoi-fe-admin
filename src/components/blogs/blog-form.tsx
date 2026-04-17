@@ -6,25 +6,36 @@ import { useTranslations } from "next-intl";
 import type { OutputData } from "@editorjs/editorjs";
 
 import { BlogCoverField } from "@/components/blogs/blog-cover-field";
+import { BlogLocaleSwitch } from "@/components/blogs/blog-locale-switch";
 import {
   buildBlogContentPayload,
   buildBlogEditorEmptyContent,
   buildBlogEditorInitialContent,
   getBlogEditorSubmitError,
+  mergeBlogEditorContent,
 } from "@/components/blogs/editor/blog-editor-adapter";
+import { LocalizedNameEditor } from "@/components/shared/localized-name-editor";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { AppSelect } from "@/components/ui/select";
 import { requestUpload } from "@/features/files/api/request-upload";
 import { uploadFileToStorage } from "@/features/files/api/upload-file-to-storage";
 import type { RequestUploadResult } from "@/features/files/types/files.types";
 import type { BlogMutationPayload } from "@/features/blogs/types/blogs-api.types";
 import type { BlogFileRecord } from "@/features/blogs/types/blogs.types";
+import { normalizeBlogContent } from "@/features/blogs/utils/blog-content";
+import {
+  createEmptyBlogLocalizedText,
+  type BlogLocale,
+  type BlogLocalizedText,
+} from "@/features/blogs/utils/blog-localization";
 import { getFriendlyBlogsError } from "@/features/blogs/utils/blogs-errors";
 import { notifyError } from "@/lib/toast";
 
 const BlogEditor = dynamic(
-  () => import("@/components/blogs/editor/blog-editor").then((module) => module.BlogEditor),
+  () =>
+    import("@/components/blogs/editor/blog-editor").then(
+      (module) => module.BlogEditor,
+    ),
   {
     ssr: false,
     loading: () => (
@@ -38,7 +49,7 @@ const BlogEditor = dynamic(
 );
 
 type BlogFormValues = {
-  name: string;
+  name: BlogLocalizedText;
   isPinned: boolean;
   isPublished: boolean;
   content: OutputData;
@@ -83,11 +94,15 @@ export function BlogForm({
 }: BlogFormProps) {
   const t = useTranslations("blogs.form");
   const [values, setValues] = useState<BlogFormValues>({
-    name: initialValues?.name ?? "",
+    name: initialValues?.name ?? createEmptyBlogLocalizedText(),
     isPinned: initialValues?.isPinned ?? false,
     isPublished: initialValues?.isPublished ?? false,
-    content: buildBlogEditorInitialContent(initialValues?.content ?? buildBlogEditorEmptyContent()),
+    content: normalizeBlogContent(
+      initialValues?.content ?? buildBlogEditorEmptyContent(),
+    ),
   });
+  const [activeContentLocale, setActiveContentLocale] =
+    useState<BlogLocale>("en");
   const [cover, setCover] = useState<CoverUploadState>(() =>
     existingCoverImage
       ? {
@@ -100,7 +115,9 @@ export function BlogForm({
       : DEFAULT_COVER_STATE,
   );
   const [fieldErrors, setFieldErrors] = useState<{
-    name?: string;
+    nameEn?: string;
+    nameVi?: string;
+    nameCn?: string;
     cover?: string;
     content?: string;
   }>({});
@@ -124,7 +141,10 @@ export function BlogForm({
     setIsCoverPreviewPending(false);
   }, [existingCoverImage]);
 
-  async function uploadBlogFile(file: File, purpose: "blog-cover" | "blog-content") {
+  async function uploadBlogFile(
+    file: File,
+    purpose: "blog-cover" | "blog-content",
+  ) {
     const requested = await requestUpload({
       fileName: file.name,
       mimeType: file.type,
@@ -182,9 +202,12 @@ export function BlogForm({
 
     const nextFieldErrors: typeof fieldErrors = {};
 
-    if (!values.name.trim()) {
-      nextFieldErrors.name = t("errors.titleRequired");
-    }
+    if (!values.name.en.trim())
+      nextFieldErrors.nameEn = t("errors.titleRequired");
+    if (!values.name.vi.trim())
+      nextFieldErrors.nameVi = t("errors.titleRequired");
+    if (!values.name.cn.trim())
+      nextFieldErrors.nameCn = t("errors.titleRequired");
 
     if (mode === "create" && !cover.uploadToken) {
       nextFieldErrors.cover = t("errors.coverRequired");
@@ -205,11 +228,17 @@ export function BlogForm({
 
     try {
       await onSubmit({
-        name: values.name.trim(),
+        name: {
+          en: values.name.en.trim(),
+          vi: values.name.vi.trim(),
+          cn: values.name.cn.trim(),
+        },
         content: buildBlogContentPayload(values.content),
         isPinned: values.isPinned,
         isPublished: values.isPublished,
-        ...(cover.changed && cover.uploadToken ? { coverImageUploadToken: cover.uploadToken } : {}),
+        ...(cover.changed && cover.uploadToken
+          ? { coverImageUploadToken: cover.uploadToken }
+          : {}),
       });
     } catch (submissionError) {
       notifyError(getFriendlyBlogsError(submissionError));
@@ -251,25 +280,41 @@ export function BlogForm({
         <div className="space-y-6">
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1.08fr)_minmax(300px,0.92fr)] lg:items-start">
             <div className="space-y-5">
-              <label className="space-y-2.5">
-                <span className="text-sm font-semibold text-foreground">{t("fields.title")}</span>
-                <p className="text-sm leading-6 text-foreground/75">{t("fields.titleHelper")}</p>
-                <Input
-                  value={values.name}
-                  onChange={(event) => {
-                    setValues((current) => ({ ...current, name: event.target.value }));
-                    setFieldErrors((current) => ({ ...current, name: undefined }));
-                  }}
-                  placeholder={t("fields.titlePlaceholder")}
-                  aria-invalid={Boolean(fieldErrors.name)}
-                  className="h-14 text-base font-medium placeholder:text-muted-foreground"
-                />
-                {fieldErrors.name ? <p className="text-sm text-red-600">{fieldErrors.name}</p> : null}
-              </label>
+              <LocalizedNameEditor
+                value={values.name}
+                errors={{
+                  en: fieldErrors.nameEn,
+                  vi: fieldErrors.nameVi,
+                  cn: fieldErrors.nameCn,
+                }}
+                sectionEyebrow={t("fields.namesEyebrow")}
+                sectionTitle={t("fields.localizedTitle")}
+                sectionDescription={t("fields.localizedDescription")}
+                fieldLabel={t("fields.title")}
+                placeholders={{
+                  en: t("fields.placeholders.en"),
+                  vi: t("fields.placeholders.vi"),
+                  cn: t("fields.placeholders.cn"),
+                }}
+                onChange={(locale, nextValue) => {
+                  setValues((current) => ({
+                    ...current,
+                    name: { ...current.name, [locale]: nextValue },
+                  }));
+                  setFieldErrors((current) => ({
+                    ...current,
+                    ...(locale === "en" ? { nameEn: undefined } : {}),
+                    ...(locale === "vi" ? { nameVi: undefined } : {}),
+                    ...(locale === "cn" ? { nameCn: undefined } : {}),
+                  }));
+                }}
+              />
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <label className="space-y-2 rounded-[1.35rem] border border-border/70 bg-white/78 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.78)]">
-                  <span className="text-sm font-medium text-foreground">{t("fields.publishingState")}</span>
+                  <span className="text-sm font-medium text-foreground">
+                    {t("fields.publishingState")}
+                  </span>
                   <AppSelect
                     value={String(values.isPublished)}
                     onChange={(nextValue) =>
@@ -282,18 +327,24 @@ export function BlogForm({
                       {
                         value: "false",
                         label: t("fields.publishOptions.draft.label"),
-                        description: t("fields.publishOptions.draft.description"),
+                        description: t(
+                          "fields.publishOptions.draft.description",
+                        ),
                       },
                       {
                         value: "true",
                         label: t("fields.publishOptions.published.label"),
-                        description: t("fields.publishOptions.published.description"),
+                        description: t(
+                          "fields.publishOptions.published.description",
+                        ),
                       },
                     ]}
                   />
                 </label>
                 <label className="space-y-2 rounded-[1.35rem] border border-border/70 bg-white/78 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.78)]">
-                  <span className="text-sm font-medium text-foreground">{t("fields.pinnedState")}</span>
+                  <span className="text-sm font-medium text-foreground">
+                    {t("fields.pinnedState")}
+                  </span>
                   <AppSelect
                     value={String(values.isPinned)}
                     onChange={(nextValue) =>
@@ -306,7 +357,9 @@ export function BlogForm({
                       {
                         value: "false",
                         label: t("fields.pinOptions.standard.label"),
-                        description: t("fields.pinOptions.standard.description"),
+                        description: t(
+                          "fields.pinOptions.standard.description",
+                        ),
                       },
                       {
                         value: "true",
@@ -321,7 +374,9 @@ export function BlogForm({
 
             <div className="rounded-[1.55rem] border border-border/70 bg-white/78 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.78)] md:p-5">
               <div className="mb-4 space-y-1">
-                <p className="text-sm font-semibold text-foreground">{t("fields.cover")}</p>
+                <p className="text-sm font-semibold text-foreground">
+                  {t("fields.cover")}
+                </p>
                 <p className="text-sm leading-6 text-foreground/75">
                   {mode === "create"
                     ? t("fields.coverCreateHint")
@@ -370,27 +425,78 @@ export function BlogForm({
               </p>
             </div>
           </div>
-          <div className="rounded-full border border-border/70 bg-white/80 px-4 py-2 text-xs font-medium text-muted-foreground shadow-sm">
-            {t("sections.content.chip")}
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="rounded-full border border-border/70 bg-white/80 px-4 py-2 text-xs font-medium text-muted-foreground shadow-sm">
+              {t("sections.content.chip")}
+            </div>
+            <BlogLocaleSwitch
+              activeLocale={activeContentLocale}
+              onChange={setActiveContentLocale}
+              getStatus={(locale) => {
+                const contentByLocale = buildBlogEditorInitialContent(
+                  values.content,
+                  locale,
+                );
+                const hasTextBlock = contentByLocale.blocks.some((block) => {
+                  if (block.type === "header" || block.type === "paragraph") {
+                    return (
+                      String(
+                        (block.data as { text?: string }).text ?? "",
+                      ).trim().length > 0
+                    );
+                  }
+
+                  if (block.type === "list") {
+                    return (
+                      JSON.stringify(
+                        (block.data as { items?: unknown[] }).items ?? [],
+                      ).trim().length > 2
+                    );
+                  }
+
+                  return false;
+                });
+
+                return hasTextBlock ? "complete" : "incomplete";
+              }}
+            />
           </div>
         </div>
 
+        <div className="rounded-[1.35rem] border border-border/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.86),rgba(249,245,238,0.92))] px-4 py-3 text-sm leading-6 text-muted-foreground">
+          {t("sections.content.localeHint", {
+            locale: activeContentLocale.toUpperCase(),
+          })}
+        </div>
+
         <BlogEditor
-          value={values.content}
+          key={activeContentLocale}
+          value={buildBlogEditorInitialContent(
+            values.content,
+            activeContentLocale,
+          )}
           onChange={(content) => {
-            setValues((current) => ({ ...current, content }));
+            setValues((current) => ({
+              ...current,
+              content: mergeBlogEditorContent(
+                current.content,
+                content,
+                activeContentLocale,
+              ),
+            }));
             setFieldErrors((current) => ({ ...current, content: undefined }));
           }}
           uploadImage={(file) => uploadBlogFile(file, "blog-content")}
         />
-        {fieldErrors.content ? <p className="text-sm text-red-600">{fieldErrors.content}</p> : null}
+        {fieldErrors.content ? (
+          <p className="text-sm text-red-600">{fieldErrors.content}</p>
+        ) : null}
       </section>
 
       <div className="rounded-[1.4rem] border border-border/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(248,244,237,0.9))] p-4 shadow-[0_22px_48px_-40px_rgba(15,23,42,0.45)]">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm leading-6 text-foreground/75">
-            {isUploadingCover
-              || isCoverPreviewPending
+            {isUploadingCover || isCoverPreviewPending
               ? t("actions.helperUploading")
               : mode === "create"
                 ? t("actions.helperCreate")
@@ -411,7 +517,7 @@ export function BlogForm({
 }
 
 export function getBlogFormInitialValues(blog: {
-  name: string;
+  name: BlogLocalizedText;
   isPinned: boolean;
   isPublished: boolean;
   content: OutputData;
@@ -420,6 +526,6 @@ export function getBlogFormInitialValues(blog: {
     name: blog.name,
     isPinned: blog.isPinned,
     isPublished: blog.isPublished,
-    content: buildBlogEditorInitialContent(blog.content),
+    content: normalizeBlogContent(blog.content),
   };
 }

@@ -204,7 +204,12 @@
       "title": "Manage user accounts.",
       "description": "Create, update, archive, and restore team access quickly from one table.",
       "meta": { "adminOnly": "Admin only" },
-      "actions": { "addUser": "Add user", "retry": "Retry", "previous": "Previous", "next": "Next" },
+      "actions": {
+        "addUser": "Add user",
+        "retry": "Retry",
+        "previous": "Previous",
+        "next": "Next"
+      },
       "filters": {
         "quick": "Quick filters",
         "searchLabel": "Search keyword",
@@ -222,7 +227,10 @@
         "hideArchived": "Hide archived",
         "showArchived": "Show archived too"
       },
-      "loading": { "title": "Loading users", "description": "Preparing the latest user list and filter options." },
+      "loading": {
+        "title": "Loading users",
+        "description": "Preparing the latest user list and filter options."
+      },
       "errors": { "loadTitle": "Unable to load users" },
       "pagination": {
         "summary": "Page {page} of {totalPages}. Total users: {total}.",
@@ -238,7 +246,13 @@
     "table": {
       "title": "User records",
       "description": "Identity, role, and lifecycle in one view.",
-      "columns": { "user": "User", "role": "Role", "country": "Country", "status": "Status", "actions": "Actions" },
+      "columns": {
+        "user": "User",
+        "role": "Role",
+        "country": "Country",
+        "status": "Status",
+        "actions": "Actions"
+      },
       "actions": { "edit": "Edit", "restore": "Restore", "delete": "Delete" },
       "dialogs": {
         "deleteTitle": "Delete {name}?",
@@ -295,7 +309,10 @@
         "description": "The form will be cleared and you will return to the user list.",
         "confirmLabel": "Discard"
       },
-      "loading": { "title": "Preparing form", "description": "Loading available role options for user creation." },
+      "loading": {
+        "title": "Preparing form",
+        "description": "Loading available role options for user creation."
+      },
       "errorTitle": "Unable to prepare user form",
       "submitLabel": "Create account",
       "formDescription": "Choose a role and country, then set a first-time password for this account.",
@@ -312,7 +329,10 @@
         "description": "Any modifications will be lost.",
         "confirmLabel": "Discard"
       },
-      "loading": { "title": "Loading user", "description": "Fetching the current user record and role options." },
+      "loading": {
+        "title": "Loading user",
+        "description": "Fetching the current user record and role options."
+      },
       "errorTitle": "Unable to load this user",
       "userNotFound": "User not found.",
       "submitLabel": "Save changes",
@@ -326,7 +346,10 @@
       "title": "Review this account.",
       "description": "See the person, role, location, and account state in one place before making changes.",
       "actions": { "edit": "Edit", "restore": "Restore", "delete": "Delete" },
-      "loading": { "title": "Loading user", "description": "Fetching the selected user record." },
+      "loading": {
+        "title": "Loading user",
+        "description": "Fetching the selected user record."
+      },
       "errorTitle": "Unable to load this user",
       "userNotFound": "User not found.",
       "adminActionsTitle": "Admin actions",
@@ -343,7 +366,11 @@
     },
     "detailCard": {
       "id": "ID: {id}",
-      "sections": { "identity": "Account identity", "profile": "Profile and account state", "metadata": "Admin metadata" },
+      "sections": {
+        "identity": "Account identity",
+        "profile": "Profile and account state",
+        "metadata": "Admin metadata"
+      },
       "fields": {
         "email": "Email",
         "phoneNumber": "Phone number",
@@ -434,7 +461,11 @@
         }
       },
       "form": {
-        "fields": { "current": "Current password", "new": "New password", "confirm": "Confirm new password" },
+        "fields": {
+          "current": "Current password",
+          "new": "New password",
+          "confirm": "Confirm new password"
+        },
         "errors": {
           "currentRequired": "Current password is required.",
           "newRequired": "New password is required.",
@@ -453,7 +484,12 @@
       "title": "Manage access roles.",
       "description": "Review role identity and usage quickly from one compact table.",
       "meta": { "adminOnly": "Admin only" },
-      "actions": { "createRole": "Create role", "retry": "Retry", "previous": "Previous", "next": "Next" },
+      "actions": {
+        "createRole": "Create role",
+        "retry": "Retry",
+        "previous": "Previous",
+        "next": "Next"
+      },
       "filters": {
         "quick": "Quick filters",
         "searchLabel": "Search keyword",
@@ -463,9 +499,15 @@
         "typeCustom": "Custom roles",
         "typeSystem": "System roles"
       },
-      "loading": { "title": "Loading roles", "description": "Preparing role definitions and usage counts." },
+      "loading": {
+        "title": "Loading roles",
+        "description": "Preparing role definitions and usage counts."
+      },
       "errorTitle": "Unable to load roles",
-      "pagination": { "summary": "Page {page} of {totalPages}. Total roles: {total}.", "updating": "Updating..." },
+      "pagination": {
+        "summary": "Page {page} of {totalPages}. Total roles: {total}.",
+        "updating": "Updating..."
+      },
       "empty": {
         "title": "No roles matched the current filters.",
         "description": "Try a broader keyword or switch role type.",
@@ -476,7 +518,12 @@
     "table": {
       "title": "Role records",
       "description": "Role identity and usage at a glance.",
-      "columns": { "role": "Role", "type": "Type", "users": "Users", "actions": "Actions" },
+      "columns": {
+        "role": "Role",
+        "type": "Type",
+        "users": "Users",
+        "actions": "Actions"
+      },
       "usersSummary": "Active {active} / Deleted {deleted}",
       "actions": { "edit": "Edit", "delete": "Delete" },
       "dialogs": {
@@ -494,7 +541,11 @@
     "create": {
       "title": "Create a new role.",
       "description": "Define a clear role name for your studio team.",
-      "confirm": { "title": "Discard this new role?", "description": "The form will be cleared and you will return to the role list.", "confirmLabel": "Discard" },
+      "confirm": {
+        "title": "Discard this new role?",
+        "description": "The form will be cleared and you will return to the role list.",
+        "confirmLabel": "Discard"
+      },
       "submitLabel": "Create role",
       "formDescription": "Use role names that are easy to understand at a glance.",
       "toasts": { "created": "Role created successfully." }
@@ -502,8 +553,15 @@
     "edit": {
       "title": "Update a role.",
       "description": "Adjust the role name while keeping the role key and usage history intact.",
-      "confirm": { "title": "Discard these changes?", "description": "Any modifications will be lost.", "confirmLabel": "Discard" },
-      "loading": { "title": "Loading role", "description": "Fetching the current role record." },
+      "confirm": {
+        "title": "Discard these changes?",
+        "description": "Any modifications will be lost.",
+        "confirmLabel": "Discard"
+      },
+      "loading": {
+        "title": "Loading role",
+        "description": "Fetching the current role record."
+      },
       "errorTitle": "Unable to load this role",
       "notFound": "Role not found.",
       "submitLabel": "Save changes",
@@ -513,15 +571,28 @@
     "detail": {
       "title": "Inspect a role and its assigned users.",
       "description": "Review the role itself, see where it is in use, and manage the next step from one page.",
-      "actions": { "edit": "Edit", "delete": "Delete", "previous": "Previous", "next": "Next" },
-      "loading": { "title": "Loading role", "description": "Fetching the role record and users currently assigned to it." },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete",
+        "previous": "Previous",
+        "next": "Next"
+      },
+      "loading": {
+        "title": "Loading role",
+        "description": "Fetching the role record and users currently assigned to it."
+      },
       "errorTitle": "Unable to load this role",
       "notFound": "Role not found.",
       "users": {
         "eyebrow": "Role users",
         "title": "Users assigned to this role",
         "description": "Review who currently uses this role and filter by account state when needed.",
-        "filters": { "all": "All assigned users", "active": "Active only", "inactive": "Inactive only", "deleted": "Archived only" },
+        "filters": {
+          "all": "All assigned users",
+          "active": "Active only",
+          "inactive": "Inactive only",
+          "deleted": "Archived only"
+        },
         "pagination": "Page {page} of {totalPages}. Total users: {total}.",
         "emptyTitle": "No users matched this role-user query.",
         "emptyDescription": "Try a different status view, or return later once the role has people assigned to it."
@@ -538,7 +609,11 @@
       "id": "ID: {id}",
       "roleKey": "Role key: {key}",
       "lifecycle": { "system": "System-managed role", "custom": "Custom role" },
-      "sections": { "identity": "Role identity", "usage": "Usage summary", "metadata": "Admin metadata" },
+      "sections": {
+        "identity": "Role identity",
+        "usage": "Usage summary",
+        "metadata": "Admin metadata"
+      },
       "fields": {
         "activeUsers": "Active users",
         "archivedUsers": "Archived users",
@@ -552,12 +627,21 @@
     }
   },
   "galleries": {
-    "badges": { "archived": "Archived", "active": "Active", "inactive": "Inactive" },
+    "badges": {
+      "archived": "Archived",
+      "active": "Active",
+      "inactive": "Inactive"
+    },
     "list": {
       "title": "Manage gallery collections.",
       "description": "Maintain multilingual gallery groups with faster filtering and lifecycle control.",
       "meta": { "adminOnly": "Admin only" },
-      "actions": { "create": "Create gallery", "retry": "Retry", "previous": "Previous", "next": "Next" },
+      "actions": {
+        "create": "Create gallery",
+        "retry": "Retry",
+        "previous": "Previous",
+        "next": "Next"
+      },
       "filters": {
         "quick": "Quick filters",
         "searchLabel": "Search keyword",
@@ -569,15 +653,24 @@
         "pageSize": "Page size",
         "perPage": "{value} per page"
       },
-      "loading": { "title": "Loading galleries", "description": "Preparing the latest gallery list and filter results." },
+      "loading": {
+        "title": "Loading galleries",
+        "description": "Preparing the latest gallery list and filter results."
+      },
       "errorTitle": "Unable to load galleries",
-      "pagination": { "summary": "Page {page} of {totalPages}. Total galleries: {total}.", "updating": "Updating..." },
+      "pagination": {
+        "summary": "Page {page} of {totalPages}. Total galleries: {total}.",
+        "updating": "Updating..."
+      },
       "empty": {
         "title": "No galleries matched the current filters.",
         "description": "Try a broader keyword or change the status filter.",
         "createFirst": "Create first gallery"
       },
-      "toasts": { "archived": "Gallery archived.", "restored": "Gallery restored successfully." }
+      "toasts": {
+        "archived": "Gallery archived.",
+        "restored": "Gallery restored successfully."
+      }
     },
     "table": {
       "title": "Gallery records",
@@ -616,7 +709,11 @@
     "create": {
       "title": "Create a new gallery.",
       "description": "Add multilingual names so this collection is ready across supported languages.",
-      "confirm": { "title": "Discard this new gallery?", "description": "The form will be cleared and you will return to the gallery list.", "confirmLabel": "Discard" },
+      "confirm": {
+        "title": "Discard this new gallery?",
+        "description": "The form will be cleared and you will return to the gallery list.",
+        "confirmLabel": "Discard"
+      },
       "submitLabel": "Create gallery",
       "formDescription": "All three localized names are required by the backend contract.",
       "toasts": { "created": "Gallery created successfully." }
@@ -624,8 +721,15 @@
     "edit": {
       "title": "Update gallery names.",
       "description": "Refine localized naming while keeping the existing gallery record.",
-      "confirm": { "title": "Discard these changes?", "description": "Any modifications will be lost.", "confirmLabel": "Discard" },
-      "loading": { "title": "Loading gallery", "description": "Fetching the current gallery record." },
+      "confirm": {
+        "title": "Discard these changes?",
+        "description": "Any modifications will be lost.",
+        "confirmLabel": "Discard"
+      },
+      "loading": {
+        "title": "Loading gallery",
+        "description": "Fetching the current gallery record."
+      },
       "errorTitle": "Unable to load this gallery",
       "notFound": "Gallery not found.",
       "submitLabel": "Save changes",
@@ -636,7 +740,10 @@
       "title": "Review this gallery.",
       "description": "Inspect multilingual names, lifecycle state, and ownership context before making changes.",
       "actions": { "edit": "Edit", "restore": "Restore", "delete": "Delete" },
-      "loading": { "title": "Loading gallery", "description": "Fetching the selected gallery record." },
+      "loading": {
+        "title": "Loading gallery",
+        "description": "Fetching the selected gallery record."
+      },
       "errorTitle": "Unable to load this gallery",
       "notFound": "Gallery not found.",
       "adminActionsTitle": "Admin actions",
@@ -649,11 +756,18 @@
         "deleteConfirm": "Delete gallery",
         "restoreConfirm": "Restore gallery"
       },
-      "toasts": { "archived": "Gallery archived.", "restored": "Gallery restored successfully." }
+      "toasts": {
+        "archived": "Gallery archived.",
+        "restored": "Gallery restored successfully."
+      }
     },
     "detailCard": {
       "id": "ID: {id}",
-      "sections": { "record": "Gallery record", "names": "Multilingual names", "metadata": "Admin metadata" },
+      "sections": {
+        "record": "Gallery record",
+        "names": "Multilingual names",
+        "metadata": "Admin metadata"
+      },
       "namesDescription": "Primary naming set used across supported locales.",
       "fields": {
         "english": "English",
@@ -699,7 +813,12 @@
       "title": "Manage project stories.",
       "description": "Manage project stories, publication, and gallery linkage with faster operational scanning.",
       "meta": { "adminOnly": "Admin only" },
-      "actions": { "create": "Create project", "retry": "Retry", "previous": "Previous", "next": "Next" },
+      "actions": {
+        "create": "Create project",
+        "retry": "Retry",
+        "previous": "Previous",
+        "next": "Next"
+      },
       "filters": {
         "quick": "Quick filters",
         "searchLabel": "Search keyword",
@@ -715,15 +834,24 @@
         "pageSize": "Page size",
         "perPage": "{value} per page"
       },
-      "loading": { "title": "Loading projects", "description": "Preparing the latest projects, filters, and content states." },
+      "loading": {
+        "title": "Loading projects",
+        "description": "Preparing the latest projects, filters, and content states."
+      },
       "errors": { "load": "Unable to load projects" },
-      "pagination": { "summary": "Page {page} of {totalPages}. Total projects: {total}.", "updating": "Updating..." },
+      "pagination": {
+        "summary": "Page {page} of {totalPages}. Total projects: {total}.",
+        "updating": "Updating..."
+      },
       "empty": {
         "title": "No projects matched the current filters.",
         "description": "Try a broader keyword or reset one of the status filters.",
         "createFirst": "Create first project"
       },
-      "toasts": { "archived": "Project archived.", "restored": "Project restored successfully." }
+      "toasts": {
+        "archived": "Project archived.",
+        "restored": "Project restored successfully."
+      }
     },
     "table": {
       "title": "Project records",
@@ -757,7 +885,10 @@
         "description": "The form will be cleared and you will return to the project list.",
         "confirmLabel": "Discard"
       },
-      "loading": { "title": "Loading project form", "description": "Preparing galleries and editor dependencies." },
+      "loading": {
+        "title": "Loading project form",
+        "description": "Preparing galleries and editor dependencies."
+      },
       "errorTitle": "Unable to prepare this form",
       "empty": {
         "eyebrow": "Projects",
@@ -777,7 +908,10 @@
         "description": "Any modifications will be lost.",
         "confirmLabel": "Discard"
       },
-      "loading": { "title": "Loading project", "description": "Fetching the project record and active gallery options." },
+      "loading": {
+        "title": "Loading project",
+        "description": "Fetching the project record and active gallery options."
+      },
       "errorTitle": "Unable to load this project",
       "notFound": "Project not found.",
       "submitLabel": "Save changes",
@@ -789,7 +923,10 @@
       "title": "Review this project story.",
       "description": "Inspect the studio-facing cover, multilingual naming, publication state, and saved story document before making changes.",
       "actions": { "edit": "Edit", "restore": "Restore", "delete": "Delete" },
-      "loading": { "title": "Loading project", "description": "Fetching the selected project record." },
+      "loading": {
+        "title": "Loading project",
+        "description": "Fetching the selected project record."
+      },
       "errorTitle": "Unable to load this project",
       "notFound": "Project not found.",
       "dialogs": {
@@ -808,10 +945,14 @@
         "blocks": "{count} blocks",
         "updated": "Updated {date}",
         "state": "Document state: {state}. Content is shown exactly as currently saved.",
+        "localeHint": "Previewing localized text for {locale}. Shared media blocks remain unchanged.",
         "stateArchived": "archived record",
         "stateActive": "active record"
       },
-      "toasts": { "archived": "Project archived.", "restored": "Project restored successfully." }
+      "toasts": {
+        "archived": "Project archived.",
+        "restored": "Project restored successfully."
+      }
     },
     "detailCard": {
       "assetContext": "Asset context",
@@ -865,11 +1006,21 @@
         "localizedTitle": "Localized project naming",
         "localizedDescription": "Align project naming across English, Vietnamese, and Chinese before publishing.",
         "projectName": "Project name",
-        "placeholders": { "en": "Spring Romance", "vi": "Tinh yeu mua xuan", "cn": "春日恋曲" },
+        "placeholders": {
+          "en": "Spring Romance",
+          "vi": "Tinh yeu mua xuan",
+          "cn": "春日恋曲"
+        },
         "publishingState": "Publishing state",
         "publishOptions": {
-          "draft": { "label": "Draft", "description": "Visible only in admin until you publish it" },
-          "published": { "label": "Published", "description": "Ready for customer-facing surfaces that consume published projects" }
+          "draft": {
+            "label": "Draft",
+            "description": "Visible only in admin until you publish it"
+          },
+          "published": {
+            "label": "Published",
+            "description": "Ready for customer-facing surfaces that consume published projects"
+          }
         },
         "cover": "Cover image",
         "coverCreateHint": "Upload the primary cover before saving. Replacements still follow the existing upload-token flow.",
@@ -895,7 +1046,11 @@
     }
   },
   "packages": {
-    "badges": { "archived": "Archived", "active": "Active", "inactive": "Inactive" },
+    "badges": {
+      "archived": "Archived",
+      "active": "Active",
+      "inactive": "Inactive"
+    },
     "coverField": {
       "coverAlt": "Package cover",
       "title": "Package cover",
@@ -916,7 +1071,12 @@
       "title": "Manage session packages.",
       "description": "Organize multilingual package offers with pricing, cover image, and lifecycle controls.",
       "meta": { "adminOnly": "Admin only" },
-      "actions": { "create": "Create package", "retry": "Retry", "previous": "Previous", "next": "Next" },
+      "actions": {
+        "create": "Create package",
+        "retry": "Retry",
+        "previous": "Previous",
+        "next": "Next"
+      },
       "filters": {
         "quick": "Quick filters",
         "searchLabel": "Search keyword",
@@ -928,15 +1088,24 @@
         "pageSize": "Page size",
         "perPage": "{value} per page"
       },
-      "loading": { "title": "Loading packages", "description": "Preparing the latest package list and filter results." },
+      "loading": {
+        "title": "Loading packages",
+        "description": "Preparing the latest package list and filter results."
+      },
       "errors": { "load": "Unable to load packages" },
-      "pagination": { "summary": "Page {page} of {totalPages}. Total packages: {total}.", "updating": "Updating..." },
+      "pagination": {
+        "summary": "Page {page} of {totalPages}. Total packages: {total}.",
+        "updating": "Updating..."
+      },
       "empty": {
         "title": "No packages matched the current filters.",
         "description": "Try a broader keyword or change the status filter.",
         "createFirst": "Create first package"
       },
-      "toasts": { "archived": "Package archived.", "restored": "Package restored successfully." }
+      "toasts": {
+        "archived": "Package archived.",
+        "restored": "Package restored successfully."
+      }
     },
     "table": {
       "title": "Package records",
@@ -984,7 +1153,10 @@
         "description": "Any modifications will be lost.",
         "confirmLabel": "Discard"
       },
-      "loading": { "title": "Loading package", "description": "Fetching the current package record." },
+      "loading": {
+        "title": "Loading package",
+        "description": "Fetching the current package record."
+      },
       "errorTitle": "Unable to load this package",
       "notFound": "Package not found.",
       "submitLabel": "Save changes",
@@ -996,7 +1168,10 @@
       "title": "Review this package.",
       "description": "Inspect localized details, core offer information, and lifecycle state before making changes.",
       "actions": { "edit": "Edit", "restore": "Restore", "delete": "Delete" },
-      "loading": { "title": "Loading package", "description": "Fetching the selected package record." },
+      "loading": {
+        "title": "Loading package",
+        "description": "Fetching the selected package record."
+      },
       "errorTitle": "Unable to load this package",
       "notFound": "Package not found.",
       "dialogs": {
@@ -1007,7 +1182,10 @@
         "deleteConfirm": "Delete package",
         "restoreConfirm": "Restore package"
       },
-      "toasts": { "archived": "Package archived.", "restored": "Package restored successfully." }
+      "toasts": {
+        "archived": "Package archived.",
+        "restored": "Package restored successfully."
+      }
     },
     "detailCard": {
       "assetInfo": "Asset info",
@@ -1168,7 +1346,12 @@
       "title": "Manage editorial journal entries.",
       "description": "Manage editorial entries, publishing priority, and lifecycle with faster scanning.",
       "meta": { "adminOnly": "Admin only" },
-      "actions": { "create": "Create blog", "retry": "Retry", "previous": "Previous", "next": "Next" },
+      "actions": {
+        "create": "Create blog",
+        "retry": "Retry",
+        "previous": "Previous",
+        "next": "Next"
+      },
       "filters": {
         "quick": "Quick filters",
         "searchLabel": "Search keyword",
@@ -1188,16 +1371,37 @@
         "pageSize": "Page size",
         "perPage": "{value} per page"
       },
-      "loading": { "title": "Loading blogs", "description": "Preparing editorial entries and current filter states." },
+      "loading": {
+        "title": "Loading blogs",
+        "description": "Preparing editorial entries and current filter states."
+      },
       "errors": { "load": "Unable to load blogs" },
-      "pagination": { "summary": "Page {page} of {totalPages}. Total blogs: {total}.", "updating": "Updating..." },
-      "empty": { "title": "No blog entries matched the current filters.", "description": "Try a broader keyword or relax the publication, pin, or lifecycle filters.", "createFirst": "Create first blog" },
-      "toasts": { "archived": "Blog archived.", "restored": "Blog restored successfully." }
+      "pagination": {
+        "summary": "Page {page} of {totalPages}. Total blogs: {total}.",
+        "updating": "Updating..."
+      },
+      "empty": {
+        "title": "No blog entries matched the current filters.",
+        "description": "Try a broader keyword or relax the publication, pin, or lifecycle filters.",
+        "createFirst": "Create first blog"
+      },
+      "toasts": {
+        "archived": "Blog archived.",
+        "restored": "Blog restored successfully."
+      }
     },
     "table": {
       "title": "Blog records",
       "description": "Editorial identity, publishing priority, and lifecycle in one view.",
-      "columns": { "blog": "Blog", "cover": "Cover", "pin": "Pin", "publish": "Publish", "status": "Status", "updated": "Updated", "actions": "Actions" },
+      "columns": {
+        "blog": "Blog",
+        "cover": "Cover",
+        "pin": "Pin",
+        "publish": "Publish",
+        "status": "Status",
+        "updated": "Updated",
+        "actions": "Actions"
+      },
       "by": "By {name}",
       "actions": { "edit": "Edit", "restore": "Restore", "delete": "Delete" },
       "dialogs": {
@@ -1214,7 +1418,11 @@
       "eyebrow": "Create blog",
       "title": "Create a new editorial entry",
       "description": "Complete core details first, then continue writing in the editor below.",
-      "confirm": { "title": "Discard this new blog?", "description": "The form will be cleared and you will return to the blog list.", "confirmLabel": "Discard" },
+      "confirm": {
+        "title": "Discard this new blog?",
+        "description": "The form will be cleared and you will return to the blog list.",
+        "confirmLabel": "Discard"
+      },
       "submitLabel": "Create blog",
       "formDescription": "Finalize title, visibility states, and cover image before writing.",
       "toasts": { "created": "Blog created successfully." }
@@ -1223,8 +1431,15 @@
       "eyebrow": "Edit blog",
       "title": "Update the editorial entry",
       "description": "Update key details quickly, then continue editing the post content below.",
-      "confirm": { "title": "Discard these changes?", "description": "Any modifications will be lost.", "confirmLabel": "Discard" },
-      "loading": { "title": "Loading blog", "description": "Fetching the current blog record and cover asset." },
+      "confirm": {
+        "title": "Discard these changes?",
+        "description": "Any modifications will be lost.",
+        "confirmLabel": "Discard"
+      },
+      "loading": {
+        "title": "Loading blog",
+        "description": "Fetching the current blog record and cover asset."
+      },
       "errorTitle": "Unable to load this blog",
       "notFound": "Blog not found.",
       "submitLabel": "Save changes",
@@ -1236,10 +1451,20 @@
       "title": "Review this editorial entry.",
       "description": "Inspect the lead cover, publishing priority, and saved content document before making changes.",
       "actions": { "edit": "Edit", "restore": "Restore", "delete": "Delete" },
-      "loading": { "title": "Loading blog", "description": "Fetching the selected editorial entry." },
+      "loading": {
+        "title": "Loading blog",
+        "description": "Fetching the selected editorial entry."
+      },
       "errorTitle": "Unable to load this blog",
       "notFound": "Blog not found.",
-      "dialogs": { "deleteTitle": "Delete {name}?", "restoreTitle": "Restore {name}?", "deleteDescription": "This archives the blog for now. You can restore it later if needed.", "restoreDescription": "This will bring the archived blog back into the active editorial library.", "deleteConfirm": "Delete blog", "restoreConfirm": "Restore blog" },
+      "dialogs": {
+        "deleteTitle": "Delete {name}?",
+        "restoreTitle": "Restore {name}?",
+        "deleteDescription": "This archives the blog for now. You can restore it later if needed.",
+        "restoreDescription": "This will bring the archived blog back into the active editorial library.",
+        "deleteConfirm": "Delete blog",
+        "restoreConfirm": "Restore blog"
+      },
       "document": {
         "eyebrow": "Editorial document",
         "title": "Saved blog content",
@@ -1251,7 +1476,10 @@
         "stateArchived": "archived record",
         "stateActive": "active record"
       },
-      "toasts": { "archived": "Blog archived.", "restored": "Blog restored successfully." }
+      "toasts": {
+        "archived": "Blog archived.",
+        "restored": "Blog restored successfully."
+      }
     },
     "detailCard": {
       "coverAsset": "Cover asset context",
@@ -1279,37 +1507,89 @@
       },
       "adminMetadata": "Admin metadata",
       "createdBy": "Created by",
-      "recordState": { "title": "Record state", "active": "Active", "inactive": "Inactive", "description": "Lifecycle controls in this view archive and restore the record." },
+      "recordState": {
+        "title": "Record state",
+        "active": "Active",
+        "inactive": "Inactive",
+        "description": "Lifecycle controls in this view archive and restore the record."
+      },
       "timeline": "Timeline",
       "createdAt": "Created at",
       "updatedAt": "Updated at",
-      "lifecycle": { "title": "Lifecycle", "archivedOn": "Archived on {date}", "active": "Active record", "inactive": "Inactive record", "notDeleted": "Not deleted" }
+      "lifecycle": {
+        "title": "Lifecycle",
+        "archivedOn": "Archived on {date}",
+        "active": "Active record",
+        "inactive": "Inactive record",
+        "notDeleted": "Not deleted"
+      }
     },
     "form": {
       "sections": {
-        "metadata": { "eyebrow": "Blog metadata", "title": "Core details and visibility", "description": "Set title, states, and cover image so the post is clear and easy to scan.", "createChip": "Creating a new post", "editChip": "Updating this post" },
-        "content": { "eyebrow": "Blog content", "title": "Build the full editorial entry", "description": "Add text, YouTube embeds, and media layout blocks. New images still upload first and submit as upload tokens.", "chip": "Detailed editorial writing workspace." }
+        "metadata": {
+          "eyebrow": "Blog metadata",
+          "title": "Core details and visibility",
+          "description": "Set title, states, and cover image so the post is clear and easy to scan.",
+          "createChip": "Creating a new post",
+          "editChip": "Updating this post"
+        },
+        "content": {
+          "eyebrow": "Blog content",
+          "title": "Build the full editorial entry",
+          "description": "Add text, YouTube embeds, and media layout blocks. Media and layout stay shared across locales while text is edited per locale.",
+          "chip": "Detailed editorial writing workspace.",
+          "localeHint": "Editing text for {locale}. Media, embeds, and layout stay shared across all locales."
+        }
       },
       "fields": {
         "title": "Blog title",
         "titleHelper": "Keep the title short, clear, and easy to recognize in the blog list.",
         "titlePlaceholder": "Sunset vows on a pine-covered hillside",
+        "namesEyebrow": "Localized titles",
+        "localizedTitle": "Blog name by locale",
+        "localizedDescription": "Fill all supported blog title locales so admin search and public rendering stay consistent.",
+        "placeholders": {
+          "en": "Sunset vows on a pine-covered hillside",
+          "vi": "Sunset vows on a pine-covered hillside (VI)",
+          "cn": "Sunset vows on a pine-covered hillside (CN)"
+        },
         "publishingState": "Publishing state",
         "pinnedState": "Pinned state",
         "cover": "Cover image",
         "coverCreateHint": "Add a cover image early so the post is complete when saved.",
         "coverEditHint": "You can keep the current cover or replace it with a new image.",
         "publishOptions": {
-          "draft": { "label": "Draft", "description": "Visible only in the admin area" },
-          "published": { "label": "Published", "description": "Visible on public blog surfaces" }
+          "draft": {
+            "label": "Draft",
+            "description": "Visible only in the admin area"
+          },
+          "published": {
+            "label": "Published",
+            "description": "Visible on public blog surfaces"
+          }
         },
         "pinOptions": {
-          "standard": { "label": "Standard placement", "description": "Shown in natural chronological order" },
-          "pinned": { "label": "Pinned feature", "description": "Prioritized at the top of the blog list" }
+          "standard": {
+            "label": "Standard placement",
+            "description": "Shown in natural chronological order"
+          },
+          "pinned": {
+            "label": "Pinned feature",
+            "description": "Prioritized at the top of the blog list"
+          }
         }
       },
-      "actions": { "saving": "Saving...", "helperCreate": "Review key details, then create this post.", "helperEdit": "Review your updates, then save changes.", "helperUploading": "Wait until the cover upload is complete before saving." },
-      "errors": { "coverUploadFailed": "The cover image could not be uploaded. Please try again.", "titleRequired": "Blog title is required.", "coverRequired": "Upload a blog cover before saving." }
+      "actions": {
+        "saving": "Saving...",
+        "helperCreate": "Review key details, then create this post.",
+        "helperEdit": "Review your updates, then save changes.",
+        "helperUploading": "Wait until the cover upload is complete before saving."
+      },
+      "errors": {
+        "coverUploadFailed": "The cover image could not be uploaded. Please try again.",
+        "titleRequired": "Blog title is required.",
+        "coverRequired": "Upload a blog cover before saving."
+      }
     },
     "editor": {
       "loading": "Loading editor",
@@ -1336,7 +1616,12 @@
       "eyebrow": "Orders",
       "title": "Manage order requests and fulfillment.",
       "description": "Track requests, payment progression, and lifecycle updates from one operational queue.",
-      "actions": { "retry": "Retry", "previous": "Previous", "next": "Next", "resetFilters": "Reset filters" },
+      "actions": {
+        "retry": "Retry",
+        "previous": "Previous",
+        "next": "Next",
+        "resetFilters": "Reset filters"
+      },
       "filters": {
         "quick": "Quick filters",
         "searchLabel": "Search keyword",
@@ -1365,17 +1650,39 @@
         "pageSize": "Page size",
         "perPage": "{value} per page"
       },
-      "loading": { "title": "Loading orders", "description": "Preparing the latest order records and filters." },
+      "loading": {
+        "title": "Loading orders",
+        "description": "Preparing the latest order records and filters."
+      },
       "errors": { "load": "Unable to load orders" },
-      "pagination": { "summary": "Page {page} of {totalPages}. Total orders: {total}", "updating": "Updating..." },
-      "empty": { "title": "No orders matched the current filters.", "description": "Try clearing one or more filters to show more requests." }
+      "pagination": {
+        "summary": "Page {page} of {totalPages}. Total orders: {total}",
+        "updating": "Updating..."
+      },
+      "empty": {
+        "title": "No orders matched the current filters.",
+        "description": "Try clearing one or more filters to show more requests."
+      }
     },
     "table": {
       "title": "Order records",
       "description": "Track request lifecycle and payment progression in one operational view.",
-      "columns": { "order": "Order", "customer": "Customer", "source": "Source", "item": "Item", "lifecycle": "Lifecycle" },
+      "columns": {
+        "order": "Order",
+        "customer": "Customer",
+        "source": "Source",
+        "item": "Item",
+        "lifecycle": "Lifecycle"
+      },
       "na": "N/A",
-      "item": { "package": "Package", "custom": "Custom", "noItem": "No item", "budget": "Budget", "snapshotMissing": "Snapshot missing", "noItemSnapshot": "No item snapshot" }
+      "item": {
+        "package": "Package",
+        "custom": "Custom",
+        "noItem": "No item",
+        "budget": "Budget",
+        "snapshotMissing": "Snapshot missing",
+        "noItemSnapshot": "No item snapshot"
+      }
     },
     "detail": {
       "eyebrow": "Order detail",
@@ -1383,15 +1690,29 @@
       "description": "See customer context, item snapshot, and update status or payment progression in one place.",
       "descriptionWithCustomer": "Customer: {customer} · Keep lifecycle and payment progression aligned.",
       "actions": { "refresh": "Refresh" },
-      "loading": { "title": "Loading order", "description": "Pulling the latest order detail and status." },
+      "loading": {
+        "title": "Loading order",
+        "description": "Pulling the latest order detail and status."
+      },
       "errorTitle": "Unable to load this order",
       "notFound": "Order not found."
     },
     "detailCard": {
       "na": "N/A",
-      "identity": { "eyebrow": "Order identity", "description": "Keep lifecycle and payment progression aligned before confirming final delivery." },
-      "currentCondition": { "title": "Current condition", "description": "Order is currently {status} with payment marked as {payment}.", "hint": "Use the lifecycle action panel below to apply the next valid transition." },
-      "requestedItem": { "title": "Requested item", "subtitle": "Booking and pricing snapshot", "empty": "No item snapshot is available for this order." },
+      "identity": {
+        "eyebrow": "Order identity",
+        "description": "Keep lifecycle and payment progression aligned before confirming final delivery."
+      },
+      "currentCondition": {
+        "title": "Current condition",
+        "description": "Order is currently {status} with payment marked as {payment}.",
+        "hint": "Use the lifecycle action panel below to apply the next valid transition."
+      },
+      "requestedItem": {
+        "title": "Requested item",
+        "subtitle": "Booking and pricing snapshot",
+        "empty": "No item snapshot is available for this order."
+      },
       "item": {
         "packageItem": "Package item",
         "customItem": "Custom item",
@@ -1408,8 +1729,18 @@
         "budget": "Budget",
         "confirmedBudget": "Confirmed custom request budget"
       },
-      "metadata": { "title": "Admin metadata", "discoverySource": "Discovery source", "created": "Created", "updated": "Updated" },
-      "story": { "title": "Personal story", "long": "Long note", "short": "Short note", "empty": "No story provided." }
+      "metadata": {
+        "title": "Admin metadata",
+        "discoverySource": "Discovery source",
+        "created": "Created",
+        "updated": "Updated"
+      },
+      "story": {
+        "title": "Personal story",
+        "long": "Long note",
+        "short": "Short note",
+        "empty": "No story provided."
+      }
     },
     "updatePanel": {
       "eyebrow": "Lifecycle actions",
@@ -1467,7 +1798,10 @@
         "budgetAmountInvalid": "Budget amount must be greater than zero.",
         "budgetCurrencyRequired": "Budget currency is required."
       },
-      "toasts": { "submittedTitle": "Request submitted successfully.", "submittedDescription": "Please check your email and confirm from the link." },
+      "toasts": {
+        "submittedTitle": "Request submitted successfully.",
+        "submittedDescription": "Please check your email and confirm from the link."
+      },
       "actions": { "submitting": "Submitting...", "submit": "Submit request" }
     },
     "publicConfirm": {
@@ -1477,7 +1811,11 @@
       "footer": { "backToRequest": "Back to order request" },
       "linkDetected": "Confirmation link detected. Continue below, or enter a different token.",
       "confirmed": "Order {orderNumber} is confirmed. We will follow up through {email}.",
-      "fields": { "token": "Confirmation token", "differentToken": "Different confirmation token", "tokenPlaceholder": "Paste your token" },
+      "fields": {
+        "token": "Confirmation token",
+        "differentToken": "Different confirmation token",
+        "tokenPlaceholder": "Paste your token"
+      },
       "summary": {
         "title": "Order summary",
         "orderNumber": "Order number: {orderNumber}",
@@ -1487,8 +1825,16 @@
         "amount": "Amount: {amount}"
       },
       "errors": { "tokenRequired": "Confirmation token is required." },
-      "toasts": { "confirmedTitle": "Order confirmed successfully.", "confirmedDescription": "If this token was already used recently, the same order is returned instead of creating a duplicate." },
-      "actions": { "useLinkToken": "Use token from the email link", "useDifferentToken": "Use a different token instead", "confirming": "Confirming...", "confirm": "Confirm order" }
+      "toasts": {
+        "confirmedTitle": "Order confirmed successfully.",
+        "confirmedDescription": "If this token was already used recently, the same order is returned instead of creating a duplicate."
+      },
+      "actions": {
+        "useLinkToken": "Use token from the email link",
+        "useDifferentToken": "Use a different token instead",
+        "confirming": "Confirming...",
+        "confirm": "Confirm order"
+      }
     }
   },
   "shared": {

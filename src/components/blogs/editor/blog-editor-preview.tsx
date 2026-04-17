@@ -5,7 +5,11 @@ import type { Layout } from "react-grid-layout/legacy";
 
 import type { BlogEditorMediaItem } from "@/components/blogs/editor/blog-editor.types";
 import { BlogMediaTile } from "@/components/blogs/editor/blog-media-tile";
-import { normalizeBlogContent } from "@/features/blogs/utils/blog-content";
+import {
+  normalizeBlogContent,
+  projectBlogContentToEditorLocale,
+} from "@/features/blogs/utils/blog-content";
+import type { BlogLocale } from "@/features/blogs/utils/blog-localization";
 
 type ListItemNode = {
   content?: string;
@@ -21,7 +25,19 @@ const GAP = 12;
 function renderInlineHtml(html: string): ReactNode[] {
   const parser = new DOMParser();
   const document = parser.parseFromString(html, "text/html");
-  const allowedTags = new Set(["strong", "b", "em", "i", "u", "s", "a", "code", "mark", "span", "br"]);
+  const allowedTags = new Set([
+    "strong",
+    "b",
+    "em",
+    "i",
+    "u",
+    "s",
+    "a",
+    "code",
+    "mark",
+    "span",
+    "br",
+  ]);
 
   const mapNode = (node: ChildNode, key: string): ReactNode => {
     if (node.nodeType === Node.TEXT_NODE) {
@@ -34,7 +50,9 @@ function renderInlineHtml(html: string): ReactNode[] {
 
     const element = node as HTMLElement;
     const tag = element.tagName.toLowerCase();
-    const children = Array.from(element.childNodes).map((child, index) => mapNode(child, `${key}-${index}`));
+    const children = Array.from(element.childNodes).map((child, index) =>
+      mapNode(child, `${key}-${index}`),
+    );
 
     if (!allowedTags.has(tag)) {
       return <span key={key}>{children}</span>;
@@ -56,13 +74,19 @@ function renderInlineHtml(html: string): ReactNode[] {
     if (tag === "span") {
       const style: CSSProperties = {
         ...(element.style.color ? { color: element.style.color } : {}),
-        ...(element.style.backgroundColor ? { backgroundColor: element.style.backgroundColor } : {}),
-        ...(element.style.borderRadius ? { borderRadius: element.style.borderRadius } : {}),
+        ...(element.style.backgroundColor
+          ? { backgroundColor: element.style.backgroundColor }
+          : {}),
+        ...(element.style.borderRadius
+          ? { borderRadius: element.style.borderRadius }
+          : {}),
         ...(element.style.padding ? { padding: element.style.padding } : {}),
         ...(element.style.boxDecorationBreak
           ? {
-              boxDecorationBreak: element.style.boxDecorationBreak as CSSProperties["boxDecorationBreak"],
-              WebkitBoxDecorationBreak: element.style.boxDecorationBreak as CSSProperties["WebkitBoxDecorationBreak"],
+              boxDecorationBreak: element.style
+                .boxDecorationBreak as CSSProperties["boxDecorationBreak"],
+              WebkitBoxDecorationBreak: element.style
+                .boxDecorationBreak as CSSProperties["WebkitBoxDecorationBreak"],
             }
           : {}),
       };
@@ -77,7 +101,9 @@ function renderInlineHtml(html: string): ReactNode[] {
     return createElement(tag, { key }, children);
   };
 
-  return Array.from(document.body.childNodes).map((node, index) => mapNode(node, `node-${index}`));
+  return Array.from(document.body.childNodes).map((node, index) =>
+    mapNode(node, `node-${index}`),
+  );
 }
 
 function normalizeListItem(item: unknown): ListItemNode {
@@ -96,7 +122,10 @@ function normalizeListItem(item: unknown): ListItemNode {
   };
 }
 
-function compareLayout(a?: { x?: number; y?: number }, b?: { x?: number; y?: number }) {
+function compareLayout(
+  a?: { x?: number; y?: number },
+  b?: { x?: number; y?: number },
+) {
   const yDiff = (a?.y ?? 0) - (b?.y ?? 0);
   if (yDiff !== 0) {
     return yDiff;
@@ -116,7 +145,10 @@ function getYouTubeEmbedUrl(source?: string, embed?: string) {
   }
 
   if (typeof embed === "string" && embed.length > 0) {
-    return embed.replace("https://www.youtube.com/embed/", "https://www.youtube-nocookie.com/embed/");
+    return embed.replace(
+      "https://www.youtube.com/embed/",
+      "https://www.youtube-nocookie.com/embed/",
+    );
   }
 
   return null;
@@ -186,16 +218,22 @@ function renderListItems(
 function PreviewMedia({
   media,
   layout,
+  mediaTitle,
+  mediaAlt,
 }: {
   media: BlogEditorMediaItem[];
   layout: Layout;
+  mediaTitle: string;
+  mediaAlt: string;
 }) {
   if (!media.length) {
     return null;
   }
 
   const layoutMap = new Map(layout.map((entry) => [entry.i, entry]));
-  const sortedMedia = [...media].sort((first, second) => compareLayout(layoutMap.get(first.id), layoutMap.get(second.id)));
+  const sortedMedia = [...media].sort((first, second) =>
+    compareLayout(layoutMap.get(first.id), layoutMap.get(second.id)),
+  );
 
   return (
     <div
@@ -220,7 +258,11 @@ function PreviewMedia({
 
         return (
           <div key={item.id} style={style} className="min-w-0">
-            <BlogMediaTile item={item} />
+            <BlogMediaTile
+              item={item}
+              youtubeTitle={mediaTitle}
+              mediaAlt={mediaAlt}
+            />
           </div>
         );
       })}
@@ -228,9 +270,18 @@ function PreviewMedia({
   );
 }
 
-export function BlogEditorPreview({ content }: { content: OutputData }) {
+export function BlogEditorPreview({
+  content,
+  locale = "en",
+}: {
+  content: OutputData;
+  locale?: BlogLocale;
+}) {
   const t = useTranslations("blogs.editor");
-  const normalized = normalizeBlogContent(content);
+  const normalized = projectBlogContentToEditorLocale(
+    normalizeBlogContent(content),
+    locale,
+  );
 
   return (
     <div className="mx-auto max-w-4xl space-y-2 text-[1.02rem] leading-8 text-slate-700">
@@ -245,36 +296,85 @@ export function BlogEditorPreview({ content }: { content: OutputData }) {
 
           return (
             <div key={blockId} className="not-prose my-10">
-              <PreviewMedia media={mediaData.items ?? []} layout={mediaData.layout ?? []} />
+              <PreviewMedia
+                media={mediaData.items ?? []}
+                layout={mediaData.layout ?? []}
+                mediaTitle={t("mediaTitle")}
+                mediaAlt={t("mediaAlt")}
+              />
             </div>
           );
         }
 
         if (block.type === "header") {
           const level = Number((block.data as { level?: number }).level ?? 2);
-          const rich = renderInlineHtml(String((block.data as { text?: string }).text ?? ""));
+          const rich = renderInlineHtml(
+            String((block.data as { text?: string }).text ?? ""),
+          );
 
           if (level === 1) {
-            return <h1 key={blockId} className="mb-5 text-4xl font-semibold leading-tight tracking-[-0.03em] text-slate-950 md:text-5xl">{rich}</h1>;
+            return (
+              <h1
+                key={blockId}
+                className="mb-5 text-4xl font-semibold leading-tight tracking-[-0.03em] text-slate-950 md:text-5xl"
+              >
+                {rich}
+              </h1>
+            );
           }
 
           if (level === 2) {
-            return <h2 key={blockId} className="mb-5 mt-10 text-3xl font-semibold tracking-[-0.03em] text-slate-950 md:text-4xl">{rich}</h2>;
+            return (
+              <h2
+                key={blockId}
+                className="mb-5 mt-10 text-3xl font-semibold tracking-[-0.03em] text-slate-950 md:text-4xl"
+              >
+                {rich}
+              </h2>
+            );
           }
 
           if (level === 3) {
-            return <h3 key={blockId} className="mb-4 mt-8 text-2xl font-semibold tracking-tight text-slate-900">{rich}</h3>;
+            return (
+              <h3
+                key={blockId}
+                className="mb-4 mt-8 text-2xl font-semibold tracking-tight text-slate-900"
+              >
+                {rich}
+              </h3>
+            );
           }
 
           if (level === 4) {
-            return <h4 key={blockId} className="mb-3 mt-7 text-xl font-semibold text-slate-900">{rich}</h4>;
+            return (
+              <h4
+                key={blockId}
+                className="mb-3 mt-7 text-xl font-semibold text-slate-900"
+              >
+                {rich}
+              </h4>
+            );
           }
 
           if (level === 5) {
-            return <h5 key={blockId} className="mb-3 mt-6 text-lg font-semibold text-slate-900">{rich}</h5>;
+            return (
+              <h5
+                key={blockId}
+                className="mb-3 mt-6 text-lg font-semibold text-slate-900"
+              >
+                {rich}
+              </h5>
+            );
           }
 
-          return <h6 key={blockId} className="mb-3 mt-6 text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">{rich}</h6>;
+          return (
+            <h6
+              key={blockId}
+              className="mb-3 mt-6 text-sm font-semibold uppercase tracking-[0.18em] text-slate-500"
+            >
+              {rich}
+            </h6>
+          );
         }
 
         if (block.type === "list") {
@@ -283,7 +383,15 @@ export function BlogEditorPreview({ content }: { content: OutputData }) {
             items?: unknown[];
           };
 
-          return <div key={blockId}>{renderListItems(listData.items ?? [], listData.style ?? "unordered", blockId)}</div>;
+          return (
+            <div key={blockId}>
+              {renderListItems(
+                listData.items ?? [],
+                listData.style ?? "unordered",
+                blockId,
+              )}
+            </div>
+          );
         }
 
         if (block.type === "youtube" || block.type === "embed") {
@@ -318,9 +426,14 @@ export function BlogEditorPreview({ content }: { content: OutputData }) {
           }
         }
 
-        const rich = renderInlineHtml(String((block.data as { text?: string }).text ?? ""));
+        const rich = renderInlineHtml(
+          String((block.data as { text?: string }).text ?? ""),
+        );
         return (
-          <p key={blockId} className="mb-5 text-[1.02rem] leading-8 text-slate-700">
+          <p
+            key={blockId}
+            className="mb-5 text-[1.02rem] leading-8 text-slate-700"
+          >
             {rich}
           </p>
         );

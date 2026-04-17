@@ -1,9 +1,10 @@
 import type { OutputData } from "@editorjs/editorjs";
 
 import type { BlogDetailRecord } from "@/features/blogs/types/blogs.types";
+import type { BlogLocalizedText } from "@/features/blogs/utils/blog-localization";
 
 export type BlogMutationPayload = {
-  name: string;
+  name: BlogLocalizedText;
   content: OutputData;
   isPinned: boolean;
   isPublished: boolean;
