@@ -44,19 +44,6 @@ export function AuthShell({ children }: AuthShellProps) {
               {t("description")}
             </p>
           </div>
-          {!isCenteredPage ? (
-            <div className="stagger-fade grid gap-4 text-sm text-white/72 md:grid-cols-3">
-              <div className="surface-float rounded-2xl border border-white/8 bg-white/6 p-4">
-                {t("card1")}
-              </div>
-              <div className="surface-float rounded-2xl border border-white/8 bg-white/6 p-4">
-                {t("card2")}
-              </div>
-              <div className="surface-float rounded-2xl border border-white/8 bg-white/6 p-4">
-                {t("card3")}
-              </div>
-            </div>
-          ) : null}
         </section>
         <section
           className={

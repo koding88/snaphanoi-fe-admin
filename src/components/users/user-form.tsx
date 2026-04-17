@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
 import { AppSelect } from "@/components/ui/select";
 import { DEFAULT_COUNTRY_CODE } from "@/lib/constants/countries";
+import { normalizePhoneNumber } from "@/lib/phone-number";
 import { notifyError } from "@/lib/toast";
 import type { RoleOption, UserRecord } from "@/features/users/types/users.types";
 import { getFriendlyUsersError } from "@/features/users/utils/users-errors";
@@ -19,6 +20,7 @@ export type UserFormValues = {
   name: string;
   email: string;
   password: string;
+  phoneNumber: string;
   countryCode: string;
   roleId: string;
   isActive: boolean;
@@ -46,14 +48,17 @@ export function UserForm({
     name: initialValues?.name ?? "",
     email: initialValues?.email ?? "",
     password: initialValues?.password ?? "",
+    phoneNumber: initialValues?.phoneNumber ?? "",
     countryCode: initialValues?.countryCode ?? DEFAULT_COUNTRY_CODE,
     roleId: initialValues?.roleId ?? roles[0]?.id ?? "",
     isActive: initialValues?.isActive ?? true,
   });
+  const initialPhoneNumber = initialValues?.phoneNumber?.trim() ?? "";
   const [fieldErrors, setFieldErrors] = useState<{
     name?: string;
     email?: string;
     password?: string;
+    phoneNumber?: string;
   }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -63,7 +68,12 @@ export function UserForm({
       name?: string;
       email?: string;
       password?: string;
+      phoneNumber?: string;
     } = {};
+    const trimmedPhoneNumber = values.phoneNumber.trim();
+    const normalizedPhoneNumber = trimmedPhoneNumber
+      ? normalizePhoneNumber(trimmedPhoneNumber, values.countryCode)
+      : null;
 
     if (!values.name.trim()) {
       nextFieldErrors.name = t("errors.nameRequired");
@@ -87,6 +97,14 @@ export function UserForm({
       nextFieldErrors.password = t("errors.passwordWeakEdit");
     }
 
+    if (trimmedPhoneNumber && !normalizedPhoneNumber) {
+      nextFieldErrors.phoneNumber = t("errors.phoneNumberInvalid");
+    }
+
+    if (mode === "edit" && initialPhoneNumber && !trimmedPhoneNumber) {
+      nextFieldErrors.phoneNumber = t("errors.phoneNumberClearUnsupported");
+    }
+
     setFieldErrors(nextFieldErrors);
 
     if (Object.keys(nextFieldErrors).length > 0) {
@@ -96,7 +114,10 @@ export function UserForm({
     setIsSubmitting(true);
 
     try {
-      await onSubmit(values);
+      await onSubmit({
+        ...values,
+        phoneNumber: normalizedPhoneNumber ?? "",
+      });
     } catch (submissionError) {
       notifyError(getFriendlyUsersError(submissionError));
     } finally {
@@ -163,6 +184,39 @@ export function UserForm({
           />
         </label>
         <label className="space-y-2">
+          <span className="text-sm font-medium text-foreground">{t("fields.phoneNumber")}</span>
+          <Input
+            type="tel"
+            value={values.phoneNumber}
+            onChange={(event) => {
+              setValues((current) => ({ ...current, phoneNumber: event.target.value }));
+              setFieldErrors((current) => ({ ...current, phoneNumber: undefined }));
+            }}
+            onBlur={() => {
+              const trimmedPhoneNumber = values.phoneNumber.trim();
+
+              if (!trimmedPhoneNumber) {
+                return;
+              }
+
+              const normalizedPhoneNumber = normalizePhoneNumber(trimmedPhoneNumber, values.countryCode);
+
+              if (!normalizedPhoneNumber) {
+                setFieldErrors((current) => ({
+                  ...current,
+                  phoneNumber: t("errors.phoneNumberInvalid"),
+                }));
+                return;
+              }
+
+              setValues((current) => ({ ...current, phoneNumber: normalizedPhoneNumber }));
+            }}
+            placeholder="+84901234567"
+            aria-invalid={Boolean(fieldErrors.phoneNumber)}
+          />
+          {fieldErrors.phoneNumber ? <p className="text-sm text-red-600">{fieldErrors.phoneNumber}</p> : null}
+        </label>
+        <label className="space-y-2">
           <span className="text-sm font-medium text-foreground">{t("fields.role")}</span>
           <AppSelect
             value={values.roleId}
@@ -207,6 +261,7 @@ export function getUserFormInitialValues(user: UserRecord): Partial<UserFormValu
   return {
     name: user.name,
     email: user.email,
+    phoneNumber: user.phoneNumber ?? "",
     countryCode: user.countryCode ?? DEFAULT_COUNTRY_CODE,
     roleId: user.roleId ?? "",
     isActive: user.isActive,

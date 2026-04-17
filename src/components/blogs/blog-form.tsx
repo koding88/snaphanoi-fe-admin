@@ -106,6 +106,8 @@ export function BlogForm({
   }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUploadingCover, setIsUploadingCover] = useState(false);
+  const [isCoverPreviewPending, setIsCoverPreviewPending] = useState(false);
+  const isCoverBusy = isUploadingCover || isCoverPreviewPending;
 
   useEffect(() => {
     if (!existingCoverImage) {
@@ -119,6 +121,7 @@ export function BlogForm({
       existingCoverImage,
       changed: false,
     });
+    setIsCoverPreviewPending(false);
   }, [existingCoverImage]);
 
   async function uploadBlogFile(file: File, purpose: "blog-cover" | "blog-content") {
@@ -149,6 +152,7 @@ export function BlogForm({
 
   async function handleCoverUpload(file: File) {
     setIsUploadingCover(true);
+    setIsCoverPreviewPending(true);
     setFieldErrors((current) => ({ ...current, cover: undefined }));
 
     try {
@@ -163,6 +167,7 @@ export function BlogForm({
       });
     } catch (error) {
       notifyError(getFriendlyBlogsError(error));
+      setIsCoverPreviewPending(false);
       setFieldErrors((current) => ({
         ...current,
         cover: t("errors.coverUploadFailed"),
@@ -244,75 +249,77 @@ export function BlogForm({
         </div>
 
         <div className="space-y-6">
-          <label className="space-y-2.5">
-            <span className="text-sm font-semibold text-foreground">{t("fields.title")}</span>
-            <p className="text-sm leading-6 text-foreground/75">{t("fields.titleHelper")}</p>
-            <Input
-              value={values.name}
-              onChange={(event) => {
-                setValues((current) => ({ ...current, name: event.target.value }));
-                setFieldErrors((current) => ({ ...current, name: undefined }));
-              }}
-              placeholder={t("fields.titlePlaceholder")}
-              aria-invalid={Boolean(fieldErrors.name)}
-              className="h-14 text-base font-medium placeholder:text-muted-foreground"
-            />
-            {fieldErrors.name ? <p className="text-sm text-red-600">{fieldErrors.name}</p> : null}
-          </label>
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1.08fr)_minmax(300px,0.92fr)] lg:items-start">
+            <div className="space-y-5">
+              <label className="space-y-2.5">
+                <span className="text-sm font-semibold text-foreground">{t("fields.title")}</span>
+                <p className="text-sm leading-6 text-foreground/75">{t("fields.titleHelper")}</p>
+                <Input
+                  value={values.name}
+                  onChange={(event) => {
+                    setValues((current) => ({ ...current, name: event.target.value }));
+                    setFieldErrors((current) => ({ ...current, name: undefined }));
+                  }}
+                  placeholder={t("fields.titlePlaceholder")}
+                  aria-invalid={Boolean(fieldErrors.name)}
+                  className="h-14 text-base font-medium placeholder:text-muted-foreground"
+                />
+                {fieldErrors.name ? <p className="text-sm text-red-600">{fieldErrors.name}</p> : null}
+              </label>
 
-          <div className="grid gap-6 xl:grid-cols-[minmax(0,0.95fr)_minmax(340px,1.05fr)]">
-            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
-              <label className="space-y-2">
-                <span className="text-sm font-medium text-foreground">{t("fields.publishingState")}</span>
-                <AppSelect
-                  value={String(values.isPublished)}
-                  onChange={(nextValue) =>
-                    setValues((current) => ({
-                      ...current,
-                      isPublished: nextValue === "true",
-                    }))
-                  }
-                  options={[
-                    {
-                      value: "false",
-                      label: t("fields.publishOptions.draft.label"),
-                      description: t("fields.publishOptions.draft.description"),
-                    },
-                    {
-                      value: "true",
-                      label: t("fields.publishOptions.published.label"),
-                      description: t("fields.publishOptions.published.description"),
-                    },
-                  ]}
-                />
-              </label>
-              <label className="space-y-2">
-                <span className="text-sm font-medium text-foreground">{t("fields.pinnedState")}</span>
-                <AppSelect
-                  value={String(values.isPinned)}
-                  onChange={(nextValue) =>
-                    setValues((current) => ({
-                      ...current,
-                      isPinned: nextValue === "true",
-                    }))
-                  }
-                  options={[
-                    {
-                      value: "false",
-                      label: t("fields.pinOptions.standard.label"),
-                      description: t("fields.pinOptions.standard.description"),
-                    },
-                    {
-                      value: "true",
-                      label: t("fields.pinOptions.pinned.label"),
-                      description: t("fields.pinOptions.pinned.description"),
-                    },
-                  ]}
-                />
-              </label>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <label className="space-y-2 rounded-[1.35rem] border border-border/70 bg-white/78 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.78)]">
+                  <span className="text-sm font-medium text-foreground">{t("fields.publishingState")}</span>
+                  <AppSelect
+                    value={String(values.isPublished)}
+                    onChange={(nextValue) =>
+                      setValues((current) => ({
+                        ...current,
+                        isPublished: nextValue === "true",
+                      }))
+                    }
+                    options={[
+                      {
+                        value: "false",
+                        label: t("fields.publishOptions.draft.label"),
+                        description: t("fields.publishOptions.draft.description"),
+                      },
+                      {
+                        value: "true",
+                        label: t("fields.publishOptions.published.label"),
+                        description: t("fields.publishOptions.published.description"),
+                      },
+                    ]}
+                  />
+                </label>
+                <label className="space-y-2 rounded-[1.35rem] border border-border/70 bg-white/78 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.78)]">
+                  <span className="text-sm font-medium text-foreground">{t("fields.pinnedState")}</span>
+                  <AppSelect
+                    value={String(values.isPinned)}
+                    onChange={(nextValue) =>
+                      setValues((current) => ({
+                        ...current,
+                        isPinned: nextValue === "true",
+                      }))
+                    }
+                    options={[
+                      {
+                        value: "false",
+                        label: t("fields.pinOptions.standard.label"),
+                        description: t("fields.pinOptions.standard.description"),
+                      },
+                      {
+                        value: "true",
+                        label: t("fields.pinOptions.pinned.label"),
+                        description: t("fields.pinOptions.pinned.description"),
+                      },
+                    ]}
+                  />
+                </label>
+              </div>
             </div>
 
-            <div className="rounded-[1.75rem] border border-border/70 bg-white/78 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.78)] md:p-5">
+            <div className="rounded-[1.55rem] border border-border/70 bg-white/78 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.78)] md:p-5">
               <div className="mb-4 space-y-1">
                 <p className="text-sm font-semibold text-foreground">{t("fields.cover")}</p>
                 <p className="text-sm leading-6 text-foreground/75">
@@ -327,23 +334,20 @@ export function BlogForm({
                 meta={cover.meta}
                 required={mode === "create"}
                 isUploading={isUploadingCover}
+                isPreviewPending={isCoverPreviewPending}
                 error={fieldErrors.cover}
                 onSelectFile={(file) => {
                   void handleCoverUpload(file);
                 }}
-                onRemove={() => {
-                  if (existingCoverImage) {
-                    setCover({
-                      previewUrl: existingCoverImage.url,
-                      title: existingCoverImage.originalName,
-                      meta: getCoverMeta(existingCoverImage),
-                      existingCoverImage,
-                      changed: false,
-                    });
-                    return;
-                  }
-
-                  setCover(DEFAULT_COVER_STATE);
+                onPreviewReady={() => {
+                  setIsCoverPreviewPending(false);
+                }}
+                onPreviewError={() => {
+                  setIsCoverPreviewPending(false);
+                  setFieldErrors((current) => ({
+                    ...current,
+                    cover: t("errors.coverUploadFailed"),
+                  }));
                 }}
               />
             </div>
@@ -386,6 +390,7 @@ export function BlogForm({
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm leading-6 text-foreground/75">
             {isUploadingCover
+              || isCoverPreviewPending
               ? t("actions.helperUploading")
               : mode === "create"
                 ? t("actions.helperCreate")
@@ -395,7 +400,7 @@ export function BlogForm({
             type="submit"
             size="lg"
             className="w-full min-w-52 rounded-full sm:w-auto"
-            disabled={isSubmitting || isUploadingCover}
+            disabled={isSubmitting || isCoverBusy}
           >
             {isSubmitting ? t("actions.saving") : submitLabel}
           </Button>

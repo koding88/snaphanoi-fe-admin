@@ -4,6 +4,7 @@ export type AuthenticatedUser = {
   id: string;
   name: string;
   email: string;
+  phoneNumber: string | null;
   countryCode: string | null;
   roleId: string | null;
   roleName: string | null;

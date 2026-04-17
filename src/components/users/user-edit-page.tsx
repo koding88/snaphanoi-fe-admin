@@ -49,6 +49,7 @@ export function UserEditPage({ id }: { id: string }) {
       name: values.name,
       email: values.email,
       password: values.password || undefined,
+      phoneNumber: values.phoneNumber || undefined,
       countryCode: values.countryCode,
       roleId: values.roleId,
       isActive: values.isActive,

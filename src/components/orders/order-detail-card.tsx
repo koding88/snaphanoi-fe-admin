@@ -12,7 +12,7 @@ import {
   formatOrderPaymentStatus,
   formatOrderStatus,
 } from "@/features/orders/utils/orders-format";
-import { formatDateTime } from "@/features/users/utils/users-format";
+import { formatDateTime, formatPhoneNumberDisplay } from "@/features/users/utils/users-format";
 
 function getLocalizedText(value: string | { en: string; vi: string; cn: string } | undefined, fallback: string) {
   if (!value) {
@@ -138,8 +138,9 @@ export function OrderDetailCard({ order, onUpdated }: OrderDetailCardProps) {
                   <p className="text-base font-medium text-foreground">
                     {order.customerInfo.name}
                   </p>
+                  <p className="text-sm text-muted-foreground">{order.customerInfo.email}</p>
                   <p className="text-sm text-muted-foreground">
-                    {order.customerInfo.email} - {formatOrderCountry(order.customerInfo.countryCode)}
+                    {formatPhoneNumberDisplay(order.customerInfo.phoneNumber)} - {formatOrderCountry(order.customerInfo.countryCode)}
                   </p>
                 </div>
               </div>

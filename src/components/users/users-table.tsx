@@ -15,7 +15,7 @@ import { ROUTES } from "@/lib/constants/routes";
 import { faRotateLeft, faTrashCan, faUserPen } from "@/lib/icons/fa";
 import { cn } from "@/lib/utils";
 import type { UserRecord } from "@/features/users/types/users.types";
-import { formatCountryCode } from "@/features/users/utils/users-format";
+import { formatCountryCode, formatPhoneNumberDisplay } from "@/features/users/utils/users-format";
 
 type UsersTableProps = {
   users: UserRecord[];
@@ -101,6 +101,7 @@ export function UsersTable({ users, isBusy = false, onDelete, onRestore }: Users
                   <td className="align-middle px-5 py-4">
                     <div className="space-y-1">
                       <p className="font-medium text-foreground">{user.name}</p>
+                      <p className="text-sm text-muted-foreground">{formatPhoneNumberDisplay(user.phoneNumber)}</p>
                       <p className="text-sm text-muted-foreground">{user.email}</p>
                       <p className="text-xs text-muted-foreground sm:hidden">{user.roleName ?? "—"}</p>
                       <p className="text-xs text-muted-foreground md:hidden">{formatCountryCode(user.countryCode)}</p>

@@ -128,6 +128,8 @@ export function ProjectForm({
   }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUploadingCover, setIsUploadingCover] = useState(false);
+  const [isCoverPreviewPending, setIsCoverPreviewPending] = useState(false);
+  const isCoverBusy = isUploadingCover || isCoverPreviewPending;
 
   function errorKeyByLocale(locale: "en" | "vi" | "cn") {
     if (locale === "en") {
@@ -153,6 +155,7 @@ export function ProjectForm({
       existingCoverImage,
       changed: false,
     });
+    setIsCoverPreviewPending(false);
   }, [existingCoverImage]);
 
   async function uploadProjectFile(
@@ -186,6 +189,7 @@ export function ProjectForm({
 
   async function handleCoverUpload(file: File) {
     setIsUploadingCover(true);
+    setIsCoverPreviewPending(true);
     setFieldErrors((current) => ({ ...current, cover: undefined }));
 
     try {
@@ -200,6 +204,7 @@ export function ProjectForm({
       });
     } catch (error) {
       notifyError(getFriendlyProjectsError(error));
+      setIsCoverPreviewPending(false);
       setFieldErrors((current) => ({
         ...current,
         cover: t("errors.coverUploadFailed"),
@@ -389,23 +394,20 @@ export function ProjectForm({
               meta={cover.meta}
               required={mode === "create"}
               isUploading={isUploadingCover}
+              isPreviewPending={isCoverPreviewPending}
               error={fieldErrors.cover}
               onSelectFile={(file) => {
                 void handleCoverUpload(file);
               }}
-              onRemove={() => {
-                if (existingCoverImage) {
-                  setCover({
-                    previewUrl: existingCoverImage.url,
-                    title: existingCoverImage.originalName,
-                    meta: getCoverMeta(existingCoverImage),
-                    existingCoverImage,
-                    changed: false,
-                  });
-                  return;
-                }
-
-                setCover(DEFAULT_COVER_STATE);
+              onPreviewReady={() => {
+                setIsCoverPreviewPending(false);
+              }}
+              onPreviewError={() => {
+                setIsCoverPreviewPending(false);
+                setFieldErrors((current) => ({
+                  ...current,
+                  cover: t("errors.coverUploadFailed"),
+                }));
               }}
             />
           </div>
@@ -449,7 +451,7 @@ export function ProjectForm({
           type="submit"
           size="lg"
           className="min-w-44 rounded-full"
-          disabled={isSubmitting || isUploadingCover}
+          disabled={isSubmitting || isCoverBusy}
         >
           {isSubmitting ? t("actions.saving") : submitLabel}
         </Button>

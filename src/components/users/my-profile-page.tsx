@@ -31,7 +31,7 @@ export function MyProfilePage() {
 
   const currentUser = user;
 
-  async function handleSubmit(payload: { name: string; countryCode: string }) {
+  async function handleSubmit(payload: { name: string; phoneNumber?: string; countryCode: string }) {
     const response = await updateMyProfile(payload);
     const updated = response.data;
     setUser({

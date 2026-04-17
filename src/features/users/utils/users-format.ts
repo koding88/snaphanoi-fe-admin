@@ -1,4 +1,5 @@
 import { getCountryByCode } from "@/lib/constants/countries";
+import { formatPhoneNumberDisplay } from "@/lib/phone-number";
 
 export function formatDateTime(value: string | null) {
   if (!value) {
@@ -52,3 +53,5 @@ export function formatGalleryDisplayName(value: string | null | undefined) {
   const trimmed = value.trim();
   return trimmed.length > 0 ? trimmed : "Deleted gallery";
 }
+
+export { formatPhoneNumberDisplay };

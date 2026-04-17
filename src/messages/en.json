@@ -254,6 +254,7 @@
       "fields": {
         "fullName": "Full name",
         "email": "Email",
+        "phoneNumber": "Phone number",
         "password": "Password",
         "newPassword": "New password",
         "passwordPlaceholderCreate": "MySecurePass1",
@@ -275,6 +276,8 @@
         "nameRequired": "Full name is required.",
         "emailRequired": "Email is required.",
         "emailInvalid": "Enter a valid email address.",
+        "phoneNumberInvalid": "Enter a valid phone number for the selected country.",
+        "phoneNumberClearUnsupported": "Clearing an existing phone number is not supported here yet.",
         "passwordRequired": "Password is required.",
         "passwordWeak": "Password must be at least 8 characters and include uppercase, lowercase, and a number.",
         "passwordWeakEdit": "If you provide a new password, it must be at least 8 characters and include uppercase, lowercase, and a number."
@@ -343,6 +346,7 @@
       "sections": { "identity": "Account identity", "profile": "Profile and account state", "metadata": "Admin metadata" },
       "fields": {
         "email": "Email",
+        "phoneNumber": "Phone number",
         "country": "Country",
         "role": "Role",
         "noRole": "No role assigned",
@@ -370,6 +374,7 @@
         "fullName": "Full name",
         "email": "Email",
         "newEmail": "New email",
+        "phoneNumber": "Phone number",
         "country": "Country",
         "verificationCode": "Verification code"
       },
@@ -403,6 +408,8 @@
       },
       "errors": {
         "nameRequired": "Full name is required.",
+        "phoneNumberInvalid": "Enter a valid phone number for the selected country.",
+        "phoneNumberClearUnsupported": "Clearing an existing phone number is not supported here yet.",
         "emailRequired": "Email is required.",
         "emailInvalid": "Enter a valid email address.",
         "emailSame": "Use a different email from the one already on your account.",

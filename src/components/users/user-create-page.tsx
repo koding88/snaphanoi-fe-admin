@@ -45,6 +45,7 @@ export function UserCreatePage() {
       name: values.name,
       email: values.email,
       password: values.password,
+      phoneNumber: values.phoneNumber || undefined,
       countryCode: values.countryCode,
       roleId: values.roleId,
     });

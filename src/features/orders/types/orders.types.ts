@@ -73,6 +73,7 @@ export type OrderCustomerInfo = {
   name: string;
   email: string;
   countryCode: string;
+  phoneNumber: string | null;
 };
 
 export type OrderRecord = {

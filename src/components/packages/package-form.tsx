@@ -7,6 +7,7 @@ import {
   type TextareaHTMLAttributes,
 } from "react";
 import { useTranslations } from "next-intl";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { PackageCoverField } from "@/components/packages/package-cover-field";
 import { PackageCurrencySelect } from "@/components/packages/package-currency-select";
@@ -29,6 +30,7 @@ import {
   packageDurationSecondsToMinutes,
 } from "@/features/packages/utils/package-format";
 import { getFriendlyPackagesError } from "@/features/packages/utils/packages-errors";
+import { faSpinner } from "@/lib/icons/fa";
 import { cn } from "@/lib/utils";
 import { notifyError } from "@/lib/toast";
 
@@ -422,7 +424,9 @@ export function PackageForm({
   }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUploadingCover, setIsUploadingCover] = useState(false);
+  const [isCoverPreviewPending, setIsCoverPreviewPending] = useState(false);
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
+  const isCoverBusy = isUploadingCover || isCoverPreviewPending;
   const previewLocale = activeNameLocale;
   const previewName = values.name[previewLocale].trim();
   const previewBestFor = values.bestFor[previewLocale].trim();
@@ -459,6 +463,7 @@ export function PackageForm({
       existingCoverImage,
       changed: false,
     });
+    setIsCoverPreviewPending(false);
   }, [existingCoverImage]);
 
   useEffect(() => {
@@ -493,6 +498,7 @@ export function PackageForm({
 
   async function handleCoverUpload(file: File) {
     setIsUploadingCover(true);
+    setIsCoverPreviewPending(true);
     setFieldErrors((current) => ({ ...current, cover: undefined }));
 
     try {
@@ -511,10 +517,11 @@ export function PackageForm({
       });
     } catch (error) {
       notifyError(getFriendlyPackagesError(error));
-        setFieldErrors((current) => ({
-          ...current,
-          cover: t("errors.coverUploadFailed"),
-        }));
+      setIsCoverPreviewPending(false);
+      setFieldErrors((current) => ({
+        ...current,
+        cover: t("errors.coverUploadFailed"),
+      }));
     } finally {
       setIsUploadingCover(false);
     }
@@ -915,23 +922,20 @@ export function PackageForm({
                 meta={cover.meta}
                 required={mode === "create"}
                 isUploading={isUploadingCover}
+                isPreviewPending={isCoverPreviewPending}
                 error={fieldErrors.cover}
                 onSelectFile={(file) => {
                   void handleCoverUpload(file);
                 }}
-                onRemove={() => {
-                  if (existingCoverImage) {
-                    setCover({
-                      previewUrl: existingCoverImage.url,
-                      title: existingCoverImage.originalName,
-                      meta: getCoverMeta(existingCoverImage),
-                      existingCoverImage,
-                      changed: false,
-                    });
-                    return;
-                  }
-
-                  setCover(DEFAULT_COVER_STATE);
+                onPreviewReady={() => {
+                  setIsCoverPreviewPending(false);
+                }}
+                onPreviewError={() => {
+                  setIsCoverPreviewPending(false);
+                  setFieldErrors((current) => ({
+                    ...current,
+                    cover: t("errors.coverUploadFailed"),
+                  }));
                 }}
               />
               <div className="mt-6 border-t border-border/60 pt-6">
@@ -942,10 +946,13 @@ export function PackageForm({
                   <div className="relative aspect-[4/5] overflow-hidden bg-[linear-gradient(180deg,rgba(249,245,238,0.88),rgba(241,236,228,0.9))]">
                     {hasCover ? (
                       <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.45),rgba(232,224,212,0.5))] p-3">
-                          <img
-                            src={cover.previewUrl ?? ""}
-                            alt={previewName || t("preview.coverAlt")}
-                          className="h-full w-full rounded-[1rem] object-contain object-center"
+                        <img
+                          src={cover.previewUrl ?? ""}
+                          alt={previewName || t("preview.coverAlt")}
+                          className={cn(
+                            "h-full w-full rounded-[1rem] object-contain object-center transition-opacity duration-200",
+                            isCoverBusy ? "opacity-70" : "opacity-100",
+                          )}
                         />
                       </div>
                     ) : (
@@ -953,6 +960,14 @@ export function PackageForm({
                         {t("preview.uploadHint")}
                       </div>
                     )}
+                    {hasCover && isCoverBusy ? (
+                      <div className="absolute inset-0 flex items-center justify-center bg-[linear-gradient(180deg,rgba(251,249,245,0.45),rgba(242,236,227,0.68))] backdrop-blur-[2px]">
+                        <div className="inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/88 px-4 py-2 text-sm font-medium text-foreground shadow-[0_14px_32px_-20px_rgba(15,23,42,0.4)]">
+                          <FontAwesomeIcon icon={faSpinner} className="animate-spin text-[--color-brand-muted]" />
+                          <span>{t("coverField.uploading")}</span>
+                        </div>
+                      </div>
+                    ) : null}
                     <span className="absolute top-3 right-3 rounded-full border border-white/45 bg-black/40 px-2.5 py-1 text-[10px] font-semibold tracking-[0.14em] text-white/90 uppercase">
                       {previewLocale.toUpperCase()}
                     </span>
@@ -1024,7 +1039,7 @@ export function PackageForm({
             type="submit"
             size="lg"
             className="min-w-52 rounded-full"
-            disabled={isSubmitting || isUploadingCover}
+            disabled={isSubmitting || isCoverBusy}
           >
             {isSubmitting ? t("actions.saving") : submitLabel}
           </Button>

@@ -11,8 +11,7 @@ import {
   formatOrderPaymentStatus,
   formatOrderStatus,
 } from "@/features/orders/utils/orders-format";
-import { formatDateOnly } from "@/features/users/utils/users-format";
-import { getCountryByCode } from "@/lib/constants/countries";
+import { formatDateOnly, formatPhoneNumberDisplay } from "@/features/users/utils/users-format";
 import { ROUTES } from "@/lib/constants/routes";
 import {
   faFacebook,
@@ -177,7 +176,7 @@ export function OrdersTable({ orders }: OrdersTableProps) {
                   {formatDateOnly(order.createdAt)}
                 </p>
                 <p className="mt-1 truncate text-xs text-muted-foreground md:hidden">
-                  {order.customerInfo.name} · {order.customerInfo.email}
+                  {order.customerInfo.name} · {order.customerInfo.phoneNumber ? formatPhoneNumberDisplay(order.customerInfo.phoneNumber) : order.customerInfo.email}
                 </p>
                 <p className="mt-1 truncate text-[11px] text-muted-foreground md:hidden">
                   {formatOrderDiscoverySource(order.discoverySource)}
@@ -210,14 +209,9 @@ export function OrdersTable({ orders }: OrdersTableProps) {
                 </p>
                 <p
                   className="mt-1 text-[10px] font-semibold tracking-[0.14em] text-muted-foreground/85 uppercase"
-                  title={order.customerInfo.countryCode || t("na")}
+                  title={order.customerInfo.phoneNumber ?? t("na")}
                 >
-                  {(() => {
-                    const code = order.customerInfo.countryCode || t("na");
-                    const country = getCountryByCode(order.customerInfo.countryCode);
-
-                    return country ? `${country.flag} ${code}` : code;
-                  })()}
+                  {order.customerInfo.phoneNumber ? formatPhoneNumberDisplay(order.customerInfo.phoneNumber) : t("na")}
                 </p>
               </div>
               <div className="hidden min-w-0 text-sm text-muted-foreground xl:block">

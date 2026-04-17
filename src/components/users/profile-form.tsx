@@ -24,11 +24,16 @@ import type { RequestMyEmailChangeOtpResult } from "@/features/users/types/users
 import type { UserRecord } from "@/features/users/types/users.types";
 import { getFriendlyUsersError } from "@/features/users/utils/users-errors";
 import { DEFAULT_COUNTRY_CODE } from "@/lib/constants/countries";
+import { normalizePhoneNumber } from "@/lib/phone-number";
 import { notifyError, notifySuccess } from "@/lib/toast";
+
+const PHONE_NUMBER_LABEL = "Phone number";
+const PHONE_NUMBER_INVALID_MESSAGE = "Enter a valid phone number for the selected country.";
+const PHONE_NUMBER_CLEAR_UNSUPPORTED_MESSAGE = "Clearing an existing phone number is not supported here yet.";
 
 type ProfileFormProps = {
   user: UserRecord;
-  onSubmit: (payload: { name: string; countryCode: string }) => Promise<void>;
+  onSubmit: (payload: { name: string; phoneNumber?: string; countryCode: string }) => Promise<void>;
   onRequestEmailOtp: (payload: { email: string }) => Promise<{
     message?: string | null;
     data: RequestMyEmailChangeOtpResult;
@@ -69,16 +74,18 @@ export function ProfileForm({
   const initialCountryCode = user.countryCode ?? DEFAULT_COUNTRY_CODE;
   const [values, setValues] = useState({
     name: user.name,
+    phoneNumber: user.phoneNumber ?? "",
     countryCode: initialCountryCode,
   });
   const [savedProfile, setSavedProfile] = useState({
     name: user.name,
+    phoneNumber: user.phoneNumber ?? "",
     countryCode: initialCountryCode,
   });
   const [verifiedEmail, setVerifiedEmail] = useState(user.email);
   const [emailDraft, setEmailDraft] = useState(user.email);
   const [pendingEmail, setPendingEmail] = useState<string | null>(null);
-  const [fieldErrors, setFieldErrors] = useState<{ name?: string }>({});
+  const [fieldErrors, setFieldErrors] = useState<{ name?: string; phoneNumber?: string }>({});
   const [emailError, setEmailError] = useState<string | null>(null);
   const [otpError, setOtpError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -90,7 +97,9 @@ export function ProfileForm({
   const [resendAvailableInSeconds, setResendAvailableInSeconds] = useState(0);
 
   const profileDirty =
-    values.name !== savedProfile.name || values.countryCode !== savedProfile.countryCode;
+    values.name !== savedProfile.name ||
+    values.phoneNumber !== savedProfile.phoneNumber ||
+    values.countryCode !== savedProfile.countryCode;
   const normalizedEmailDraft = emailDraft.trim();
   const hasPendingEmailChange = normalizedEmailDraft !== verifiedEmail;
   const canResendCode =
@@ -248,10 +257,23 @@ export function ProfileForm({
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const nextFieldErrors: { name?: string } = {};
+    const nextFieldErrors: { name?: string; phoneNumber?: string } = {};
+    const trimmedPhoneNumber = values.phoneNumber.trim();
+    const normalizedPhoneNumber = trimmedPhoneNumber
+      ? normalizePhoneNumber(trimmedPhoneNumber, values.countryCode)
+      : null;
+    const hasSavedPhoneNumber = savedProfile.phoneNumber.trim().length > 0;
 
     if (!values.name.trim()) {
       nextFieldErrors.name = t("errors.nameRequired");
+    }
+
+    if (trimmedPhoneNumber && !normalizedPhoneNumber) {
+      nextFieldErrors.phoneNumber = PHONE_NUMBER_INVALID_MESSAGE;
+    }
+
+    if (!trimmedPhoneNumber && hasSavedPhoneNumber) {
+      nextFieldErrors.phoneNumber = PHONE_NUMBER_CLEAR_UNSUPPORTED_MESSAGE;
     }
 
     setFieldErrors(nextFieldErrors);
@@ -263,8 +285,21 @@ export function ProfileForm({
     setIsSubmitting(true);
 
     try {
-      await onSubmit(values);
-      setSavedProfile(values);
+      const payload = {
+        name: values.name,
+        countryCode: values.countryCode,
+        phoneNumber: normalizedPhoneNumber ?? undefined,
+      };
+
+      await onSubmit(payload);
+
+      const nextValues = {
+        ...values,
+        phoneNumber: normalizedPhoneNumber ?? values.phoneNumber,
+      };
+
+      setValues(nextValues);
+      setSavedProfile(nextValues);
     } catch (submissionError) {
       notifyError(getFriendlyUsersError(submissionError));
     } finally {
@@ -350,6 +385,40 @@ export function ProfileForm({
             </div>
           </div>
         </div>
+
+        <label className="space-y-2 block max-w-xs">
+          <span className="text-sm font-medium text-foreground">{PHONE_NUMBER_LABEL}</span>
+          <Input
+            type="tel"
+            value={values.phoneNumber}
+            onChange={(event) => {
+              setValues((current) => ({ ...current, phoneNumber: event.target.value }));
+              setFieldErrors((current) => ({ ...current, phoneNumber: undefined }));
+            }}
+            onBlur={() => {
+              const trimmedPhoneNumber = values.phoneNumber.trim();
+
+              if (!trimmedPhoneNumber) {
+                return;
+              }
+
+              const normalizedPhoneNumber = normalizePhoneNumber(trimmedPhoneNumber, values.countryCode);
+
+              if (!normalizedPhoneNumber) {
+                setFieldErrors((current) => ({
+                  ...current,
+                  phoneNumber: PHONE_NUMBER_INVALID_MESSAGE,
+                }));
+                return;
+              }
+
+              setValues((current) => ({ ...current, phoneNumber: normalizedPhoneNumber }));
+            }}
+            placeholder="+84901234567"
+            aria-invalid={Boolean(fieldErrors.phoneNumber)}
+          />
+          {fieldErrors.phoneNumber ? <p className="text-sm text-red-600">{fieldErrors.phoneNumber}</p> : null}
+        </label>
 
         <label className="space-y-2 block max-w-xs">
           <span className="text-sm font-medium text-foreground">{t("fields.country")}</span>

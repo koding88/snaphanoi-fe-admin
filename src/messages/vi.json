@@ -254,6 +254,7 @@
       "fields": {
         "fullName": "Họ và tên",
         "email": "Email",
+        "phoneNumber": "Số điện thoại",
         "password": "Mật khẩu",
         "newPassword": "Mật khẩu mới",
         "passwordPlaceholderCreate": "MySecurePass1",
@@ -275,6 +276,8 @@
         "nameRequired": "Họ và tên là bắt buộc.",
         "emailRequired": "Email là bắt buộc.",
         "emailInvalid": "Nhập địa chỉ email hợp lệ.",
+        "phoneNumberInvalid": "Hãy nhập số điện thoại hợp lệ cho quốc gia đã chọn.",
+        "phoneNumberClearUnsupported": "Hiện chưa hỗ trợ xóa số điện thoại đã có từ biểu mẫu này.",
         "passwordRequired": "Mật khẩu là bắt buộc.",
         "passwordWeak": "Mật khẩu phải có ít nhất 8 ký tự gồm chữ hoa, chữ thường và số.",
         "passwordWeakEdit": "Nếu nhập mật khẩu mới, mật khẩu phải có ít nhất 8 ký tự gồm chữ hoa, chữ thường và số."
@@ -343,6 +346,7 @@
       "sections": { "identity": "Định danh tài khoản", "profile": "Hồ sơ và trạng thái", "metadata": "Metadata quản trị" },
       "fields": {
         "email": "Email",
+        "phoneNumber": "Số điện thoại",
         "country": "Quốc gia",
         "role": "Vai trò",
         "noRole": "Chưa gán vai trò",
@@ -370,6 +374,7 @@
         "fullName": "Họ và tên",
         "email": "Email",
         "newEmail": "Email mới",
+        "phoneNumber": "Số điện thoại",
         "country": "Quốc gia",
         "verificationCode": "Mã xác minh"
       },
@@ -403,6 +408,8 @@
       },
       "errors": {
         "nameRequired": "Họ và tên là bắt buộc.",
+        "phoneNumberInvalid": "Hãy nhập số điện thoại hợp lệ cho quốc gia đã chọn.",
+        "phoneNumberClearUnsupported": "Hiện chưa hỗ trợ xóa số điện thoại đã có từ biểu mẫu này.",
         "emailRequired": "Email là bắt buộc.",
         "emailInvalid": "Nhập địa chỉ email hợp lệ.",
         "emailSame": "Hãy dùng email khác email đang gắn với tài khoản.",

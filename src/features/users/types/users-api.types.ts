@@ -4,6 +4,7 @@ export type CreateUserPayload = {
   name: string;
   email: string;
   password: string;
+  phoneNumber?: string;
   countryCode: string;
   roleId: string;
 };
@@ -12,6 +13,7 @@ export type UpdateUserPayload = {
   name: string;
   email: string;
   password?: string;
+  phoneNumber?: string;
   countryCode: string;
   roleId: string;
   isActive: boolean;
@@ -19,6 +21,7 @@ export type UpdateUserPayload = {
 
 export type UpdateMyProfilePayload = {
   name: string;
+  phoneNumber?: string;
   countryCode: string;
 };
 

@@ -9,8 +9,10 @@ type ErrorMessageResolver = (params: {
 
 const USER_ERROR_MESSAGES: Record<string, string> = {
   USER_EMAIL_ALREADY_EXISTS: "That email is already in use.",
+  USER_PHONE_NUMBER_ALREADY_EXISTS: "That phone number is already in use.",
   USER_NOT_FOUND: "The requested user could not be found.",
   INVALID_USER_ROLE: "The selected role is no longer valid. Refresh the role list and try again.",
+  INVALID_PHONE_NUMBER: "Enter a valid phone number.",
   INVALID_CURRENT_PASSWORD: "Current password is incorrect.",
   USER_NOT_DELETED: "This account is not archived, so it cannot be restored.",
   EMAIL_CHANGE_SAME_AS_CURRENT: "Use a different email from the one already on your account.",

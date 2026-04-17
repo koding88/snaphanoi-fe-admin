@@ -4,7 +4,7 @@ import { AdminSurface } from "@/components/admin/admin-surface";
 import { UserRoleBadge } from "@/components/users/user-role-badge";
 import { UserStatusBadge } from "@/components/users/user-status-badge";
 import type { UserRecord } from "@/features/users/types/users.types";
-import { formatCountryCode, formatDateTime } from "@/features/users/utils/users-format";
+import { formatCountryCode, formatDateTime, formatPhoneNumberDisplay } from "@/features/users/utils/users-format";
 
 export function UserDetailCard({ user }: { user: UserRecord }) {
   const t = useTranslations("users.detailCard");
@@ -44,6 +44,10 @@ export function UserDetailCard({ user }: { user: UserRecord }) {
             <div className="rounded-[1.2rem] border border-border/70 bg-white/82 p-4">
               <p className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">{t("fields.email")}</p>
               <p className="mt-2 text-base font-medium text-foreground">{user.email}</p>
+            </div>
+            <div className="rounded-[1.2rem] border border-border/70 bg-white/82 p-4">
+              <p className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">{t("fields.phoneNumber")}</p>
+              <p className="mt-2 text-base font-medium text-foreground">{formatPhoneNumberDisplay(user.phoneNumber)}</p>
             </div>
             <div className="rounded-[1.2rem] border border-border/70 bg-white/82 p-4">
               <p className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">{t("fields.country")}</p>

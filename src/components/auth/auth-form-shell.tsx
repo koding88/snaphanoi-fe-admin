@@ -31,7 +31,7 @@ export function AuthFormShell({
         </p>
       </div>
       <div className="mt-8 rounded-[1.7rem] border border-white/8 bg-white/5 p-4 sm:p-5">{children}</div>
-      {footer ? <div className="mt-7 border-t border-white/8 pt-5">{footer}</div> : null}
+      {footer ? <div className="mt-7 border-t border-white/8 pt-5 text-center">{footer}</div> : null}
     </AuthCard>
   );
 }
