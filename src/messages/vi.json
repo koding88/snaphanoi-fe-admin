@@ -84,7 +84,7 @@
   "auth": {
     "shell": {
       "eyebrow": "truy cập studio",
-      "title": "Thiết kế cho vận hành studio ảnh cao cấp, không phải back office chung chung.",
+      "title": "Được xây dựng để quản lý vận hành studio rõ ràng và hiệu quả.",
       "description": "Bề mặt xác thực công khai giữ cùng tinh thần gọn gàng với khu quản trị: giọng điệu biên tập, phân cấp trực diện và luồng truy cập sạch.",
       "card1": "Xác thực với lộ trình khôi phục rõ ràng",
       "card2": "Khôi phục phiên nhẹ nhàng khi workspace vẫn hợp lệ",

@@ -84,7 +84,7 @@
   "auth": {
     "shell": {
       "eyebrow": "studio access",
-      "title": "Built for a premium photography operation, not a generic back office.",
+      "title": "Built to manage studio operations clearly and efficiently.",
       "description": "The public auth surface carries the same calm visual discipline as the admin area: editorial tone, direct hierarchy, and clean access flows.",
       "card1": "Authentication with clear recovery paths",
       "card2": "Quiet session recovery when the workspace is still valid",
