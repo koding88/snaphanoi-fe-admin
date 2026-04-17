@@ -1111,7 +1111,7 @@
   },
   "blogs": {
     "badges": { "archived": "Đã lưu trữ", "active": "Đang hoạt động", "inactive": "Tạm dừng", "published": "Đã xuất bản", "draft": "Bản nháp", "pinned": "Ghim", "standard": "Thường" },
-    "coverField": { "coverAlt": "Ảnh bìa bài viết", "title": "Ảnh bìa", "requiredHint": "Tải ảnh đại diện trước khi lưu bài viết.", "optionalHint": "Giữ ảnh hiện tại hoặc tải ảnh thay thế khi cần.", "replace": "Thay ảnh", "upload": "Tải ảnh", "remove": "Xóa", "uploading": "Đang tải ảnh..." },
+    "coverField": { "coverAlt": "Ảnh bìa bài viết", "title": "Ảnh bìa", "requiredHint": "Thêm ảnh bìa để bài viết sẵn sàng xuất bản.", "optionalHint": "Bạn có thể giữ ảnh hiện tại hoặc thay ảnh mới.", "tapHint": "Chọn ảnh JPG, PNG hoặc WebP.", "requiredLabel": "Bắt buộc", "optionalLabel": "Tùy chọn", "replace": "Đổi ảnh bìa", "upload": "Tải ảnh bìa", "remove": "Xóa ảnh", "uploading": "Đang tải ảnh bìa..." },
     "list": {
       "eyebrow": "Bài viết",
       "title": "Quản lý bài viết biên tập.",
@@ -1133,8 +1133,8 @@
       "actions": { "edit": "Chỉnh sửa", "restore": "Khôi phục", "delete": "Xóa" },
       "dialogs": { "deleteTitle": "Xóa {name}?", "restoreTitle": "Khôi phục {name}?", "deleteDescription": "Thao tác này sẽ lưu trữ bài viết tạm thời.", "restoreDescription": "Thao tác này sẽ khôi phục bài viết về thư viện đang hoạt động.", "deleteConfirm": "Xóa bài viết", "restoreConfirm": "Khôi phục bài viết", "selected": "Bài viết đang chọn" }
     },
-    "create": { "eyebrow": "Tạo bài viết", "title": "Tạo bài viết mới", "description": "Thiết lập thông tin chính trước, sau đó hoàn thiện nội dung trong trình biên tập.", "confirm": { "title": "Bỏ bài viết mới này?", "description": "Biểu mẫu sẽ được xóa và bạn sẽ quay lại danh sách.", "confirmLabel": "Bỏ" }, "submitLabel": "Tạo bài viết", "formDescription": "Luồng tạo mới vẫn giữ nguyên contract backend và cho không gian biên tập rộng rãi hơn.", "toasts": { "created": "Tạo bài viết thành công." } },
-    "edit": { "eyebrow": "Chỉnh sửa bài viết", "title": "Cập nhật bài viết", "description": "Xem nhanh thông tin chính rồi tiếp tục chỉnh sửa nội dung trong không gian làm việc đầy đủ.", "confirm": { "title": "Bỏ thay đổi?", "description": "Mọi chỉnh sửa chưa lưu sẽ bị mất.", "confirmLabel": "Bỏ" }, "loading": { "title": "Đang tải bài viết", "description": "Đang lấy dữ liệu bài viết hiện tại." }, "errorTitle": "Không thể tải bài viết này", "notFound": "Không tìm thấy bài viết.", "submitLabel": "Lưu thay đổi", "formDescription": "Luồng chỉnh sửa giữ nguyên semantics hiện tại của bài viết và giúp khu vực biên tập dễ sử dụng hơn.", "toasts": { "updated": "Cập nhật bài viết thành công." } },
+    "create": { "eyebrow": "Tạo bài viết", "title": "Tạo bài viết mới", "description": "Điền thông tin chính trước, sau đó tiếp tục viết nội dung ở trình biên tập bên dưới.", "confirm": { "title": "Bỏ bài viết mới này?", "description": "Biểu mẫu sẽ được xóa và bạn sẽ quay lại danh sách.", "confirmLabel": "Bỏ" }, "submitLabel": "Tạo bài viết", "formDescription": "Hoàn thiện tiêu đề, trạng thái hiển thị và ảnh bìa trước khi bắt đầu viết.", "toasts": { "created": "Tạo bài viết thành công." } },
+    "edit": { "eyebrow": "Chỉnh sửa bài viết", "title": "Cập nhật bài viết", "description": "Cập nhật nhanh thông tin chính, rồi chỉnh nội dung bài viết ở phần bên dưới.", "confirm": { "title": "Bỏ thay đổi?", "description": "Mọi chỉnh sửa chưa lưu sẽ bị mất.", "confirmLabel": "Bỏ" }, "loading": { "title": "Đang tải bài viết", "description": "Đang lấy dữ liệu bài viết hiện tại." }, "errorTitle": "Không thể tải bài viết này", "notFound": "Không tìm thấy bài viết.", "submitLabel": "Lưu thay đổi", "formDescription": "Rà soát tiêu đề, trạng thái và ảnh bìa để đảm bảo bài viết hiển thị đúng.", "toasts": { "updated": "Cập nhật bài viết thành công." } },
     "detail": {
       "eyebrow": "Chi tiết bài viết",
       "title": "Xem bài viết biên tập.",
@@ -1168,19 +1168,20 @@
       "lifecycle": { "title": "Vòng đời", "archivedOn": "Lưu trữ vào {date}", "active": "Bản ghi hoạt động", "inactive": "Bản ghi tạm dừng", "notDeleted": "Chưa xóa" }
     },
     "form": {
-      "sections": { "metadata": { "eyebrow": "Thông tin bài viết", "title": "Thông tin chính và ảnh bìa", "description": "Giữ bản ghi gọn gàng trước khi vào khu vực viết bài.", "createChip": "Luồng tạo mới vẫn giữ nguyên payload backend.", "editChip": "Luồng chỉnh sửa vẫn giữ nguyên semantics hiện tại của bài viết." }, "content": { "eyebrow": "Nội dung bài viết", "title": "Xây dựng bài viết đầy đủ", "description": "Thêm văn bản, video YouTube nhúng và các khối bố cục media.", "chip": "Trình biên tập toàn chiều rộng để viết, dàn bố cục và sắp xếp ảnh." } },
+      "sections": { "metadata": { "eyebrow": "Thông tin bài viết", "title": "Thông tin chính và hiển thị", "description": "Thiết lập tiêu đề, trạng thái và ảnh bìa để bài viết dễ nhận diện.", "createChip": "Đang tạo bài viết mới", "editChip": "Đang cập nhật bài viết" }, "content": { "eyebrow": "Nội dung bài viết", "title": "Xây dựng bài viết đầy đủ", "description": "Thêm văn bản, video YouTube nhúng và các khối bố cục media.", "chip": "Không gian biên tập nội dung chi tiết." } },
       "fields": {
         "title": "Tiêu đề bài viết",
-        "titlePlaceholder": "Studio notes from a mountain wedding",
+        "titleHelper": "Đặt tiêu đề ngắn gọn, rõ ý chính và dễ nhận diện trên danh sách bài viết.",
+        "titlePlaceholder": "Khoảnh khắc cưới trên đồi thông lúc hoàng hôn",
         "publishingState": "Trạng thái xuất bản",
         "pinnedState": "Trạng thái ghim",
         "cover": "Ảnh bìa",
-        "coverCreateHint": "Tải ảnh đại diện trước khi lưu.",
-        "coverEditHint": "Giữ ảnh hiện tại hoặc thay ảnh khi cần.",
-        "publishOptions": { "draft": { "label": "Bản nháp", "description": "Chỉ hiển thị trong khu vực quản trị" }, "published": { "label": "Đã xuất bản", "description": "Sẵn sàng hiển thị công khai" } },
-        "pinOptions": { "standard": { "label": "Thường", "description": "Sắp xếp tự nhiên theo timeline" }, "pinned": { "label": "Đã ghim", "description": "Luôn ưu tiên trên cùng" } }
+        "coverCreateHint": "Thêm ảnh bìa ngay từ đầu để bài viết đầy đủ khi lưu.",
+        "coverEditHint": "Bạn có thể giữ ảnh hiện tại hoặc thay ảnh bìa mới.",
+        "publishOptions": { "draft": { "label": "Bản nháp", "description": "Chỉ hiển thị trong trang quản trị" }, "published": { "label": "Đã xuất bản", "description": "Hiển thị ở khu vực công khai" } },
+        "pinOptions": { "standard": { "label": "Thường", "description": "Hiển thị theo thứ tự thời gian" }, "pinned": { "label": "Đã ghim", "description": "Ưu tiên hiển thị ở đầu danh sách" } }
       },
-      "actions": { "saving": "Đang lưu..." },
+      "actions": { "saving": "Đang lưu...", "helperCreate": "Kiểm tra lại thông tin chính rồi tạo bài viết.", "helperEdit": "Kiểm tra thay đổi rồi cập nhật bài viết.", "helperUploading": "Đợi tải ảnh bìa xong để tiếp tục lưu." },
       "errors": { "coverUploadFailed": "Không thể tải ảnh bìa. Vui lòng thử lại.", "titleRequired": "Bắt buộc nhập tiêu đề bài viết.", "coverRequired": "Cần tải ảnh bìa bài viết trước khi lưu." }
     },
     "editor": { "loading": "Đang tải trình biên tập", "bootError": "Không thể khởi động trình biên tập. Vui lòng tải lại.", "bootErrorWithMessage": "Không thể khởi động trình biên tập. {message}", "youtubeTitle": "Video YouTube", "mediaTitle": "Media bài viết", "mediaAlt": "Media bài viết" }

@@ -1146,11 +1146,14 @@
     "coverField": {
       "coverAlt": "Blog cover",
       "title": "Cover image",
-      "requiredHint": "Upload the lead cover before saving the blog.",
-      "optionalHint": "Keep the current cover or upload a replacement when needed.",
-      "replace": "Replace cover",
+      "requiredHint": "Add a cover image so the post is ready for publishing.",
+      "optionalHint": "Keep the current cover or switch to a new one.",
+      "tapHint": "Use JPG, PNG, or WebP files.",
+      "requiredLabel": "Required",
+      "optionalLabel": "Optional",
+      "replace": "Change cover",
       "upload": "Upload cover",
-      "remove": "Remove",
+      "remove": "Remove cover",
       "uploading": "Uploading cover image..."
     },
     "list": {
@@ -1203,22 +1206,22 @@
     "create": {
       "eyebrow": "Create blog",
       "title": "Create a new editorial entry",
-      "description": "Set the core metadata first, then shape the full journal piece in the editor workspace below.",
+      "description": "Complete core details first, then continue writing in the editor below.",
       "confirm": { "title": "Discard this new blog?", "description": "The form will be cleared and you will return to the blog list.", "confirmLabel": "Discard" },
       "submitLabel": "Create blog",
-      "formDescription": "Create keeps the same backend contract while giving the editorial editor a full-width workspace.",
+      "formDescription": "Finalize title, visibility states, and cover image before writing.",
       "toasts": { "created": "Blog created successfully." }
     },
     "edit": {
       "eyebrow": "Edit blog",
       "title": "Update the editorial entry",
-      "description": "Review the metadata quickly, then continue editing the content in the full-width workspace.",
+      "description": "Update key details quickly, then continue editing the post content below.",
       "confirm": { "title": "Discard these changes?", "description": "Any modifications will be lost.", "confirmLabel": "Discard" },
       "loading": { "title": "Loading blog", "description": "Fetching the current blog record and cover asset." },
       "errorTitle": "Unable to load this blog",
       "notFound": "Blog not found.",
       "submitLabel": "Save changes",
-      "formDescription": "Edit keeps the current blog semantics intact while making the editorial workspace easier to scan and use.",
+      "formDescription": "Review title, states, and cover image to keep the post presentation consistent.",
       "toasts": { "updated": "Blog updated successfully." }
     },
     "detail": {
@@ -1277,27 +1280,28 @@
     },
     "form": {
       "sections": {
-        "metadata": { "eyebrow": "Blog metadata", "title": "Core details and cover", "description": "Keep the journal record clean and easy to scan before moving into the writing workspace.", "createChip": "Create keeps the backend payload intact.", "editChip": "Edit keeps the current blog semantics intact." },
-        "content": { "eyebrow": "Blog content", "title": "Build the full editorial entry", "description": "Add text, YouTube embeds, and media layout blocks. New images still upload first and submit as upload tokens.", "chip": "Full-width editor for writing, layout, and image sequencing." }
+        "metadata": { "eyebrow": "Blog metadata", "title": "Core details and visibility", "description": "Set title, states, and cover image so the post is clear and easy to scan.", "createChip": "Creating a new post", "editChip": "Updating this post" },
+        "content": { "eyebrow": "Blog content", "title": "Build the full editorial entry", "description": "Add text, YouTube embeds, and media layout blocks. New images still upload first and submit as upload tokens.", "chip": "Detailed editorial writing workspace." }
       },
       "fields": {
         "title": "Blog title",
-        "titlePlaceholder": "Studio notes from a mountain wedding",
+        "titleHelper": "Keep the title short, clear, and easy to recognize in the blog list.",
+        "titlePlaceholder": "Sunset vows on a pine-covered hillside",
         "publishingState": "Publishing state",
         "pinnedState": "Pinned state",
         "cover": "Cover image",
-        "coverCreateHint": "Upload the lead image before saving. Replacements still use the same upload-token flow.",
-        "coverEditHint": "Keep the current cover or replace it without changing the existing update behavior.",
+        "coverCreateHint": "Add a cover image early so the post is complete when saved.",
+        "coverEditHint": "You can keep the current cover or replace it with a new image.",
         "publishOptions": {
-          "draft": { "label": "Draft", "description": "Visible only in admin until you publish it" },
-          "published": { "label": "Published", "description": "Ready for published blog surfaces and editorial promotion" }
+          "draft": { "label": "Draft", "description": "Visible only in the admin area" },
+          "published": { "label": "Published", "description": "Visible on public blog surfaces" }
         },
         "pinOptions": {
-          "standard": { "label": "Standard placement", "description": "Ordered naturally by the published timeline" },
-          "pinned": { "label": "Pinned feature", "description": "Floats to the top of public blog collections" }
+          "standard": { "label": "Standard placement", "description": "Shown in natural chronological order" },
+          "pinned": { "label": "Pinned feature", "description": "Prioritized at the top of the blog list" }
         }
       },
-      "actions": { "saving": "Saving..." },
+      "actions": { "saving": "Saving...", "helperCreate": "Review key details, then create this post.", "helperEdit": "Review your updates, then save changes.", "helperUploading": "Wait until the cover upload is complete before saving." },
       "errors": { "coverUploadFailed": "The cover image could not be uploaded. Please try again.", "titleRequired": "Blog title is required.", "coverRequired": "Upload a blog cover before saving." }
     },
     "editor": {
