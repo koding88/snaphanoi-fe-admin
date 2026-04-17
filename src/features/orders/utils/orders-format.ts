@@ -21,6 +21,24 @@ const ORDER_PAYMENT_STATUS_LABELS: Record<OrderPaymentStatus, string> = {
   refunded: "Refunded",
 };
 
+const ORDER_STATUS_TRANSLATION_KEYS: Record<OrderStatus, string> = {
+  pending: "pending",
+  contacted: "contacted",
+  confirmed: "confirmed",
+  completed: "completed",
+  cancelled: "cancelled",
+};
+
+const ORDER_PAYMENT_STATUS_TRANSLATION_KEYS: Record<
+  OrderPaymentStatus,
+  string
+> = {
+  unpaid: "unpaid",
+  partiallyPaid: "partiallyPaid",
+  paid: "paid",
+  refunded: "refunded",
+};
+
 const STATUS_FLOW: OrderStatus[] = [
   "pending",
   "contacted",
@@ -51,6 +69,20 @@ export function formatOrderPaymentStatus(value: OrderPaymentStatus) {
   return ORDER_PAYMENT_STATUS_LABELS[value];
 }
 
+export function translateOrderStatus(
+  value: OrderStatus,
+  translate: (key: string) => string,
+) {
+  return translate(ORDER_STATUS_TRANSLATION_KEYS[value]);
+}
+
+export function translateOrderPaymentStatus(
+  value: OrderPaymentStatus,
+  translate: (key: string) => string,
+) {
+  return translate(ORDER_PAYMENT_STATUS_TRANSLATION_KEYS[value]);
+}
+
 export function formatOrderMoney(value: OrderMoney | null | undefined) {
   if (!value) {
     return "N/A";
@@ -72,7 +104,9 @@ export function formatOrderDiscoverySource(value: string | null | undefined) {
     return "Unknown";
   }
 
-  return value.replace(/[-_]+/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
+  return value
+    .replace(/[-_]+/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
 export function formatOrderCountry(value: string | null | undefined) {
@@ -101,7 +135,8 @@ export function getAllowedNextStatuses(current: OrderStatus) {
   }
 
   const currentIndex = STATUS_FLOW.indexOf(current);
-  const forwardFlow = currentIndex >= 0 ? STATUS_FLOW.slice(currentIndex) : [current];
+  const forwardFlow =
+    currentIndex >= 0 ? STATUS_FLOW.slice(currentIndex) : [current];
 
   if (!forwardFlow.includes("cancelled")) {
     forwardFlow.push("cancelled");
@@ -132,9 +167,8 @@ export function getAllowedPaymentStatusesForSelection({
   currentPaymentStatus: OrderPaymentStatus;
 }) {
   const allowedByStatus = getAllowedPaymentStatusesForStatus(selectedStatus);
-  const allowedByForwardTransition = getAllowedNextPaymentStatuses(
-    currentPaymentStatus,
-  );
+  const allowedByForwardTransition =
+    getAllowedNextPaymentStatuses(currentPaymentStatus);
 
   return allowedByForwardTransition.filter((paymentStatus) =>
     allowedByStatus.includes(paymentStatus),

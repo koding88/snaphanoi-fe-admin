@@ -14,10 +14,10 @@ import type {
   OrderStatus,
 } from "@/features/orders/types/orders.types";
 import {
-  formatOrderPaymentStatus,
-  formatOrderStatus,
   getAllowedPaymentStatusesForSelection,
   getAllowedNextStatuses,
+  translateOrderPaymentStatus,
+  translateOrderStatus,
 } from "@/features/orders/utils/orders-format";
 import { getFriendlyOrdersError } from "@/features/orders/utils/orders-errors";
 import { notifyError, notifySuccess } from "@/lib/toast";
@@ -29,6 +29,7 @@ type OrderUpdatePanelProps = {
 
 export function OrderUpdatePanel({ order, onUpdated }: OrderUpdatePanelProps) {
   const t = useTranslations("orders.updatePanel");
+  const badgeT = useTranslations("orders.badges");
   const [status, setStatus] = useState<OrderStatus>(order.status);
   const [paymentStatus, setPaymentStatus] = useState<OrderPaymentStatus>(
     order.paymentStatus,
@@ -44,9 +45,9 @@ export function OrderUpdatePanel({ order, onUpdated }: OrderUpdatePanelProps) {
     () =>
       getAllowedNextStatuses(order.status).map((value) => ({
         value,
-        label: formatOrderStatus(value),
+        label: translateOrderStatus(value, badgeT),
       })),
-    [order.status],
+    [badgeT, order.status],
   );
 
   const paymentOptions = useMemo(
@@ -56,9 +57,9 @@ export function OrderUpdatePanel({ order, onUpdated }: OrderUpdatePanelProps) {
         currentPaymentStatus: order.paymentStatus,
       }).map((value) => ({
         value,
-        label: formatOrderPaymentStatus(value),
+        label: translateOrderPaymentStatus(value, badgeT),
       })),
-    [order.paymentStatus, status],
+    [badgeT, order.paymentStatus, status],
   );
 
   useEffect(() => {
@@ -142,7 +143,9 @@ export function OrderUpdatePanel({ order, onUpdated }: OrderUpdatePanelProps) {
 
       <form className="mt-4 grid gap-4" onSubmit={handleSubmit}>
         <label className="space-y-2">
-          <span className="text-sm font-medium text-foreground">{t("orderStatus")}</span>
+          <span className="text-sm font-medium text-foreground">
+            {t("orderStatus")}
+          </span>
           <AppSelect
             value={status}
             onChange={(value) => setStatus(value as OrderStatus)}
@@ -151,14 +154,14 @@ export function OrderUpdatePanel({ order, onUpdated }: OrderUpdatePanelProps) {
           />
         </label>
         <label className="space-y-2">
-            <span className="text-sm font-medium text-foreground">
-              {t("paymentStatus")}
-            </span>
+          <span className="text-sm font-medium text-foreground">
+            {t("paymentStatus")}
+          </span>
           <AppSelect
             value={
               paymentOptions.some((option) => option.value === paymentStatus)
                 ? paymentStatus
-                : paymentOptions[0]?.value ?? paymentStatus
+                : (paymentOptions[0]?.value ?? paymentStatus)
             }
             onChange={(value) => setPaymentStatus(value as OrderPaymentStatus)}
             options={paymentOptions}
@@ -172,7 +175,10 @@ export function OrderUpdatePanel({ order, onUpdated }: OrderUpdatePanelProps) {
         </label>
         {!isUnchanged ? (
           <p className="text-xs text-muted-foreground">
-            {t("applyChange", { status: formatOrderStatus(status), payment: formatOrderPaymentStatus(paymentStatus) })}
+            {t("applyChange", {
+              status: translateOrderStatus(status, badgeT),
+              payment: translateOrderPaymentStatus(paymentStatus, badgeT),
+            })}
           </p>
         ) : (
           <p className="text-xs text-muted-foreground">

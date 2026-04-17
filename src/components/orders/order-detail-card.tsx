@@ -4,17 +4,26 @@ import { AdminSurface } from "@/components/admin/admin-surface";
 import { OrderPaymentBadge } from "@/components/orders/order-payment-badge";
 import { OrderStatusBadge } from "@/components/orders/order-status-badge";
 import { OrderUpdatePanel } from "@/components/orders/order-update-panel";
-import type { OrderDetailRecord, OrderItemRecord } from "@/features/orders/types/orders.types";
+import type {
+  OrderDetailRecord,
+  OrderItemRecord,
+} from "@/features/orders/types/orders.types";
 import {
   formatOrderCountry,
   formatOrderDiscoverySource,
   formatOrderMoney,
-  formatOrderPaymentStatus,
-  formatOrderStatus,
+  translateOrderPaymentStatus,
+  translateOrderStatus,
 } from "@/features/orders/utils/orders-format";
-import { formatDateTime, formatPhoneNumberDisplay } from "@/features/users/utils/users-format";
+import {
+  formatDateTime,
+  formatPhoneNumberDisplay,
+} from "@/features/users/utils/users-format";
 
-function getLocalizedText(value: string | { en: string; vi: string; cn: string } | undefined, fallback: string) {
+function getLocalizedText(
+  value: string | { en: string; vi: string; cn: string } | undefined,
+  fallback: string,
+) {
   if (!value) {
     return fallback;
   }
@@ -26,7 +35,11 @@ function getLocalizedText(value: string | { en: string; vi: string; cn: string }
   return value.en;
 }
 
-function renderOrderItem(item: OrderItemRecord, index: number, t: ReturnType<typeof useTranslations>) {
+function renderOrderItem(
+  item: OrderItemRecord,
+  index: number,
+  t: ReturnType<typeof useTranslations>,
+) {
   const galleryName = getLocalizedText(item.gallerySnapshot.name, t("na"));
 
   if (item.type === "package") {
@@ -46,16 +59,22 @@ function renderOrderItem(item: OrderItemRecord, index: number, t: ReturnType<typ
             <p className="text-lg font-semibold leading-tight text-foreground">
               {getLocalizedText(item.packageSnapshot?.name, t("na"))}
             </p>
-            <p className="text-sm text-muted-foreground">{t("item.gallery", { name: galleryName })}</p>
+            <p className="text-sm text-muted-foreground">
+              {t("item.gallery", { name: galleryName })}
+            </p>
             <div className="flex flex-wrap gap-2">
               <span className="rounded-full border border-border/70 bg-white/78 px-2.5 py-1 text-xs text-muted-foreground">
                 {item.packageSnapshot?.duration
-                  ? t("item.durationMinutes", { count: Math.round(item.packageSnapshot.duration / 60) })
+                  ? t("item.durationMinutes", {
+                      count: Math.round(item.packageSnapshot.duration / 60),
+                    })
                   : t("item.durationNa")}
               </span>
               <span className="rounded-full border border-border/70 bg-white/78 px-2.5 py-1 text-xs text-muted-foreground">
                 {item.packageSnapshot?.photoCount
-                  ? t("item.photoCount", { count: item.packageSnapshot.photoCount })
+                  ? t("item.photoCount", {
+                      count: item.packageSnapshot.photoCount,
+                    })
                   : t("item.photoCountNa")}
               </span>
             </div>
@@ -89,7 +108,9 @@ function renderOrderItem(item: OrderItemRecord, index: number, t: ReturnType<typ
           <p className="text-[10px] font-semibold tracking-[0.16em] text-muted-foreground uppercase">
             {t("item.galleryLabel")}
           </p>
-          <p className="text-lg font-semibold leading-tight text-foreground">{galleryName}</p>
+          <p className="text-lg font-semibold leading-tight text-foreground">
+            {galleryName}
+          </p>
           <p className="text-sm text-muted-foreground">
             {t("item.customDescription")}
           </p>
@@ -117,6 +138,7 @@ type OrderDetailCardProps = {
 
 export function OrderDetailCard({ order, onUpdated }: OrderDetailCardProps) {
   const t = useTranslations("orders.detailCard");
+  const badgeT = useTranslations("orders.badges");
   const story = order.personalStory.trim();
   const hasStory = story.length > 0;
   const isLongStory = story.length > 520;
@@ -138,9 +160,12 @@ export function OrderDetailCard({ order, onUpdated }: OrderDetailCardProps) {
                   <p className="text-base font-medium text-foreground">
                     {order.customerInfo.name}
                   </p>
-                  <p className="text-sm text-muted-foreground">{order.customerInfo.email}</p>
                   <p className="text-sm text-muted-foreground">
-                    {formatPhoneNumberDisplay(order.customerInfo.phoneNumber)} - {formatOrderCountry(order.customerInfo.countryCode)}
+                    {order.customerInfo.email}
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    {formatPhoneNumberDisplay(order.customerInfo.phoneNumber)} -{" "}
+                    {formatOrderCountry(order.customerInfo.countryCode)}
                   </p>
                 </div>
               </div>
@@ -160,7 +185,13 @@ export function OrderDetailCard({ order, onUpdated }: OrderDetailCardProps) {
                 {t("currentCondition.title")}
               </p>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                {t("currentCondition.description", { status: formatOrderStatus(order.status), payment: formatOrderPaymentStatus(order.paymentStatus) })}
+                {t("currentCondition.description", {
+                  status: translateOrderStatus(order.status, badgeT),
+                  payment: translateOrderPaymentStatus(
+                    order.paymentStatus,
+                    badgeT,
+                  ),
+                })}
               </p>
               <p className="mt-3 text-xs text-muted-foreground">
                 {t("currentCondition.hint")}
@@ -195,29 +226,33 @@ export function OrderDetailCard({ order, onUpdated }: OrderDetailCardProps) {
 
         <section className="grid gap-4 rounded-[1.4rem] border border-border/70 bg-white/70 p-4 md:grid-cols-[minmax(220px,0.75fr)_minmax(0,1.25fr)] md:p-5">
           <div className="space-y-3">
-              <p className="text-[10px] font-semibold tracking-[0.2em] text-[--color-brand-muted] uppercase">
-                {t("metadata.title")}
-              </p>
+            <p className="text-[10px] font-semibold tracking-[0.2em] text-[--color-brand-muted] uppercase">
+              {t("metadata.title")}
+            </p>
             <dl className="space-y-2.5 text-sm">
               <div>
-                  <dt className="text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
-                    {t("metadata.discoverySource")}
-                  </dt>
+                <dt className="text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+                  {t("metadata.discoverySource")}
+                </dt>
                 <dd className="mt-0.5 text-foreground">
                   {formatOrderDiscoverySource(order.discoverySource)}
                 </dd>
               </div>
               <div>
-                  <dt className="text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
-                    {t("metadata.created")}
-                  </dt>
-                <dd className="mt-0.5 text-foreground">{formatDateTime(order.createdAt)}</dd>
+                <dt className="text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+                  {t("metadata.created")}
+                </dt>
+                <dd className="mt-0.5 text-foreground">
+                  {formatDateTime(order.createdAt)}
+                </dd>
               </div>
               <div>
-                  <dt className="text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
-                    {t("metadata.updated")}
-                  </dt>
-                <dd className="mt-0.5 text-foreground">{formatDateTime(order.updatedAt)}</dd>
+                <dt className="text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+                  {t("metadata.updated")}
+                </dt>
+                <dd className="mt-0.5 text-foreground">
+                  {formatDateTime(order.updatedAt)}
+                </dd>
               </div>
             </dl>
           </div>

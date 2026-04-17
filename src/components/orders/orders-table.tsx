@@ -4,14 +4,20 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import type { OrderItemRecord, OrderRecord } from "@/features/orders/types/orders.types";
+import type {
+  OrderItemRecord,
+  OrderRecord,
+} from "@/features/orders/types/orders.types";
 import {
   formatOrderDiscoverySource,
   formatOrderMoney,
-  formatOrderPaymentStatus,
-  formatOrderStatus,
+  translateOrderPaymentStatus,
+  translateOrderStatus,
 } from "@/features/orders/utils/orders-format";
-import { formatDateOnly, formatPhoneNumberDisplay } from "@/features/users/utils/users-format";
+import {
+  formatDateOnly,
+  formatPhoneNumberDisplay,
+} from "@/features/users/utils/users-format";
 import { ROUTES } from "@/lib/constants/routes";
 import {
   faFacebook,
@@ -57,6 +63,7 @@ function getOrderItemSummary(item: OrderItemRecord | undefined) {
 
 export function OrdersTable({ orders }: OrdersTableProps) {
   const t = useTranslations("orders.table");
+  const badgeT = useTranslations("orders.badges");
   const router = useRouter();
   const columnLayout =
     "grid-cols-[minmax(0,1fr)_auto] md:grid-cols-[minmax(170px,0.95fr)_minmax(210px,1.2fr)_minmax(168px,0.95fr)_minmax(168px,0.9fr)] xl:grid-cols-[minmax(176px,0.95fr)_minmax(210px,1.2fr)_minmax(112px,0.72fr)_minmax(148px,0.85fr)_minmax(168px,0.9fr)]";
@@ -133,9 +140,7 @@ export function OrdersTable({ orders }: OrdersTableProps) {
         <p className="text-xs font-semibold tracking-[0.22em] text-[--color-brand-muted] uppercase">
           {t("title")}
         </p>
-        <p className="mt-1 text-xs text-muted-foreground">
-          {t("description")}
-        </p>
+        <p className="mt-1 text-xs text-muted-foreground">{t("description")}</p>
       </div>
       <div className="overflow-x-auto border-t border-border/10">
         <div
@@ -176,7 +181,10 @@ export function OrdersTable({ orders }: OrdersTableProps) {
                   {formatDateOnly(order.createdAt)}
                 </p>
                 <p className="mt-1 truncate text-xs text-muted-foreground md:hidden">
-                  {order.customerInfo.name} · {order.customerInfo.phoneNumber ? formatPhoneNumberDisplay(order.customerInfo.phoneNumber) : order.customerInfo.email}
+                  {order.customerInfo.name} ·{" "}
+                  {order.customerInfo.phoneNumber
+                    ? formatPhoneNumberDisplay(order.customerInfo.phoneNumber)
+                    : order.customerInfo.email}
                 </p>
                 <p className="mt-1 truncate text-[11px] text-muted-foreground md:hidden">
                   {formatOrderDiscoverySource(order.discoverySource)}
@@ -211,7 +219,9 @@ export function OrdersTable({ orders }: OrdersTableProps) {
                   className="mt-1 text-[10px] font-semibold tracking-[0.14em] text-muted-foreground/85 uppercase"
                   title={order.customerInfo.phoneNumber ?? t("na")}
                 >
-                  {order.customerInfo.phoneNumber ? formatPhoneNumberDisplay(order.customerInfo.phoneNumber) : t("na")}
+                  {order.customerInfo.phoneNumber
+                    ? formatPhoneNumberDisplay(order.customerInfo.phoneNumber)
+                    : t("na")}
                 </p>
               </div>
               <div className="hidden min-w-0 text-sm text-muted-foreground xl:block">
@@ -256,7 +266,9 @@ export function OrdersTable({ orders }: OrdersTableProps) {
                               : summary.name}
                       </p>
                       {summary.amount ? (
-                        <p className="truncate text-muted-foreground">{summary.amount}</p>
+                        <p className="truncate text-muted-foreground">
+                          {summary.amount}
+                        </p>
                       ) : null}
                     </div>
                   );
@@ -270,7 +282,7 @@ export function OrdersTable({ orders }: OrdersTableProps) {
                       getStatusToneClass(order.status),
                     )}
                   >
-                    {formatOrderStatus(order.status)}
+                    {translateOrderStatus(order.status, badgeT)}
                   </span>
                   <span
                     className={cn(
@@ -278,7 +290,7 @@ export function OrdersTable({ orders }: OrdersTableProps) {
                       getPaymentToneClass(order.paymentStatus),
                     )}
                   >
-                    {formatOrderPaymentStatus(order.paymentStatus)}
+                    {translateOrderPaymentStatus(order.paymentStatus, badgeT)}
                   </span>
                 </div>
               </div>

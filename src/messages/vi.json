@@ -649,6 +649,7 @@
       "inactive": "Ngưng hoạt động"
     },
     "list": {
+      "eyebrow": "Bộ sưu tập",
       "title": "Quản lý bộ sưu tập.",
       "description": "Quản lý nhóm gallery đa ngôn ngữ với lọc nhanh và kiểm soát vòng đời.",
       "meta": { "adminOnly": "Chỉ quản trị" },
@@ -723,6 +724,7 @@
       "actions": { "saving": "Đang lưu..." }
     },
     "create": {
+      "eyebrow": "Tạo gallery",
       "title": "Tạo gallery mới.",
       "description": "Thêm tên đa ngôn ngữ để bộ sưu tập sẵn sàng cho các ngôn ngữ hỗ trợ.",
       "confirm": {
@@ -735,6 +737,7 @@
       "toasts": { "created": "Tạo gallery thành công." }
     },
     "edit": {
+      "eyebrow": "Chỉnh sửa gallery",
       "title": "Cập nhật tên gallery.",
       "description": "Tinh chỉnh tên theo ngôn ngữ nhưng giữ nguyên bản ghi gallery hiện tại.",
       "confirm": {
@@ -753,6 +756,7 @@
       "toasts": { "updated": "Cập nhật gallery thành công." }
     },
     "detail": {
+      "eyebrow": "Chi tiết gallery",
       "title": "Xem gallery này.",
       "description": "Kiểm tra tên đa ngôn ngữ, trạng thái vòng đời và thông tin sở hữu trước khi chỉnh sửa.",
       "actions": { "edit": "Sửa", "restore": "Khôi phục", "delete": "Xóa" },
